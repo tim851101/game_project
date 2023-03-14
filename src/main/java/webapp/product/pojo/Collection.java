@@ -1,4 +1,4 @@
-package webapp.product.model;
+package webapp.product.pojo;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package webapp.reservation.model;
+package webapp.booking.pojo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

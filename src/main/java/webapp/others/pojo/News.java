@@ -1,4 +1,4 @@
-package webapp.others.model;
+package webapp.others.pojo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

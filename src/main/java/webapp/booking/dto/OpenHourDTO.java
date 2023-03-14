@@ -1,4 +1,4 @@
-package webapp.reservation.dto;
+package webapp.booking.dto;
 
 import java.sql.Time;
 import lombok.Data;

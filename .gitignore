@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Porject Exlucde ###
+src/main/resources/*.properties
+.mvn/

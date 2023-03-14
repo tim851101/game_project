@@ -1,4 +1,4 @@
-package spring.service;
+package webapp.reservation.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,9 +6,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import spring.dto.OpenHourDTO;
-import spring.model.OpenHour;
-import spring.repository.OpenHourRepository;
+import webapp.reservation.dto.OpenHourDTO;
+import webapp.reservation.model.OpenHour;
+import webapp.reservation.repository.OpenHourRepository;
 
 @Service
 public class ReservationService {

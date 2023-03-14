@@ -1,8 +1,8 @@
-package spring.repository;
+package webapp.reservation.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import spring.model.OpenHour;
+import webapp.reservation.model.OpenHour;
 
 @Repository
 public interface OpenHourRepository extends JpaRepository<OpenHour, Integer> {

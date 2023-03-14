@@ -1,4 +1,4 @@
-package spring.dto;
+package webapp.reservation.dto;
 
 import java.sql.Time;
 import lombok.Data;

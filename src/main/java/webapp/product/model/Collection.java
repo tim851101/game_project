@@ -1,4 +1,4 @@
-package spring.model;
+package webapp.product.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

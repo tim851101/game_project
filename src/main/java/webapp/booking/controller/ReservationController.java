@@ -15,13 +15,8 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    @GetMapping("/test")
-    public String test(){
-        return "aaa";
-    }
-
     @GetMapping("/ls")
     public List<OpenHourDTO> getAllOpenHour(){
-        return reservationService.getAllOpenHour();
+        return reservationService.getAllDTO();
     }
 }

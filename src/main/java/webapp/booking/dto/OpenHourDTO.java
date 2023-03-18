@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class OpenHourDTO {
-    private byte week;
+    private int week;
     private Time openTimeStart;
     private Time openTimeEnd;
 }

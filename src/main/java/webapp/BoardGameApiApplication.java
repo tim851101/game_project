@@ -28,7 +28,7 @@ public class BoardGameApiApplication implements CommandLineRunner {
         Integer week = 3;
         OpenHour openHour = openHourRepository.findByWeek(week);
         System.out.println("Open hour for week " + week + ": " + openHour);
-        SpringApplication.exit(SpringApplication.run(BoardGameApiApplication.class, args));
+//        SpringApplication.exit(SpringApplication.run(BoardGameApiApplication.class, args));
     }
 }
 

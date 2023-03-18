@@ -2,6 +2,8 @@ package webapp.booking.pojo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.sql.Time;
@@ -18,11 +20,12 @@ public class OpenHour {
 
 //    @GeneratedValue(strategy = GenerationType.IDENTITY) // AI
     @Id // JPA: primary key
-    @Column(name = "OPENTIME_NO")// JPA: map to column
+    @Column(name = "OPENTIME_NO", insertable = false)// JPA: map to column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int openTimeNo;
 
     @Column(name = "WEEK")
-    private byte week;
+    private int week;
 
     @Column(name = "OPENTIME_START")
     private Time openTimeStart;

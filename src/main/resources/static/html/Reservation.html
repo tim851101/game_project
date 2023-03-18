@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+<body>
+
+<form id="open-hour" method="post" action="/rev/insert-all">
+    <!--<form>-->
+    <table>
+        <tr>
+            <th>Week</th>
+            <th>Open Time Start</th>
+            <th>Open Time End</th>
+        </tr>
+        <tr>
+            <td><input type="number" name="week" id="week" value="3"/></td>
+            <td><input type="time" name="openTimeStart" value="08:00:00" id="start" /></td>
+<!--            <td><input type="time" name="openTimeStart" id="start"/></td>-->
+            <td><input type="time" name="openTimeEnd" value="12:00:00" id="end"/></td>
+        </tr>
+    </table>
+    <input type="submit" value="Submit" id="submit"/>
+</form>
+<button id="sent-post">sent-post</button>
+<script src="../js/Reservation.js"></script>
+</body>
+</html>

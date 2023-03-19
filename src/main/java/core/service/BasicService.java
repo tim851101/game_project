@@ -1,6 +1,5 @@
-package core;
+package core.service;
 
-import jakarta.annotation.Resource;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,15 +16,15 @@ import org.springframework.stereotype.Service;
  * @param <D> DTO
  */
 @Service
-public class BasicService<R extends JpaRepository<E, Integer>, E, D> implements intrinsicService {
+public class BasicService<R extends JpaRepository<E, Integer>, E, D> implements intrinsicService<D> {
 
-    @Resource // generic type can't use @autowired
-    private R repository;
+    protected final R repository;
     private final ModelMapper modelMapper;
 
     // Spring recommend constructor injection
-    public BasicService(ModelMapper modelMapper) {
+    public BasicService(ModelMapper modelMapper, R repository) {
         this.modelMapper = modelMapper;
+        this.repository = repository;
     }
 
     /**

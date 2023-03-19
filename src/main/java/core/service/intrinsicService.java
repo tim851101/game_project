@@ -1,4 +1,4 @@
-package core;
+package core.service;
 
 import java.util.List;
 

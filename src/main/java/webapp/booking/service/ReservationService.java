@@ -1,14 +1,12 @@
 package webapp.booking.service;
 
-import core.BasicService;
-import java.sql.Time;
-import java.time.LocalTime;
-import java.util.ArrayList;
+import core.service.BasicService;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import webapp.booking.dto.OpenHourDTO;
 import webapp.booking.pojo.OpenHour;
@@ -17,17 +15,15 @@ import webapp.booking.repository.OpenHourRepository;
 @Service
 public class ReservationService extends BasicService<OpenHourRepository, OpenHour, OpenHourDTO> {
 
-    // Spring recommend constructor injection
-    public ReservationService(ModelMapper modelMapper) {
-        super(modelMapper);
+//public class ReservationService{
+//     Spring recommend constructor injection
+    private final OpenHourRepository openHourRepository;
+    private final ModelMapper modelMapper;
+    public ReservationService(ModelMapper modelMapper, OpenHourRepository openHourRepository) {
+        super(modelMapper, openHourRepository);
+        this.modelMapper = modelMapper;
+        this.openHourRepository = openHourRepository;
     }
-
-    @Autowired
-    OpenHourRepository openHourRepository;
-
-    @Autowired
-    ModelMapper modelMapper;
-
 
     public void updateByWeek(OpenHourDTO dto) {
         System.out.println("into service");

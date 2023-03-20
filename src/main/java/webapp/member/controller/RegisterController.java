@@ -10,11 +10,12 @@ import webapp.member.service.MemberServiceImpl;
 @RequestMapping("/mem")
 public class RegisterController {
 
-
     final MemberServiceImpl memberServiceImpl;
     public RegisterController(MemberServiceImpl memberServiceImpl) {
         this.memberServiceImpl = memberServiceImpl;
     }
+
+
 
     @PostMapping("/reg")
     @ResponseBody

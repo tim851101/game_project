@@ -2,9 +2,6 @@ package webapp.booking.controller;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
-import javax.print.PrintService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +16,13 @@ import webapp.booking.service.ReservationService;
 @RestController
 @RequestMapping("/rev")
 public class ReservationController {
-
+    /**
+     * All input parameters send from frontend must strictly match
+     * 1. DTO variables type
+     * 2. DTO variables name
+     * NOTE: if input parameters type is List<DTO> frontend request json
+     * must like [{...}, {...}, ...]
+     */
     private final ReservationService reservationService;
     private final PriceService priceService;
 

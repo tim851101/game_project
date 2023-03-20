@@ -12,12 +12,13 @@ public class BoardGameApiApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(BoardGameApiApplication.class, args);
-        // SpringApplication.exit(SpringApplication.run(BoardGameApiApplication.class, args));
+//         SpringApplication.exit(SpringApplication.run(BoardGameApiApplication.class, args));
 
     }
 
     @Override
     public void run(String... args) throws Exception {
+
     }
 }
 

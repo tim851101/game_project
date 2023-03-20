@@ -1,9 +1,7 @@
 package webapp.member.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import webapp.member.dto.LoginDTO;
 import webapp.member.dto.RegisterDTO;
 import webapp.member.service.MemberServiceImpl;
 
@@ -12,11 +10,12 @@ import webapp.member.service.MemberServiceImpl;
 @RequestMapping("/mem")
 public class RegisterController {
 
-
     final MemberServiceImpl memberServiceImpl;
     public RegisterController(MemberServiceImpl memberServiceImpl) {
         this.memberServiceImpl = memberServiceImpl;
     }
+
+
 
     @PostMapping("/reg")
     @ResponseBody
@@ -24,12 +23,6 @@ public class RegisterController {
         return memberServiceImpl.addMember(registerDTO);
     }
 
-
-    @PostMapping("/login-check")
-    @ResponseBody
-    public Boolean memberLogin(@RequestBody LoginDTO loginDTO){
-        return memberServiceImpl.memberLogin(loginDTO);
-    }
 
 
 //    @GetMapping("/foreground/register")

@@ -1,12 +1,24 @@
 package webapp.member.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import webapp.member.dto.LoginDTO;
+import webapp.member.service.MemberServiceImpl;
 
 @RestController
 @RequestMapping
 public class LoginController {
+
+    final MemberServiceImpl memberServiceImpl;
+    public LoginController(MemberServiceImpl memberServiceImpl) {
+        this.memberServiceImpl = memberServiceImpl;
+    }
+
+    @PostMapping("/login-check")
+    @ResponseBody
+    public Boolean memberLogin(@RequestBody LoginDTO loginDTO){
+        return memberServiceImpl.memberLogin(loginDTO);
+    }
+
 
 //    @GetMapping("/foreground/login")
 //    public String showLoginPage() {

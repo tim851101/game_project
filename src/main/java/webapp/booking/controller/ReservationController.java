@@ -28,12 +28,6 @@ public class ReservationController {
     @PostMapping("/save-all")
     @ResponseBody
     public Boolean insertAll(@RequestBody List<OpenHourDTO> dtoList) {
-        try {
-            reservationService.insertAllDTO(dtoList);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        return reservationService.insertAll(dtoList);
     }
 }

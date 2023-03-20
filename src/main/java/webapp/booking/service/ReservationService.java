@@ -1,6 +1,7 @@
 package webapp.booking.service;
 
 import core.service.BasicService;
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
@@ -26,4 +27,15 @@ public class ReservationService extends BasicService<OpenHourRepository, OpenHou
     public void insert(OpenHourDTO dto) {
         openHourRepository.save(modelMapper.map(dto, OpenHour.class));
     }
+
+    public Boolean insertAll(List<OpenHourDTO> dtoList){
+        try {
+            insertAllDTO(dtoList);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }

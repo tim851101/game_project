@@ -4,6 +4,7 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,8 @@ public class BasicService<R extends JpaRepository<E, Integer>, E, D>
     public BasicService(ModelMapper modelMapper, R repository) {
         this.modelMapper = modelMapper;
         this.repository = repository;
+        this.modelMapper.getConfiguration()
+            .setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
     /**

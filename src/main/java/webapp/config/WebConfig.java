@@ -23,7 +23,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
 
-
         registry.addViewController("/open_hour").setViewName("/html/open_hour.html");
         registry.addViewController("/foreground/").setViewName("/foreground/index.html");
         registry.addViewController("/foreground/register").setViewName("/foreground/register.html");

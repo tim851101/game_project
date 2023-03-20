@@ -8,7 +8,6 @@ public class RegisterDTO {
 
     private String memName;
     private Byte memGender;
-    private byte[] memPic;
     private String memEmail;
     private String memPassword;
     private String memPhone;

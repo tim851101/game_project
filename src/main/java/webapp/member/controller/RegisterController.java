@@ -20,6 +20,9 @@ public class RegisterController {
     @PostMapping("/reg")
     @ResponseBody
     public Boolean addMember(@RequestBody RegisterDTO registerDTO){
+        // 驗證user輸入資料
+
+        // 密碼加密
         return memberServiceImpl.addMember(registerDTO);
     }
 

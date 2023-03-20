@@ -20,8 +20,9 @@
 /**
  * Post
  */
-var registerData={};
-$('#mem-reg').click(() => {
+let registerData={};
+$('#mem-reg').click((e) => {
+    e.preventDefault();
     // 取得user輸入的資料
     registerData.memName=document.getElementById('mem_name').value;
     registerData.memEmail=document.getElementById("mem_email").value;
@@ -38,28 +39,16 @@ $('#mem-reg').click(() => {
     }).then(response => response.json())
     .then(data => console.log(data))
     .catch(error => console.error(error));
-    // then(response => {
-    //     response.text().then(res => {
-    //         alert(`post ${res?'success':'fail'}`)
-    //     })
-    // });
-
 });
 
 $('form').submit(e => {
     e.preventDefault();
 
-    const jsonData = JSON.stringify(registerData);
-
-    console.log('json', jsonData);
-    console.log(JSON.stringify(registerData))
+    // console.log(JSON.stringify(registerData))
 
     fetch(e.target.action, {
         method: 'POST',
-        body: jsonData,
+        body: JSON.stringify(registerData),
         headers: {'Content-Type': 'application/json'},
     })
 });
-// function getOpenHour() {
-
-// }

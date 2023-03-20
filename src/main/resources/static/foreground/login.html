@@ -621,13 +621,14 @@
                             <div class="section-content text-center mb-5">
                                 <h2 class="title-4 mb-2">Login</h2>
                                 <p class="desc-content">Please login using account detail bellow.</p>
+                                <p id="loginMsg" style="color: red;"></p>
                             </div>
-                            <form action="#" method="post">
+                            <form action="/mem/login" method="post">
                                 <div class="single-input-item mb-3">
-                                    <input type="email" placeholder="Enter your Email">
+                                    <input id="loginEmail "type="email" placeholder="Enter your Email">
                                 </div>
                                 <div class="single-input-item mb-3">
-                                    <input type="password" placeholder="Enter your Password">
+                                    <input id="loginPassword" type="password" placeholder="Enter your Password">
                                 </div>
                                 <div class="single-input-item mb-3">
                                     <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
@@ -641,7 +642,7 @@
                                     </div>
                                 </div>
                                 <div class="single-input-item mb-3">
-                                    <button class="btn obrien-button-2 primary-color">Login</button>
+                                    <button id="mem-login" class="btn obrien-button-2 primary-color">Login</button>
                                     <a
                                         class="btn btn-lg btn-google"
                                         style="

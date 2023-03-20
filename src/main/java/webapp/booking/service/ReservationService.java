@@ -3,7 +3,6 @@ package webapp.booking.service;
 import core.service.BasicService;
 import java.util.List;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 import webapp.booking.dto.OpenHourDTO;
 import webapp.booking.pojo.OpenHour;
@@ -11,7 +10,7 @@ import webapp.booking.repository.OpenHourRepository;
 
 @Service
 public class ReservationService extends BasicService<OpenHourRepository, OpenHour, OpenHourDTO> {
-
+    // TODO: sanity checker
     // Spring recommend constructor injection
     private final OpenHourRepository openHourRepository;
     private final ModelMapper modelMapper;
@@ -19,8 +18,6 @@ public class ReservationService extends BasicService<OpenHourRepository, OpenHou
         super(modelMapper, openHourRepository);
         this.modelMapper = modelMapper;
         this.openHourRepository = openHourRepository;
-        modelMapper.getConfiguration()
-            .setMatchingStrategy(MatchingStrategies.STRICT);
     }
 
 
@@ -37,5 +34,4 @@ public class ReservationService extends BasicService<OpenHourRepository, OpenHou
             return false;
         }
     }
-
 }

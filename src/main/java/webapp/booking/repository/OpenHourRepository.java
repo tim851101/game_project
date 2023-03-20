@@ -8,5 +8,4 @@ import webapp.booking.pojo.OpenHour;
 public interface OpenHourRepository extends JpaRepository<OpenHour, Integer> {
     // connection pool + similar to DAO(both support by extends Jpa repository)
     // program new DAO behavior here
-    OpenHour findByWeek(Integer week);
 }

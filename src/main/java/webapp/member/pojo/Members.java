@@ -25,8 +25,6 @@ public class Members {
     @Column(name = "MEM_GENDER", nullable = false)
     private Byte memGender;
 
-    @Column(name = "MEM_PIC")
-    private byte[] memPic;
 
     @Column(name = "MEM_EMAIL", nullable = false, length = 50, unique = true)
     private String memEmail;

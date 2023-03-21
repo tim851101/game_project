@@ -1,12 +1,12 @@
 package webapp.booking.service;
 
-import core.service.intrinsicService;
+import core.service.IntrinsicService;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import webapp.booking.dto.OpenHourDTO;
 
 @Service
-public interface ReservationService extends intrinsicService<OpenHourDTO> {
+public interface ReservationService extends IntrinsicService<OpenHourDTO> {
 
     List<OpenHourDTO> getAllOpenHour();
     Boolean insertAllOpenHour(List<OpenHourDTO> dtoList);

@@ -1,6 +1,7 @@
 * [README](./README.md)
 * [API we used](./doc/API.md)
 * [Spring Concept and Install](/doc/Spring-Usage.md)
+* [Background-Frontend](/doc/Background-frontend.md)
 
 # Usage
 
@@ -31,7 +32,8 @@ spring.datasource.url=jdbc:mysql://localhost:3306/boardgame
     ```
 * 前端分為前台後台
   * foreground: 前台頁面
-  * background: 後台頁面
+  * background: 
+    * [Background-Frontend Rules](/doc/Background-frontend.md)
   * .html 直接放在 `foreground/`,  `background/` 下
   * .css, .js 放在 `foreground/static`,  `background/static` 的相應資料夾下
 * 後端程式依照功能放在 `./java/webapp/<功能名稱>/` 下

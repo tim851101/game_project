@@ -2,20 +2,11 @@ package webapp.member.service;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-<<<<<<< HEAD
-=======
-import org.modelmapper.spi.MatchingStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
->>>>>>> 3c879b7 (feat: 會員註冊)
 import org.springframework.stereotype.Service;
 import webapp.member.dto.LoginDTO;
 import webapp.member.dto.RegisterDTO;
 import webapp.member.pojo.Members;
 import webapp.member.repository.MemberRepository;
-
-import java.util.List;
 import java.util.Optional;
 
 @Service

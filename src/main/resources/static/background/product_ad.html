@@ -20,12 +20,9 @@
 
     <!-- harder sidebar footer import -->
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="./static/js/template.js"></script>
     <script>
       $(document).ready(function () {
-        $("#header").load("header.html");
-        $("#sidebar").load("sidebar.html");
-        $("#footer").load("footer.html");
-
         var now = new Date();
         var month = now.getMonth() + 1;
         var day = now.getDate();
@@ -59,7 +56,8 @@
         ***********************************-->
       <div class="nav-header">
         <a href="" class="brand-logo">
-          <svg
+          <img src="static/picture/baordgame-logo.png" alt="" style="max-width: 100%;">
+          <!-- <svg
             class="logo-abbr"
             width="57"
             height="57"
@@ -83,7 +81,7 @@
           <div class="brand-title">
             <h2 class="">inv<span>ome</span></h2>
             <span class="brand-sub-title">Invoicing Admin</span>
-          </div>
+          </div> -->
         </a>
         <div class="nav-control">
           <div class="hamburger">

@@ -1,17 +1,17 @@
-fetch('chatbox.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('chatbox').innerHTML = data;
-    })
 fetch('header.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('header').innerHTML = data;
     })
-fetch('sidebar.html')
+fetch('mobile.html')
     .then(response => response.text())
     .then(data => {
-        document.getElementById('sidebar').innerHTML = data;
+        document.getElementById('mobile').innerHTML = data;
+    })
+fetch('support.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('support').innerHTML = data;
     })
 fetch('footer.html')
     .then(response => response.text())

@@ -33,6 +33,7 @@
 * [ModelMapper.map](https://modelmapper.org/javadoc/#map)
     * 見文件中 ModelMapper 下的 `.map()`
     * 主要使用 modelmapper 將 POJO 對應到 DTO
+    * [MappingStrategy](https://modelmapper.org/javadoc/org/modelmapper/convention/MatchingStrategies.html)
 
 * [stream API](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/stream/package-summary.html)
     * 處理 DB 取出的 collection

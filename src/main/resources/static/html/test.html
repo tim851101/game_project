@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+<table border="1">
+    <thead>
+    <th>albumId</th>
+    <th>id</th>
+    <th>title</th>
+    <th>url</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>1</td>
+        <td>1</td>
+        <td>accusamus beatae ad facilis cum similique qui sunt</td>
+        <td>
+            <img src="https://via.placeholder.com/600/92c952" alt="width: 100px">
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script>
+    const tbody = document.querySelector('tbody');
+    const url = 'https://jsonplaceholder.typicode.com/users';
+    fetch(url)
+        .then(resp => resp.json())
+        .then(list => {
+            for (let item of list) {
+                tbody.innerHTML += `
+                <tr>
+                   <td>${item.id}</td>
+                   <td>${item.name}</td>
+                   <td>${item.username}</td>
+                   <td>
+                       <img src="${item.email}">
+                   </td>
+                </tr>
+            `
+            }
+        });
+</script>
+
+</html>

@@ -2,11 +2,11 @@ package webapp.booking.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import webapp.booking.dto.OpenHourDTO;
 import webapp.booking.dto.ReservationPriceDTO;
@@ -26,6 +26,7 @@ public class ReservationController {
     private final ReservationService reservationService;
     private final PriceService priceService;
 
+    @Autowired
     public ReservationController(ReservationService reservationService, PriceService priceService) {
         this.reservationService = reservationService;
         this.priceService = priceService;
@@ -33,29 +34,25 @@ public class ReservationController {
 
     @GetMapping("/ls")
     public List<OpenHourDTO> getAllOpenHour() {
-        return reservationService.getAllDTO();
+        return reservationService.getAllOpenHour();
     }
 
-    @PostMapping("/save-all")
-    @ResponseBody
+    @PostMapping("/save-all-open-hour")
     public Boolean insertAll(@RequestBody List<OpenHourDTO> dtoList) {
-        return reservationService.insertAll(dtoList);
+        return reservationService.insertAllOpenHour(dtoList);
     }
 
     @PostMapping("/save-all-price")
-    @ResponseBody
     public Boolean insertAllPrice(@RequestBody List<ReservationPriceDTO> dtoList) {
         return priceService.insertAllPrice(dtoList);
     }
 
     @GetMapping("/ls-price")
-    @ResponseBody
     public List<ReservationPriceDTO> findAllPrice() {
         return priceService.findAllPrice();
     }
 
     @GetMapping("/price-by-date")
-    @ResponseBody
     public Integer findPriceByDate(LocalDate date) {
         return priceService.findPriceByDate(date);
     }

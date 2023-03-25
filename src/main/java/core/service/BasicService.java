@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class BasicService<R extends JpaRepository<E, Integer>, E, D>
-    implements intrinsicService<D> {
+    implements IntrinsicService<D> {
 
     protected final R repository;
     private final ModelMapper modelMapper;

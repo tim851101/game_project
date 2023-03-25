@@ -17,7 +17,7 @@
 
   
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="./static/js/template.js"></script>
+  <script src="/background/static/js/template.js"></script>
 </head>
 
 <body>
@@ -43,8 +43,7 @@
         ***********************************-->
     <div class="nav-header">
       <a href="" class="brand-logo">
-        <img src="static/picture/baordgame-logo.png" alt="" style="max-width: 100%;">
-        <!-- <svg class="logo-abbr" width="57" height="57" viewbox="0 0 57 57" fill="none"
+        <svg class="logo-abbr" width="57" height="57" viewbox="0 0 57 57" fill="none"
           xmlns="http://www.w3.org/2000/svg">
           <path
             d="M32.9585 1.84675C30.4961 -0.615584 26.5039 -0.615585 24.0415 1.84675L19.3876 6.50068H12.8059C9.32365 6.50068 6.50071 9.32362 6.50071 12.8059V19.3876L1.84675 24.0415C-0.615584 26.5039 -0.615585 30.4961 1.84675 32.9585L6.50071 37.6124V44.1941C6.50071 47.6763 9.32365 50.4993 12.8059 50.4993H19.3876L24.0415 55.1532C26.5039 57.6156 30.4961 57.6156 32.9585 55.1532L37.6124 50.4993H44.1941C47.6764 50.4993 50.4993 47.6763 50.4993 44.1941V37.6124L55.1532 32.9585C57.6156 30.4961 57.6156 26.5039 55.1532 24.0415L50.4993 19.3876V12.8059C50.4993 9.32362 47.6764 6.50068 44.1941 6.50068H37.6124L32.9585 1.84675Z"
@@ -57,7 +56,7 @@
         <div class="brand-title">
           <h2 class="">inv<span>ome</span></h2>
           <span class="brand-sub-title">Invoicing Admin</span>
-        </div> -->
+        </div>
       </a>
       <div class="nav-control">
         <div class="hamburger">
@@ -81,6 +80,7 @@
             Header start
         ***********************************-->
     <div id="header"></div>
+    <script>$("#header").load("header.html");</script>
     <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
@@ -88,7 +88,206 @@
     <!--**********************************
             Sidebar start
         ***********************************-->
-    <div id="sidebar"></div>
+    <div class="dlabnav">
+    <div class="dlabnav-scroll">
+        <div class="dropdown header-profile2">
+            <a
+                    class="nav-link"
+                    href="javascript:void(0);"
+                    role="button"
+                    data-bs-toggle="dropdown"
+            >
+                <div class="header-info2 d-flex align-items-center border">
+                    <img src="/background/static/picture/pic1.jpg" alt=""/>
+                    <div class="d-flex align-items-center sidebar-info">
+                        <div>
+                            <span class="font-w700 d-block mb-2">Eren Yeager</span>
+                            <small class="text-end font-w400">Super Admin</small>
+                        </div>
+                        <i class="fas fa-sort-down ms-4"></i>
+                    </div>
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <a href="/background/app-profile.html" class="dropdown-item ai-icon">
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="text-primary"
+                            width="18"
+                            height="18"
+                            viewbox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                    >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span class="ms-2">Profile </span>
+                </a>
+                <a href="/background/email-inbox.html" class="dropdown-item ai-icon">
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="text-success"
+                            width="18"
+                            height="18"
+                            viewbox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                    >
+                        <path
+                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                        ></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span class="ms-2">Inbox </span>
+                </a>
+                <a id="logout-a" href="javascript:;" class="dropdown-item ai-icon">
+                    <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="text-danger"
+                            width="18"
+                            height="18"
+                            viewbox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                    >
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <span id="logout-span" class="ms-2">Logout </span>
+                </a>
+            </div>
+        </div>
+        <ul class="metismenu" id="menu">
+            <!-- 基本資料管理 li-ul-->
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fas fa-user-cog"></i>
+                    <span class="nav-text">基本資料管理</span>
+                </a>
+                <ul aria-expanded="false">
+                    <!--          <li><a href="/background/employee-update.html">員工帳號維護</a></li>-->
+                    <li><a href="/background/employee-update.html">員工帳號維護</a></li>
+
+                    <li><a href="/background/member-permissions.html">會員權限設定</a></li>
+                    <li><a href="/background/personal-information.html">個人基本資料</a></li>
+                    <li>
+                        <a href="/background/personal-information.html#change-password">變更密碼</a>
+                    </li>
+                    <li><a href="/background/employee-login-out.html">登出</a></li>
+                    <!-- <li><a href="/background/card-center.html">Card-Center</a></li>
+                      <li><a href="/background/transaction-details.html">Transaction</a></li> -->
+                </ul>
+            </li>
+            <!-- 首頁資訊管理 li-ul-->
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="nav-text">首頁資訊管理</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/background/news.html">最新消息管理</a></li>
+                    <li><a href="/background/product_ad.html">熱門遊戲管理</a></li>
+                    <!-- <li><a href="/background/app-calender.html">教學管理</a></li>
+                    <li><a href="/background/app-calender.html">Q&A管理</a></li> -->
+                    <!-- <li>
+                        <a
+                          class="has-arrow"
+                          href="javascript:void()"
+                          aria-expanded="false"
+                          >Email</a
+                        >
+                        <ul aria-expanded="false">
+                          <li><a href="/background/email-compose.html">Compose</a></li>
+                          <li><a href="/background/email-inbox.html">Inbox</a></li>
+                          <li><a href="/background/email-read.html">Read</a></li>
+                        </ul>
+                      </li> -->
+
+                    <!-- <li>
+                        <a
+                          class="has-arrow"
+                          href="javascript:void()"
+                          aria-expanded="false"
+                          >Shop</a
+                        >
+                        <ul aria-expanded="false">
+                          <li><a href="/background/ecom-product-grid.html">Product Grid</a></li>
+                          <li><a href="/background/ecom-product-list.html">Product List</a></li>
+                          <li>
+                            <a href="/background/ecom-product-detail.html">Product Details</a>
+                          </li>
+                          <li><a href="/background/ecom-product-order.html">Order</a></li>
+                          <li><a href="/background/ecom-checkout.html">Checkout</a></li>
+                          <li><a href="/background/ecom-invoice.html">Invoice</a></li>
+                          <li><a href="/background/ecom-customers.html">Customers</a></li>
+                        </ul>
+                      </li> -->
+                </ul>
+            </li>
+            <!-- 業務規則管理 -->
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fas fa-minus-circle"></i>
+                    <span class="nav-text">業務規則管理</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/background/member-violation-rules.html">違規規則管理</a></li>
+                    <li><a href="/background/member-violation-rules.html#system-param">系統參數</a></li>
+                </ul>
+            </li>
+            <!-- 商品資料管理 li-ul-->
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="nav-text">商品資訊管理</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/background/product-maintain.html">商品管理</a></li>
+                    <li><a href="/background/product_order.html">訂單管理</a></li>
+                    <li><a href="/background/product_message.html">留言管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fas fa-chair"></i>
+                    <span class="nav-text">訂位資訊管理</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/background/on-site-order.html">現場劃位</a></li>
+                    <li><a href="/background/opentime-rules.html">營業時間設定</a></li>
+                    <li><a href="/background/booking-maintain.html">訂位管理</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="fas fa-chess"></i>
+                    <span class="nav-text">活動資訊管理</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="/background/event-maintain.html">活動管理</a></li>
+                    <li><a href="/background/event_order.html">訂單管理</a></li>
+                </ul>
+            </li>
+
+
+        <div class="copyright">
+            <p><strong>Tibame CGA106 游Game</strong> © 2023 All Rights Reserved</p>
+            <p class="fs-12">Made with <span class="heart"></span> by CGA106第一組</p>
+        </div>
+    </div>
+</div>
+
     <!--**********************************
             Sidebar end
         ***********************************-->
@@ -301,6 +500,7 @@
             Footer start
         ***********************************-->
     <div id="footer"></div>
+    <script>$("#footer").load("footer.html");</script>
     <!--**********************************
             Footer end
         ***********************************-->

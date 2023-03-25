@@ -1,7 +1,10 @@
 package webapp.member.pojo;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,45 +18,46 @@ import java.util.Date;
 @Table(name = "MEMBERS")
 public class Members {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MEM_NO",insertable = false)
+    @Column(name = "MEM_NO")
     private Integer memNo;
 
-    @Column(name = "MEM_NAME" ,nullable = false, length = 10)
+    @Column(name = "MEM_NAME")
     private String memName;
 
-    @Column(name = "MEM_GENDER", nullable = false)
+    @Column(name = "MEM_GENDER")
     private Byte memGender;
 
+    @Column(name = "MEM_PIC")
+    private byte[] memPic;
 
-    @Column(name = "MEM_EMAIL", nullable = false, length = 50, unique = true)
+    @Column(name = "MEM_EMAIL")
     private String memEmail;
 
-    @Column(name = "MEM_PASSWORD", nullable = false, length = 40)
+    @Column(name = "MEM_PASSWORD")
     private String memPassword;
 
-    @Column(name = "MEM_PHONE", length = 10)
+    @Column(name = "MEM_PHONE")
     private String memPhone;
 
-    @Column(name = "MEM_ADDRESS", nullable = false, length = 100)
+    @Column(name = "MEM_ADDRESS")
     private String memAddress;
 
     @Column(name = "MEM_BIRTHDAY")
     private Date memBirthday;
 
-    @Column(name = "COUPON",insertable = false)
+    @Column(name = "COUPON")
     private Integer coupon;
 
-    @Column(name = "RESERVE_AUTH",insertable = false)
+    @Column(name = "RESERVE_AUTH")
     private Boolean reserveAuth;
 
-    @Column(name = "MEM_VIO",insertable = false)
+    @Column(name = "MEM_VIO")
     private Integer memVIO;
 
     @Column(name = "MEM_STATUS")
     private Date memStatus;
 
 
-    public Members(String memName, Byte memGender, byte[] memPic, String memEmail, String password, String memPhone, String memAddress, Date memBirthday, String encode) {
-    }
+
+
 }

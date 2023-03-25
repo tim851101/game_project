@@ -1,14 +1,15 @@
 * [README](./README.md)
 * [API we used](./doc/API.md)
 * [Spring Concept and Install](/doc/Spring-Usage.md)
+* [Foreground-Frontend](/doc/Foreground-frontend.md)
 * [Background-Frontend](/doc/Background-frontend.md)
 
 # Usage
 
-* 建立範例資料庫: `.\src\main\others\boardgame.sql`
-* 設定 properties: `.\src\main\resources\application.properties.template` 設定為自己的 server 設定，更名為 `application.properties`
-* 透過 `.\src\main\java\webapp\BoardGameApiApplication.java` 執行
-* 測試是否打的到後端 API: `localhost:8082/rev/ls`
+* 建立範例資料庫: `./src/main/others/boardgame.sql`
+* 設定 properties: `./src/main/resources/application.properties.template` 設定為自己的 server 設定，更名為 `application.properties`
+* 透過 `localhost:8082/foreground`, `localhost:8082/management` 執行
+* 網頁 mapping 規則參考 `./src/main/java/webapp/config/WebConfig.java`
 
 ## Config
 
@@ -18,7 +19,7 @@
 server.port=8082
 spring.datasource.username=xxx
 spring.datasource.password=xxx
-spring.datasource.url=jdbc:mysql://localhost:3306/boardgame
+spring.datasource.url=jdbc:mysql://localhost:3306/CGA106G1
 ```
 
 # Development Rules
@@ -70,16 +71,14 @@ main
   ├─others
   └─resources
       └─static
-          ├─frontend
-          └─backend
+          ├─foreground
+          └─background
             └─static
                ├─css
                ├─font
                ├─image
                ├─js
                └─picture
-          
-
 ```
 
 # TODO

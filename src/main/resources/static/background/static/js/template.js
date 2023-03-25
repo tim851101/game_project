@@ -1,19 +1,20 @@
-fetch('chatbox.html')
+fetch('/background/chatbox.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('chatbox').innerHTML = data;
     })
-fetch('header.html')
+fetch('/background/header.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('header').innerHTML = data;
     })
-fetch('sidebar.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('sidebar').innerHTML = data;
-    })
-fetch('footer.html')
+// fetch('/background/sidebar.html')
+//     .then(response => response.text())
+//     .then(data => {
+//         document.getElementById('sidebar').innerHTML = '';
+//             document.getElementById('sidebar').innerHTML = data;
+//     })
+fetch('/background/footer.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('footer').innerHTML = data;

@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import webapp.member.dto.PermissionDTO;
-import webapp.member.service.PermissionService;
+import webapp.member.service.PermissionServiceImpl;
 
 @RestController
 @RequestMapping("/mem")
 public class PermissionController {
     // TODO: add sanity checker
-    private final PermissionService permissionService;
+    private final PermissionServiceImpl permissionService;
 
-    public PermissionController(PermissionService permissionService) {
+    public PermissionController(PermissionServiceImpl permissionService) {
         this.permissionService = permissionService;
     }
 
@@ -32,7 +32,6 @@ public class PermissionController {
     }
 
     @PostMapping("/save-all-perm-level")
-    @ResponseBody
     public Boolean saveAllLevel(@RequestBody List<PermissionDTO> dtoList) {
         return permissionService.saveAllLevel(dtoList);
     }

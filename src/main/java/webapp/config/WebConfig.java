@@ -13,22 +13,30 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        // 配置靜態資源路徑
-        registry.addResourceHandler("/static/**")
-                .addResourceLocations("classpath:/static/");
+        // static resource mapping
+        registry.addResourceHandler("/foreground/static/**")
+            .addResourceLocations("classpath:/static/foreground/static/");
 
+        registry.addResourceHandler("/foreground/**")
+            .addResourceLocations("classpath:/static/foreground/");
 
+        registry
+            .addResourceHandler("/background/static/**")
+            .addResourceLocations("classpath:/static/background/static/");
+
+        registry
+            .addResourceHandler("/background/**")
+            .addResourceLocations("classpath:/static/background/");
     }
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-
-
-        registry.addViewController("/open_hour").setViewName("/html/open_hour.html");
-        registry.addViewController("/for").setViewName("/foreground/index.html");
+        registry.addViewController("/foreground").setViewName("/foreground/index.html");
         registry.addViewController("/foreground/register").setViewName("/foreground/register.html");
-        registry.addViewController("/mem/reg").setViewName("/foreground/register.html");
         registry.addViewController("/foreground/login").setViewName("/foreground/login.html");
-//        registry.addViewController("/index").setViewName("/index.html");
+
+        registry.addViewController("/management").setViewName("/background/index-backend.html");
+        registry.addViewController("/background/login").setViewName("/background/employee-login.html");
+
     }
 }

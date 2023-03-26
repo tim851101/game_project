@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+
+<body>
+<!--form表單顯示網頁的內容-->
+<form id="emp-form">
+  <table>
+    <tr>
+      <td>Employee No:</td>
+      <td><input type="text" name="employeeNo" id="employeeNo" value="11"></td>
+    </tr>
+    <tr>
+      <td>Employee Name:</td>
+      <td><input type="text" name="employeeName" id="employeeName" value="John"></td>
+    </tr>
+    <tr>
+      <td>Employee Phone:</td>
+      <td><input type="text" name="employeePhone" id="employeePhone" value="1234567890"></td>
+    </tr>
+    <tr>
+      <td>Employee Address:</td>
+      <td><input type="text" name="employeeAddress" id="employeeAddress" value="123Mainst"></td>
+    </tr>
+    <tr>
+      <td>Employee Email:</td>
+      <td><input type="text" name="employeeEmail" id="employeeEmail" value="john@example.com"></td>
+    </tr>
+    <tr>
+      <td>Employee Password:</td>
+      <td><input type="password" name="employeePassword" id="employeePassword" value="P@ssw0rd"></td>
+    </tr>
+    <tr>
+      <td>Role No:</td>
+      <td><input type="text" name="roleNo" id="roleNo" value="1"></td>
+    </tr>
+    <td>Employee Status:</td>
+    <td>
+      <input id="c1" type="radio" name="employeeStatus"> Active
+      <input id="c2" type="radio" name="employeeStatus"> Inactive
+    </td>
+  </table>
+  <button id="save" type="submit">Save</button>
+</form>
+<div>
+  <input id="employeeId">
+  <button id="findById">findById</button>
+  <table id="show"></table>
+</div>
+
+<script>
+    const findByIdBtn = document.getElementById('findById');
+    const inputEmployeeId = document.getElementById('employeeId');
+    const showTable = document.getElementById('show');
+
+    findByIdBtn.addEventListener('click', () => {  //line 53
+        const employeeId = inputEmployeeId.value;   //line 52 取值
+
+
+        fetch(`/emp/find-one?id=${employeeId}`) //response
+            .then(response => response.json()   //promise 轉 data
+            )
+            .then(data => {
+                console.log(`/emp/find-one?id='${employeeId}'`);
+                console.log(data);
+                showTable.setAttribute('border', '1');
+
+                const table = document.getElementById('show');
+                table.innerHTML="";
+                for (const property in data) {
+                    const row = table.insertRow();
+                    const keyCell = row.insertCell();
+                    const valueCell = row.insertCell();
+                    keyCell.innerHTML = property;
+                    valueCell.innerHTML = data[property];
+                }
+            })
+    })
+</script>
+
+<script>
+    $('#emp-form').submit(e => {
+        e.preventDefault();
+        // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒
+        const formData = {
+            'employeeNo': +$("#employeeNo").val(),
+            'employeeName': $("#employeeName").val(),
+            'employeePhone': $("#employeePhone").val(),
+            'employeeAddress': $("#employeeAddress").val(),
+            'employeeEmail': $("#employeeEmail").val(),
+            'employeePassword': $("#employeePassword").val(),
+            'roleNo': +$("#roleNo").val(),
+            'employeeStatus': $("#c1").prop('checked') ? true : false
+        }
+        console.log(formData);
+
+        // Send form data as POST request
+        fetch('/emp/save-emp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' //一定要設定!
+            },
+            body: JSON.stringify(formData) //轉JOSN字串
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+
+</script>
+</body>
+
+</html>

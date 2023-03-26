@@ -7,6 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> <!--時間要加上這條才不會報錯-->
+    <script>
+
+</script>
 </head>
 
 <body>
@@ -31,75 +35,96 @@
         </tr>
         <tr>
             <td>商品資訊:</td>
-            <td><input type="text" name="pdDescription" id="pdDescription" value="國王、女巫、小偷……揭示隱藏在面具後的真實身份！在適當的時機宣布你的面具身份，運用它的能力賺取財富，或是給對手設一個意想不到的陷阱。唯一的難處是，那些面具會在不同玩家之間交換，甚至讓你沒辦法確定自己的真實身份！"></td>
+            <td><input type="text" name="pdDescription" id="pdDescription" value="國王、女巫、小偷……揭示隱藏在面具後的真實身份！"></td>
         </tr>
         <tr>
             <td>商品上架狀態:</td>
-            <input id="c1" type="radio" name="pdStatus"> 上架
-            <input id="c2" type="radio" name="pdStatus"> 未上架
+            <td><input id="c1" type="radio" name="pdStatus" value="true"> 上架</td>
+            <td><input id="c2" type="radio" name="pdStatus" value="false"> 未上架</td>
         </tr>
         <tr>
             <td>更新時間:</td>
-            <td><input type="time" name="pdUpdate" id="pdUpdate" value=""></td>
+            <td><input type="datetime-local" name="pdUpdate" id="pdUpdate" value=""></td>
         </tr>
     </table>
     <button id="save" type="submit">儲存</button>
 </form>
+
+<div>
+    <input id="productId">
+    <button id="findById">查詢</button>
+    <table id="show"></table>
+</div>
+
 <script>
-        const productList = document.getElementById('product-list');
+    const findByIdBtn = document.getElementById('findById');
+    const inputEmployeeId = document.getElementById('productId');
+    const showTable = document.getElementById('show');
 
-        // Get product list on page load
-        fetch('/api/products')
-            .then(response => response.json())
+    findByIdBtn.addEventListener('click', () => {  //line 53
+        const productId = inputEmployeeId.value;   //line 52 取值
+
+
+        fetch(`/product/find-one?id=${productId}`) //response
+            .then(response => response.json()   //promise 轉 data
+            )
             .then(data => {
-                data.forEach(product => {
-                    const listItem = document.createElement('li');
-                    listItem.innerText = `${product.name} - $${product.price}`;
-                    productList.appendChild(listItem);
-                });
-            });
+                console.log(`/emp/find-one?id='${productId}'`);
+                console.log(data);
+                showTable.setAttribute('border', '1');
 
-        // Add product form submit event listener
-        const productForm = document.getElementById('product-form');
-        productForm.addEventListener('submit', (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target);
-            const product = {
-                name: formData.get('productName'),
-                price: formData.get('productPrice')
-            };
-            fetch('/api/products', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(product)
+                const table = document.getElementById('show');
+                table.innerHTML="";
+                for (const property in data) {
+                    const row = table.insertRow();
+                    const keyCell = row.insertCell();
+                    const valueCell = row.insertCell();
+                    keyCell.innerHTML = property;
+                    valueCell.innerHTML = data[property];
+                }
             })
-            .then(response => response.json())
-            .then(data => {
-                const listItem = document.createElement('li');
-                listItem.innerText = `${data.name} - $${data.price}`;
-                productList.appendChild(listItem);
-                productForm.reset();
-            });
-        });
+    })
+</script>
 
-        // Product list item click event listener
-        productList.addEventListener('click', (event) => {
-            const listItem = event.target;
-            const productId = listItem.dataset.id;
-            if (productId) {
-                fetch(`/api/products/${productId}`, {
-                    method: 'DELETE'
-                })
-                .then(response => {
-                    if (response.ok) {
-                        listItem.remove();
-                    }
-                });
-            }
-        });
-    </script>
+
+<script>
+    $('#proud-form').submit(e => {
+        e.preventDefault();
+        // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒
+        const formData = {
+            'pdNo': +$("#pdNo").val(),
+            'pdName': $("#pdName").val(),
+            'pdPrice': +$("#pdPrice").val(),
+            'pdStock': +$("#pdStock").val(),
+            'pdDescription': $("#pdDescription").val(),
+            'pdStatus': $("#c1").prop('checked'),
+            'pdUpdate': moment($("#pdUpdate").val()).format('YYYY-MM-DD HH:mm:ss')
+        }
+        console.log(formData);
+
+        // Send form data as POST request
+        fetch('/product/save-product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' //一定要設定!
+            },
+            body: JSON.stringify(formData) //轉JOSN字串
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+
+</script>
 </body>
 
 </html>

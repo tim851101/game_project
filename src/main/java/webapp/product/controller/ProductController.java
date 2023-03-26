@@ -2,13 +2,15 @@ package webapp.product.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import webapp.employee.dto.EmployeeDTO;
 import webapp.product.dto.ProductDTO;
 import webapp.product.dto.ProductLoginDTO;
+import webapp.product.pojo.Product;
 import webapp.product.service.ProductService;
 
 
 @Controller
-@RequestMapping("/Prod")
+@RequestMapping("/product")
 public class ProductController {
 
     final ProductService productService;
@@ -23,7 +25,7 @@ public class ProductController {
         return productService.loginCheck(productLoginDTO);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save-product")
     @ResponseBody
     public Boolean saveEmployee(@RequestBody ProductDTO productDTO) {
         return productService.saveProduct(productDTO);
@@ -39,5 +41,11 @@ public class ProductController {
     @ResponseBody
     public Boolean updateStatus(@RequestParam Integer id, @RequestParam Boolean status) {
         return productService.updateStatus(id, status);
+    }
+
+    @GetMapping("/find-one")
+    @ResponseBody
+    public ProductDTO findProdById(@RequestParam Integer id){
+        return productService.findById(id);
     }
 }

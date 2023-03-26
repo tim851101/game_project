@@ -2,6 +2,7 @@ package webapp.product.service;
 
 import webapp.product.dto.ProductDTO;
 import webapp.product.dto.ProductLoginDTO;
+import webapp.product.pojo.Product;
 
 public interface ProductService {
     Boolean loginCheck(ProductLoginDTO productLoginDTO);
@@ -11,4 +12,5 @@ public interface ProductService {
     ProductDTO findById(Integer id);
 
     Boolean updateStatus(Integer id, Boolean status);
+
 }

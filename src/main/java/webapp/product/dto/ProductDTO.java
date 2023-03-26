@@ -1,7 +1,6 @@
 package webapp.product.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -18,7 +17,8 @@ public class ProductDTO {
 
     private String pdDescription;
 
-    private Integer pdStatus;
+    private Boolean pdStatus;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp pdUpdate;
+
 }

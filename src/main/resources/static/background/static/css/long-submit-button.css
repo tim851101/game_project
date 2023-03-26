@@ -1,0 +1,10 @@
+.long-submit-button {
+    background-color: #44814e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    width: 100%;
+    border-radius: 5px;
+    color: #fff;
+}

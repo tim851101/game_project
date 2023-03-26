@@ -1,8 +1,10 @@
 package webapp.employee.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class EmployeeDTO {
     private Integer employeeNo;
     private String employeeName;

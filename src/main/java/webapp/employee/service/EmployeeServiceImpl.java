@@ -1,5 +1,6 @@
 package webapp.employee.service;
 
+import java.util.List;
 import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -32,7 +33,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public EmployeeDTO findById(Integer id) {
-        System.out.println(employeeRepository.findById(id));
         Optional<Employee> optional = employeeRepository.findById(id);
         if (optional.isPresent()) {
             return modelMapper.map(optional.get(), EmployeeDTO.class);
@@ -59,5 +59,10 @@ public class EmployeeServiceImpl implements EmployeeService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<EmployeeDTO> findAllDTO() {
+        return employeeRepository.findAllDTO();
     }
 }

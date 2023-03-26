@@ -1,5 +1,6 @@
 package webapp.employee.controller;
 
+import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,5 +43,11 @@ public class EmployeeController {
     @ResponseBody
     public Boolean updateStatus(@RequestParam Integer id, @RequestParam Boolean status) {
         return employeeService.updateStatus(id, status);
+    }
+
+    @GetMapping("/ls-all")
+    @ResponseBody
+    public List<EmployeeDTO> listAll(){
+        return employeeService.findAllDTO();
     }
 }

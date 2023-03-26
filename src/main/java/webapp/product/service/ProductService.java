@@ -1,17 +1,14 @@
 package webapp.product.service;
 
-import core.service.BasicService;
-import org.modelmapper.ModelMapper;
-import org.springframework.stereotype.Service;
 import webapp.product.dto.ProductDTO;
-import webapp.product.pojo.Product;
-import webapp.product.repository.ProductRepository;
+import webapp.product.dto.ProductLoginDTO;
 
+public interface ProductService {
+    Boolean loginCheck(ProductLoginDTO productLoginDTO);
 
-@Service
-public class  ProductService extends BasicService<ProductRepository, Product, ProductDTO> {
+    Boolean saveProduct(ProductDTO productDTO);
 
-    public ProductService(ModelMapper modelMapper, ProductRepository productRepository) {
-        super(modelMapper, productRepository);
-    }
+    ProductDTO findById(Integer id);
+
+    Boolean updateStatus(Integer id, Boolean status);
 }

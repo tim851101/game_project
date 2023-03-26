@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+</head>
+
+<body>
+<!--form表單顯示網頁的內容-->
+<form id="proud-form" action="/addProduct" method="post">
+    <table>
+        <tr>
+            <td>商品編號:</td>
+            <td><input type="text" name="pdNo" id="pdNo" value="10"></td>
+        </tr>
+        <tr>
+            <td>商品名稱:</td>
+            <td><input type="text" name="pdName" id="pdName" value="化裝舞會"></td>
+        </tr>
+        <tr>
+            <td>商品價錢:</td>
+            <td><input type="text" name="pdPrice" id="pdPrice" value="890"></td>
+        </tr>
+        <tr>
+            <td>商品庫存:</td>
+            <td><input type="text" name="pdStock" id="pdStock" value="30"></td>
+        </tr>
+        <tr>
+            <td>商品資訊:</td>
+            <td><input type="text" name="pdDescription" id="pdDescription" value="國王、女巫、小偷……揭示隱藏在面具後的真實身份！在適當的時機宣布你的面具身份，運用它的能力賺取財富，或是給對手設一個意想不到的陷阱。唯一的難處是，那些面具會在不同玩家之間交換，甚至讓你沒辦法確定自己的真實身份！"></td>
+        </tr>
+        <tr>
+            <td>商品上架狀態:</td>
+            <input id="c1" type="radio" name="pdStatus"> 上架
+            <input id="c2" type="radio" name="pdStatus"> 未上架
+        </tr>
+        <tr>
+            <td>更新時間:</td>
+            <td><input type="time" name="pdUpdate" id="pdUpdate" value=""></td>
+        </tr>
+    </table>
+    <button id="save" type="submit">儲存</button>
+</form>
+<script>
+        const productList = document.getElementById('product-list');
+
+        // Get product list on page load
+        fetch('/api/products')
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(product => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = `${product.name} - $${product.price}`;
+                    productList.appendChild(listItem);
+                });
+            });
+
+        // Add product form submit event listener
+        const productForm = document.getElementById('product-form');
+        productForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const product = {
+                name: formData.get('productName'),
+                price: formData.get('productPrice')
+            };
+            fetch('/api/products', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(product)
+            })
+            .then(response => response.json())
+            .then(data => {
+                const listItem = document.createElement('li');
+                listItem.innerText = `${data.name} - $${data.price}`;
+                productList.appendChild(listItem);
+                productForm.reset();
+            });
+        });
+
+        // Product list item click event listener
+        productList.addEventListener('click', (event) => {
+            const listItem = event.target;
+            const productId = listItem.dataset.id;
+            if (productId) {
+                fetch(`/api/products/${productId}`, {
+                    method: 'DELETE'
+                })
+                .then(response => {
+                    if (response.ok) {
+                        listItem.remove();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,29 +1,27 @@
 package webapp.member.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import webapp.member.dto.RegisterDTO;
-import webapp.member.service.MemberServiceImpl;
+import webapp.member.dto.MemberDTO;
+import webapp.member.service.MemberService;
 
 
 @Controller
 @RequestMapping("/mem")
 public class RegisterController {
 
-    final MemberServiceImpl memberServiceImpl;
-    public RegisterController(MemberServiceImpl memberServiceImpl) {
-        this.memberServiceImpl = memberServiceImpl;
-    }
-
+    @Autowired
+    private MemberService memberServiceImpl;
 
 
     @PostMapping("/reg")
     @ResponseBody
-    public Boolean addMember(@RequestBody RegisterDTO registerDTO){
+    public Boolean addMember(@RequestBody MemberDTO memberDTO){
         // 驗證user輸入資料
 
         // 密碼加密
-        return memberServiceImpl.addMember(registerDTO);
+        return memberServiceImpl.addMember(memberDTO);
     }
 
 

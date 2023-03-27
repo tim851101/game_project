@@ -75,6 +75,7 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-custom">
                                     <div class="myaccount-tab-menu nav" role="tablist">
+                                        <input id="memNo" type="text" hidden value="1">
                                         <a href="#dashboad" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
                                             Dashboard</a>
                                         <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
@@ -89,7 +90,7 @@
                                             訂位訂單</a>
                                         <a href="#event-edit" data-bs-toggle="tab"><i class="fa fa-trophy"></i>
                                             活動訂單</a>
-                                        <a href="#account-info" data-bs-toggle="tab"><i class="fa fa-user"></i>
+                                        <a href="#account-info" data-bs-toggle="tab" id="myPersonalData"><i class="fa fa-user"></i>
                                             帳號維護</a>
                                         <a href="#password-edit" data-bs-toggle="tab"><i class="fa fa-key"></i>密碼變更</a>
                                         <a href="login.html"><i class="fa fa-sign-out"></i>會員登出</a>
@@ -105,9 +106,9 @@
                                             <div class="myaccount-content">
                                                 <h3>Dashboard</h3>
                                                 <div class="welcome">
-                                                    <p>Hello, <strong>Alex Aya</strong> (If Not <strong>Aya !</strong><a href="javascript:;" class="logout"> Logout</a>)</p>
+                                                    <p>您好, <strong>Alex Aya</strong></p>
                                                 </div>
-                                                <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
+                                                <p class="mb-0">由你的帳戶管理頁面，你可以輕鬆地檢查和查看你最近的訂單與通知，管理你所預約的訂位與活動，以及編輯你的密碼和帳戶詳細資料。</p>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
@@ -400,9 +401,10 @@
                                             <div class="myaccount-content">
                                                 <h3>帳戶維護</h3>
                                                 <div class="account-details-form">
-                                                    <form action="#" method="">
+                                                    <form id="mem-form" action="/mem/save" method="POST">
                                                         <div class="single-input-item mb-3">
-                                                            <input id="" type="text" hidden>
+                                                            <input id="mem_no" type="number" hidden value="">
+                                                            <input type="password" name="" id="mem_password" hidden>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_name" class="form-label">姓名</label>
@@ -434,6 +436,10 @@
                                                             <input type="email" class="form-control" id="mem_email" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
+                                                            <label for="mem_address" class="form-label">地址</label>
+                                                            <input type="text" class="form-control" id="mem_address" required>
+                                                        </div>
+                                                        <div class="single-input-item mb-3">
                                                             <label for="coupon" class="form-label">回饋金</label>
                                                             <input type="text" class="form-control" id="coupon" readonly>
                                                         </div>
@@ -441,11 +447,11 @@
                                                             <label for="" style="width: 80px;padding-bottom: 8px;">預約權限</label>
                                                             <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_on" value="1" readonly>
+                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_on" value="1" disabled>
                                                                     <label class="form-check-label" for="reserve_on">可預約</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_off" value="0" readonly>
+                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_off" value="0" disabled>
                                                                     <label class="form-check-label" for="reserve_off">鎖定中</label>
                                                                 </div>
                                                             </div>
@@ -459,7 +465,7 @@
                                                             <input type="date" class="form-control" id="mem_status" readonly>
                                                         </div>
                                                         <div class="single-input-item single-item-button">
-                                                            <button class="btn obrien-button primary-btn">Save Changes</button>
+                                                            <button id="mem-save" class="btn obrien-button primary-btn">Save Changes</button>
                                                         </div>
                                                     </form>   
                                                 </div>
@@ -510,5 +516,6 @@
     <script src="static/js/main.js"></script>
 
 </body>
+<script src="../js/member.js"></script>
 
 </html>

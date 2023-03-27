@@ -36,6 +36,10 @@ public class OrdersService {
         return EntityToDTO(ordersRepository.findByOrdNo(ordNo));
     }
 
+    public void updateOrdStateByOrdNo(Integer ordNo, Integer ordStatus){
+        ordersRepository.updateOrdStateByOrdNo(ordNo, ordStatus);
+    }
+
 
     private OrdersDTO EntityToDTO(Orders orders) {
         modelMapper.getConfiguration()

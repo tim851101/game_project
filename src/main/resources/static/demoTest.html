@@ -61,8 +61,8 @@
     const inputEmployeeId = document.getElementById('productId');
     const showTable = document.getElementById('show');
 
-    findByIdBtn.addEventListener('click', () => {  //line 53
-        const productId = inputEmployeeId.value;   //line 52 取值
+    findByIdBtn.addEventListener('click', () => {
+        const productId = inputEmployeeId.value;
 
         fetch(`/product/find-one?id=${productId}`) //response
             .then(response => response.json()   //promise 轉 data

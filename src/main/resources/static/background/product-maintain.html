@@ -338,7 +338,7 @@
                         <div class="col-xl-6">
                           <!-- PRODUCT -->
                           <div class="mb-3 row" hidden>
-                            <label class="col-lg-4 col-form-label" for="PD_NO"
+                            <label class="col-lg-4 col-form-label" for="pdNo"
                               >商品編號
                               <span class="text-danger">*</span>
                             </label>
@@ -346,13 +346,13 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_NO"
+                                id="pdNo"
                                 placeholder="Enter a username.."
                               />
                             </div>
                           </div>
                           <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="PD_NAME"
+                            <label class="col-lg-4 col-form-label" for="pdName"
                               >商品名稱
                               <span class="text-danger">*</span>
                             </label>
@@ -360,8 +360,8 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_NAME"
-                                placeholder="Enter a username.."
+                                id="pdName"
+                                placeholder="輸入商品名稱"
                                 required=""
                               />
                               <div class="invalid-feedback">
@@ -372,14 +372,15 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_PRICE"
+                              for="pdPrice"
                               >商品價錢<span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_PRICE"
+                                id="pdPrice"
+                                placeholder="輸入商品價錢"
                                 required=""
                               />
                             </div>
@@ -387,7 +388,7 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_AMOUNT"
+                              for="pdStock"
                               >商品庫存
                               <span class="text-danger">*</span>
                             </label>
@@ -395,7 +396,8 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_AMOUNT"
+                                id="pdStock"
+                                placeholder="輸入商品庫存"
                               />
                             </div>
                             <div class="invalid-feedback">
@@ -407,7 +409,7 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_STATUS"
+                              for="pdStatus"
                               >商品上架狀態
                               <span class="text-danger">*</span>
                             </label>
@@ -416,7 +418,7 @@
                                 <input
                                   class="form-check-input"
                                   type="radio"
-                                  name="PD_STATUS"
+                                  name="pdStatus"
                                   id="offsell"
                                   value="0"
                                 />
@@ -428,7 +430,7 @@
                                 <input
                                   class="form-check-input"
                                   type="radio"
-                                  name="PD_STATUS"
+                                  name="pdStatus"
                                   id="onsell"
                                   value="1"
                                 />
@@ -444,15 +446,15 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_UPDATE"
+                              for="pdUpdate"
                               >近期更新時間
                               <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
                               <input
-                                type="datetime"
+                                type="datetime-local"
                                 class="form-control"
-                                id="PD_UPDATE"
+                                id="pdUpdate"
                               />
                             </div>
                           </div>
@@ -492,7 +494,7 @@
                         <div class="mb-3 row">
                           <label
                             class="col-lg-4 col-form-label"
-                            for="PD_DESCRIPTION"
+                            for="pdDescription"
                             >商品資訊
                             <span class="text-danger">*</span>
                           </label>
@@ -500,7 +502,8 @@
                             <textarea
                               class="form-control"
                               rows="4"
-                              id="PD_DESCRIPTION"
+                              id="pdDescription"
+                              placeholder="輸入商品資訊"
                             ></textarea>
                           </div>
                         </div>
@@ -509,13 +512,51 @@
                           <div
                             class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
                           >
-                            <button type="submit" class="btn btn-primary fs-5">
+                            <button type="submit" class="btn btn-primary fs-5" id="save">
                               確認
                             </button>
                           </div>
                         </div>
                       </div>
                     </form>
+                      <script>
+    $('#proud-form').submit(e => {
+        e.preventDefault();
+        // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒
+        const formData = {
+            'pdNo': +$("#pdNo").val(),
+            'pdName': $("#pdName").val(),
+            'pdPrice': +$("#pdPrice").val(),
+            'pdStock': +$("#pdStock").val(),
+            'pdDescription': $("#pdDescription").val(),
+            'pdStatus': $("#c1").prop('checked'),
+            'pdUpdate': moment($("#pdUpdate").val()).format('YYYY-MM-DD HH:mm:ss')
+        }
+        console.log(formData);
+
+        // Send form data as POST request
+        fetch('/product/save-product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' //一定要設定!
+            },
+            body: JSON.stringify(formData) //轉JOSN字串
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+
+</script>
                     <!-- form end -->
                   </div>
                 </div>
@@ -555,11 +596,14 @@
                             ></label>
                           </div>
                         </th>
-                        <th><strong>ROLL NO.</strong></th>
-                        <th><strong>NAME</strong></th>
-                        <th><strong>Email</strong></th>
-                        <th><strong>Date</strong></th>
-                        <th><strong>Status</strong></th>
+                        <th><strong>商品編號</strong></th>
+                        <th><strong>商品名稱</strong></th>
+                        <th><strong>商品價錢</strong></th>
+                        <th><strong>商品庫存</strong></th>
+                        <th><strong>商品資訊</strong></th>
+                          <th><strong>上架狀態</strong></th>
+                          <th><strong>更新時間</strong></th>
+                          <th><strong>修改或刪除</strong></th>
                         <th><strong></strong></th>
                       </tr>
                     </thead>
@@ -584,12 +628,12 @@
                         <td><strong>542</strong></td>
                         <td>
                           <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/1.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
+<!--                            <img-->
+<!--                              src="static/picture/1.jpg"-->
+<!--                              class="rounded-lg me-2"-->
+<!--                              width="24"-->
+<!--                              alt=""-->
+<!--                            />-->
                             <span class="w-space-no">Dr. Jackson</span>
                           </div>
                         </td>
@@ -641,12 +685,12 @@
                         <td><strong>542</strong></td>
                         <td>
                           <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/2.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
+<!--                            <img-->
+<!--                              src="static/picture/2.jpg"-->
+<!--                              class="rounded-lg me-2"-->
+<!--                              width="24"-->
+<!--                              alt=""-->
+<!--                            />-->
                             <span class="w-space-no">Dr. Jackson</span>
                           </div>
                         </td>
@@ -698,12 +742,12 @@
                         <td><strong>542</strong></td>
                         <td>
                           <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/3.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
+<!--                            <img-->
+<!--                              src="static/picture/3.jpg"-->
+<!--                              class="rounded-lg me-2"-->
+<!--                              width="24"-->
+<!--                              alt=""-->
+<!--                            />-->
                             <span class="w-space-no">Dr. Jackson</span>
                           </div>
                         </td>

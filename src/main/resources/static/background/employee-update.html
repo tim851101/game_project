@@ -16,14 +16,24 @@
     <link href="static/css/owl.carousel.css" rel="stylesheet"/>
     <link rel="stylesheet" href="static/css/nouislider.min.css"/>
 
+    <!-- dataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
     <!-- Style css -->
     <link href="static/css/style.css" rel="stylesheet"/>
 
     <!-- harder sidebar footer import -->
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>-->
     <script src="/background/static/js/template.js"></script>
     <script src="/background/static/js/emp-update.js"></script>
+
+    <style>
+        .error {
+            color: red;
+            font-size: 1px;
+        }
+    </style>
 </head>
 
 <body>
@@ -289,6 +299,13 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">員工帳號管理</h4>
+                            <!--                            <div class="card-body">-->
+                            <button type="button" style="opacity: 0"></button>
+                            <div id="emp-item-group" class="btn-group" style="margin-right: 6.5em">
+                                <button id="btn-emp-add" type="button" class="btn btn-primary">新增</button>
+                                <button id="btn-emp-update" type="button" class="btn btn-primary">更新</button>
+                            </div>
+                            <!--                            </div>-->
                         </div>
                         <div class="card-body">
                             <div class="form-validation">
@@ -298,11 +315,13 @@
                                         <div class="col-xl-6">
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="emp-update-no">員工編號
-                                                    <span class="text-danger">*</span>
+                                                    <span id="emp-no-text" class="text-danger">*</span>
+                                                    <div id="msg-emp-no" class="error"></div>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="number" class="form-control" id="emp-update-no"
                                                            placeholder="Enter a username.." required=""/>
+                                                    <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">
                                                         Please enter a username.
                                                     </div>
@@ -312,10 +331,12 @@
                                                 <label class="col-lg-4 col-form-label"
                                                        for="emp-update-email">Email(帳號)
                                                     <span class="text-danger">*</span>
+                                                    <div id="msg-emp-email" class="error"></div>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" class="form-control" id="emp-update-email"
                                                            placeholder="Your valid email.." required/>
+                                                    <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">
                                                         Please enter a Email.
                                                     </div>
@@ -324,10 +345,12 @@
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="emp-update-pwd">密碼
                                                     <span class="text-danger">*</span>
+                                                    <div id="msg-emp-pwd" class="error"></div>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="password" class="form-control" id="emp-update-pwd"
                                                            placeholder="Choose a safe one.." required/>
+                                                    <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">
                                                         Please enter a password.
                                                     </div>
@@ -335,7 +358,7 @@
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="emp-role">管理權限
-                                                    <span class="text-danger">*</span>
+                                                    <span class="text-danger"></span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <select id="emp-role" class="default-select  form-control wide">
@@ -349,41 +372,45 @@
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="emp-update-name">姓名
                                                     <span class="text-danger">*</span>
+                                                    <div id="msg-emp-name" class="error"></div>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" class="form-control" id="emp-update-name"
-                                                           placeholder="09xx-xxx-xxx" required/>
+                                                           placeholder="Enter your name" required/>
+                                                    <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">請輸入電話.</div>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="emp-update-phone">電話
-                                                    <span class="text-danger">*</span>
+                                                    <span class="text-danger"></span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" class="form-control" id="emp-update-phone"
-                                                           placeholder="09xx-xxx-xxx" required=""/>
+                                                           placeholder="09xxxxxxxx" required=""/>
+                                                    <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">請輸入電話.</div>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="emp-update-addr">通訊地址
-                                                    <span class="text-danger">*</span>
+                                                    <span class="text-danger"></span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="text" class="form-control" id="emp-update-addr"
-                                                           placeholder="" required=""/>
+                                                           placeholder="Your Address" required=""/>
+                                                    <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">請輸入地址</div>
                                                 </div>
                                             </div>
                                             <div class="mb-3 row">
                                                 <label class="col-lg-4 col-form-label" for="">在職狀態
-                                                    <span class="text-danger">*</span>
+                                                    <span class="text-danger"></span>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <div class="form-check form-check-inline">
                                                         <input class="form-check-input" type="radio"
-                                                               name="EMPLOYEE_STATUS" id="emp-onJob"/>
+                                                               name="EMPLOYEE_STATUS" id="emp-onJob" checked/>
                                                         <label class="form-check-label" for="emp-onJob">在職</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
@@ -400,12 +427,8 @@
                                         <div class="mb-3 row">
                                             <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto">
                                                 <button id="emp-update-submit" type="button"
-                                                        class="btn btn-primary fs-5">
+                                                        class="btn btn-primary fs-5" style="margin-right: 3.5em">
                                                     確認
-                                                </button>
-                                                <button type="button" class="btn btn-primary fs-5"
-                                                        style="opacity: 0;">
-                                                    空白
                                                 </button>
                                             </div>
                                         </div>
@@ -432,7 +455,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-responsive-md">
+                            <table id="table-example" class="table table-responsive-md">
                                 <thead>
                                 <tr>
                                     <th><strong>ROLL NO.</strong></th>
@@ -443,9 +466,7 @@
                                     <th><strong></strong></th>
                                 </tr>
                                 </thead>
-                                <tbody id="emp-ls-all">
-
-                                </tbody>
+                                <tbody id="emp-ls-all"></tbody>
                             </table>
                         </div>
                     </div>
@@ -505,6 +526,9 @@
 <script src="static/js/dlabnav-init.js"></script>
 <script src="static/js/demo.js"></script>
 <script src="static/js/styleSwitcher.js"></script>
+
+<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 </body>
 
 </html>

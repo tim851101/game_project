@@ -1,23 +1,64 @@
-
 window.onload = () => {
+    // list all employee
     fetch(`/emp/ls-all`)
         .then(response => response.json()) // promise -> data
         .then(employees => {
             findAll(employees);
         })
-    /**
-     * update submit
-     */
-    const employeeNo = $("#emp-update-no"); // 型態一定要對到
+
+    // get all dom element we need
+    const employeeNo = $("#emp-update-no");
     const employeeName = $("#emp-update-name");
     const employeePhone = $("#emp-update-phone");
     const employeeAddress = $("#emp-update-addr");
     const employeeEmail = $("#emp-update-email");
     const employeePassword = $("#emp-update-pwd");
     const employeeList = document.getElementById("emp-ls-all");
+    const msgEmpNo = $('#msg-emp-no');
+    const msgEmpName = $('#msg-emp-name');
+    const msgEmpEmail = $('#msg-emp-email');
+    const msgEmpPWD = $('#msg-emp-pwd');
 
-    // update employee
+    /**
+     * insert and update sanity checker
+     */
+    employeeNo.blur(e => {
+        if (e.target.value.length == 0) {
+            msgEmpNo.text('更新員工編號必填');
+            return;
+        }
+        msgEmpNo.text('');
+    })
+    employeeName.blur(e => {
+        // if (employeeName.val().length == 0) {
+        if (e.target.value.length == 0) {
+            msgEmpName.text('姓名為必填');
+            return;
+        }
+        msgEmpName.text('');
+    });
+    employeeEmail.blur(e => {
+        // if (employeeName.val().length == 0) {
+        if (e.target.value.length == 0) {
+            msgEmpEmail.text('Email 為必填');
+            return;
+        }
+        msgEmpEmail.text('');
+    });
+    employeePassword.blur(e => {
+        // if (employeeName.val().length == 0) {
+        if (e.target.value.length == 0) {
+            msgEmpPWD.text('密碼為必填');
+            return;
+        }
+        msgEmpPWD.text('');
+    });
+
+    /**
+     * update to database when submit
+     */
     $('#emp-update-submit').click(() => {
+
         if (!employeeName.val() || !employeePassword.val() || !employeeEmail.val()) {
             return;
         }
@@ -65,7 +106,10 @@ window.onload = () => {
             });
     });
 
-    // edit and auto insert update info
+
+    /**
+     * Edit employee info / auto insert update info to upper part table
+     */
     employeeList.addEventListener('click', (e) => {
         const empId = parseInt(e.target.id.split('-')[2]);
         fetch(`/emp/ls-one?id=${empId}`)
@@ -79,11 +123,30 @@ window.onload = () => {
                 employeeAddress.val(emp.employeeAddress);
             })
     }, true);
+
+    /**
+     * Choice Add or Update
+     */
+    $('#emp-item-group').click(e => {
+        if (e.target.id === 'btn-emp-add') {
+            $('#emp-no-text').text('');
+            $("#emp-update-no").prop("disabled", true);
+            $('#emp-update-no').attr('placeholder', 'ID will be generate automatically');
+            msgEmpEmail.text(''); msgEmpName.text(''); msgEmpPWD.text(''); msgEmpNo.text('');
+        } else if (e.target.id === 'btn-emp-update') {
+            $('#emp-no-text').text('*');
+            $("#emp-update-no").prop("disabled", false);
+            msgEmpEmail.text(''); msgEmpName.text(''); msgEmpPWD.text(''); msgEmpNo.text('');
+        }
+    })
 }
 
 // list all
 function findAll(employees) {
-    const empTable = document.getElementById('emp-ls-all');
+    // let empTable = document.getElementById('emp-ls-all');
+    $('#table-example').DataTable().clear().destroy();
+    $('#table-example').DataTable().destroy();
+
     let tdString = "";
     for (const emp of employees) {
         tdString += `
@@ -105,12 +168,28 @@ function findAll(employees) {
                     </td>
                     <td>
                         <div class="d-flex">
-                            <a id="emp-edit-${emp.employeeNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 emp-edit-btn"><i
-                                    class="fas fa-pencil-alt"></i></a>
+                            <a id="emp-edit-${emp.employeeNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 emp-edit-btn">
+                            <i id="emp-i-${emp.employeeNo}" class="fas fa-pencil-alt"></i></a>
                         </div>
                     </td>
-                </tr>
-           `;
+                </tr>`;
     }
-    empTable.innerHTML = tdString;
+    // empTable.innerHTML = tdString;
+    $('#emp-ls-all').html(tdString);
+
+    /**
+     * add pagination
+     * @type {*|jQuery}
+     */
+    $('#table-example').DataTable({
+        paging: true,
+        pageLength: 3,
+        language: {
+            paginate: {
+                previous: '<i class="fa fa-chevron-left"></i>',
+                next: '<i class="fa fa-chevron-right"></i>'
+            }
+        }
+        // ...
+    });
 }

@@ -14,8 +14,8 @@ import webapp.employee.pojo.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Boolean existsByEmployeeNameAndEmployeePassword(String name, String password);
-    @Modifying
     @Transactional
+    @Modifying
     @Query("UPDATE Employee e SET e.employeeStatus = :status WHERE e.employeeNo = :id")
     void updateEmployeeStatus(@Param("id") Integer id, @Param("status") Boolean status);
 

@@ -33,12 +33,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public EmployeeDTO findById(Integer id) {
-        Optional<Employee> optional = employeeRepository.findById(id);
-        if (optional.isPresent()) {
-            return modelMapper.map(optional.get(), EmployeeDTO.class);
-        } else {
-            return modelMapper.map(new Employee(), EmployeeDTO.class);
-        }
+//        Optional<Employee> optional = employeeRepository.findById(id);
+//        if (optional.isPresent()) {
+//            return modelMapper.map(optional.get(), EmployeeDTO.class);
+//        } else {
+//            return modelMapper.map(new Employee(), EmployeeDTO.class);
+//        }
+        return employeeRepository.findByEmpId(id);
     }
 
     public Boolean saveEmployee(EmployeeDTO dto) {

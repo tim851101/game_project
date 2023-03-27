@@ -23,4 +23,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
         " employeeAddress, employeeEmail, employeePassword, roleNo, employeeStatus)" +
         " FROM Employee")
     List<EmployeeDTO> findAllDTO();
+
+    @Query("SELECT new webapp.employee.dto.EmployeeDTO(employeeNo, employeeName, employeePhone," +
+        " employeeAddress, employeeEmail, employeePassword, roleNo, employeeStatus)" +
+        " FROM Employee WHERE employeeNo= :id")
+    EmployeeDTO findByEmpId(@Param("id") Integer id);
 }

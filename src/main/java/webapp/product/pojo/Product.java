@@ -33,7 +33,7 @@ public class Product {
     private String pdDescription;
 
     @Column(name = "PD_STATUS")
-    private Integer pdStatus;
+    private Boolean pdStatus;
 
     @Column(name = "PD_UPDATE")
     private Timestamp pdUpdate;

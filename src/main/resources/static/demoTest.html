@@ -64,7 +64,6 @@
     findByIdBtn.addEventListener('click', () => {  //line 53
         const productId = inputEmployeeId.value;   //line 52 取值
 
-
         fetch(`/product/find-one?id=${productId}`) //response
             .then(response => response.json()   //promise 轉 data
             )

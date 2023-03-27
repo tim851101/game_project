@@ -33,12 +33,12 @@ public class Employee {
     @Column(name = "EMPLOYEE_EMAIL", nullable = false)
     private String employeeEmail;
 
-    @Column(name = "EMPLOYEE_PASSWORD", nullable = false)
+    @Column(name = "EMPLOYEE_PASSWORD", nullable = false, updatable = false)
     private String employeePassword;
 
-    @Column(name = "ROLE_NO")
+    @Column(name = "ROLE_NO", updatable = false)
     private Integer roleNo;
 
-    @Column(name = "EMPLOYEE_STATUS")
+    @Column(name = "EMPLOYEE_STATUS", updatable = false)
     private Boolean employeeStatus;
 }

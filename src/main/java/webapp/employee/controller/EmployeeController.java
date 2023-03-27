@@ -8,11 +8,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
 import webapp.employee.dto.LoginDTO;
+import webapp.employee.dto.PwdIdDTO;
 import webapp.employee.service.EmployeeService;
 
-@Controller
+@RestController
 @RequestMapping("/emp")
 public class EmployeeController {
     final EmployeeService employeeService;
@@ -22,32 +25,42 @@ public class EmployeeController {
     }
 
     @PostMapping("/login-check")
-    @ResponseBody
     public Boolean loginCheck(@RequestBody LoginDTO loginDTO) {
         return employeeService.loginCheck(loginDTO);
     }
 
     @PostMapping("/save")
-    @ResponseBody
     public Boolean saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
         return employeeService.saveEmployee(employeeDTO);
     }
 
     @GetMapping("/ls-one")
-    @ResponseBody
     public EmployeeDTO findById(@RequestParam Integer id) {
         return employeeService.findById(id);
     }
 
     @GetMapping("/set-status")
-    @ResponseBody
     public Boolean updateStatus(@RequestParam Integer id, @RequestParam Boolean status) {
         return employeeService.updateStatus(id, status);
     }
 
     @GetMapping("/ls-all")
-    @ResponseBody
     public List<EmployeeDTO> listAll(){
         return employeeService.findAllDTO();
+    }
+
+    @GetMapping("/ls-one-join-role")
+    public EmpRoleDTO findOneJoinRole(@RequestParam Integer id) {
+        return employeeService.findJoinRoleById(id);
+    }
+
+    @GetMapping("/ls-one-pwd")
+    public String findPwdById(@RequestParam Integer id){
+        return employeeService.findPwdById(id);
+    }
+
+    @PostMapping("/save-one-pwd")
+    public Integer savePwdById(@RequestBody PwdIdDTO dto) {
+        return employeeService.savePwdById(dto.getPassword(), dto.getId());
     }
 }

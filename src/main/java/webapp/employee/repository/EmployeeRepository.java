@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
 import webapp.employee.pojo.Employee;
 
@@ -14,6 +15,7 @@ import webapp.employee.pojo.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     Boolean existsByEmployeeNameAndEmployeePassword(String name, String password);
+
     @Transactional
     @Modifying
     @Query("UPDATE Employee e SET e.employeeStatus = :status WHERE e.employeeNo = :id")
@@ -28,4 +30,24 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
         " employeeAddress, employeeEmail, employeePassword, roleNo, employeeStatus)" +
         " FROM Employee WHERE employeeNo= :id")
     EmployeeDTO findByEmpId(@Param("id") Integer id);
+
+    @Query(
+        "SELECT new webapp.employee.dto.EmpRoleDTO(e.employeeNo, e.employeeName, e.employeePhone, " +
+            "e.employeeAddress, e.employeeEmail, e.employeePassword, e.roleNo, e.employeeStatus, r.roleName) " +
+            "FROM Employee e JOIN Role r ON e.roleNo = r.roleNo")
+    List<EmpRoleDTO> findAllJoinDTO();
+
+    @Query(
+        "SELECT new webapp.employee.dto.EmpRoleDTO(e.employeeNo, e.employeeName, e.employeePhone, " +
+            "e.employeeAddress, e.employeeEmail, e.employeePassword, e.roleNo, e.employeeStatus, r.roleName) " +
+            "FROM Employee e JOIN Role r ON e.roleNo = r.roleNo WHERE e.employeeNo= :id")
+    EmpRoleDTO findJoinRoleById(@Param("id") Integer id);
+
+    @Query("SELECT employeePassword FROM Employee WHERE employeeNo= :id")
+    String findPwdById(@Param("id") Integer id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Employee e SET e.employeePassword = :password WHERE e.employeeNo = :id")
+    Integer savePwdById(@Param("password") String pwd, @Param("id") Integer id);
 }

@@ -21,6 +21,4 @@ public class OrderListController {
         return orderListService.getAllByOrdNo(ordNo);
     }
 
-
-
 }

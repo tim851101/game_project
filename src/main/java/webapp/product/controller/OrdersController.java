@@ -20,8 +20,14 @@ public class OrdersController {
         return ordersService.getOneByOrdNo(ordNo);
     }
 
-@PostMapping ("/save")
+    @PostMapping ("/save")
     public void saveOrder(@RequestBody OrdersDTO ordersDTO){
         ordersService.saveOrders(ordersDTO);
     }
+
+    @GetMapping("/updateOrdState")
+    public void updateOrdStateByOrdNo(Integer ordNo, Integer ordStatus){
+        ordersService.updateOrdStateByOrdNo(ordNo, ordStatus);
+    }
+
 }

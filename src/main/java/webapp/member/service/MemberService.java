@@ -1,17 +1,21 @@
 package webapp.member.service;
 
+import org.springframework.stereotype.Component;
 import webapp.member.dto.LoginDTO;
-import webapp.member.dto.RegisterDTO;
+import webapp.member.dto.MemberDTO;
 
-import java.util.List;
-
-
-//@Service
+@Component
 public interface MemberService  {
 
-    Boolean addMember(RegisterDTO dto);
+    Boolean addMember(MemberDTO dto);
     Boolean memberLogin(LoginDTO loginDTO);
 
-    RegisterDTO findById(Integer id);
+    Boolean saveMember(MemberDTO dto);
+
+    MemberDTO findById(Integer id);
+
+    MemberDTO findByMemEmail(String memEmail);
+
+
 
 }

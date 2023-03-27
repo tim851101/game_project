@@ -1,10 +1,8 @@
 package webapp.member.pojo;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,43 +16,41 @@ import java.util.Date;
 @Table(name = "MEMBERS")
 public class Members {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEM_NO")
     private Integer memNo;
 
-    @Column(name = "MEM_NAME")
+    @Column(name = "MEM_NAME",nullable = true)
     private String memName;
 
-    @Column(name = "MEM_GENDER")
+    @Column(name = "MEM_GENDER",nullable = true)
     private Byte memGender;
 
-    @Column(name = "MEM_PIC")
-    private byte[] memPic;
-
-    @Column(name = "MEM_EMAIL")
+    @Column(name = "MEM_EMAIL",nullable = true)
     private String memEmail;
 
-    @Column(name = "MEM_PASSWORD")
+    @Column(name = "MEM_PASSWORD",nullable = true)
     private String memPassword;
 
-    @Column(name = "MEM_PHONE")
+    @Column(name = "MEM_PHONE",nullable = true)
     private String memPhone;
 
-    @Column(name = "MEM_ADDRESS")
+    @Column(name = "MEM_ADDRESS",nullable = true)
     private String memAddress;
 
     @Column(name = "MEM_BIRTHDAY")
     private Date memBirthday;
 
-    @Column(name = "COUPON")
+    @Column(name = "COUPON",insertable = false,updatable = false)
     private Integer coupon;
 
-    @Column(name = "RESERVE_AUTH")
+    @Column(name = "RESERVE_AUTH",insertable = false,updatable = false)
     private Boolean reserveAuth;
 
-    @Column(name = "MEM_VIO")
+    @Column(name = "MEM_VIO",insertable = false,updatable = false)
     private Integer memVIO;
 
-    @Column(name = "MEM_STATUS")
+    @Column(name = "MEM_STATUS",insertable = false,updatable = false)
     private Date memStatus;
 
 

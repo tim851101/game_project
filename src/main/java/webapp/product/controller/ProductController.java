@@ -3,7 +3,7 @@ package webapp.product.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import webapp.product.dto.ProductDTO;
-import webapp.product.dto.ProductLoginDTO;gi
+import webapp.product.dto.ProductLoginDTO;
 import webapp.product.service.ProductService;
 
 

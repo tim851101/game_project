@@ -1,6 +1,7 @@
 package webapp.employee.service;
 
 import java.util.List;
+import webapp.employee.dto.EmpLimitDTO;
 import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
 import webapp.employee.dto.LoginDTO;
@@ -15,4 +16,5 @@ public interface EmployeeService {
     Integer savePwdById(String pwd, Integer id);
     String findPwdById(Integer id);
 
+    void updateEmployeePartial(EmpLimitDTO empPartial);
 }

@@ -5,6 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import webapp.employee.dto.EmpLimitDTO;
 import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
 import webapp.employee.dto.LoginDTO;
@@ -84,5 +85,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public String findPwdById(Integer id) {
         return employeeRepository.findPwdById(id);
+    }
+
+    public void updateEmployeePartial(EmpLimitDTO partial) {
+        employeeRepository.updateEmployeePartial(partial.getEmployeeNo(), partial.getEmployeeName(),
+            partial.getEmployeePhone(), partial.getEmployeeAddress(), partial.getEmployeeEmail());
     }
 }

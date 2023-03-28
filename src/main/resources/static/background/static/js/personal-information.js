@@ -24,6 +24,9 @@ window.onload = () => {
             employeeRole.val(emp.roleName);
         })
 
+    /**
+     * sanity check
+     */
     $('#old-pwd').blur(e => {
         fetch(`/emp/ls-one-pwd?id=${dummyId}`)
             .then(response => response.text()) // promise -> data
@@ -55,6 +58,9 @@ window.onload = () => {
         }
     })
 
+    /**
+     * update password
+     */
     $('#emp-update-btn').click(e => {
         console.log($('#check-pwd').val())
         fetch('/emp/save-one-pwd', {
@@ -73,20 +79,21 @@ window.onload = () => {
                 }
             })
     })
+
+    /**
+     * update personal information
+     */
     $('#emp-update-submit').click( () => {
         const formData = {
             'employeeNo': dummyId, // 型態一定要對到
             'employeeName': employeeName.val(),
             'employeePhone': employeePhone.val(),
             'employeeAddress': employeeAddress.val(),
-            'employeeEmail': employeeEmail.val(),
-            'employeePassword': employeePassword.val(),
-            'roleNo': +employeeRole.val(),
-            'employeeStatus': 1
+            'employeeEmail': employeeEmail.val()
         }
-        console.log(formData);
+        console.log('fromData', formData);
 
-        fetch('/emp/save', {
+        fetch('/emp/save-one-part', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -1,14 +1,13 @@
 package webapp.employee.controller;
 
 import java.util.List;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import webapp.employee.dto.EmpLimitDTO;
 import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
 import webapp.employee.dto.LoginDTO;
@@ -62,5 +61,10 @@ public class EmployeeController {
     @PostMapping("/save-one-pwd")
     public Integer savePwdById(@RequestBody PwdIdDTO dto) {
         return employeeService.savePwdById(dto.getPassword(), dto.getId());
+    }
+
+    @PostMapping("/save-one-part")
+    public void saveEmpPartial(@RequestBody EmpLimitDTO dto) {
+        employeeService.updateEmployeePartial(dto);
     }
 }

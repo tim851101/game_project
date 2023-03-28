@@ -50,4 +50,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Modifying
     @Query("UPDATE Employee e SET e.employeePassword = :password WHERE e.employeeNo = :id")
     Integer savePwdById(@Param("password") String pwd, @Param("id") Integer id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Employee e SET e.employeeName = :employeeName, e.employeePhone = :employeePhone, e.employeeAddress = :employeeAddress, e.employeeEmail = :employeeEmail WHERE e.employeeNo = :employeeNo")
+    void updateEmployeePartial(@Param("employeeNo") Integer employeeNo, @Param("employeeName") String employeeName, @Param("employeePhone") String employeePhone, @Param("employeeAddress") String employeeAddress, @Param("employeeEmail") String employeeEmail);
 }

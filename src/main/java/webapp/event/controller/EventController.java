@@ -7,6 +7,7 @@ import webapp.event.service.EventServiceImpl;
 
 import java.util.List;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/event")
 public class EventController {

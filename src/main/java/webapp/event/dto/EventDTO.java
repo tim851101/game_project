@@ -1,8 +1,10 @@
 package webapp.event.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 @Data
 public class EventDTO {
@@ -19,10 +21,10 @@ public class EventDTO {
     private String eventWinner2;
     private String eventWinner3;
     private Byte eventStatus;
-    private Date signupStartTime;
-    private Date signupDeadline;
+    private Timestamp signupStartTime;
+    private Timestamp signupDeadline;
 
-    private Date eventPic;
+    private byte[] eventPic;
 
 
 }

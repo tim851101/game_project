@@ -1,11 +1,13 @@
 package webapp.event.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 
 @Data // Lombok: Gene getter/setter by @getter/@setter
 @AllArgsConstructor // Lombok: Auto gene args constructor
@@ -14,14 +16,13 @@ import java.sql.Time;
 @Table(name = "EVENT")// JPA: specify the table this class mapping to
 public class Event {
 
-    //    @GeneratedValue(strategy = GenerationType.IDENTITY) // AI
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EVENT_NO",insertable = false)
     private Integer eventNo;
     @Column(name = "EVENT_NAME", nullable = false)
     private String eventName;
-    @Column(name = "EVENT_DISC", insertable = false)
+    @Column(name = "EVENT_DISC")
     private String eventDisc;
     @Column(name = "EVENT_DATE")
     private Date eventDate;
@@ -44,10 +45,12 @@ public class Event {
     @Column(name = "EVENT_STATUS")
     private Byte eventStatus;
     @Column(name = "SIGNUP_START_TIME")
-    private Date signupStartTime;
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp signupStartTime;
     @Column(name = "SIGNUP_DEADLINE")
-    private Date signupDeadline;
+    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    private Timestamp signupDeadline;
 
     @Column(name = "EVENT_PIC")
-    private Date eventPic;
+    private byte[] eventPic;
 }

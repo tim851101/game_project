@@ -30,12 +30,14 @@ public class OrdersService {
         return ordersRepository.findAllJoinMemName();
     }
 
-    public void saveOrders(OrdersDTO ordersDTO){
+    public Integer saveOrders(OrdersDTO ordersDTO){
         Orders orders = modelMapper.map(ordersDTO,Orders.class );
         orders.setOrdCreate((new java.sql.Date(System.currentTimeMillis())));
         orders.setOrdFinish(null);
         orders.setOrdPayStatus(0);
-        ordersRepository.save(orders);
+        orders.setOrdStatus(0);
+        orders = ordersRepository.save(orders);
+        return orders.getOrdNo();
     }
 
     public OrdersDTO getOneByOrdNo(Integer ordNo){

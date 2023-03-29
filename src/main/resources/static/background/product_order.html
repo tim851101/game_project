@@ -14,7 +14,7 @@
 
   <link href="static/css/nice-select.css" rel="stylesheet">
   <link href="static/css/style.css" rel="stylesheet">
-<!--    <link href="static/css/jquery.dataTables.min.css" rel="stylesheet">-->
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
 
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="/background/static/js/template.js"></script>
@@ -332,11 +332,10 @@
                                             <th class="align-middle text-center" style="font-size: 10px;">收件人電話</th>
                                             <th class="align-middle text-center" style="font-size: 10px;">訂單明細</th>
                                             <th class="align-middle text-center" style="font-size: 10px;">修改狀態</th>
-                                            <th class="no-sort"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="orders">
-                                        <tr class="btn-reveal-trigger">
+                                        <!-- <tr class="btn-reveal-trigger">
                                             <td id= "ordNo0" class="py-2 text-center">7001</td>
                                             <td class="py-2 text-center">你好啊</td>
                                             <td class="py-2 text-center">20/04/2020</td>
@@ -357,18 +356,21 @@
                                                 <div class="dropdown text-center"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
                                                     <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
                                                         <div class="py-2">
-                                                            <button id ="but" class="dropdown-item" onclick="but(0,0)">未出貨</button>
-                                                            <button id ="but" class="dropdown-item" onclick="but(0,1)">已出貨</button>
-                                                            <button id ="but" class="dropdown-item" onclick="but(0,2)">已到貨</button>
-                                                            <button id ="but" class="dropdown-item" onclick="but(0,3)">退貨申請</button>
-                                                            <button id ="but" class="dropdown-item" onclick="but(0,4)">退貨成功</button>
-                                                            <button id ="but" class="dropdown-item" onclick="but(0,5)">訂單完成</button>
-                                                            <button id ="but" class="dropdown-item" onclick="but(0,6)">訂單取消</button>
+                                                            <button  class="dropdown-item" onclick="but(0,0)">未出貨</button>
+                                                            <button  class="dropdown-item" onclick="but(0,1)">已出貨</button>
+                                                            <button  class="dropdown-item" onclick="but(0,2)">已到貨</button>
+                                                            <button  class="dropdown-item" onclick="but(0,3)">退貨申請</button>
+                                                            <button  class="dropdown-item" onclick="but(0,4)">退貨成功</button>
+                                                            <button  class="dropdown-item" onclick="but(0,5)">訂單完成</button>
+                                                            <button  class="dropdown-item" onclick="but(0,6)">訂單取消</button>
+                                                            <div class="dropdown-divider"></div>
+                                                            <button  class="dropdown-item" onclick="">已付款</button>
+                                                            <button  class="dropdown-item" onclick="">未付款</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
@@ -418,7 +420,7 @@
   <script src="static/js/dlabnav-init.js"></script>
   <script src="static/js/demo.js"></script>
   <script src="static/js/styleSwitcher.js"></script>
-<!--  <script src="static/js/jquery.dataTables.min.js"></script>-->
+  <!-- <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
   <script src="static/js/orders.js"></script>
 </body>
 

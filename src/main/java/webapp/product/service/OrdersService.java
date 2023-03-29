@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import webapp.product.dto.BackOrdersDTO;
 import webapp.product.dto.OrdersDTO;
 import webapp.product.pojo.Orders;
 import webapp.product.repository.OrdersRepository;
@@ -25,8 +26,15 @@ public class OrdersService {
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
+    public List<BackOrdersDTO> findAllJoinMemName(){
+        return ordersRepository.findAllJoinMemName();
+    }
+
     public void saveOrders(OrdersDTO ordersDTO){
         Orders orders = modelMapper.map(ordersDTO,Orders.class );
+        orders.setOrdCreate((new java.sql.Date(System.currentTimeMillis())));
+        orders.setOrdFinish(null);
+        orders.setOrdPayStatus(0);
         ordersRepository.save(orders);
     }
 

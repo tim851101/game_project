@@ -78,26 +78,26 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
-                                            <label>收件人 <span class="required">*</span></label>
-                                            <input placeholder="" type="text">
+                                            <label for="recipient">收件人<span class="required text-danger">*</span></label>
+                                            <input id="recipient" name="recipient" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
-                                            <label>收件人地址 <span class="required">*</span></label>
-                                            <input type="text">
+                                            <label for="recipientAddres">收件人地址<span class="required text-danger">*</span></label>
+                                            <input id="recipientAddres" name="recipientAddres" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
-                                            <label>收件人電話 <span class="required">*</span></label>
-                                            <input type="text">
+                                            <label for="recipientPh">收件人電話<span class="required text-danger">*</span></label>
+                                            <input id="recipientPh" name="recipientPh" type="text">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
-                                            <label>取貨方式 <span class="required">*</span></label>
-                                            <select class="form-select" aria-label="Default select example">
+                                            <label>取貨方式<span class="required text-danger">*</span></label>
+                                            <select id="ordPick" name="ordPick" class="form-select" aria-label="Default select example">
                                                 <option value="2"selected>宅配</option>
                                                 <option value="1">超商取貨</option>
                                                 <option value="0">店面取貨</option>
@@ -106,8 +106,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="checkout-form-list">
-                                            <label>付款方式 <span class="required">*</span></label>
-                                            <select class="form-select" aria-label="Default select example">
+                                            <label>付款方式<span class="required text-danger">*</span></label>
+                                            <select id="ordPayStatus" name="ordPayStatus" class="form-select" aria-label="Default select example">
                                                 <option value="0"selected>ATM轉帳</option>
                                                 <option value="1">超商繳費</option>
                                                 <option value="2">信用卡</option>
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                     <div class="payment">
-                                        <a href="#"><img class="border" src="static/picture/img-payment.png" alt="Payment"></a>
+                                        <a href="javascript:void(0)"><img class="border" src="static/picture/img-payment.png" alt="Payment"></a>
                                     </div>
                                 </div>
                             </div>
@@ -134,28 +134,26 @@
                                     </thead>
                                     <tbody>
                                         <tr class="cart_item">
-                                            <td class="cart-product-name"> 卡卡頌<strong class="product-quantity">
-                                    × 1</strong></td>
-                                            <td class="cart-product-total text-center"><span class="amount">$165.00</span></td>
+                                            <td class="cart-product-name"><span>卡卡頌<strong class="product-quantity">× 1</strong></span></td>
+                                            <td class="cart-product-total text-center">$<span class="amount">165</span></td>
                                         </tr>
                                         <tr class="cart_item">
-                                            <td class="cart-product-name"> 矮人礦坑<strong class="product-quantity">
-                                    × 1</strong></td>
-                                            <td class="cart-product-total text-center"><span class="amount">$165.00</span></td>
+                                            <td class="cart-product-name"><span>矮人礦坑<strong class="product-quantity">× 1</strong></span></td>
+                                            <td class="cart-product-total text-center">$<span class="amount">165</span></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr class="cart-subtotal">
                                             <th>運費</th>
-                                            <td class="text-center"><span class="amount">$215.00</span></td>
+                                            <td class="text-center">$<span id="ordFee" class="amount">100</span></td>
                                         </tr>
                                         <tr class="">
-                                            <th>使用回饋金</th>
-                                            <td class="text-center"><span class="amount">-$215.00</span></td>
+                                            <th>折抵回饋金</th>
+                                            <td class="text-center">-$<span id="useCoupon" class="amount">215</span></td>
                                         </tr>
                                         <tr class="order-total">
-                                            <th>總金額</th>
-                                            <td class="text-center"><strong><span class="amount">$215.00</span></strong></td>
+                                            <th>應付金額</th>
+                                            <td class="text-center"><strong>$<span id="actualAmount" class="amount">215</span></strong></td>
                                         </tr>
                                     </tfoot>
                                 </table>

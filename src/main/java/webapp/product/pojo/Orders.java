@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import webapp.member.pojo.Members;
 
+import java.lang.reflect.Member;
 import java.sql.Date;
 
 @Data
@@ -45,4 +47,8 @@ public class Orders {
     private String recipientAddres;
     @Column(name="RECIPIENT_PH")
     private String recipientPh;
+
+    @ManyToOne
+    @JoinColumn(name = "MEM_NO",insertable = false,updatable = false)
+    private Members members;
 }

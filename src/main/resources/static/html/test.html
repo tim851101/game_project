@@ -12,10 +12,10 @@
 <body>
     <form id="order-form">
         <table>
-            <tr>
+            <!-- <tr>
                 <td>訂單編號:</td>
                 <td><input type="text" name="ordNo" id="ordNo" value="11"></td>
-            </tr>
+            </tr> -->
             <tr>
                 <td>會員編號:</td>
                 <td><input type="text" name="memNo" id="memNo" value="1"></td>
@@ -52,21 +52,21 @@
                     </select>
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td>付款狀態:</td>
                 <td>
                     <input id="ordPayStatus" type="radio" name="ordPayStatus" value="1"> 已付款
                     <input id="ordPayStatus" type="radio" name="ordPayStatus" value="0"> 未付款
                 </td>
-            </tr>
-            <tr>
+            </tr> -->
+            <!-- <tr>
                 <td>訂單完成時間:</td>
                 <td><input name="ordCreate" id="ordCreate" type="text" value="2011-10-30"></td>
             </tr>
             <tr>
                 <td>訂單完成時間:</td>
                 <td><input name="ordFinish" id="ordFinish" type="text" value="2012-10-30"></td>
-            </tr>
+            </tr> -->
             <tr>
                 <td>總金額:</td>
                 <td><input type="text" name="totalAmount" id="totalAmount" value="1000"></td>
@@ -140,15 +140,11 @@
             e.preventDefault();
             // type must be the samew
             const formData = {
-                "ordNo": +$("#ordNo").val(),
                 "memNo": +$("#memNo").val(),
                 "useCoupon": +$("#useCoupon").val(),
                 "ordFee": +$("#ordFee").val(),
                 "ordStatus": +$("#ordStatus").val(),
-                "ordCreate": day,
                 "ordPick": +$("#ordPick").val(),
-                "ordPayStatus": +$("#ordPayStatus").val(),
-                "ordFinish": $("#ordFinish").val(),
                 "totalAmount": +$("#totalAmount").val(),
                 "actualAmount": +$("#actualAmount").val(),
                 "recipient": $("#recipient").val(),
@@ -156,21 +152,16 @@
                 "recipientPh": $("#recipientPh").val()
             }
             console.log(formData);
-
             // Send form data as POST request
             fetch('/ord/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
+                .then(response => response.json()
+                )
                 .then(data => {
                     console.log(data);
                 })

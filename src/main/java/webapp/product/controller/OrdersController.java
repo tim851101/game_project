@@ -27,8 +27,7 @@ public class OrdersController {
     @PostMapping ("/save")
     @ResponseBody
     public Integer saveOrder(@RequestBody OrdersDTO ordersDTO){
-    ordersService.saveOrders(ordersDTO);
-        return 87;
+    return ordersService.saveOrders(ordersDTO);
     }
 
     @GetMapping("/updateOrdState")

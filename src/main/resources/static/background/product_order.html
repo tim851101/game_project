@@ -14,10 +14,11 @@
 
   <link href="static/css/nice-select.css" rel="stylesheet">
   <link href="static/css/style.css" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="/background/static/js/template.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 
 </head>
 
@@ -317,10 +318,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="table1" class="table table-sm mb-0">
+                                <table id="table-1" class="table table-sm mb-0 display compact">
                                     <thead>
                                         <tr>
-                                            <th class="align-middle text-center" style="font-size: 10px;">訂單編號</th>
+                                            <th class="align-middle text-center" style="font-size: 10px;">編號</th>
                                             <th class="align-middle text-center" style="font-size: 10px;">會員姓名</th>
                                             <th class="align-middle text-center" style="font-size: 10px;">下單日期</th>
                                             <th class="align-middle text-center" style="font-size: 10px;">實付金額</th>
@@ -330,7 +331,7 @@
                                             <th class="align-middle text-center" style="font-size: 10px;">收件人</th>
                                             <th class="align-middle text-center" style="min-width: 10em; font-size: 10px;">收件地址</th>
                                             <th class="align-middle text-center" style="font-size: 10px;">收件人電話</th>
-                                            <th class="align-middle text-center" style="font-size: 10px;">訂單明細</th>
+                                            <th class="align-middle text-center" style="font-size: 10px;">明細</th>
                                             <th class="align-middle text-center" style="font-size: 10px;">修改狀態</th>
                                         </tr>
                                     </thead>
@@ -420,7 +421,7 @@
   <script src="static/js/dlabnav-init.js"></script>
   <script src="static/js/demo.js"></script>
   <script src="static/js/styleSwitcher.js"></script>
-  <!-- <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script> -->
+ <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
   <script src="static/js/orders.js"></script>
 </body>
 

@@ -24,6 +24,10 @@ public class OrderListService {
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
+    public void saveOrderList(OrderListDTO orderListDTO){
+        OrderList orderlist =  modelMapper.map(orderListDTO,OrderList.class);
+        orderListRepository.save(orderlist);
+    }
 
 
 

@@ -50,6 +50,10 @@ public class OrdersService {
         ordersRepository.updateOrdStateByOrdNo(ordNo, ordStatus);
     }
 
+    public void updateOrdPayStateByOrdNo(Integer ordNo, Integer ordPayStatus){
+        ordersRepository.updateOrdPayStateByOrdNo(ordNo, ordPayStatus);
+    }
+
 
     private OrdersDTO EntityToDTO(Orders orders) {
         modelMapper.getConfiguration()

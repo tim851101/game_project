@@ -1,9 +1,7 @@
 package webapp.product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import webapp.product.dto.OrderListDTO;
 import webapp.product.dto.OrdersDTO;
 import webapp.product.service.OrderListService;
@@ -21,4 +19,9 @@ public class OrderListController {
         return orderListService.getAllByOrdNo(ordNo);
     }
 
+    @PostMapping("/save")
+    @ResponseBody
+    public void saveOrderList(@RequestBody OrderListDTO orderListDTO ){
+        orderListService.saveOrderList(orderListDTO);
+    }
 }

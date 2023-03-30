@@ -1,8 +1,7 @@
-
 $('#button_submit').click(e => {
     e.preventDefault();
     // type must be the samew
-    const formData = {
+    const ordFormData = {
         // "memNo": +$("#memNo").val(),
         "memNo": 10,
         "useCoupon": +$("#useCoupon").text(),
@@ -14,22 +13,45 @@ $('#button_submit').click(e => {
         "recipientAddres": $("#recipientAddres").val(),
         "recipientPh": $("#recipientPh").val()
     }
-    console.log(formData);
     // Send form data as POST request
     fetch('/ord/save', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(ordFormData),
     })
-        .then(response => response.json()
-        )
-        .then(data => {
-            const ordNo = data;
+        .then((response) =>{ 
+            return response.text();
         })
-        .catch(error => {
+        .then((data) => {
+            saveOrdList(+data,10,10,1000);
+            saveOrdList(+data,3,10,1000);
+            saveOrdList(+data,2,10,1000);
+        })
+        .catch((error) => {
             console.error('There was a problem with the fetch operation:', error);
         });
-        console.log(ordNo);
 });
+
+
+function saveOrdList(ordNo,pdNo,qty,price){
+    const ordListData ={
+        "ordNo": +ordNo,
+        "pdNo": +pdNo,
+        "qty": +qty,
+        "price": +price
+    };
+    console.log(ordListData);
+    fetch('/ordList/save',{
+        method: 'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify(ordListData),
+    }).then(response =>{ 
+        console.log(response);
+    }).catch(error => {
+        console.error('There was a problem with the fetch operation:', error);
+    });
+}

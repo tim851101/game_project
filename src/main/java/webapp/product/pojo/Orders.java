@@ -48,7 +48,7 @@ public class Orders {
     @Column(name="RECIPIENT_PH")
     private String recipientPh;
 
-    @ManyToOne
-    @JoinColumn(name = "MEM_NO",insertable = false,updatable = false)
-    private Members members;
+//    @ManyToOne
+//    @JoinColumn(name = "MEM_NO",insertable = false,updatable = false)
+//    private Members members;
 }

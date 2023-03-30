@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webapp.product.dto.BackOrdersDTO;
 import webapp.product.dto.OrdersDTO;
+import webapp.product.dto.OrdersPayStatusDTO;
+import webapp.product.dto.OrdersStatusDTO;
 import webapp.product.service.OrdersService;
 
 import java.util.List;
@@ -30,9 +32,16 @@ public class OrdersController {
     return ordersService.saveOrders(ordersDTO);
     }
 
-    @GetMapping("/updateOrdState")
-    public void updateOrdStateByOrdNo(Integer ordNo, Integer ordStatus){
-        ordersService.updateOrdStateByOrdNo(ordNo, ordStatus);
+    @PostMapping ("/updateOrdState")
+    @ResponseBody
+    public void updateOrdStateByOrdNo(@RequestBody OrdersStatusDTO ordersStatusDTO){
+    ordersService.updateOrdStateByOrdNo(ordersStatusDTO.getOrdNo() , ordersStatusDTO.getOrdStatus() );
+    }
+
+    @PostMapping ("/updateOrdPayState")
+    @ResponseBody
+    public void updateOrdStatePayByOrdNo(@RequestBody OrdersPayStatusDTO ordersPayStatusDTO){
+        ordersService.updateOrdPayStateByOrdNo(ordersPayStatusDTO.getOrdNo() , ordersPayStatusDTO.getOrdPayStatus() );
     }
 
 }

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <title>test</title>
+
+
+</head>
+
+<body>
+    <form id="order-form">
+        <table>
+            <!-- <tr>
+                <td>訂單編號:</td>
+                <td><input type="text" name="ordNo" id="ordNo" value="11"></td>
+            </tr> -->
+            <tr>
+                <td>會員編號:</td>
+                <td><input type="text" name="memNo" id="memNo" value="1"></td>
+            </tr>
+            <tr>
+                <td>折抵回饋金:</td>
+                <td><input type="text" name="useCoupon" id="useCoupon" value="100"></td>
+            </tr>
+            <tr>
+                <td>運費:</td>
+                <td><input type="text" name="ordFee" id="ordFee" value="100"></td>
+            </tr>
+            <!-- <tr>
+                <td>訂單狀態:</td>
+                <td>
+                    <select name="ordStatus" id="ordStatus">
+                        <option value="0">未出貨</option>
+                        <option value="1">已出貨</option>
+                        <option value="2">已到貨</option>
+                        <option value="3">退貨申請</option>
+                        <option value="4">退貨成功</option>
+                        <option value="5">訂單完成</option>
+                        <option value="6">訂單取消</option>
+                    </select>
+                </td>
+            </tr> -->
+            <tr>
+                <td>取貨方式:</td>
+                <td>
+                    <select name="ordPick" id="ordPick">
+                        <option value="0">店面取貨</option>
+                        <option value="1">超商取貨</option>
+                        <option value="2">宅配</option>
+                    </select>
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>付款狀態:</td>
+                <td>
+                    <input id="ordPayStatus" type="radio" name="ordPayStatus" value="1"> 已付款
+                    <input id="ordPayStatus" type="radio" name="ordPayStatus" value="0"> 未付款
+                </td>
+            </tr> -->
+            <!-- <tr>
+                <td>訂單完成時間:</td>
+                <td><input name="ordCreate" id="ordCreate" type="text" value="2011-10-30"></td>
+            </tr>
+            <tr>
+                <td>訂單完成時間:</td>
+                <td><input name="ordFinish" id="ordFinish" type="text" value="2012-10-30"></td>
+            </tr> -->
+            <tr>
+                <td>總金額:</td>
+                <td><input type="text" name="totalAmount" id="totalAmount" value="1000"></td>
+            </tr>
+            <tr>
+                <td>實付金額:</td>
+                <td><input type="text" name="actualAmount" id="actualAmount" value="1000"></td>
+            </tr>
+            <tr>
+                <td>收件人:</td>
+                <td><input type="text" name="recipient" id="recipient" value="張三"></td>
+            </tr>
+            <tr>
+                <td>收件人地址:</td>
+                <td><input type="text" name="recipientAddres" id="recipientAddres" value="桃園市中壢區中北路123號"></td>
+            </tr>
+            <tr>
+                <td>收件人電話:</td>
+                <td><input type="text" name="recipientPh" id="recipientPh" value="0912345678"></td>
+            </tr>
+        </table>
+        <button id="save" type="submit">Save</button>
+    </form>
+
+    <a href="/background/product_order.html">List all</a>
+    <div>
+        <input id="ordId">
+        <button id="findById">findById</button>
+        <table id="show"></table>
+    </div>
+
+    <script>
+        const findByIdBtn = document.getElementById('findById');
+        const inputordNo = document.getElementById('ordId');
+        const showTable = document.getElementById('show');
+
+        findByIdBtn.addEventListener('click', () => {
+            const ordNo = inputordNo.value;
+            fetch(`/ord/getOne?ordNo=${ordNo}`)
+                .then(response => response.json()
+                )
+                .then(data => {
+                    showTable.setAttribute('border', '1');
+                    const table = document.getElementById('show');
+                    table.innerHTML = "";
+                    for (const property in data) {
+                        const row = table.insertRow();
+                        const keyCell = row.insertCell();
+                        const valueCell = row.insertCell();
+                        keyCell.innerHTML = property;
+                        valueCell.innerHTML = data[property];
+                    }
+                })
+        })
+
+
+        let day = new Date();
+        function appendZero(num) {
+            return ((num < 10) ? "0" + num : num)
+        }
+
+        const year = day.getFullYear();
+        const month = appendZero(day.getMonth() + 1);
+        const date = appendZero(day.getDate());
+        day = `${year}-${month}-${date}`;
+
+        console.log(day);
+        console.log($("#ordCreate").val());
+
+        $('#order-form').submit(e => {
+            e.preventDefault();
+            // type must be the samew
+            const formData = {
+                "memNo": +$("#memNo").val(),
+                "useCoupon": +$("#useCoupon").val(),
+                "ordFee": +$("#ordFee").val(),
+                "ordPick": +$("#ordPick").val(),
+                "totalAmount": +$("#totalAmount").val(),
+                "actualAmount": +$("#actualAmount").val(),
+                "recipient": $("#recipient").val(),
+                "recipientAddres": $("#recipientAddres").val(),
+                "recipientPh": $("#recipientPh").val()
+            }
+            console.log(formData);
+            // Send form data as POST request
+            fetch('/ord/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData),
+            })
+                .then(response => response.json()
+                )
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>

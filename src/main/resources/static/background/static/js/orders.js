@@ -1,4 +1,3 @@
-
 const table = document.querySelector("tbody#orders")
 function render() {
     // table.innerHTML = "";
@@ -8,6 +7,8 @@ function render() {
         .then(resp => resp.json())
         .then(list => {
             let data = "";
+            $('#table-1').DataTable().clear().destroy();
+
             for (let item of list) {
                 switch (item.ordStatus) {
                     case (0):
@@ -64,10 +65,10 @@ function render() {
                     <td class="py-2 text-center">${item.recipient}</td>
                     <td class="py-2" ><address>${item.recipientAddres}</address></td>
                     <td class="py-2 text-center">${item.recipientPh}</td>
-                    <td>
+                    <td class="py-2 text-center">
                         <form action="product_order_detail.html">
                             <input type="hidden" name="ordNo" value="${item.ordNo}"/>
-                            <input type="submit" class="btn btn-primary btn-xxs" style="padding: 0.4rem 0.8rem;" value="查詢">
+                            <input type="submit" class="btn btn-primary btn-xxs " style="padding: 0.4rem 0.8rem;" value="查詢">
                         </form>
                     </td>
                     <td>
@@ -82,32 +83,84 @@ function render() {
                                     <button  class="dropdown-item" onclick="but(${item.ordNo},5)">訂單完成</button>
                                     <button  class="dropdown-item" onclick="but(${item.ordNo},6)">訂單取消</button>
                                     <div class="dropdown-divider"></div>
-                                    <button  class="dropdown-item" onclick="">已付款</button>
-                                    <button  class="dropdown-item" onclick="">未付款</button>
+                                    <button  class="dropdown-item" onclick="but2(${item.ordNo},1)">已付款</button>
+                                    <button  class="dropdown-item" onclick="but2(${item.ordNo},0)">未付款</button>
                                 </div>
                             </div>
                         </div>
                     </td>
                 </tr>`
-                table.innerHTML = data;
             }
-        });
+            table.innerHTML = data;
 
-    // let table1 = $('#table1').DataTable();
-    // table1.destroy();
-    // $('#table1').DataTable({
-    //     paging: true,
-    //     pageLength: 3
-    // });
+            $('#table-1').DataTable({
+                pageLength: 5,
+                lengthMenu: [5,10,15,20],
+                language: {
+                    emptyTable: "無資料",
+                    info: "顯示 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",
+                    lengthMenu: "顯示 _MENU_ 筆資料",
+                    paginate: {
+                        previous: '<i class="fa fa-chevron-left"></i>',
+                        next: '<i class="fa fa-chevron-right"></i>'
+                    },
+                },
+
+            });
+        });
 
 }
 
 
-function but(ordNo, statu) {
-    console.log(`/ord/updateOrdState?ordNo=${ordNo}&ordStatus=${statu}`);
-    fetch(`/ord/updateOrdState?ordNo=${ordNo}&ordStatus=${statu}`, {
-        method: 'GET'
+function but(ordNo, status) {
+    console.log(ordNo);
+    const formData = {
+        "ordNo": +ordNo,
+        "ordStatus": +status
+    }
+    console.log(formData);
+    fetch('/ord/updateOrdState', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
     })
+        .then(response => response.json()
+        )
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
+    setTimeout(render, 100)
+};
+
+function but2(ordNo, payStatus) {
+    console.log(ordNo);
+    const formData = {
+        "ordNo": +ordNo,
+        "ordPayStatus": +payStatus
+    }
+    console.log(formData);
+    fetch('/ord/updateOrdPayState', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+    })
+        .then(response => response.json()
+        )
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+
     setTimeout(render, 100)
 };
 

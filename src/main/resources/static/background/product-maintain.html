@@ -333,13 +333,13 @@
                 <div class="card-body">
                   <div class="form-validation">
                     <!-- form start -->
-                    <form class="needs-validation" novalidate="">
+                    <form id="proud-form" action="/addProduct" method="post" class="needs-validation" novalidate="">
                       <div class="row">
                         <div class="col-xl-6">
                           <!-- PRODUCT -->
                           <div class="mb-3 row" hidden>
                             <label class="col-lg-4 col-form-label" for="pdNo"
-                              >商品編號
+                            >商品編號
                               <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
@@ -380,8 +380,8 @@
                                 type="text"
                                 class="form-control"
                                 id="pdPrice"
-                                placeholder="輸入商品價錢"
                                 required=""
+                                placeholder="輸入商品價錢"
                               />
                             </div>
                           </div>
@@ -409,7 +409,7 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="pdStatus"
+                              name="pdStatus"
                               >商品上架狀態
                               <span class="text-danger">*</span>
                             </label>
@@ -419,10 +419,10 @@
                                   class="form-check-input"
                                   type="radio"
                                   name="pdStatus"
-                                  id="offsell"
-                                  value="0"
+                                  id="c2"
+                                  value="false"
                                 />
-                                <label class="form-check-label" for="offsell"
+                                <label class="form-check-label" for="c2"
                                   >下架</label
                                 >
                               </div>
@@ -431,10 +431,10 @@
                                   class="form-check-input"
                                   type="radio"
                                   name="pdStatus"
-                                  id="onsell"
-                                  value="1"
+                                  id="c1"
+                                  value="true"
                                 />
-                                <label class="form-check-label" for="onsell"
+                                <label class="form-check-label" for="c1"
                                   >上架</label
                                 >
                               </div>
@@ -458,37 +458,37 @@
                               />
                             </div>
                           </div>
-                          <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="PIC_NO"
-                              >商品圖片
-                            </label>
-                            <div class="col-lg-6">
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+<!--                          <div class="mb-3 row">-->
+<!--                            <label class="col-lg-4 col-form-label" for="PIC_NO"-->
+<!--                              >商品圖片-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
                         </div>
 
                         <div class="mb-3 row">
@@ -512,57 +512,19 @@
                           <div
                             class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
                           >
-                            <button type="submit" class="btn btn-primary fs-5" id="save">
-                              確認
+                            <button type="submit" class="btn btn-primary fs-5">
+                              新增
                             </button>
                           </div>
                         </div>
                       </div>
-                    </form>
-                      <script>
-    $('#proud-form').submit(e => {
-        e.preventDefault();
-        // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒
-        const formData = {
-            'pdNo': +$("#pdNo").val(),
-            'pdName': $("#pdName").val(),
-            'pdPrice': +$("#pdPrice").val(),
-            'pdStock': +$("#pdStock").val(),
-            'pdDescription': $("#pdDescription").val(),
-            'pdStatus': $("#c1").prop('checked'),
-            'pdUpdate': moment($("#pdUpdate").val()).format('YYYY-MM-DD HH:mm:ss')
-        }
-        console.log(formData);
-
-        // Send form data as POST request
-        fetch('/product/save-product', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json' //一定要設定!
-            },
-            body: JSON.stringify(formData) //轉JOSN字串
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
-            });
-    });
-
-</script>
-                    <!-- form end -->
                   </div>
                 </div>
               </div>
             </div>
           </div>
+            </form>
+            <!-- form end -->
           <!--**********************************
             商品維護 end
         ***********************************-->
@@ -573,7 +535,9 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">商品清單列表</h4>
+                <h4 class="card-title">商品清單列表</h4> <button type="subm" class="btn btn-primary fs-5">
+                  查詢
+              </button>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -600,11 +564,9 @@
                         <th><strong>商品名稱</strong></th>
                         <th><strong>商品價錢</strong></th>
                         <th><strong>商品庫存</strong></th>
-                        <th><strong>商品資訊</strong></th>
-                          <th><strong>上架狀態</strong></th>
-                          <th><strong>更新時間</strong></th>
-                          <th><strong>修改或刪除</strong></th>
-                        <th><strong></strong></th>
+                        <th><strong>商品敘述</strong></th>
+                        <th><strong>上架狀態</strong></th>
+                        <th><strong>更新時間</strong></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -628,12 +590,12 @@
                         <td><strong>542</strong></td>
                         <td>
                           <div class="d-flex align-items-center">
-<!--                            <img-->
-<!--                              src="static/picture/1.jpg"-->
-<!--                              class="rounded-lg me-2"-->
-<!--                              width="24"-->
-<!--                              alt=""-->
-<!--                            />-->
+                            <img
+                              src="static/picture/1.jpg"
+                              class="rounded-lg me-2"
+                              width="24"
+                              alt=""
+                            />
                             <span class="w-space-no">Dr. Jackson</span>
                           </div>
                         </td>
@@ -685,12 +647,12 @@
                         <td><strong>542</strong></td>
                         <td>
                           <div class="d-flex align-items-center">
-<!--                            <img-->
-<!--                              src="static/picture/2.jpg"-->
-<!--                              class="rounded-lg me-2"-->
-<!--                              width="24"-->
-<!--                              alt=""-->
-<!--                            />-->
+                            <img
+                              src="static/picture/2.jpg"
+                              class="rounded-lg me-2"
+                              width="24"
+                              alt=""
+                            />
                             <span class="w-space-no">Dr. Jackson</span>
                           </div>
                         </td>
@@ -742,12 +704,12 @@
                         <td><strong>542</strong></td>
                         <td>
                           <div class="d-flex align-items-center">
-<!--                            <img-->
-<!--                              src="static/picture/3.jpg"-->
-<!--                              class="rounded-lg me-2"-->
-<!--                              width="24"-->
-<!--                              alt=""-->
-<!--                            />-->
+                            <img
+                              src="static/picture/3.jpg"
+                              class="rounded-lg me-2"
+                              width="24"
+                              alt=""
+                            />
                             <span class="w-space-no">Dr. Jackson</span>
                           </div>
                         </td>
@@ -785,6 +747,7 @@
               </div>
             </div>
           </div>
+
           <!--**********************************
             商品清單列表 end
         ***********************************-->
@@ -839,5 +802,76 @@
     <script src="static/js/dlabnav-init.js"></script>
     <script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+<!--    商品單獨查詢-->
+    const findByIdBtn = document.getElementById('findById');
+    const inputEmployeeId = document.getElementById('productId');
+    const showTable = document.getElementById('show');
+
+    findByIdBtn.addEventListener('click', () => {
+        const productId = inputEmployeeId.value;
+
+        fetch(`/product/find-one?id=${productId}`) //response
+            .then(response => response.json()   //promise 轉 data
+            )
+            .then(data => {
+                console.log(`/emp/find-one?id='${productId}'`);
+                console.log(data);
+                showTable.setAttribute('border', '1');
+
+                const table = document.getElementById('show');
+                table.innerHTML="";
+                for (const property in data) {
+                    const row = table.insertRow();
+                    const keyCell = row.insertCell();
+                    const valueCell = row.insertCell();
+                    keyCell.innerHTML = property;
+                    valueCell.innerHTML = data[property];
+                }
+            })
+    })
+</script>
+
+
+    <script>
+<!--    商品新增-->
+    $('#proud-form').submit(e => {
+        e.preventDefault();
+        // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒
+        const formData = {
+            'pdNo': +$("#pdNo").val(),
+            'pdName': $("#pdName").val(),
+            'pdPrice': +$("#pdPrice").val(),
+            'pdStock': +$("#pdStock").val(),
+            'pdDescription': $("#pdDescription").val(),
+            'pdStatus': $("#c1").prop('checked'),
+            'pdUpdate': moment($("#pdUpdate").val()).format('YYYY-MM-DD HH:mm:ss')
+        }
+        console.log(formData);
+
+        // Send form data as POST request
+        fetch('/product/save-product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' //一定要設定!
+            },
+            body: JSON.stringify(formData) //轉JOSN字串
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+
+</script>
   </body>
 </html>

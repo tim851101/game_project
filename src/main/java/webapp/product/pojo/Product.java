@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 public class Product {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PD_NO")
     private Integer pdNo;
 

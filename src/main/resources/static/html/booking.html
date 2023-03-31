@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><!DOCTYPE html>
+    <html>
+    <head>
+    <title>DATA</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<a href="http://localhost:8082/rev/ls">123</a>
+<table border="1">
+  <thead>
+  <th>NO</th>
+  <th>會員</th>
+  <th>當天起始時間</th>
+  <th>當天結束時間</th>
+  <th>預約日期</th>
+  <th>預約截止日期</th>
+  <th>價格</th>
+  <th>當天人數</th>
+  </thead>
+  <tbody id="booking"></tbody>
+</table>
+</body>
+<script >
+ const tbody = document.querySelector('#booking');
+	const url ='http://localhost:8082/rev/ls';
+	fetch(url)
+	.then(resp => resp.json())
+	.then(list => {
+            for (let booking of list) {
+                tbody.innerHTML += `
+                <tr>
+                   <td>${booking.bookingNo}</td>
+                   <td>${booking.memNo}</td>
+                   <td>${booking.bookingStartTime}</td>
+                   <td>${booking.bookingEndTime}</td>
+                   <td>${booking.bookingDate}</td>
+                   <td>${booking.bookingFinishDate}</td>
+                   <td>${booking.bookingTotalPrice}</td>
+                   <td>${booking.bookingPeople}</td>
+                    <td><button id="update" onclick="forUpdate()">修改詳細資料</button></td>
+                    <td><button id="delete" onclick="forDelete(${booking.bookingNo})">取消訂位</button></td>
+                </tr>
+            `
+            }
+	});
+	function forDelete(deleteno){ alert('確認取消?'+deleteno);
+          $.ajax({
+        type: "GET",
+        url: 'http://localhost:8082/rev/delete?deleteno='+deleteno,
+});
+	}
+	function forUpdate(bookno){
+    alert('確認取消?'+dno);
+	}
+
+	</script>

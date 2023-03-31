@@ -4,12 +4,16 @@ import core.service.BasicService;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import webapp.booking.dto.OpenHourDTO;
 import webapp.booking.pojo.OpenHour;
 import webapp.booking.repository.OpenHourRepository;
 
+@Component
+
 @Service
+
 public class ReservationServiceImpl extends BasicService<OpenHourRepository, OpenHour, OpenHourDTO>
     implements ReservationService {
     // TODO: sanity checker

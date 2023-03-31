@@ -5,12 +5,20 @@ import java.time.LocalDate;
 import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Component;
+
 import org.springframework.stereotype.Service;
+
 import webapp.booking.dto.ReservationPriceDTO;
 import webapp.booking.pojo.ReservationPrice;
 import webapp.booking.repository.PriceRepository;
 
+
+@Component
+
 @Service
+
 public class PriceServiceImpl
     extends BasicService<PriceRepository, ReservationPrice, ReservationPriceDTO>
     implements PriceService {

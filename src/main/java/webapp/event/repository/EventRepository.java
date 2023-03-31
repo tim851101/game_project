@@ -1,0 +1,23 @@
+package webapp.event.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import webapp.event.pojo.Event;
+
+
+
+
+
+@Repository
+public interface EventRepository extends JpaRepository<Event, Integer> {
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE Event e set e.eventWinner1 = :eventWinner1, e.eventWinner2 = :eventWinner2 , e.eventWinner3 = :eventWinner3, e.eventStatus = :eventStatus WHERE e.eventNo = :eventNo")
+    void updateEventWinners(@Param("eventWinner1") String eventWinner1, @Param("eventWinner2") String eventWinner2, @Param("eventWinner3") String eventWinner3, @Param("eventStatus") Byte eventStatus, @Param("eventNo") Integer eventNo );
+
+}

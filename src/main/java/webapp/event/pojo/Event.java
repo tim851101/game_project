@@ -1,12 +1,10 @@
 package webapp.event.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 @Data // Lombok: Gene getter/setter by @getter/@setter
@@ -26,10 +24,10 @@ public class Event {
     private String eventDisc;
     @Column(name = "EVENT_DATE")
     private Date eventDate;
-    @Column(name = "EVENT_STARTTIME")
-    private Time eventStarttime;
-    @Column(name = "EVENT_ENDTIME")
-    private Time eventEndtime;
+    @Column(name = "EVENT_STARTTIME" ,updatable = false )
+    private Timestamp eventStarttime;
+    @Column(name = "EVENT_ENDTIME",updatable = false)
+    private Timestamp eventEndtime;
     @Column(name = "EVENT_LIMIT")
     private Integer eventLimit;
     @Column(name = "SIGNUP_NUM", insertable = false, updatable = false)
@@ -44,11 +42,9 @@ public class Event {
     private String eventWinner3;
     @Column(name = "EVENT_STATUS")
     private Byte eventStatus;
-    @Column(name = "SIGNUP_START_TIME")
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "SIGNUP_START_TIME",updatable = false)
     private Timestamp signupStartTime;
-    @Column(name = "SIGNUP_DEADLINE")
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
+    @Column(name = "SIGNUP_DEADLINE",updatable = false)
     private Timestamp signupDeadline;
 
     @Column(name = "EVENT_PIC")

@@ -12,8 +12,10 @@ public class EventDTO {
     private String eventName;
     private String eventDisc;
     private Date eventDate;
-    private Time eventStarttime;
-    private Time eventEndtime;
+    @JsonFormat(pattern = "HH:mm", timezone = "GMT+8")
+    private Timestamp eventStarttime;
+    @JsonFormat(pattern = "HH:mm", timezone = "GMT+8")
+    private Timestamp eventEndtime;
     private Integer eventLimit;
     private Integer signupNum;
     private Integer eventFee;
@@ -21,7 +23,9 @@ public class EventDTO {
     private String eventWinner2;
     private String eventWinner3;
     private Byte eventStatus;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp signupStartTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp signupDeadline;
 
     private byte[] eventPic;

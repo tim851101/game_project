@@ -32,4 +32,10 @@ public class EventController {
         return eventServiceImpl.getAllEvent();
     }
 
+    @PostMapping("/update")
+    @ResponseBody
+    public Boolean updateWinner(@RequestBody EventDTO eventDTO){
+        return eventServiceImpl.updateWinner(eventDTO);
+    }
+
 }

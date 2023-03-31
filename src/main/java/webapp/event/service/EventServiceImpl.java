@@ -4,6 +4,7 @@ package webapp.event.service;
 import core.service.BasicService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import webapp.event.dto.EventDTO;
 import webapp.event.pojo.Event;
@@ -33,4 +34,14 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
     public List<EventDTO> getAllEvent(){
         return getAllDTO();
     }
+
+    @Override
+    public Boolean updateWinner(EventDTO eventDTO) {
+        eventRepository.updateEventWinners(eventDTO.getEventWinner1(),eventDTO.getEventWinner2(), eventDTO.getEventWinner3(), eventDTO.getEventStatus(), eventDTO.getEventNo());
+        return true;
+    }
+
+
+
+
 }

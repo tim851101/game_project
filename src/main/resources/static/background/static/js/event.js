@@ -1,3 +1,4 @@
+$(document).ready(e => {
 // 舉辦日期參數 
 $.datetimepicker.setLocale('zh'); // kr ko ja en
       $('#eventDate').datetimepicker({
@@ -57,26 +58,18 @@ $.datetimepicker.setLocale('zh');
 // 新增資料至event table
     //   $('#event-form').submit(e => {
         $('#enterBtn').click(e => {
-          // console.log($("#signupStartTime").val());
           // e.preventDefault();
         const formData = {
           'eventName': $("#eventName").val(),
-          // 'eventDisc': $("#eventDisc").val(),
-          // 'eventDate': $("#eventDate").val(),
-          // 'eventStarttime': ($('#eventStarttime').val() + ":00"),
-          // 'eventEndtime': ($('#eventEndtime').val() + ":00"),
-          // 'eventLimit': $("#eventLimit").val(),
-          // 'eventFee': $("#eventFee").val(),
-          // 'signupStartTime': new Date($("#signupStartTime").val()).toISOString(),
-          // 'signupDeadline': new Date($("#signupDeadline").val()).toISOString(),
-          // 'eventWinner1': " ",
-          // 'eventWinner2': " ",
-          // 'eventWinner3': $("#eventWinner3").val(),
-          'eventStatus': +0
+          'eventDisc': $("#eventDisc").val(),
+          'eventDate': $("#eventDate").val(),
+          'eventStarttime': $('#eventStarttime').val(),
+          'eventEndtime': $('#eventEndtime').val(),
+          'eventLimit': $("#eventLimit").val(),
+          'eventFee': $("#eventFee").val(),
+          'signupStartTime':$("#signupStartTime").val(),
+          'signupDeadline':$("#signupDeadline").val(),
         }
-        // alert("這");
-        // e.preventDefault();
-        // console.log(formData);
         fetch('/event/save-event', {
           method: 'POST',
           headers: {
@@ -100,7 +93,7 @@ $.datetimepicker.setLocale('zh');
     
 
 // 動態新增賽事清單(取出event table值) 
-      $(document).ready(e => {
+     
       fetch('/event/ls-event')
       .then(response => {
         if (!response.ok) {
@@ -110,13 +103,37 @@ $.datetimepicker.setLocale('zh');
       })
       .then(data => {
         findAll(data);
-      })
-    })
+      $('#myTable').DataTable({
+        language: {
+        "emptyTable": "無資料...",
+        "processing": "處理中...",
+        "loadingRecords": "載入中...",
+        "lengthMenu": "每頁 _MENU_ 筆資料",
+        "zeroRecords": "無搜尋結果",
+        "info": "_START_ 至 _END_ / 共 _TOTAL_ 筆",
+        "infoEmpty": "尚無資料",
+        "infoFiltered": "(從 _MAX_ 筆資料過濾)",
+        "infoPostFix": "",
+        "search": "搜尋字串:",
+        "paginate": {
+        "first": "首頁",
+        "last": "末頁",
+        "next": "下頁",
+        "previous": "前頁"
+        },
+        "aria": {
+        "sortAscending": ": 升冪",
+        "sortDescending": ": 降冪",
+        },
+        }
+        });
+       
+      });
     function findAll(data) {
-      const eventList = document.getElementById('eventList');
+      // const eventList = document.getElementById('prod-list');
+      const eventList = document.getElementById('prod-list');
       let tdString = "";
       for (const e of data) {
-        // console.log(e.signupStartTime);
         tdString += `
                       <tr> 
                         <th><strong></strong>${e.eventName}</th>
@@ -137,6 +154,12 @@ $.datetimepicker.setLocale('zh');
       }
       eventList.innerHTML = tdString;
     }
+
+
+});
+
+
+
 
 
 

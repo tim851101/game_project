@@ -33,4 +33,13 @@ public class EventOrdservice {
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
+    public List<EventOrdDTO> getAllmembyevent(Integer eventNO){
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.LOOSE);
+        return EventOrdRepository.selectmembyevent(eventNO)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
+
 }

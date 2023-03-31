@@ -1,8 +1,5 @@
 package webapp.event.pojo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +8,7 @@ import lombok.NoArgsConstructor;
 @Data // Lombok: Gene getter/setter by @getter/@setter
 @AllArgsConstructor // Lombok: Auto gene args constructor
 @NoArgsConstructor // Lombok: read above
+//@IdClass(EventOrdVO.class)
 @Entity // JPA: mark this class as entity
 @Table(name = "EVENT_ORD")// JPA: specify the table this class mapping to
 public class EventOrdVO {
@@ -20,11 +18,12 @@ public class EventOrdVO {
     @Column(name = "EVENT_NO")// JPA: map to column
     private int eventno;
      // JPA: primary key
+//     @Id // JPA: primary key
     @Column(name = "MEM_NO")
-    private int memNo;
+    private Integer memNo;
 
     @Column(name = "MEM_CHECKED")
-    private int memChecked;
+    private Integer memChecked;
 
 
     @Column(name = "MEM_NAME")
@@ -40,5 +39,5 @@ public class EventOrdVO {
     private String memPhone;
 
     @Column(name = "EVENT_STATUS")
-    private int  enevtStatus;
+    private Integer  enevtStatus;
 }

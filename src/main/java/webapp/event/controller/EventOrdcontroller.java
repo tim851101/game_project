@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import webapp.event.dto.EventOrdDTO;
 import webapp.event.service.EventOrdservice;
-import webapp.newbooking.dto.BookingDTO;
-import webapp.newbooking.pojo.newBooking;
-import webapp.newbooking.service.BookingService;
+
 
 @RestController
-@RequestMapping("/  ")
+@RequestMapping("/eventord")
 @CrossOrigin(origins = "*")
 public class EventOrdcontroller {
 
@@ -27,7 +25,10 @@ public class EventOrdcontroller {
     public List<EventOrdDTO> getAlleventOrd(){
         return EventOrdservice.getAllEventOrd();
     }
-
+    @GetMapping("byeventls")
+    public List<EventOrdDTO> getAllmembyevent(Integer Eventno){
+        return EventOrdservice.getAllmembyevent(Eventno);
+    }
 
 
 }

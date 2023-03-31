@@ -1,8 +1,5 @@
 package webapp.newbooking.service;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -11,6 +8,9 @@ import org.springframework.stereotype.Service;
 import webapp.newbooking.dto.BookingDTO;
 import webapp.newbooking.pojo.newBooking;
 import webapp.newbooking.repository.WriteBookingRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {

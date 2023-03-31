@@ -42,7 +42,11 @@
     <script src="https://kit.fontawesome.com/8fc0d2ad99.js" crossorigin="anonymous"></script>
     <script src="./static/js/template.js"></script>
 </head>
-
+<style>
+    input{
+ width:80px
+    }
+</style>
 <body>
 
     <div class="contact-wrapper">
@@ -222,7 +226,7 @@
                                                         <thead class="thead-light">
                                                             <tr>
                                                                 <th>訂單編號</th>
-                                                                <th>下定日期</th>
+                                 F                               <th>下定日期</th>
                                                                 <th>訂單狀態</th>
                                                                 <th>付款金額</th>
                                                                 <th>訂單明細</th>
@@ -271,41 +275,36 @@
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>訂單編號</th>
-                                                                <th>下定日期</th>
-                                                                <th>訂單狀態</th>
-                                                                <th>付款金額</th>
-                                                                <th>訂單明細</th>
-                                                                <th>退貨申請</th>
+                                                                <th>NO</th>
+                                                                <th>會員</th>
+                                                                <th>當天起始時間</th>
+                                                                <th>當天結束時間</th>
+                                                                <th>預約日期</th>
+                                                                <th>預約截止日期</th>
+                                                                <th>價格</th>
+                                                                <th>當天人數</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>2023/3/10</td>
-                                                                <td>退貨申請</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>2023/3/09</td>
-                                                                <td>已出貨</td>
-                                                                <td>$200</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>2023/3/08</td>
-                                                                <td>已完成</td>
-                                                                <td>$990</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
-                                                            </tr>
-                                                            
+                                                        <tbody id="booking"></tbody>
+                                                    </table>
+                                                </div>
 
+                                                <div class="myaccount-table table-responsive text-center"id="updatebook" style="visibility:hidden">
+                                                    <h3>修改內容</h3>
+                                                    <table class="table table-bordered">
+                                                        <thead class="thead-light">
+                                                        <tr>
+                                                            <th>NO</th>
+                                                            <th>會員</th>
+                                                            <th>當天起始時間</th>
+                                                            <th>當天結束時間</th>
+                                                            <th>預約日期</th>
+                                                            <th>預約截止日期</th>
+                                                            <th>價格</th>
+                                                            <th>當天人數</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="update"></tbody>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -517,5 +516,67 @@
 
 </body>
 <script src="../js/member.js"></script>
-
+<script>
+     const tbody = document.querySelector('#booking');
+      const update= document.querySelector('#update');
+      const updatebook= document.querySelector('#updatebook')
+     const url ='http://localhost:8082/book/ls';
+     fetch(url)
+	.then(resp => resp.json())
+	.then(list => {
+            for (let booking of list) {
+                tbody.innerHTML += `
+                <tr>
+                   <td>${booking.bookingNo}</td>
+                   <td>${booking.memNo}</td>
+                   <td>${booking.bookingStartTime}</td>
+                   <td>${booking.bookingEndTime}</td>
+                   <td>${booking.bookingDate}</td>
+                   <td>${booking.bookingFinishDate}</td>
+                   <td>${booking.bookingTotalPrice}</td>
+                   <td>${booking.bookingPeople}</td>
+                    <td><button id="update" onclick="forUpdate(${booking.bookingNo})">修改</button></td>
+                    <td><button id="delete" onclick="forDelete(${booking.bookingNo})">取消</button></td>
+                </tr>
+            `
+            }
+	});
+	function forDelete(deleteno){ let confirmdelete = confirm('確認取消'+deleteno+"號訂位?");
+         if(confirmdelete){
+          $.post('http://localhost:8082/book/deletebook',{
+        deleteno:deleteno
+});
+        location.reload()
+}else{
+}
+	}
+	function forUpdate(updateno){
+	const url ='http://localhost:8082/book/one?findno='+updateno;
+	fetch(url)
+	.then(resp => resp.json())
+	.then(list => {
+            for (let booking of list) {
+                update.innerHTML =``
+                update.innerHTML += `
+                <tr>
+                    <td>${booking.bookingNo}</td>
+                    <td>${booking.memNo}</td>
+                    <td><input type="text" id="srattime" value="12:00:00"></td>
+                    <td><input type="text" id="endtime" value="24:00:00"></td>
+                    <td><input type="text" name="hiredate" id="date" value="2023-11-01"></td>
+                    <td><input type="text" id="deadline" value="2024-11-01"></td>
+                    <td><input type="text" id="price" value="10000"></td>
+                    <td><input type="text" id="people" value="50"></td>
+                    <td><button id="post" onclick="change(2)">送出</button></td>
+                </tr>
+            `
+            }
+	});
+	updatebook.setAttribute("style", "visibility:visible");
+    }
+    function change(I){
+    let s=2
+     location.reload()
+     }
+</script>
 </html>

@@ -1,12 +1,23 @@
 package webapp.newbooking.controller;
 
-import java.util.List;
+import jakarta.annotation.Resource;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import webapp.newbooking.dto.BookingDTO;
+import webapp.newbooking.image.image;
 import webapp.newbooking.pojo.newBooking;
 import webapp.newbooking.service.BookingService;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
 
 @RestController
 @RequestMapping("/book")
@@ -29,6 +40,15 @@ public class newBookingController {
     @GetMapping("one")
     public List<BookingDTO> getOnebooking(Integer findno){
         return BookingService.getOneBooking(findno);
+    }
+    @GetMapping(value="oneimage", produces = MediaType.IMAGE_JPEG_VALUE)
+    public byte[] getimagebooking(Integer findno) throws IOException {
+        OutputStream out = null;
+        File file = new File("src/main/resources/static/background/static/image/img1.jpg");
+        FileInputStream inputStream = new FileInputStream(file);
+        byte[] bytes = new byte[inputStream.available()];
+        inputStream.read(bytes, 0, inputStream.available());
+        return bytes;
     }
     @PostMapping("addbooking")
     public  BookingDTO insertbooking(@RequestBody newBooking insertbook){
@@ -59,5 +79,13 @@ public class newBookingController {
         }
         return new RedirectView(url);
     }
-
+    @Resource
+    private image Toimage;
+    @GetMapping("/image")
+    public void download(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
+            throws ServletException, IOException {
+            File file = new File("src/main/resources/static/background/static/image/img1.jpg");
+            httpServletRequest.setAttribute(image.ATTRIBUTE_FILE, file);
+//        Toimage.handleRequest(httpServletRequest, httpServletResponse);
+    }
 }

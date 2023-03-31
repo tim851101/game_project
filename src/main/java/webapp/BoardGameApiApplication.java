@@ -3,11 +3,17 @@ package webapp;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
 
-//@Configuration
-//@EnableAutoConfiguration
-//@ComponentScan
+
 @SpringBootApplication
+@ComponentScan(
+    basePackages = {"core.config", "webapp"},
+    excludeFilters = @ComponentScan.Filter(
+        type = FilterType.REGEX,
+        pattern = "webapp.*.pojo.*"
+    ))
 public class BoardGameApiApplication implements CommandLineRunner {
 
     public static void main(String[] args) {

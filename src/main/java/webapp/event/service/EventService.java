@@ -10,4 +10,7 @@ public interface EventService {
 
     Boolean updateWinner (EventDTO eventDTO);
 
+    Boolean updateSignupNum(EventDTO eventDTO);
+    Boolean cancelSignupNum(EventDTO eventDTO);
+
 }

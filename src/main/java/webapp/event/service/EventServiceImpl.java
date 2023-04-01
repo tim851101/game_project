@@ -26,22 +26,50 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
         this.modelMapper = modelMapper;
     }
 
-    public Boolean insert(EventDTO eventDTO){
+    @Override
+    public Boolean insert(EventDTO eventDTO) {
         Event event = modelMapper.map(eventDTO, Event.class);
         eventRepository.save(event);
         return true;
     }
-    public List<EventDTO> getAllEvent(){
+
+    @Override
+    public List<EventDTO> getAllEvent() {
         return getAllDTO();
     }
 
     @Override
     public Boolean updateWinner(EventDTO eventDTO) {
-        eventRepository.updateEventWinners(eventDTO.getEventWinner1(),eventDTO.getEventWinner2(), eventDTO.getEventWinner3(), eventDTO.getEventStatus(), eventDTO.getEventNo());
+        eventRepository.updateEventWinners(eventDTO.getEventWinner1(), eventDTO.getEventWinner2(), eventDTO.getEventWinner3(), eventDTO.getEventStatus(), eventDTO.getEventNo());
         return true;
     }
 
+    @Override
+    public Boolean updateSignupNum(EventDTO eventDTO) {
+        Integer signupNum = eventRepository.getEventSignupNum(eventDTO.getEventNo());
+        Integer eventLimit = eventRepository.getEventLimit(eventDTO.getEventNo());
+        if (signupNum == eventLimit) {
+            return false;
+        } else {
+            eventRepository.updateEventSignupNum(1, eventDTO.getEventNo());
+            return true;
+        }
+    }
 
 
-
+    @Override
+    public Boolean cancelSignupNum(EventDTO eventDTO) {
+        Integer signupNum = eventRepository.getEventSignupNum(eventDTO.getEventNo());
+        if (signupNum == 0) {
+            return false;
+        } else {
+            eventRepository.updateEventSignupNum(-1, eventDTO.getEventNo());
+            return true;
+        }
+    }
 }
+
+
+
+
+

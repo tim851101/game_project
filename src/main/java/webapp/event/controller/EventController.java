@@ -32,10 +32,20 @@ public class EventController {
         return eventServiceImpl.getAllEvent();
     }
 
-    @PostMapping("/update")
+    @PostMapping("/updateWinners")
     @ResponseBody
     public Boolean updateWinner(@RequestBody EventDTO eventDTO){
         return eventServiceImpl.updateWinner(eventDTO);
+    }
+    @PostMapping("/addSignupNum")
+    @ResponseBody
+    public Boolean updateSignupNum(@RequestBody EventDTO eventDTO){
+        return eventServiceImpl.updateSignupNum(eventDTO);
+    }
+    @PostMapping("/delSignupNum")
+    @ResponseBody
+    public Boolean cancelSignupNum(@RequestBody EventDTO eventDTO){
+        return eventServiceImpl.cancelSignupNum(eventDTO);
     }
 
 }

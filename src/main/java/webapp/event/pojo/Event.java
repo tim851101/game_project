@@ -30,7 +30,7 @@ public class Event {
     private Timestamp eventEndtime;
     @Column(name = "EVENT_LIMIT")
     private Integer eventLimit;
-    @Column(name = "SIGNUP_NUM", insertable = false, updatable = false)
+    @Column(name = "SIGNUP_NUM", insertable = false)
     private Integer signupNum;
     @Column(name = "EVENT_FEE")
     private Integer eventFee;

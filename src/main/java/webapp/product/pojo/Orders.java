@@ -20,15 +20,15 @@ public class Orders {
     @Id
     @Column(name="ORD_NO")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ordNo;
+    private Integer ordNo;
     @Column(name="MEM_NO")
-    private int memNo;
+    private Integer memNo;
     @Column(name="USE_COUPON")
-    private int useCoupon;
+    private Integer useCoupon;
     @Column(name="ORD_FEE")
-    private int ordFee;
+    private Integer ordFee;
     @Column(name="ORD_STATUS")
-    private int ordStatus;
+    private Integer ordStatus;
     @Column(name="ORD_CREATE")
     private Date ordCreate;
     @Column(name="ORD_PICK")

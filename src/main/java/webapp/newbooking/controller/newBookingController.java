@@ -38,8 +38,12 @@ public class newBookingController {
     }
 
     @GetMapping("one")
-    public List<BookingDTO> getOnebooking(Integer findno){
+    public List<BookingDTO> getOneBooking(Integer findno){
         return BookingService.getOneBooking(findno);
+    }
+    @GetMapping("bookingbymemno")
+    public List<BookingDTO> getOnebookingbyMemno(Integer memno){
+        return BookingService.findbookingbymemno(memno);
     }
     @GetMapping(value="oneimage", produces = MediaType.IMAGE_JPEG_VALUE)
     public byte[] getimagebooking(Integer findno) throws IOException {

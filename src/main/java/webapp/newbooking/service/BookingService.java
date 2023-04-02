@@ -35,6 +35,14 @@ public class BookingService {
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
+    public List<BookingDTO> findbookingbymemno(Integer memno){
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.LOOSE);
+        return writeBookingRepository.findbookingbymemno(memno)
+                .stream()
+                .map(this::EntityToDTO)
+                .collect(Collectors.toList());
+    }
     public BookingDTO insertBooking(@NotNull newBooking openNewBooking){
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);

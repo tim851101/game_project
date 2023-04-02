@@ -1,4 +1,4 @@
-const table = document.querySelector("tbody#orders")
+const table = document.querySelector("tbody#orders");
 function render() {
     // table.innerHTML = "";
     fetch('/ord/getAllOrdJoinMemName', {

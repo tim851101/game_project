@@ -79,38 +79,13 @@
                                         <th class="pro-subtotal">總金額</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id = "orderDetail">
                                     <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                    src="static/picture/14.jpg" alt="Product"></a></td>
-                                        <td class="pro-title"><a href="#">Product dummy title <br> s / green</a></td>
+                                        <td class="pro-thumbnail"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></td>
+                                        <td class="pro-title">卡卡頌</td>
                                         <td class="pro-price"><span>$295.00</span></td>
                                         <td class="pro-quantity"><span>3</span></td>
                                         <td class="pro-subtotal"><span>$295.00</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                    src="static/picture/24.jpg" alt="Product"></a></td>
-                                        <td class="pro-title"><a href="#">Product title here <br> red</a></td>
-                                        <td class="pro-price"><span>$275.00</span></td>
-                                        <td class="pro-quantity"><span>2</span></td>
-                                        <td class="pro-subtotal"><span>$550.00</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                    src="static/picture/34.jpg" alt="Product"></a></td>
-                                        <td class="pro-title"><a href="#">Product dummy title <br> s</a></td>
-                                        <td class="pro-price"><span>$295.00</span></td>
-                                        <td class="pro-quantity"><span>2</span></td>
-                                        <td class="pro-subtotal"><span>$295.00</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid"
-                                                    src="static/picture/43.jpg" alt="Product"></a></td>
-                                        <td class="pro-title"><a href="#">Dummy Title</a></td>
-                                        <td class="pro-price"><span>$110.00</span></td>
-                                        <td class="pro-quantity"><span>5</span></td>
-                                        <td class="pro-subtotal"><span>$110.00</span></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -127,22 +102,26 @@
                                 <div class="cart-calculator-wrapper">
                                     <div class="cart-calculate-items">
                                         <div class="table-responsive fs-5">
-                                            <table class="table">
-                                                <tr>
-                                                    <td>商品總價</td>
-                                                    <td class="text-end">$230</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>使用回饋金</td>
-                                                    <td class="text-end">- $70</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>運費</td>
-                                                    <td class="text-end">$70</td>
-                                                </tr>
+                                            <table id = "money" class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>商品總價</td>
+                                                        <td class="text-end">$230</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>使用回饋金</td>
+                                                        <td class="text-end">- $70</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>運費</td>
+                                                        <td class="text-end">$70</td>
+                                                    </tr>
+                                                </tbody>
                                                 <tfoot class="total">
-                                                    <td>應付金額</td>
-                                                    <td class="text-end total-amount">$300</td>
+                                                    <tr>    
+                                                        <td>應付金額</td>
+                                                        <td class="text-end total-amount">$300</td>
+                                                    </tr>
                                                 </tfoot>
                                             </table>
                                         </div>
@@ -189,6 +168,8 @@
 
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
+    <!-- table JS-->
+    <script src="static/js/order-detail.js"></script>
 
 </body>
 

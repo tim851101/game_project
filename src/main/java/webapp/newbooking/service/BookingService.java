@@ -49,7 +49,9 @@ public class BookingService {
         System.out.println(openNewBooking.getBookingNo());
         System.out.println(openNewBooking.getBookingDate());
         int find =1;
-        while (true){try{
+        if(openNewBooking.getBookingNo()==0){
+        while (true){
+            try{
         if(writeBookingRepository.existsById(find)){
         System.out.println(find);
         find++;
@@ -59,6 +61,7 @@ public class BookingService {
             break;}
         }catch(Exception e){
             break;
+        }
         }
         openNewBooking.setBookingNo(find);
         }

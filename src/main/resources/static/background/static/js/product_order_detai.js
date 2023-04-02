@@ -11,10 +11,12 @@ methond:'GET'
     let ordFee=0;
     let useCoupon=0;
     let actualAmount=0;
+    let n = 0;
     for (let item of list){ 
+        n++
         data1 += `
             <tr>
-                <td class="center fs-3">1</th>
+                <td class="center fs-3">${n}</th>
 			    <td class="center"><img src="https://uploads-ssl.webflow.com/575714cc825e8dbc6c83b98a/5ab8f2a51f33703defd7807f_carcassonne_BOX_3D_2014.jpg" alt="" width="75px" height="75px"></td>
                 <td class="left fs-3">${item.pdName}</td>
                 <td class="right fs-3">$${item.price}</td>

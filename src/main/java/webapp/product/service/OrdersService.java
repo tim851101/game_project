@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webapp.product.dto.BackOrdersDTO;
 import webapp.product.dto.OrdersDTO;
+import webapp.product.dto.ForegroundOrdersDTO;
 import webapp.product.pojo.Orders;
 import webapp.product.repository.OrdersRepository;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +56,19 @@ public class OrdersService {
         ordersRepository.updateOrdPayStateByOrdNo(ordNo, ordPayStatus);
     }
 
+    public List<ForegroundOrdersDTO> findAllByMemNo(Integer memNo){
+//        List<Orders> list = ordersRepository.findAllByMemNo(memNo);
+//        List<ForegroundOrdersDTO> list2= new ArrayList<ForegroundOrdersDTO>();
+//        for(Orders item : list){
+//            ForegroundOrdersDTO foregroundOrdersDTO = modelMapper.map(item, ForegroundOrdersDTO.class);
+//            list2.add(foregroundOrdersDTO);
+//        }
+//        return list2;
+          return ordersRepository.findAllByMemNo(memNo)
+                .stream()
+                .map(orders -> modelMapper.map(orders,ForegroundOrdersDTO.class))
+                .collect(Collectors.toList());
+    }
 
     private OrdersDTO EntityToDTO(Orders orders) {
         modelMapper.getConfiguration()

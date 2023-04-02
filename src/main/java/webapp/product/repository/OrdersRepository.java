@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public interface OrdersRepository extends JpaRepository <Orders, Integer> {
     Orders findByOrdNo(Integer ordNo);
+    List<Orders> findAllByMemNo(Integer memNo);
 @Query("SELECT new webapp.product.dto.BackOrdersDTO (o.ordNo, m.memName, o.ordCreate,o.actualAmount,o.ordPayStatus,o.ordStatus,o.ordPick,o.recipient,o.recipientAddres,o.recipientPh)" +
         " FROM Orders o JOIN Members m ON o.memNo = m.memNo")
     List<BackOrdersDTO> findAllJoinMemName();

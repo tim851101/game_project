@@ -2,10 +2,7 @@ package webapp.product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import webapp.product.dto.BackOrdersDTO;
-import webapp.product.dto.OrdersDTO;
-import webapp.product.dto.OrdersPayStatusDTO;
-import webapp.product.dto.OrdersStatusDTO;
+import webapp.product.dto.*;
 import webapp.product.service.OrdersService;
 
 import java.util.List;
@@ -16,7 +13,12 @@ public class OrdersController {
     private OrdersService ordersService;
 @GetMapping("/getAll")
     public List<OrdersDTO> getAllOrders() {
-        return ordersService.getAllOrders();
+    return ordersService.getAllOrders();
+    }
+
+    @GetMapping("/getAllByMemNo")
+    public List<ForegroundOrdersDTO> findAllByMemNo (Integer memNo){
+        return ordersService.findAllByMemNo(memNo);
     }
 
 @GetMapping("/getAllOrdJoinMemName")
@@ -37,6 +39,8 @@ public class OrdersController {
     public void updateOrdStateByOrdNo(@RequestBody OrdersStatusDTO ordersStatusDTO){
     ordersService.updateOrdStateByOrdNo(ordersStatusDTO.getOrdNo() , ordersStatusDTO.getOrdStatus() );
     }
+
+
 
     @PostMapping ("/updateOrdPayState")
     @ResponseBody

@@ -32,7 +32,7 @@ methond:'GET'
                     <tbody>
                         <tr>
                             <td>商品總價</td>
-                            <td class="text-end">$${actualAmount}</td>
+                            <td class="text-end">$${totalAmount}</td>
                         </tr>
                         <tr>
                             <td>使用回饋金</td>

@@ -72,26 +72,29 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6 col-12">
-                        <form id = "order-form" action="#">
+                        <form id = "order-form" action="#" autocomplete="off">
                             <div class="checkbox-form">
                                 <h3>基本資料填寫</h3>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
                                             <label for="recipient">收件人<span class="required text-danger">*</span></label>
-                                            <input id="recipient" name="recipient" type="text">
+                                            <input id="recipient" name="recipient" type="text" placeholder="請輸入姓名">
+                                            <div id = "recipientError"style="color: red;"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div id = "input-addres"class="col-md-12">
                                         <div class="checkout-form-list">
-                                            <label for="recipientAddres">收件人地址<span class="required text-danger">*</span></label>
-                                            <input id="recipientAddres" name="recipientAddres" type="text">
+                                            <label for="recipientAddres">收件/超商地址<span class="required text-danger">*</span></label>
+                                            <input id="recipientAddres" name="recipientAddres" type="text" placeholder="請輸入地址">
+                                            <div id = "addresError"style="color: red;"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="checkout-form-list">
                                             <label for="recipientPh">收件人電話<span class="required text-danger">*</span></label>
-                                            <input id="recipientPh" name="recipientPh" type="text">
+                                            <input id="recipientPh" name="recipientPh" type="text" maxlength="10" minlength="10" placeholder="請輸入電話號碼 ex:0912345678">
+                                            <div id = "PhError"style="color: red;"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -112,6 +115,20 @@
                                                 <option value="1">超商繳費</option>
                                                 <option value="2">信用卡</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div id="input-creidtCard" class="row" style="padding:0; margin:0; display:none">
+                                        <div class="col-md-8">
+                                            <div class="checkout-form-list">
+                                                <label for="creditCard">信用卡卡號<span class="required text-danger">*</span></label>
+                                                <input id="creditCard" name="creditCard" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="checkout-form-list">
+                                                <label for="threeNum">背面末三碼<span class="required text-danger">*</span></label>
+                                                <input id="threeNum" name="threeNum" type="text" maxlength="3" minlength="3">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="payment">
@@ -135,11 +152,11 @@
                                     <tbody>
                                         <tr class="cart_item">
                                             <td class="cart-product-name"><span>卡卡頌<strong class="product-quantity">× 1</strong></span></td>
-                                            <td class="cart-product-total text-center">$<span class="amount">165</span></td>
+                                            <td class="cart-product-total text-center">$<span id="productMoney1" class="amount">165</span></td>
                                         </tr>
                                         <tr class="cart_item">
                                             <td class="cart-product-name"><span>矮人礦坑<strong class="product-quantity">× 1</strong></span></td>
-                                            <td class="cart-product-total text-center">$<span class="amount">165</span></td>
+                                            <td class="cart-product-total text-center">$<span id="productMoney2" class="amount">165</span></td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -205,6 +222,9 @@
 
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
+    <!-- My JS-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
     <script src="static/js/checkout.js"></script>
     
 

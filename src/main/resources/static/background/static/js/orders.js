@@ -1,4 +1,11 @@
 const table = document.querySelector("tbody#orders");
+render();
+
+
+
+
+
+
 function render() {
     // table.innerHTML = "";
     fetch('/ord/getAllOrdJoinMemName', {
@@ -113,12 +120,10 @@ function render() {
 
 
 function but(ordNo, status) {
-    console.log(ordNo);
     const formData = {
         "ordNo": +ordNo,
         "ordStatus": +status
     }
-    console.log(formData);
     fetch('/ord/updateOrdState', {
         method: 'POST',
         headers: {
@@ -129,7 +134,6 @@ function but(ordNo, status) {
         .then(response => response.json()
         )
         .then(data => {
-            console.log(data);
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
@@ -139,7 +143,6 @@ function but(ordNo, status) {
 };
 
 function but2(ordNo, payStatus) {
-    console.log(ordNo);
     const formData = {
         "ordNo": +ordNo,
         "ordPayStatus": +payStatus
@@ -165,7 +168,7 @@ function but2(ordNo, payStatus) {
 };
 
 
-render();
+
 
 
 

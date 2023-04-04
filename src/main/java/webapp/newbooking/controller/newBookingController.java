@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -17,6 +18,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -91,5 +94,42 @@ public class newBookingController {
             File file = new File("src/main/resources/static/background/static/image/img1.jpg");
             httpServletRequest.setAttribute(image.ATTRIBUTE_FILE, file);
 //        Toimage.handleRequest(httpServletRequest, httpServletResponse);
+    }
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @RequestMapping("/addredis")
+    public String addRedis(String date, String time,Integer seat) {
+        HashMap timeSeat=new HashMap();
+        try {for(int i=1;i<25;i++)
+        {
+            time=""+i+":00:00";
+            timeSeat.put(time,seat);
+
+        }
+        redisTemplate.opsForValue().set(date, timeSeat);
+        return "加入成功";
+        }catch (Exception E){
+            return  "加入失敗";
+        }
+    }
+    @RequestMapping("/addseat")
+    public  String changeseat(String date, Integer seat){
+
+
+        redisTemplate.opsForList().leftPush(date,""+seat);
+
+        return "change";
+    }
+    @RequestMapping("/addDatetime")
+    public String insertRedis(String datetime,Integer seat) {
+
+            redisTemplate.opsForValue().set(datetime, "60");
+            return "加入";
+    }
+    @RequestMapping("/getredis")
+    public Object getRedis(String date ,Integer TIME) {
+        Object value = redisTemplate.opsForList().index(date,TIME);
+        return value;
     }
 }

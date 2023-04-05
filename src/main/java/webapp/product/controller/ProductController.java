@@ -43,6 +43,22 @@ public class ProductController {
 //    public Boolean updateStatus(@RequestParam Integer id, @RequestParam Boolean status) {
 //        return productService.updateStatus(id, status);
 //    }
+    @GetMapping("/ls-one")
+    @ResponseBody
+    public ProductDTO findById(@RequestParam Integer id) {
+        return productService.findById(id);
+    }
+    @GetMapping("/set-status")
+    @ResponseBody
+    public Boolean updateStatus(@RequestParam Integer id, @RequestParam Boolean status) {
+        return productService.updateStatus(id, status);
+    }
+
+    @PostMapping("/save-product")
+    @ResponseBody
+    public Boolean saveProduct(@RequestBody ProductDTO productDTO) {
+        return productService.saveProduct(productDTO);
+    }
 
     @GetMapping("/find-one")
     @ResponseBody

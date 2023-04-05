@@ -123,39 +123,35 @@
                                                             <tr>
                                                                 <th>訂單編號</th>
                                                                 <th>下定日期</th>
-                                                                <th>訂單狀態</th>
                                                                 <th>付款金額</th>
+                                                                <th>付款狀態</th>
+                                                                <th>訂單狀態</th>
+                                                                <th>取貨方式</th>
                                                                 <th>訂單明細</th>
                                                                 <th>退貨申請</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody id = "ordersTable">
                                                             <tr>
                                                                 <td>1</td>
                                                                 <td>2023/3/10</td>
+                                                                <td>$300</td>
+                                                                <td>已付款</td>
                                                                 <td>退貨申請</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
+                                                                <td>宅配</td>
+                                                                <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
                                                                 <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>2023/3/09</td>
+                                                                <td>$3000</td>
+                                                                <td>已付款</td>
                                                                 <td>已出貨</td>
-                                                                <td>$200</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td>超商取貨</td>
+                                                                <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
+                                                                <td><button class="btn obrien-button-2 primary-color rounded-0" >退貨</button></td>
                                                             </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>2023/3/08</td>
-                                                                <td>已完成</td>
-                                                                <td>$990</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
-                                                            </tr>
-                                                            
-
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -254,8 +250,6 @@
                                                                 <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
                                                                 <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
                                                             </tr>
-                                                            
-
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -514,6 +508,8 @@
 
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
+    <!-- table JS-->
+    <script src="static/js/my-account-orders.js"></script>
 
 </body>
 <script src="../js/member.js"></script>

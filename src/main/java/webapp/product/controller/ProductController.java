@@ -19,14 +19,6 @@ public class ProductController {
         this.productService = productService;
     }
 
-
-    @PostMapping("/save-product")
-    @ResponseBody
-    public Boolean saveEmployee(@RequestBody ProductDTO productDTO) {
-        return productService.saveProduct(productDTO);
-    }
-
-
     @GetMapping("/ls-one")
     @ResponseBody
     public ProductDTO findById(@RequestParam Integer id) {

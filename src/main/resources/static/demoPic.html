@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data" action="/pic/product-pic">
+  <div>
+    <label for="file">選擇存圖檔案:</label>
+    <input type="file" id="file" name="file" accept="image/*">
+  </div>
+  <div>
+    <label for="pdNo">商品編號:</label>
+    <input type="text" id="pdNo" name="pdNo">
+  </div>
+  <div>
+    <button type="submit">儲存</button>
+  </div>
+    <div>
+        <button id="query-btn" onclick="queryProductPics()">查詢全部商品</button>
+        <table id="pic-table" ></table>
+    </div>
+</form>
+
+</body>
+</html>

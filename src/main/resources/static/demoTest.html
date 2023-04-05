@@ -56,7 +56,12 @@
     <table id="show"></table>
 </div>
 
+<div>
+<button id="getAllProduct">查詢全部商品</button>
+    <table id="allshow" ></table>
+</div>
 <script>
+<!--      單筆查詢-->
     const findByIdBtn = document.getElementById('findById');
     const inputEmployeeId = document.getElementById('productId');
     const showTable = document.getElementById('show');
@@ -85,8 +90,62 @@
     })
 </script>
 
+<script>
+    <!--查詢全部-->
+<!--    獲取HTML中的元素-->
+    const findAllBtn = document.getElementById('getAllProduct');
+    const allshowTable = document.getElementById('allshow')
+
+<!--    為"查詢全部"按鈕設置點擊事件-->
+    findAllBtn.addEventListener('click', () => {
+
+         //使用Fetch API發送HTTP請求，並獲取服務端返回的JSON數據
+        fetch(`/product/get-all`) //response
+            .then(response => response.json()   //promise 轉 data
+            )
+            .then(data => {
+                console.log(data);
+
+                //在表格中顯示數據前，先清空表格(
+                allshowTable.setAttribute('border', '1');
+                const table = document.getElementById('allshow');
+                table.innerHTML="";
+
+                //創建表格的表頭
+                const header = table.createTHead();
+                const headerRow = header.insertRow();
+                const columnNames = ['商品編號', '商品名稱', '商品價錢', '商品庫存', '商品資訊', '商品上架狀態', '更新時間'];
+                for (const name of columnNames) {
+                    const headerCell = headerRow.insertCell();
+                    headerCell.innerHTML = name;
+                }
+
+                 //為每個產品創建一個表格行
+                for (const product of data) {
+                    const row = table.insertRow();
+                    const idCell = row.insertCell();
+                    const nameCell = row.insertCell();
+                    const priceCell = row.insertCell();
+                    const stockCell = row.insertCell();
+                    const descCell = row.insertCell();
+                    const statusCell = row.insertCell();
+                    const updateCell = row.insertCell();
+
+                    //在表格行中顯示產品數據
+                    idCell.innerHTML = product.pdNo;
+                    nameCell.innerHTML = product.pdName;
+                    priceCell.innerHTML = product.pdPrice;
+                    stockCell.innerHTML = product.pdStock;
+                    descCell.innerHTML = product.pdDescription;
+                    statusCell.innerHTML = product.pdStatus;
+                    updateCell.innerHTML = moment(product.pdUpdate).format('YYYY-MM-DD HH:mm:ss');
+                }
+            })
+    })
+</script>
 
 <script>
+<!--  新增商品-->
     $('#proud-form').submit(e => {
         e.preventDefault();
         // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒

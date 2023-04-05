@@ -10,7 +10,9 @@ import webapp.product.dto.ProductLoginDTO;
 import webapp.product.pojo.Product;
 import webapp.product.repository.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -60,6 +62,11 @@ public class ProductServiceImpl implements ProductService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Product> getAllProduct(){
+        return productRepository.findAll();
     }
 
 }

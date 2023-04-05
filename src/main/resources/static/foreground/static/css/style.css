@@ -5111,24 +5111,24 @@ button,
 }
 
 .slide-1 {
-  background-image: url("../image/1-1.jpg");
+  background-image: url("/foreground/static/image/1-1.jpg");
   background-color: rgba(215, 177, 190, 0.9);
 
 }
 
 .slide-2 {
-  background-image: url("../image/1-2.jpg");
+  background-image: url("/foreground/static/image/1-2.jpg");
   background-color: rgba(215, 177, 190, 0.9);
 
 }
 
 .slide-3 {
-  background-image: url("../image/2-1.jpg");
+  background-image: url("/foreground/static/image/2-1.jpg");
   background-color: rgba(215, 177, 190, 0.9);
 }
 
 .slide-4 {
-  background-image: url("../image/2-2.jpg");
+  background-image: url("/foreground/static/image/2-2.jpg");
   background-color: rgba(215, 177, 190, 0.9);
 }
 

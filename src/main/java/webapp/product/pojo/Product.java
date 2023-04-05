@@ -1,12 +1,12 @@
 package webapp.product.pojo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data // Lombok: Gene getter/setter by @getter/@setter
 @AllArgsConstructor // Lombok: Auto gene args constructor
@@ -38,5 +38,9 @@ public class Product {
 
     @Column(name = "PD_UPDATE")
     private Timestamp pdUpdate;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PD_NO",referencedColumnName = "PD_NO")
+    private List<ProductPic> productPics;
 
 }

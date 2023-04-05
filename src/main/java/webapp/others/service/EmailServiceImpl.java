@@ -1,6 +1,8 @@
 package webapp.others.service;
 
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -10,9 +12,9 @@ import org.springframework.stereotype.Service;
 public class EmailServiceImpl implements EmailService{
 
     @Autowired
-    private JavaMailSender mailSender;
+    private MailSender mailSender;
 
-    public EmailServiceImpl(JavaMailSender mailSender) {
+    public EmailServiceImpl(MailSender mailSender) {
         this.mailSender = mailSender;
     }
 
@@ -26,6 +28,11 @@ public class EmailServiceImpl implements EmailService{
         message.setText(text);
 
         this.mailSender.send(message);
+    }
+
+    @Override
+    public void receiveEmails(String name, String to, String subject, String text) throws MessagingException {
+
     }
 
 }

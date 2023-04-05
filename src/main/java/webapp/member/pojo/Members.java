@@ -1,13 +1,13 @@
 package webapp.member.pojo;
 
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import webapp.product.pojo.Product;
 
 import java.util.Date;
+import java.util.List;
 
 @Data // Lombok: Gene getter/setter by @getter/@setter
 @AllArgsConstructor // Lombok: Auto gene args constructor
@@ -15,27 +15,28 @@ import java.util.Date;
 @Entity // JPA: mark this class as entity
 @Table(name = "MEMBERS")
 public class Members {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEM_NO")
     private Integer memNo;
 
-    @Column(name = "MEM_NAME",nullable = true)
+    @Column(name = "MEM_NAME")
     private String memName;
 
-    @Column(name = "MEM_GENDER",nullable = true)
+    @Column(name = "MEM_GENDER")
     private Byte memGender;
 
-    @Column(name = "MEM_EMAIL",nullable = true)
+    @Column(name = "MEM_EMAIL",unique = true)
     private String memEmail;
 
-    @Column(name = "MEM_PASSWORD",nullable = true)
+    @Column(name = "MEM_PASSWORD")
     private String memPassword;
 
-    @Column(name = "MEM_PHONE",nullable = true)
+    @Column(name = "MEM_PHONE")
     private String memPhone;
 
-    @Column(name = "MEM_ADDRESS",nullable = true)
+    @Column(name = "MEM_ADDRESS")
     private String memAddress;
 
     @Column(name = "MEM_BIRTHDAY")
@@ -53,6 +54,13 @@ public class Members {
     @Column(name = "MEM_STATUS",insertable = false,updatable = false)
     private Date memStatus;
 
+
+
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(referencedColumnName = "MEM_NO",name = "MEM_NO"),
+    name = "Collection",inverseJoinColumns = @JoinColumn(name = "PD_NO",referencedColumnName = "PD_NO"))
+    private List<Product> wishLists;
 
 
 

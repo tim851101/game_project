@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import webapp.others.dto.EmailMessageDTO;
-import webapp.others.pojo.EmailMessage;
 import webapp.others.service.EmailService;
 
 
-@RestController
+@Controller
 @RequestMapping("/test")
 public class EmailSenderController {
 
@@ -16,8 +15,8 @@ public class EmailSenderController {
     private EmailService emailServiceImpl;
 
     @PostMapping("/send-email")
+    @ResponseBody
     String sendEmailMassage(@RequestBody EmailMessageDTO emailMessageDTO) {
-        System.out.println("start");
         if(emailMessageDTO.getName()==null || "".equals(emailMessageDTO.getName())){
             return "請輸入姓名";
         }
@@ -36,7 +35,6 @@ public class EmailSenderController {
             e.printStackTrace();
             return "寄送失敗";
         }
-        System.out.println("寄送成功");
         return "寄送成功";
     }
 }

@@ -8,23 +8,53 @@
     <title>Document</title>
 </head>
 <body>
-<form method="post" enctype="multipart/form-data" action="/pic/product-pic">
-  <div>
-    <label for="file">選擇存圖檔案:</label>
-    <input type="file" id="file" name="file" accept="image/*">
-  </div>
-  <div>
-    <label for="pdNo">商品編號:</label>
-    <input type="text" id="pdNo" name="pdNo">
-  </div>
-  <div>
-    <button type="submit">儲存</button>
-  </div>
+<form id="upload-form">
     <div>
-        <button id="query-btn" onclick="queryProductPics()">查詢全部商品</button>
-        <table id="pic-table" ></table>
+        <label for="file">選擇存圖檔案:</label>
+        <input type="file" id="file" name="file" accept="image/*">
+    </div>
+    <div>
+        <label for="pdNo">商品編號:</label>
+        <input type="text" id="pdNo" name="pdNo">
+    </div>
+    <div>
+        <button type="submit">儲存</button>
     </div>
 </form>
 
+<script>
+const form = document.getElementById('upload-form');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+const fileInput = document.getElementById('file');
+const pdNoInput = document.getElementById('pdNo');
+
+    // 檢查是否為圖片文件
+      if (!fileInput.files[0].type.startsWith("image/")) {
+           alert("請勿上傳除圖片檔以外的檔案");
+           return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+      formData.append('pdNo', pdNoInput.value);
+
+      fetch('/pic/product-pic', {
+          method: 'POST',
+          body: formData
+      })
+      .then(response => {
+          const successMessage = document.createElement('p');
+          successMessage.textContent = '圖片存進資料庫成功';
+          form.appendChild(successMessage);
+      })
+      .catch(error => {
+          console.error(error);
+          alert(error.message);
+      });
+  });
+</script>
 </body>
 </html>

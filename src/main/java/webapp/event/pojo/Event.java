@@ -18,19 +18,19 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EVENT_NO",insertable = false)
     private Integer eventNo;
-    @Column(name = "EVENT_NAME", nullable = false)
+    @Column(name = "EVENT_NAME")
     private String eventName;
     @Column(name = "EVENT_DISC")
     private String eventDisc;
     @Column(name = "EVENT_DATE")
     private Date eventDate;
-    @Column(name = "EVENT_STARTTIME" ,updatable = false )
+    @Column(name = "EVENT_STARTTIME")
     private Timestamp eventStarttime;
-    @Column(name = "EVENT_ENDTIME",updatable = false)
+    @Column(name = "EVENT_ENDTIME")
     private Timestamp eventEndtime;
     @Column(name = "EVENT_LIMIT")
     private Integer eventLimit;
-    @Column(name = "SIGNUP_NUM", insertable = false)
+    @Column(name = "SIGNUP_NUM")
     private Integer signupNum;
     @Column(name = "EVENT_FEE")
     private Integer eventFee;

@@ -1,4 +1,5 @@
 $(document).ready(e => {
+
   // 舉辦日期參數 
   $.datetimepicker.setLocale('zh'); // kr ko ja en
   $('#eventDate').datetimepicker({
@@ -50,8 +51,21 @@ $(document).ready(e => {
   });
 
   // 新增資料至event table
-  $('#event-form').submit(e => {
   // $('#enterBtn').click(e => {
+  $('#event-form').submit(e => {
+    e.preventDefault();
+  Swal.fire({
+    title: "確定要新增該賽事嗎？",
+    text: "資料送出後將無法修改！",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#21870D',
+cancelButtonColor: '#d33',
+    confirmButtonText: '確定',
+    cancelButtonText: "取消"
+  })
+  .then(function (result) {
+    if (result.value) {
     const formData = {
       'eventName': $("#eventName").val(),
       'eventDisc': $("#eventDisc").val(),
@@ -59,10 +73,11 @@ $(document).ready(e => {
       'eventStarttime': $('#eventStarttime').val(),
       'eventEndtime': $('#eventEndtime').val(),
       'eventLimit': $("#eventLimit").val(),
+      'signupNum':0,
       'eventFee': $("#eventFee").val(),
       'signupStartTime': $("#signupStartTime").val(),
       'signupDeadline': $("#signupDeadline").val(),
-      'eventStatus':0
+      'eventStatus': 0
     }
     fetch('/event/save-event', {
       method: 'POST',
@@ -77,30 +92,50 @@ $(document).ready(e => {
         }
         return response.json();
       })
-      .then(data => {
-        if (data) {
-          setTimeout(() => {
-            document.location.reload();
-          }, 1000);
-        }
-        console.log(data);
-      })
       .catch(error => {
         console.error('Error:', error.message);
       });
+
+      Swal.fire({
+        title: "已送出資料！",
+        icon: 'success',
+        confirmButtonText: '確定',
+        confirmButtonColor: '#21870D',
+        preConfirm: setTimeout(() => {
+            document.location.reload();
+          }, 2000)
+      })
+
+    }} );
   });
+
 
   // 動態新增賽事清單(取出event table值) 
   fetch('/event/ls-event')
     .then(response => {
       if (!response.ok) {
-        console.log("event no save");
+        console.log("event no return");
       }
       return response.json();
     })
     .then(data => {
       findAll(data);
-      $('#myTable').DataTable({
+      table();  
+    });
+
+    function table() {
+      table = $('#eventList').DataTable({
+        // disable 預設排序
+        "columnDefs": [{
+        "searchable": false,
+        "orderable": false,
+         "targets": 2},{
+          "searchable": false,
+          "orderable": false,
+           "targets": 14}],
+           
+        //以緊急時間欄為排列
+        "order": [[0, "DESC"]],
         language: {
           "emptyTable": "無資料...",
           "processing": "處理中...",
@@ -124,15 +159,18 @@ $(document).ready(e => {
           },
         }
       });
-    });
+      // 隱藏此欄位
+      table.columns([0]).visible(false);
+    }
+
   function findAll(data) {
     const eventList = $('#prod-list');
     let tdString = "";
     for (const e of data) {
-      if (e.eventStatus == 1) {
         tdString += `
                       <tr> 
-                        <th style="text-align:center";><strong></strong>${e.eventName}</th>
+                        <th><strong >${e.eventNo}</strong></th>
+                        <th><strong >${e.eventName}</strong></th>
                         <th><textarea cols="30" rows="1" disabled >${e.eventDisc}</textarea></th>
                         <th><strong>${e.eventDate}</strong></th>
                         <th><strong>${e.eventStarttime}</strong></th>
@@ -143,60 +181,40 @@ $(document).ready(e => {
                         <th><strong>${e.signupDeadline}</strong></th>
                         <th><strong>${e.eventWinner1}</strong></th>
                         <th><strong>${e.eventWinner2}</strong></th>
-                        <th><strong>${e.eventWinner3}</strong></th>
-                        <th><i class="fa fa-circle text-success me-1"></i></th> 
+                        <th><strong>${e.eventWinner3}</strong></th>`
+                        switch (e.eventStatus) {
+                          case 1: {
+                            tdString += 
+                            `<th><i class="fa fa-circle text-success me-1"> </i></th>` 
+                            break;
+                          }
+                          case 2: {
+                            tdString += 
+                            `<th><i class="fa fa-circle text-danger me-1"></i></th>` 
+                            break;
+                          }
+                          default: {
+                            tdString += 
+                             `<th><i class="fa fa-circle text-warning me-1"> </i></th>` 
+                            break;
+                          }
+                        }
+                        tdString += `
                         <th><a id="edit${e.eventNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 fas fa-pencil-alt" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo""></th>
-                     </tr>
-        `;
-      } else if (e.eventStatus == 0) {
-        tdString += `
-                        <tr> 
-                          <th style="text-align:center";><strong></strong>${e.eventName}</th>
-                          <th><textarea cols="30" rows="1" disabled >${e.eventDisc}</textarea></th>
-                          <th><strong>${e.eventDate}</strong></th>
-                          <th><strong>${e.eventStarttime}</strong></th>
-                          <th><strong>${e.eventEndtime}</strong></th>
-                          <th><strong>${e.eventLimit}</strong></th>
-                          <th><strong>${e.eventFee}</strong></th>
-                          <th><strong>${e.signupStartTime}</strong></th>
-                          <th><strong>${e.signupDeadline}</strong></th>
-                          <th><strong>${e.eventWinner1}</strong></th>
-                          <th><strong>${e.eventWinner2}</strong></th>
-                          <th><strong>${e.eventWinner3}</strong></th>
-                          <th> <i class="fa fa-circle text-danger me-1"></i></th> 
-                          <th><a id="edit${e.eventNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 fas fa-pencil-alt" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo""></th>
-                    </tr>
-          `;
-      } 
-      // else if (e.eventStatus == null) {
-      //   tdString += `
-      //                   <tr> 
-      //                     <th style="text-align:center";><strong></strong>${e.eventName}</th>
-      //                     <th><textarea cols="30" rows="1" disabled >${e.eventDisc}</textarea></th>
-      //                     <th><strong>${e.eventDate}</strong></th>
-      //                     <th><strong>${e.eventStarttime}</strong></th>
-      //                     <th><strong>${e.eventEndtime}</strong></th>
-      //                     <th><strong>${e.eventLimit}</strong></th>
-      //                     <th><strong>${e.eventFee}</strong></th>
-      //                     <th><strong>${e.signupStartTime}</strong></th>
-      //                     <th><strong>${e.signupDeadline}</strong></th>
-      //                     <th><strong>${e.eventWinner1}</strong></th>
-      //                     <th><strong>${e.eventWinner2}</strong></th>
-      //                     <th><strong>${e.eventWinner3}</strong></th>
-      //                     <th><i class="fa fa-circle text-warning  me-1"></i></th> 
-      //                    <th><a id="edit${e.eventNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 fas fa-pencil-alt" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo""></th>
-      //               </tr>
-      //                     `;
-      // }
+                      </tr>`;
+        
     }
     eventList.html(tdString);
     $('#prod-list').find('a[id^="edit"]').on('click', function alertTest() {
       $('#saveWinner').click(e => {
         if ($.trim($("#eventWinner1").val()) === "" || $.trim($("#eventWinner2").val()) === "" || $.trim($("#eventWinner3").val()) === "") {
           Swal.fire(
-            "內容不能空白", //標題 
-            "請再次檢查您輸入的字是否正確", //訊息內容(可省略)
-            "error" 
+            {
+              title: "內容不能空白！",
+              text:  "請再次檢查您輸入的字是否正確",
+              icon: 'error',
+              confirmButtonText: '確定'
+            }
           );
         } else {
           let buttonId = $(this).attr('id');
@@ -209,12 +227,16 @@ $(document).ready(e => {
             "eventStatus": 1
           }
           Swal.fire({
-            title: "確定要送出資料嗎",
-            text: "資料送出後將無法修改",
-            showCancelButton: true
+            title: "確定要送出資料嗎？",
+            text: "資料送出後將無法修改！",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#21870D',
+        cancelButtonColor: '#d33',
+            confirmButtonText: '確定',
+            cancelButtonText: "取消"
           }).then(function (result) {
             if (result.value) {
-              Swal.fire("已送出資料");
               fetch('/event/updateWinners', {
                 method: 'POST',
                 headers: {
@@ -226,20 +248,29 @@ $(document).ready(e => {
                   if (!response.ok) {
                     throw new Error('Event not update');
                   }
-                  setTimeout(() => {
-                    document.location.reload();
-                  }, 2000);
                   return response.json()
                 })
                 .catch(error => {
                   console.error('Error:', error.message);
                 });
+                Swal.fire({
+                  title: "已送出資料！",
+                  icon: 'success',
+                  confirmButtonText: '確定',
+                  confirmButtonColor: '#21870D',
+                  preConfirm: setTimeout(() => {
+                      document.location.reload();
+                    }, 2000)
+                });
+               
             }
           });
         }
       });
     });
   };
+
+  // 提交頁面
   let exampleModal = document.getElementById('exampleModal')
   exampleModal.addEventListener('show.bs.modal', function (event) {
     let button = event.relatedTarget
@@ -263,11 +294,7 @@ function autoResize(textarea) {
   //     "error" //圖示(可省略) success/info/warning/error/question
   //     //圖示範例：https://sweetalert2.github.io/#icons
   //   );
-
-
-
   /* <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt "></i> */
-
   //     <div class="d-flex align-items-center">
   //     <i class="fa fa-circle text-warning me-1"></i>
   //     進行中
@@ -281,8 +308,26 @@ function autoResize(textarea) {
   //     已完賽
   //   </div>
   // </td>-->
-
-
   //     <div class="d-flex">
   //       <!-- <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a> -->
   //     </div>
+   // else if (e.eventStatus == null) {
+      //   tdString += `
+      //                   <tr> 
+      //                     <th style="text-align:center";><strong></strong>${e.eventName}</th>
+      //                     <th><textarea cols="30" rows="1" disabled >${e.eventDisc}</textarea></th>
+      //                     <th><strong>${e.eventDate}</strong></th>
+      //                     <th><strong>${e.eventStarttime}</strong></th>
+      //                     <th><strong>${e.eventEndtime}</strong></th>
+      //                     <th><strong>${e.eventLimit}</strong></th>
+      //                     <th><strong>${e.eventFee}</strong></th>
+      //                     <th><strong>${e.signupStartTime}</strong></th>
+      //                     <th><strong>${e.signupDeadline}</strong></th>
+      //                     <th><strong>${e.eventWinner1}</strong></th>
+      //                     <th><strong>${e.eventWinner2}</strong></th>
+      //                     <th><strong>${e.eventWinner3}</strong></th>
+      //                     <th><i class="fa fa-circle text-warning  me-1"></i></th> 
+      //                    <th><a id="edit${e.eventNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 fas fa-pencil-alt" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo""></th>
+      //               </tr>
+      //                     `;
+      // }

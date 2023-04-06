@@ -4,7 +4,6 @@ package webapp.event.service;
 import core.service.BasicService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import webapp.event.dto.EventDTO;
 import webapp.event.pojo.Event;
@@ -18,6 +17,7 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
 
     private final ModelMapper modelMapper;
     private final EventRepository eventRepository;
+
 
     @Autowired
     public EventServiceImpl(ModelMapper modelMapper, EventRepository eventRepository) {
@@ -67,6 +67,24 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
             return true;
         }
     }
+
+    @Override
+    public Integer selectEventLimit(EventDTO eventDTO) {
+        return eventRepository.getEventLimit(eventDTO.getEventNo());
+    }
+
+    @Override
+    public Boolean updateEventStatus(EventDTO eventDTO){
+        if(eventDTO.getEventStatus() == 0 || eventDTO.getEventStatus() == 1 || eventDTO.getEventStatus() == 2){
+            eventRepository.setEventStatus(eventDTO.getEventStatus(),eventDTO.getEventLimit(), eventDTO.getSignupNum() ,eventDTO.getEventNo());
+            return true;
+        }else {
+            return false;
+        }
+
+
+    }
+
 }
 
 

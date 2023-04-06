@@ -13,4 +13,7 @@ public interface EventService {
     Boolean updateSignupNum(EventDTO eventDTO);
     Boolean cancelSignupNum(EventDTO eventDTO);
 
+    Integer  selectEventLimit(EventDTO eventDTO);
+
+    Boolean updateEventStatus(EventDTO eventDTO);
 }

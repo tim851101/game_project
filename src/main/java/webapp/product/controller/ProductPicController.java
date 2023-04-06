@@ -62,7 +62,7 @@ public class ProductPicController {
         }catch (Exception e){
             byte[] buffer = new byte[4096];
             int bytesRead = -1;
-            String imgFile ="/static/foregronud/static/image/none.jpg";
+            String imgFile ="C:\\BoardGameProject\\CGA106G1\\src\\main\\resources\\static\\foreground\\static\\image\\none.jpg";
             InputStream inputStream=new FileInputStream(imgFile);;
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             while ((bytesRead = inputStream.read(buffer)) != -1) {

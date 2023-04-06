@@ -78,7 +78,7 @@
                         }'>
                                 <div class="single-image border">
                                     <a href="static/PIC_NO(500x500)/1.jpg">
-                                        <img src="static/PIC_NO(500x500)/1.jpg" alt="Product">
+                                        <img id="toimage" src="static/PIC_NO(500x500)/1.jpg" alt="Product">
                                     </a>
                                 </div>
                                 <div class="single-image border">
@@ -975,7 +975,22 @@
 
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
+    <script>
 
+
+       var queryString = window.location.search;
+
+// 使用 URLSearchParams 對象解析查詢參數，獲取 id 參數的值
+var searchParams = new URLSearchParams(queryString);
+let id = searchParams.get("picno");
+
+// 在控制台中輸出 id 的值
+// console.log(picno);
+let image1=document.querySelector("#toimage")
+let url="http://localhost:8082/pic/getimage?picno="+id
+image1.setAttribute("src", url)
+
+</script>
 </body>
 
 </html>

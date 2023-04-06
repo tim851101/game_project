@@ -333,26 +333,26 @@
                 <div class="card-body">
                   <div class="form-validation">
                     <!-- form start -->
-                    <form class="needs-validation" novalidate="">
+                    <form id="proud-form" action="/addProduct" method="post" class="needs-validation" novalidate="">
                       <div class="row">
                         <div class="col-xl-6">
                           <!-- PRODUCT -->
-                          <div class="mb-3 row" hidden>
-                            <label class="col-lg-4 col-form-label" for="PD_NO"
-                              >商品編號
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="PD_NO"
-                                placeholder="Enter a username.."
-                              />
-                            </div>
-                          </div>
+<!--                          <div class="mb-3 row" >-->
+<!--                            <label class="col-lg-4 col-form-label" for="pdNo"-->
+<!--                              >商品編號-->
+<!--                              <span class="text-danger">*</span>-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <input-->
+<!--                                type="text"-->
+<!--                                class="form-control"-->
+<!--                                id="pdNo"-->
+<!--                                placeholder="輸入商品編號"-->
+<!--                              />-->
+<!--                            </div>-->
+<!--                          </div>-->
                           <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="PD_NAME"
+                            <label class="col-lg-4 col-form-label" for="pdName"
                               >商品名稱
                               <span class="text-danger">*</span>
                             </label>
@@ -360,8 +360,8 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_NAME"
-                                placeholder="Enter a username.."
+                                id="pdName"
+                                placeholder="輸入商品名稱"
                                 required=""
                               />
                               <div class="invalid-feedback">
@@ -372,22 +372,23 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_PRICE"
+                              for="pdPrice"
                               >商品價錢<span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_PRICE"
+                                id="pdPrice"
                                 required=""
+                                placeholder="輸入商品價錢"
                               />
                             </div>
                           </div>
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_AMOUNT"
+                              for="pdStock"
                               >商品庫存
                               <span class="text-danger">*</span>
                             </label>
@@ -395,7 +396,8 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_AMOUNT"
+                                id="pdStock"
+                                placeholder="輸入商品庫存"
                               />
                             </div>
                             <div class="invalid-feedback">
@@ -407,7 +409,7 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_STATUS"
+                              name="pdStatus"
                               >商品上架狀態
                               <span class="text-danger">*</span>
                             </label>
@@ -416,11 +418,11 @@
                                 <input
                                   class="form-check-input"
                                   type="radio"
-                                  name="PD_STATUS"
-                                  id="offsell"
-                                  value="0"
+                                  name="pdStatus"
+                                  id="c2"
+                                  value="false"
                                 />
-                                <label class="form-check-label" for="offsell"
+                                <label class="form-check-label" for="c2"
                                   >下架</label
                                 >
                               </div>
@@ -428,11 +430,11 @@
                                 <input
                                   class="form-check-input"
                                   type="radio"
-                                  name="PD_STATUS"
-                                  id="onsell"
-                                  value="1"
+                                  name="pdStatus"
+                                  id="c1"
+                                  value="true"
                                 />
-                                <label class="form-check-label" for="onsell"
+                                <label class="form-check-label" for="c1"
                                   >上架</label
                                 >
                               </div>
@@ -444,55 +446,55 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_UPDATE"
+                              for="pdUpdate"
                               >近期更新時間
                               <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
                               <input
-                                type="datetime"
+                                type="datetime-local"
                                 class="form-control"
-                                id="PD_UPDATE"
+                                id="pdUpdate"
                               />
                             </div>
                           </div>
-                          <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="PIC_NO"
-                              >商品圖片
-                            </label>
-                            <div class="col-lg-6">
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+<!--                          <div class="mb-3 row">-->
+<!--                            <label class="col-lg-4 col-form-label" for="PIC_NO"-->
+<!--                              >商品圖片-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
                         </div>
 
                         <div class="mb-3 row">
                           <label
                             class="col-lg-4 col-form-label"
-                            for="PD_DESCRIPTION"
+                            for="pdDescription"
                             >商品資訊
                             <span class="text-danger">*</span>
                           </label>
@@ -500,7 +502,8 @@
                             <textarea
                               class="form-control"
                               rows="4"
-                              id="PD_DESCRIPTION"
+                              id="pdDescription"
+                              placeholder="輸入商品資訊"
                             ></textarea>
                           </div>
                         </div>
@@ -510,7 +513,7 @@
                             class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
                           >
                             <button type="submit" class="btn btn-primary fs-5">
-                              確認
+                              新增
                             </button>
                           </div>
                         </div>
@@ -532,7 +535,9 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title">商品清單列表</h4>
+                <h4 class="card-title">商品清單列表</h4> <button type="subm" class="btn btn-primary fs-5">
+                  查詢
+              </button>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -555,12 +560,13 @@
                             ></label>
                           </div>
                         </th>
-                        <th><strong>ROLL NO.</strong></th>
-                        <th><strong>NAME</strong></th>
-                        <th><strong>Email</strong></th>
-                        <th><strong>Date</strong></th>
-                        <th><strong>Status</strong></th>
-                        <th><strong></strong></th>
+                        <th><strong>商品編號</strong></th>
+                        <th><strong>商品名稱</strong></th>
+                        <th><strong>商品價錢</strong></th>
+                        <th><strong>商品庫存</strong></th>
+                        <th><strong>商品敘述</strong></th>
+                        <th><strong>上架狀態</strong></th>
+                        <th><strong>更新時間</strong></th>
                       </tr>
                     </thead>
                     <tbody>
@@ -741,6 +747,7 @@
               </div>
             </div>
           </div>
+
           <!--**********************************
             商品清單列表 end
         ***********************************-->
@@ -795,5 +802,74 @@
     <script src="static/js/dlabnav-init.js"></script>
     <script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+    const findByIdBtn = document.getElementById('findById');
+    const inputEmployeeId = document.getElementById('productId');
+    const showTable = document.getElementById('show');
+
+    findByIdBtn.addEventListener('click', () => {
+        const productId = inputEmployeeId.value;
+
+        fetch(`/product/find-one?id=${productId}`) //response
+            .then(response => response.json()   //promise 轉 data
+            )
+            .then(data => {
+                console.log(`/emp/find-one?id='${productId}'`);
+                console.log(data);
+                showTable.setAttribute('border', '1');
+
+                const table = document.getElementById('show');
+                table.innerHTML="";
+                for (const property in data) {
+                    const row = table.insertRow();
+                    const keyCell = row.insertCell();
+                    const valueCell = row.insertCell();
+                    keyCell.innerHTML = property;
+                    valueCell.innerHTML = data[property];
+                }
+            })
+    })
+</script>
+
+
+    <script>
+    $('#proud-form').submit(e => {
+        e.preventDefault();
+        // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒
+        const formData = {
+            'pdNo': +$("#pdNo").val(),
+            'pdName': $("#pdName").val(),
+            'pdPrice': +$("#pdPrice").val(),
+            'pdStock': +$("#pdStock").val(),
+            'pdDescription': $("#pdDescription").val(),
+            'pdStatus': $("#c1").prop('checked'),
+            'pdUpdate': moment($("#pdUpdate").val()).format('YYYY-MM-DD HH:mm:ss')
+        }
+        console.log(formData);
+
+        // Send form data as POST request
+        fetch('/product/save-product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' //一定要設定!
+            },
+            body: JSON.stringify(formData) //轉JOSN字串
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+
+</script>
   </body>
 </html>

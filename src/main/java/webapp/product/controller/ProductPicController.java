@@ -8,6 +8,9 @@ import webapp.product.repository.ProductPicRepository;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.List;
 
 
 @RestController
@@ -34,6 +37,5 @@ public class ProductPicController {
 
         return ResponseEntity.ok("圖片存進資料庫成功");
     }
-
 
 }

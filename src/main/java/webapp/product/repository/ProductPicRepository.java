@@ -11,6 +11,4 @@ import java.util.List;
 @Repository
 public interface ProductPicRepository extends JpaRepository<ProductPic, Integer> {
 
-    @Query(value = "SELECT * FROM PRODUCT_PIC", nativeQuery = true)
-    List<ProductPic> findAllProductPics();
 }

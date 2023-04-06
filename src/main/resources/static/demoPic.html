@@ -24,37 +24,41 @@
 
 <script>
 const form = document.getElementById('upload-form');
+let successMessageDisplayed = false;
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-const fileInput = document.getElementById('file');
-const pdNoInput = document.getElementById('pdNo');
+    const fileInput = document.getElementById('file');
+    const pdNoInput = document.getElementById('pdNo');
 
     // 檢查是否為圖片文件
-      if (!fileInput.files[0].type.startsWith("image/")) {
-           alert("請勿上傳除圖片檔以外的檔案");
-           return;
-      }
+    if (!fileInput.files[0].type.startsWith("image/")) {
+        alert("請勿上傳除圖片檔以外的檔案");
+        return;
+    }
 
-      const formData = new FormData();
-      formData.append('file', fileInput.files[0]);
-      formData.append('pdNo', pdNoInput.value);
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    formData.append('pdNo', pdNoInput.value);
 
-      fetch('/pic/product-pic', {
-          method: 'POST',
-          body: formData
-      })
-      .then(response => {
-          const successMessage = document.createElement('p');
-          successMessage.textContent = '圖片存進資料庫成功';
-          form.appendChild(successMessage);
-      })
-      .catch(error => {
-          console.error(error);
-          alert(error.message);
-      });
-  });
+    fetch('/pic/product-pic', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!successMessageDisplayed) {
+            const successMessage = document.createElement('p');
+            successMessage.textContent = '圖片存進資料庫成功';
+            form.appendChild(successMessage);
+            successMessageDisplayed = true;
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert(error.message);
+    });
+});
 </script>
 </body>
 </html>

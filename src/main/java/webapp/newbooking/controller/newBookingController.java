@@ -93,7 +93,7 @@ public class newBookingController {
             throws ServletException, IOException {
             File file = new File("src/main/resources/static/background/static/image/img1.jpg");
             httpServletRequest.setAttribute(image.ATTRIBUTE_FILE, file);
-//        Toimage.handleRequest(httpServletRequest, httpServletResponse);
+       Toimage.handleRequest(httpServletRequest, httpServletResponse);
     }
     @Autowired
     RedisTemplate redisTemplate;
@@ -132,4 +132,5 @@ public class newBookingController {
         Object value = redisTemplate.opsForList().index(date,TIME);
         return value;
     }
+
 }

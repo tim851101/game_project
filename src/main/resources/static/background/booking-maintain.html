@@ -348,21 +348,25 @@
                                 <div >
                                     <h3>訂位訂單</h3>
                                     <div >
-                                        <table >
-                                            <thead>
-                                            <tr>
-                                                <th>NO</th>
-                                                <th>會員</th>
-                                                <th>當天起始時間</th>
-                                                <th>當天結束時間</th>
-                                                <th>預約日期</th>
-                                                <th>預約截止日期</th>
-                                                <th>價格</th>
-                                                <th>當天人數</th>
-                                            </tr>
-                                            </thead>
-                                            </tbody>
                                         </table>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead class="thead-light" >
+                                        <tr>
+                                            <th>NO</th>
+                                            <th>會員</th>
+                                            <th>當天起始時間</th>
+                                            <th>當天結束時間</th>
+                                            <th>預約日期</th>
+                                            <th>預約截止日期</th>
+                                            <th>價格</th>
+                                            <th>當天人數
+
+                                        </tr>
+                                        </thead>
+                                        <tbody id="search">
+                                        </tbody>
+                                    </table>
                                     </div>
                                 </div>
                             </div>
@@ -623,30 +627,7 @@
       <!--**********************************
            Support ticket button end
         ***********************************-->
-    </div>
-    <div class="myaccount-table table-responsive text-center"id="updatebook" >
-        <h3>修改內容</h3>
-        <a href="http://localhost:8082/book/ls">2132131222222222222222222</a>
 
-        </table>
-    </div>
-    <table class="table table-bordered">
-        <thead class="thead-light" >
-        <tr>
-            <th>NO</th>
-            <th>會員</th>
-            <th>當天起始時間</th>
-            <th>當天結束時間</th>
-            <th>預約日期</th>
-            <th>預約截止日期</th>
-            <th>價格</th>
-            <th>當天人數
-
-        </tr>
-        </thead>
-        <tbody id="search">
-        </tbody>
-    </table>
     <div id="imagetest"></div>
     <!--**********************************
         Main wrapper end
@@ -695,10 +676,13 @@
                    <td>${booking.bookingFinishDate}</td>
                    <td>${booking.bookingTotalPrice}</td>
                    <td>${booking.bookingPeople}</td>
-                    <td><button id="update" onclick="forUpdate(${booking.bookingNo})">修改</button></td>
-                    <td><button id="delete" onclick="forDelete(${booking.bookingNo})">取消</button></td>
+                    <td><button id="update" onclick="forUpdate(${booking.bookingNo} type="submit" class="btn btn-primary fs-5")">修改</button></td>
+                    <td><button id="delete" onclick="forDelete(${booking.bookingNo} type="submit" class="btn btn-primary fs-5")">取消</button></td>
                 </tr>
             `
+            if(booking.bookingPaymentStatus)
+
+            search.innerHTML += `
             }
 	});
 

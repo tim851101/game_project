@@ -42,13 +42,13 @@ public class ProductPicController {
 
         return ResponseEntity.ok("圖片存進資料庫成功");
     }
-
     @GetMapping("/getimage" )
     public ResponseEntity<byte[]> getimgage(Integer picno) throws SQLException, IOException {
         try {
 
             ProductPic productPic=productPicRepository.getReferenceById(picno);
             InputStream inputStream=productPic.getPdPic().getBinaryStream();
+
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
             byte[] buffer = new byte[4096]; // 4KB buffer size

@@ -78,7 +78,7 @@
                         }'>
                                 <div class="single-image border">
                                     <a href="static/PIC_NO(500x500)/1.jpg">
-                                        <img src="static/PIC_NO(500x500)/1.jpg" alt="Product">
+                                        <img id="toimage" src="static/PIC_NO(500x500)/1.jpg" alt="Product">
                                     </a>
                                 </div>
                                 <div class="single-image border">
@@ -86,31 +86,7 @@
                                         <img src="static/PIC_NO(500x500)/2.jpg" alt="Product">
                                     </a>
                                 </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/33.jpg">
-                                        <img src="static/picture/33.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/42.jpg">
-                                        <img src="static/picture/42.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/51.jpg">
-                                        <img src="static/picture/51.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/61.jpg">
-                                        <img src="static/picture/61.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/71.jpg">
-                                        <img src="static/picture/71.jpg" alt="Product">
-                                    </a>
-                                </div>
+
                             </div>
                             <div class="pd-slider-nav product-slider" data-slick-options='{
                         "slidesToShow": 4,
@@ -126,26 +102,12 @@
                             {"breakpoint":575, "settings": {"slidesToShow": 3}}
                         ]'>
                                 <div class="single-thumb border">
-                                    <img id="g1" src="static/pic_no160X160/1.jpg" alt="Product Thumnail">
+                                    <img  src="static/pic_no160X160/1.jpg" alt="Product Thumnail">
                                 </div>
                                 <div class="single-thumb border">
-                                    <img id="g2" src="static/pic_no160X160/2.jpg" alt="Product Thumnail">
+                                    <img  src="static/pic_no160X160/2.jpg" alt="Product Thumnail">
                                 </div>
-                                <!-- <div class="single-thumb border">
-                                    <img src="static/picture/34.jpg" alt="Product Thumnail">
-                                </div>
-                                <div class="single-thumb border">
-                                    <img src="static/picture/43.jpg" alt="Product Thumnail">
-                                </div>
-                                <div class="single-thumb border">
-                                    <img src="static/picture/52.jpg" alt="Product Thumnail">
-                                </div>
-                                <div class="single-thumb border">
-                                    <img src="static/picture/62.jpg" alt="Product Thumnail">
-                                </div>
-                                <div class="single-thumb border">
-                                    <img src="static/picture/72.jpg" alt="Product Thumnail">
-                                </div> -->
+
                             </div>
                         </div>
                     </div>
@@ -265,51 +227,9 @@
                                         <!-- End Single Review -->
                                     </div>
                                     <!-- Start RAting Area -->
-                                    <!-- <div class="rating_wrap">
-                                        <h5 class="rating-title-1 mb-2">Add a review </h5>
-                                        <p class="mb-2">Your email address will not be published. Required fields are
-                                            marked *</p>
-                                        <h6 class="rating-title-2 mb-2">Your Rating</h6>
-                                        <div class="rating_list mb-4">
-                                            <div class="review_info">
-                                                <div class="product-rating mb-3">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+
                                     <!-- End RAting Area 商品留言-->
-                                    <!-- <div class="comments-area comments-reply-area">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-custom">
-                                                <form action="#" class="comment-form-area">
-                                                    <div class="row comment-input">
-                                                        <div class="col-md-6 col-custom comment-form-author mb-3">
-                                                            <label>Name <span class="required">*</span></label>
-                                                            <input type="text" required="required" name="Name">
-                                                        </div>
-                                                        <div class="col-md-6 col-custom comment-form-emai mb-3">
-                                                            <label>Email <span class="required">*</span></label>
-                                                            <input type="text" required="required" name="email">
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-form-comment mb-3">
-                                                        <label>Comment</label>
-                                                        <textarea class="comment-notes" required="required"></textarea>
-                                                    </div>
-                                                    <div class="comment-form-submit">
-                                                        <input type="submit" value="Submit"
-                                                            class="comment-submit btn obrien-button primary-btn">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
+
 
                                 <!-- End Single Content -->
                             </div>
@@ -975,7 +895,21 @@
 
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
+    <script>
 
+<!--      var queryString = window.location.search;-->
+
+<!--     // 使用 URLSearchParams 對象解析查詢參數，獲取 id 參數的值-->
+<!--     var searchParams = new URLSearchParams(queryString);-->
+<!--     let id = searchParams.get("picno");-->
+
+<!--     // 在控制台中輸出 id 的值-->
+<!--     // console.log(picno);-->
+<!--     let image1=document.querySelector("#toimage")-->
+<!--     let url="http://localhost:8082/pic/getimage?picno="+id-->
+<!--     image1.setAttribute("src", url)-->
+
+</script>
 </body>
 
 </html>

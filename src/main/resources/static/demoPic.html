@@ -11,7 +11,7 @@
 <form id="upload-form">
     <div>
         <label for="file">選擇存圖檔案:</label>
-        <input type="file" id="file" name="file" accept="image/*">
+        <input type="file" id="file" name="file" accept="image/*" multiple>
     </div>
     <div>
         <label for="pdNo">商品編號:</label>
@@ -32,14 +32,16 @@ form.addEventListener('submit', (event) => {
     const fileInput = document.getElementById('file');
     const pdNoInput = document.getElementById('pdNo');
 
-    // 檢查是否為圖片文件
-    if (!fileInput.files[0].type.startsWith("image/")) {
-        alert("請勿上傳除圖片檔以外的檔案");
-        return;
-    }
-
     const formData = new FormData();
-    formData.append('file', fileInput.files[0]);
+    for (let i = 0; i < fileInput.files.length; i++) {
+        const file = fileInput.files[i];
+        // 檢查是否為圖片文件
+        if (!file.type.startsWith("image/")) {
+            alert(`第 ${i + 1} 個檔案非圖片檔案`);
+            return;
+        }
+        formData.append('files', file);
+    }
     formData.append('pdNo', pdNoInput.value);
 
     fetch('/pic/product-pic', {

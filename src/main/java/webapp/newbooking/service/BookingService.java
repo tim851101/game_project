@@ -99,4 +99,34 @@ public class BookingService {
         BookingDTO bookingDTO= new  BookingDTO();
         return  bookingDTO;
     }
+
+
+
+
+    public Boolean updatepay(Integer pay, Integer memno) {
+        newBooking newBooking=writeBookingRepository.getReferenceById(memno);
+        if(pay!=0)
+        {
+            newBooking.setBookingPaymentStatus(0);
+        }
+        if (pay==0)
+        {
+            newBooking.setBookingPaymentStatus(1);
+        }
+        writeBookingRepository.save(newBooking);
+        return true;
+    }
+    public Boolean updatecheck(Integer check, Integer memno) {
+        newBooking newBooking=writeBookingRepository.getReferenceById(memno);
+        if(check!=0)
+        {
+            newBooking.setBookingCheckStatus(0);
+        }
+        if (check==0)
+        {
+            newBooking.setBookingCheckStatus(1);
+        }
+        writeBookingRepository.save(newBooking);
+        return true;
+    }
 }

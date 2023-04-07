@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,6 +76,16 @@ public class newBookingController {
     @ResponseBody
     public  BookingDTO deleteBooking(Integer deleteno){return  BookingService.deleteBooking(deleteno);}
 
+    @PostMapping("paystatus")
+    @ResponseBody
+    public Boolean paystatus(Integer pay,Integer memno){
+       return BookingService.updatepay(pay,memno);
+    }
+    @PostMapping("checkstatus")
+    @ResponseBody
+    public Boolean checkstatus(Integer check,Integer memno){
+       return BookingService.updatecheck(check,memno);
+    }
     @GetMapping("redirect")
     public RedirectView redirectView(Integer changeno){
         System.out.println(changeno);
@@ -116,8 +127,12 @@ public class newBookingController {
     @RequestMapping("/addseat")
     public  String changeseat(String date, Integer seat){
 
-
+        for(int i=0;i<24;i++){
+            if(i%2==0)
         redisTemplate.opsForList().leftPush(date,""+seat);
+            else
+        redisTemplate.opsForList().leftPush(date,""+seat/2);
+        }
 
         return "change";
     }
@@ -129,6 +144,11 @@ public class newBookingController {
     }
     @RequestMapping("/getredis")
     public Object getRedis(String date ,Integer TIME) {
+        Object value = redisTemplate.opsForValue().get(date);
+        return value;
+    }
+    @RequestMapping("/getindex")
+    public Object getindex(String date ,Integer TIME) {
         Object value = redisTemplate.opsForList().index(date,TIME);
         return value;
     }

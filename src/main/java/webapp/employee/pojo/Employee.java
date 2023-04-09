@@ -6,16 +6,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.Collection;
+import java.util.HashSet;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+@Builder
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Table(name = "EMPLOYEE")
-public class Employee {
+public class Employee implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EMPLOYEE_NO")
@@ -30,7 +37,7 @@ public class Employee {
     @Column(name = "EMPLOYEE_ADDRESS")
     private String employeeAddress;
 
-    @Column(name = "EMPLOYEE_EMAIL", nullable = false)
+    @Column(name = "EMPLOYEE_EMAIL", nullable = false, unique = true)
     private String employeeEmail;
 
     @Column(name = "EMPLOYEE_PASSWORD", nullable = false)
@@ -41,4 +48,50 @@ public class Employee {
 
     @Column(name = "EMPLOYEE_STATUS")
     private Boolean employeeStatus;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        HashSet roleSet = new HashSet<>();
+        roleSet.add(new SimpleGrantedAuthority(RoleEnum.fromId(roleNo).name()));
+        return roleSet;
+    }
+
+    @Override
+    public String getPassword() {
+        return employeePassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return employeeEmail;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Person [id=" + employeeNo +
+            ", email=" + employeeEmail +
+            ", roles=" + roleNo + "]";
+    }
 }

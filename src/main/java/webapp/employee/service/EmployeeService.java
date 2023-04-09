@@ -5,8 +5,10 @@ import webapp.employee.dto.EmpLimitDTO;
 import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
 import webapp.employee.dto.LoginDTO;
+import webapp.employee.pojo.Employee;
 
 public interface EmployeeService {
+    Employee findByEmail(String email);
     Boolean loginCheck(LoginDTO loginDTO);
     EmployeeDTO findById(Integer id);
     Boolean saveEmployee(EmployeeDTO dto);
@@ -17,4 +19,7 @@ public interface EmployeeService {
     String findPwdById(Integer id);
 
     void updateEmployeePartial(EmpLimitDTO empPartial);
+
+    //login
+    Employee create(Employee employee);
 }

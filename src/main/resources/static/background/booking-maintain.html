@@ -26,6 +26,9 @@
  margin-left:auto;
     margin-right:auto;
           }
+          button{
+            background-color: blue;
+          }
       </style>
   </head>
   <body>
@@ -357,7 +360,7 @@
                                             <th>會員</th>
                                             <th>當天起始時間</th>
                                             <th>當天結束時間</th>
-                                            <th>預約日期</th>
+                                            <th>報名預約日期</th>
                                             <th>預約截止日期</th>
                                             <th>價格</th>
                                             <th>當天人數</th>
@@ -637,35 +640,29 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="static/js/global.min.js"></script>
-    <script src="static/js/Chart.bundle.min.js"></script>
-    <script src="static/js/jquery.nice-select.min.js"></script>
-
-    <script src="static/js/Chart.bundle.min.js"></script>
-
-    <!-- Chart piety plugin files -->
-    <script src="static/js/jquery.peity.min.js"></script>
-    <script src="static/js/nouislider.min.js"></script>
-    <script src="static/js/wNumb.js"></script>
-
-    <!-- Dashboard 1 -->
-    <script src="static/js/dashboard-1.js"></script>
-
-    <script src="static/js/owl.carousel.js"></script>
-
-    <script src="static/js/custom.min.js"></script>
-    <script src="static/js/dlabnav-init.js"></script>
-    <script src="static/js/demo.js"></script>
-    <script src="static/js/styleSwitcher.js"></script>
+  
     <script>
     const search = document.querySelector('#search');
     const url ='http://localhost:8082/book/ls';
     const test =document.querySelector('#imagetest')
     const imageurl =new Request('http://localhost:8082/book/image')
+    let pay=""
+    let check=""
     fetch(url)
 	.then(resp => resp.json())
 	.then(list => {
             for (let booking of list) {
+              if(booking.bookingPaymentStatus==1)
+              pay="<td>已付款</td>"
+              else
+              pay="<td><button type=button class='btn btn-primary btn-xxs' onclick=forDelete(${booking.bookingNo})>未付款</button></td>"
+               if(booking.bookingCheckStatus==1)
+               {
+                 check="<td>已報到</td>"
+               }
+               else{
+                check="<td><button type=button class='btn btn-primary btn-xxs' onclick=forDelete(${booking.bookingNo})>未報到</button></td>"
+               }
                 search.innerHTML += `
                 <tr>
                    <td>${booking.bookingNo}</td>
@@ -676,11 +673,11 @@
                    <td>${booking.bookingFinishDate}</td>
                    <td>${booking.bookingTotalPrice}</td>
                    <td>${booking.bookingPeople}</td>
-                    <td>${booking.bookingPaymentStatus}</td>
-                    <td>${booking.bookingCheckStatus}</td>
-                    <td><button id="delete" type="button" class="btn btn-primary fs-5" onclick="forDelete(${booking.bookingNo})">取消</button></td>
-                </tr>
-            `
+                   `+pay+`
+                   `+check+`
+                   <td><button id="delete" type="button" class='btn btn-primary btn-xxs'  onclick="forDelete(${booking.bookingNo})">取消</button></td>
+                  </tr> 
+                   `
             }
 	});
 
@@ -694,5 +691,25 @@
         test.appendChild(img)
 	})
 </script>
+<script src="static/js/global.min.js"></script>
+<script src="static/js/Chart.bundle.min.js"></script>
+<script src="static/js/jquery.nice-select.min.js"></script>
+
+<script src="static/js/Chart.bundle.min.js"></script>
+
+<!-- Chart piety plugin files -->
+<script src="static/js/jquery.peity.min.js"></script>
+<script src="static/js/nouislider.min.js"></script>
+<script src="static/js/wNumb.js"></script>
+
+<!-- Dashboard 1 -->
+<script src="static/js/dashboard-1.js"></script>
+
+<script src="static/js/owl.carousel.js"></script>
+
+<script src="static/js/custom.min.js"></script>
+<script src="static/js/dlabnav-init.js"></script>
+<script src="static/js/demo.js"></script>
+<script src="static/js/styleSwitcher.js"></script>
   </body>
 </html>

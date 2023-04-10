@@ -15,6 +15,8 @@
 	============================================ -->
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="static/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="static/css/font.awesome.min.css">
     <!-- Ionicons -->
@@ -31,6 +33,7 @@
     <link rel="stylesheet" href="static/css/magnific-popup.css">
 
     <link rel="stylesheet" type="text/css" href="static/css/jquery.datetimepicker.css" />
+    
     <!-- Vendor & Plugins CSS (Please remove the comment from below vendor.min.css & plugins.min.css for better website load performance and remove css files from the above) -->
 
     <!-- <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
@@ -273,7 +276,7 @@
                                             <div class="myaccount-content">
                                                 <h3>訂位訂單</h3>
                                                 <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
+                                                    <table id="booktable" class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
                                                                 <th>NO</th>
@@ -491,6 +494,7 @@
 
     <!-- JS
 ============================================ -->
+<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <!-- jQuery JS -->
     <script src="static/js/jquery-3.6.0.min.js"></script>
@@ -514,6 +518,7 @@
     <script src="static/js/jquery.magnific-popup.min.js"></script>
 
     <script src="static/js/jquery.datetimepicker.full.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
 
@@ -525,14 +530,17 @@
       const updatebook= document.querySelector('#updatebook')
      const url ='http://localhost:8082/book/ls';
      let bookno=null;
-     fetch(url)
-	.then(resp => resp.json())
-	.then(list => {
-            for (let booking of list) {
-                tbody.innerHTML += `
+      
+     function read(){
+        
+        tbody.innerHTML = ""
+         fetch(url)
+         .then(resp => resp.json())
+         .then(list => {
+             for (let booking of list) { 
+                 tbody.innerHTML += `
                 <tr>
                    <td>${booking.bookingNo}</td>
-                
                    <td>${booking.bookingStartTime}</td>
                    <td>${booking.bookingEndTime}</td>
                    <td>${booking.bookingDate}</td>
@@ -541,18 +549,25 @@
                    <td>${booking.bookingPeople}</td>
                     <td><button id="update" onclick="forUpdate(${booking.bookingNo})" class="btn obrien-button-2 primary-color rounded-0">修改</button></td>
                     <td><button id="delete" onclick="forDelete(${booking.bookingNo})" class="btn obrien-button-2 primary-color rounded-0">取消</button></td>
-                </tr>
-            `
-            }
-	});
+                    </tr>
+                    `
+                }
+                let table = new DataTable('#booktable');
+            });
+           
+        }
+        // let table = new DataTable('#booktable');
+        read();
 	function forDelete(deleteno){ let confirmdelete = confirm('確認取消'+deleteno+"號訂位?");
          if(confirmdelete){
           $.post('http://localhost:8082/book/deletebook',{
         deleteno:deleteno
 });
-        location.reload()
 }else{
 }
+sleep(500).then(() => {
+   read();
+})
 	}
 	function forUpdate(updateno){
 	const url ='http://localhost:8082/book/one?findno='+updateno;
@@ -638,9 +653,16 @@
     console.log(result.success); // result是json物件
   },
 });
-   
-     location.reload()
-     }
+sleep(500).then(() => {
+   read();
+   updatebook.setAttribute("style", "visibility:hidden");
+})
+}
+     function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
 
 </script>
 </html>

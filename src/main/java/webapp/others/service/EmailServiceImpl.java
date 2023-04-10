@@ -35,4 +35,14 @@ public class EmailServiceImpl implements EmailService{
 
     }
 
+    @Override
+    public void sendPassword(String to, String text) throws MessagingException {
+        SimpleMailMessage sendPasswod = new SimpleMailMessage();
+        sendPasswod.setFrom("my518lin@gmail.com");
+        sendPasswod.setTo(to);
+        sendPasswod.setSubject("您的臨時登入密碼");
+        sendPasswod.setText("登入後請至會員中心變更密碼\n"+"您的臨時密碼為"+text);
+        this.mailSender.send(sendPasswod);
+    }
+
 }

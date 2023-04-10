@@ -87,15 +87,14 @@
                                                 <label class="custom-control-label" for="rememberMe">Remember Me</label>
                                             </div>
                                         </div>
-                                        <a href="#" class="forget-pwd mb-3">Forget Password?</a>
                                     </div>
                                 </div>
                                 <div class="single-input-item mb-3" style="display: inline;">
                                     <button id="mem-login" class="btn obrien-button-2 primary-color">Login</button>
-                       
-                                            <a
-                                                class="btn btn-lg btn-google"
-                                                style="
+                                    
+                                    <a
+                                    class="btn btn-lg btn-google"
+                                    style="
                                                 padding: 0.2rem 0.5rem;
                                                 background-color: rgb(7, 7, 7);
                                                 color: rgb(255, 255, 255);
@@ -107,14 +106,15 @@
                                                 src="https://img.icons8.com/color/16/000000/google-logo.png"
                                                 />
                                                 透過Google登入</a
-                                            >
-
-                                </div>
-                                <div class="single-input-item">
-                                    <a href="register.html">Creat Account</a>
-                                </div>
-                            </form>
-                        </div>
+                                                >
+                                                
+                                            </div>
+                                        </form>
+                                        <div class="single-input-item" style="margin-top: 10px;">
+                                            <a href="register.html">Creat Account</a>
+                                            <button id="getPassword" class="forget-pwd mb-3" style="position: relative;left: 30%;">Forget Password?</button>
+                                        </div>
+                                    </div>
                     </div>
                 </div>
             </div>
@@ -156,7 +156,10 @@
     <script src="/foreground/static/js/main.js"></script>
 
 </body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="/foreground/static/js/memLogin.js"></script>
+<script src="/foreground/static/js/forgetPassword.js"></script>
 <script src="/foreground/static/js/location.js"></script>
 </html>

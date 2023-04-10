@@ -9,19 +9,6 @@ import webapp.member.pojo.Collection;
 
 import java.util.List;
 
-//@SqlResultSetMapping(
-//        name = "WishlistDTOMapping",
-//        classes = @ConstructorResult(
-//                targetClass = WishlistDTO.class,
-//                columns = {
-//                        @ColumnResult(name = "PD_PIC", type = Blob.class),
-//                        @ColumnResult(name = "PD_NAME", type = String.class),
-//                        @ColumnResult(name = "PD_PRICE", type = Integer.class),
-//                        @ColumnResult(name = "PD_STOCK", type = Integer.class),
-//                        @ColumnResult(name = "PD_NO", type = Integer.class)
-//                }
-//        )
-//)
 @Repository
 public interface WishlistRepository extends JpaRepository<Collection,Integer> {
 

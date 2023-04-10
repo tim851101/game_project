@@ -1,11 +1,13 @@
 package webapp.member.service;
 
 import com.nimbusds.jose.shaded.gson.Gson;
+import com.nimbusds.jose.shaded.gson.JsonObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ import webapp.member.dto.LoginDTO;
 import webapp.member.dto.MemberDTO;
 import webapp.member.pojo.Members;
 import webapp.member.repository.MemberRepository;
+import webapp.others.service.EmailService;
+
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
 
@@ -39,8 +44,8 @@ public class MemberServiceImpl implements MemberService{
     @Autowired
     private Validator validator;
 
-//    @Autowired
-//    private MemberDTO user;
+    @Autowired
+    private EmailService emailServiceImpl;
 
     @Override
     public String addMember(MemberDTO user) {
@@ -138,5 +143,52 @@ public class MemberServiceImpl implements MemberService{
 
     }
 
+    @Override
+    public String getNewPassword(String memEmail) {
+        // 將傳進的email json字串轉乘String
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(memEmail, JsonObject.class);
+        String email = jsonObject.get("email").getAsString();
+        System.out.println(email);
+        String msg;
+
+        MemberDTO user=new MemberDTO();
+        System.out.println();
+        // 會員存在產生臨時密碼
+        if (memberRepository.existsByMemEmail(email)){
+            Members member=memberRepository.findByMemEmail(email);
+            BeanUtils.copyProperties(member, user);
+            String newPassword=genAuthCode();
+            user.setMemPassword(passwordEncoder.encode(newPassword));
+            memberRepository.save(modelMapper.map(user,Members.class));
+            try {
+                msg=gson.toJson("臨時密碼已寄送");
+                emailServiceImpl.sendPassword(email,newPassword);
+                return msg;
+            }catch (Exception e) {
+                msg=gson.toJson("請確認您所註冊Email");
+                e.printStackTrace();
+                return msg;
+            }
+        }else {
+            msg=gson.toJson("請確認您所註冊Email");
+            return msg;
+        }
+    }
+
+    public static String genAuthCode() {
+        // 0~9 => 48-57 | A~Z => 65-90 | a~z => 97~122
+        char[] verificationCode = new char[8];
+        for (int i = 0; i < verificationCode.length; i++) {
+            int random = (int) (Math.random() * 75) + 48;
+            if ((random >= 48 && random <= 57) || (random >= 65 && random <= 90)
+                    || (random >= 97 && random <= 122)) {
+                verificationCode[i] = (char) random;
+            } else {
+                i--;
+            }
+        }
+        return Arrays.toString(verificationCode);
+    }
 
 }

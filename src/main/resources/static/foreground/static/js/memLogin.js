@@ -22,6 +22,12 @@ $(document).ready(function() {
       if(data==="帳號或密碼錯誤"){
         document.getElementById("msg").innerText="帳號或密碼錯誤";
       }else{
+        // const jwt=require('jsonwebtoken');
+        // const payload={'memNo', JSON.parse(data).memNo};
+        // const secret="boardgame";
+        // const token=jwt.sign(payload,secret,{expiresIn:'24h'});
+        // localStorage.setItem('token',token);
+
         sessionStorage.setItem("username",JSON.parse(data).memName)
         sessionStorage.setItem('memNo', JSON.parse(data).memNo);
         // 轉跳前一次頁面,沒有就到會員中心
@@ -42,7 +48,7 @@ $(document).ready(function() {
       // loginData.memPassword=document.getElementById("loginPassword").value;
       // console.log(JSON.stringify(registerData))
 
-      fetch(e.target.action, {
+      fetch(`/mem/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

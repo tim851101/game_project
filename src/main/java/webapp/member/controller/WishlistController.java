@@ -30,9 +30,9 @@ public class WishlistController {
         return wishlistServiceImpl.findWishlistByMemNo(memNo);
     }
 
-    @GetMapping("/delete-one")
+    @PostMapping("/delete-one")
     @ResponseBody
-    public String deleteWishlistByPdNo(@RequestParam Integer memNo,@RequestParam Integer pdNo){
+    public String deleteWishlistByPdNo(@RequestParam Integer memNo, @RequestParam Integer pdNo){
         return wishlistServiceImpl.deleteByMemNoAndPdNo(memNo,pdNo);
     }
 

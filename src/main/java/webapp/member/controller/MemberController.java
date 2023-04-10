@@ -1,6 +1,7 @@
 package webapp.member.controller;
 
 import com.nimbusds.jose.shaded.gson.Gson;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import net.minidev.json.JSONObject;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import webapp.member.dto.LoginDTO;
 import webapp.member.dto.MemberDTO;
 import webapp.member.service.MemberService;
-
+import webapp.others.service.EmailService;
 
 @Controller
 @RequestMapping("/mem")
@@ -24,6 +25,9 @@ public class MemberController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private EmailService emailServiceImpl;
 
 //    @GetMapping("/login")
 //    public RedirectView redirectToLogin(HttpServletRequest request) {
@@ -107,5 +111,11 @@ public class MemberController {
     }
 
 
+    @PostMapping("/genAuthCode")
+    @ResponseBody
+    public String forgetPassword(@RequestBody String memEmail) throws MessagingException {
+        System.out.println(memberServiceImpl.getNewPassword(memEmail));
+        return memberServiceImpl.getNewPassword(memEmail);
+    }
 
 }

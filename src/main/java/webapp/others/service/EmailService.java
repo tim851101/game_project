@@ -8,4 +8,6 @@ public interface EmailService {
     void sendEmail(String name, String to, String subject, String text) throws Exception;
 
     void receiveEmails(String name, String to, String subject, String text) throws MessagingException;
+
+    void sendPassword(String to, String text) throws MessagingException;
 }

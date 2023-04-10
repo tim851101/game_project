@@ -22,7 +22,7 @@ $(document).ready(function() {
                     <td class="pro-price"><span>${item.price}</span></td>
                     <td class="pro-stock"><span><strong>${item.pdStock}</strong></span></td>
                     <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-                    <td class="pro-remove"><a onclick="return confirm('是否取消收藏? ')" href="/wish/delete-one?memNo=${memNo}&pdNo=${item.pdNo}" class="remove"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                    <td class="pro-remove"><a onclick="return confirm('是否取消收藏? ')" href="#" class="remove"><p style="display:none;">/wish/delete-one?memNo=${memNo}&pdNo=${item.pdNo}</p><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
                 </tr>
                 `;
             }
@@ -41,11 +41,24 @@ $(document).ready(function() {
     // removeButtons.forEach(function(removeButton) {
         removeButtons.click (e=>{
             if(confirm("取消")){
-            e.preventDefault();
+                console.log("true...");
+            // e.preventDefault();
+            const nextParagraph = removeButtons.nextElementSibling;
+            const nextParagraphValue = nextParagraph.textContent;
+            const pattern = /href="(.+)\?memNo=(\d+)&pdNo=(\d+)"/;
+            const result = nextParagraphValue.match(pattern);
+            const url = result[1]; // /wish/delete-one
+            const memNo = result[2]; // 1
+            const pdNo = result[3]; // 2
             // if (event.target.tagName === 'A' && event.target.classList.contains('remove')) {
                 // const href = e.target.href;
-                fetch(e.target.action, {
-                    method: 'GET'
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "memNo":memNo,
+                        "pdNo":pdNo
+                    }),
+                    headers: {'Content-Type': 'application/json'},
                 }).then(response => {
                     sessionStorage.setItem("res",response.json());
                     console.log(response.text());

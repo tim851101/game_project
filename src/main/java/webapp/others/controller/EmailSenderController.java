@@ -1,5 +1,6 @@
 package webapp.others.controller;
 
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +8,7 @@ import webapp.others.dto.EmailMessageDTO;
 import webapp.others.service.EmailService;
 
 
-@Controller
+@RestController
 @RequestMapping("/test")
 public class EmailSenderController {
 
@@ -37,4 +38,10 @@ public class EmailSenderController {
         }
         return "寄送成功";
     }
+
+//    @PostMapping("/test")
+//    String sendEmailtoMember() throws MessagingException {
+//                emailServiceImpl.sendPassword("a81194@icloud.com", "password");
+//                return "123";
+//    }
 }

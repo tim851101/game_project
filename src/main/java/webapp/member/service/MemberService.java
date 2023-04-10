@@ -25,4 +25,6 @@ public interface MemberService  {
 
     MemberDTO findByMemEmail(String memEmail);
 
+    String getNewPassword(String memEmail);
+
 }

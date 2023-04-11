@@ -3,15 +3,15 @@
 
 <head>
     <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="keywords" content="">
-	<meta name="author" content="">
-	<meta name="robots" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<!-- PAGE TITLE HERE -->
-	<title>Invome Admin Dashboard</title>
-	
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- PAGE TITLE HERE -->
+    <title>Invome Admin Dashboard</title>
+
     <link href="static/css/style.css" rel="stylesheet">
 
 </head>
@@ -25,36 +25,38 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-									<div class="text-center mb-3">
-										<a href="index.html"><img src="static/picture/baordgame-logo.png" alt=""></a>
-									</div>
-                                    <h4 class="text-center mb-4">員工登入</h4>
+                                    <div class="text-center mb-3">
+                                        <a href="index.html"><img src="static/picture/baordgame-logo.png" alt=""></a>
+                                    </div>
+                                    <h4 class="text-center mb-4" style="font-weight: 600;">員工登入</h4>
                                     <form action="index.html">
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Email</strong></label>
                                             <!-- TODO:  -->
-                                            <input type="email" class="form-control" value="hello@example.com"> 
+                                            <input type="email" class="form-control" value="jhon@mail.com" required>
                                         </div>
                                         <div class="mb-3">
                                             <label class="mb-1"><strong>Password</strong></label>
                                             <!-- TODO: -->
-                                            <input type="password" class="form-control" value="Password">
+                                            <input type="password" class="form-control" value="222" required>
                                         </div>
                                         <div class="row d-flex justify-content-between mt-4 mb-2">
-                                            <div class="mb-3">
-                                               <div class="form-check custom-checkbox ms-1">
-													<input type="checkbox" class="form-check-input" id="basic_checkbox_1">
-													<label class="form-check-label" for="basic_checkbox_1">Remember my preference</label>
-												</div>
-                                            </div>
+                                            <!-- <div class="mb-3">
+                                                <div class="form-check custom-checkbox ms-1">
+                                                    <input type="checkbox" class="form-check-input"
+                                                        id="basic_checkbox_1">
+                                                    <label class="form-check-label" for="basic_checkbox_1">Remember my
+                                                        preference</label>
+                                                </div>
+                                            </div> -->
                                             <div class="mb-3">
                                                 <!-- TODO: -->
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
+                                                <a href="/background/employee-forgot-password.html">忘記密碼</a>
                                             </div>
                                         </div>
                                         <div class="text-center">
                                             <!-- TODO: -->
-                                            <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
+                                            <button id="submit" type="submit" class="btn btn-primary btn-block">登入</button>
                                         </div>
                                     </form>
                                 </div>
@@ -70,10 +72,47 @@
     <!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
-    <script src="static/js/global.min.js"></script>
-    <script src="static/js/custom.min.js"></script>
-    <script src="static/js/dlabnav-init.js"></script>
-	<script src="static/js/styleSwitcher.js"></script>
+
+    <script>
+        document.querySelector('#submit').addEventListener('click', e => {
+            e.preventDefault();
+
+            fetch('/auth/authenticate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: 'jhon@mail.com',
+                    password: '222'
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.token)
+                    sessionStorage.setItem('token', data.token);
+                    sessionStorage.setItem('role', data.role);
+
+                    // // Store the token in local storage
+                    // localStorage.setItem('token', data.token);
+                    // Redirect to the home page or any other page
+                    window.location.href = '/management';
+                    // window.location.href = '/home.html';
+
+                    
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 </body>
+</script>
+<!-- Required vendors -->
+<script src="static/js/global.min.js"></script>
+<script src="static/js/custom.min.js"></script>
+<script src="static/js/dlabnav-init.js"></script>
+<script src="static/js/styleSwitcher.js"></script>
+</body>
+
 </html>

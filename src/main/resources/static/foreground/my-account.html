@@ -274,8 +274,9 @@
                                         <!-- Single Tab Content Start 訂位訂單-->
                                         <div class="tab-pane fade" id="booking-edit" role="tabpanel">
                                             <div class="myaccount-content">
-                                                <h3>訂位訂單</h3>
+
                                                 <div class="myaccount-table table-responsive text-center">
+                                                    <h3>訂位訂單</h3>
                                                     <table id="booktable" class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
@@ -529,6 +530,8 @@
       const update= document.querySelector('#update');
       const updatebook= document.querySelector('#updatebook')
      const url ='http://localhost:8082/book/ls';
+      const MonthFromNow = new Date();
+    MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
      let bookno=null;
       
      function read(){
@@ -587,7 +590,15 @@ sleep(500).then(() => {
                     <td><input type="text"  id="date" value="2023-11-01"></td>
                     <td><input type="text" id="deadline" value="2024-11-01"></td>
                     <td><p id='price'>${booking.bookingTotalPrice}</p></td>
-                    <td><input type="text" id="people" onchange="pricechange()" value="${booking.bookingPeople}"></td>
+                    <td><select id="people" onchange=pricechange() >
+                    <option value="${booking.bookingPeople}">人數</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+</select></td>
                     <td><button id="post" onclick="change()" class="btn obrien-button-2 primary-color rounded-0">送出</button></td>
                 </tr>
             `
@@ -595,10 +606,15 @@ sleep(500).then(() => {
         $.datetimepicker.setLocale('zh');
         $('#date').datetimepicker({
            theme: '',              //theme: 'dark',
- 	       timepicker:true,       //timepicker:true,
+ 	       timepicker:false,       //timepicker:true,
  	       step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '${param.hiredate}', // value:   new Date(),
+ 		   value: '${param.hiredate}',
+ 		   beforeShowDay: function (date) {
+            // Disable dates more than n months from now
+            return [date >= new Date() && date <= MonthFromNow];
+        }
+        // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:	            '2017/07/10',  // 起始日
            //minDate:               '-1970-01-01', // 去除今日(不含)之前
@@ -626,7 +642,7 @@ sleep(500).then(() => {
         price.innerHTML = (people*200)
     }
     function change(){
-   
+   pricechange();
     let a=document.getElementById("date").value
     let b=document.getElementById("srattime").value+":00"
     let c=document.getElementById("endtime").value+":00"
@@ -661,6 +677,7 @@ sleep(500).then(() => {
      function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
+
 
 
 

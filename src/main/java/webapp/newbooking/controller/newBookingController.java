@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
@@ -58,7 +59,7 @@ public class newBookingController {
         inputStream.read(bytes, 0, inputStream.available());
         return bytes;
     }
-    @PostMapping("addbooking")
+        @PostMapping("addbooking")
     public  BookingDTO insertbooking(@RequestBody newBooking insertbook){
         try{
         System.out.println(insertbook.getBookingNo());
@@ -126,6 +127,8 @@ public class newBookingController {
     }
     @RequestMapping("/addseat")
     public  String changeseat(String date, Integer seat){
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
 
         for(int i=0;i<24;i++){
             if(i%2==0)
@@ -142,14 +145,24 @@ public class newBookingController {
             redisTemplate.opsForValue().set(datetime, "60");
             return "加入";
     }
-    @RequestMapping("/getredis")
+    @RequestMapping("/ ")
     public Object getRedis(String date ,Integer TIME) {
         Object value = redisTemplate.opsForValue().get(date);
         return value;
     }
-    @RequestMapping("/getindex")
-    public Object getindex(String date ,Integer TIME) {
-        Object value = redisTemplate.opsForList().index(date,TIME);
-        return value;
+    @RequestMapping("/changeseat")
+    public Object getindex(String date ,Integer TIME,Integer People) {
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
+        Integer value =Integer.parseInt( (String)  redisTemplate.opsForList().index(date,TIME));
+        if((value-People)>0){
+
+        value=value-People;
+        String val=""+value;
+        redisTemplate.opsForList().set(date, TIME, val);
+
+        return "剩餘"+value+"座位";
+        }else
+            return "沒座位了";
     }
 }

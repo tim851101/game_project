@@ -57,7 +57,6 @@ public class BookingService {
         find++;
         }
         else{
-            find+=1;
             break;}
         }catch(Exception e){
             break;

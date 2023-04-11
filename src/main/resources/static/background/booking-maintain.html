@@ -21,6 +21,15 @@
     <!-- harder sidebar footer import -->
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="/background/static/js/template.js"></script>
+      <style>
+          #imagetest{
+ margin-left:auto;
+    margin-right:auto;
+          }
+          button{
+            background-color: blue;
+          }
+      </style>
   </head>
   <body>
     <!--*******************
@@ -317,10 +326,10 @@
           <div class="row page-titles">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active">
-                <a href="javascript:void(0)">商品資料管理</a>
+                <a href="javascript:void(0)">訂位資料管理</a>
               </li>
               <li class="breadcrumb-item">
-                <a href="javascript:void(0)">商品狀態維護</a>
+                <a href="javascript:void(0)">維護</a>
               </li>
             </ol>
           </div>
@@ -329,7 +338,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">商品狀態管理</h4>
+                  <h4 class="card-title">訂單狀態管理</h4>
                 </div>
                 <div class="card-body">
                   <div class="form-validation">
@@ -338,182 +347,208 @@
                       <div class="row">
                         <div class="col-xl-6">
                           <!-- PRODUCT -->
-                          <div class="mb-3 row" hidden>
-                            <label class="col-lg-4 col-form-label" for="PD_NO"
-                              >商品編號
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="PD_NO"
-                                placeholder="Enter a username.."
-                              />
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="PD_NAME"
-                              >商品名稱
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="PD_NAME"
-                                placeholder="Enter a username.."
-                                required=""
-                              />
-                              <div class="invalid-feedback">
-                                Please enter a username.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="PD_PRICE"
-                              >商品價錢<span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="PD_PRICE"
-                                required=""
-                              />
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="PD_AMOUNT"
-                              >商品庫存
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="PD_AMOUNT"
-                              />
-                            </div>
-                            <div class="invalid-feedback">
-                              Please select a one.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-xl-6">
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="PD_STATUS"
-                              >商品上架狀態
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="PD_STATUS"
-                                  id="offsell"
-                                  value="0"
-                                />
-                                <label class="form-check-label" for="offsell"
-                                  >下架</label
-                                >
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="PD_STATUS"
-                                  id="onsell"
-                                  value="1"
-                                />
-                                <label class="form-check-label" for="onsell"
-                                  >上架</label
-                                >
-                              </div>
-                              <div class="invalid-feedback">
-                                Please select a one.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="PD_UPDATE"
-                              >近期更新時間
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="datetime"
-                                class="form-control"
-                                id="PD_UPDATE"
-                              />
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="PIC_NO"
-                              >商品圖片
-                            </label>
-                            <div class="col-lg-6">
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                            <div >
+                                <div >
+                                    <h3>訂位訂單</h3>
+                                    <div >
+                                        </table>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead class="thead-light" >
+                                        <tr>
+                                            <th>編號</th>
+                                            <th>會員</th>
+                                            <th>當天起始時間</th>
+                                            <th>當天結束時間</th>
+                                            <th>報名預約日期</th>
+                                            <th>預約截止日期</th>
+                                            <th>價格</th>
+                                            <th>當天人數</th>
+                                            <th>付款狀態</th>
+                                            <th>報到狀態</th>
 
-                        <div class="mb-3 row">
-                          <label
-                            class="col-lg-4 col-form-label"
-                            for="PD_DESCRIPTION"
-                            >商品資訊
-                            <span class="text-danger">*</span>
-                          </label>
-                          <div class="col-lg-12">
-                            <textarea
-                              class="form-control"
-                              rows="4"
-                              id="PD_DESCRIPTION"
-                            ></textarea>
-                          </div>
-                        </div>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="search">
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <div class="mb-3 row">
-                          <div
-                            class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
-                          >
-                            <button type="submit" class="btn btn-primary fs-5">
-                              確認
-                            </button>
-                          </div>
+<!--                          <div class="mb-3 row" hidden>-->
+<!--                            <label class="col-lg-4 col-form-label" for="PD_NO">編號-->
+<!--                              <span class="text-danger">*</span>-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <input-->
+<!--                                type="text"-->
+<!--                                class="form-control"-->
+<!--                                id="PD_NO"-->
+<!--                                placeholder="Enter a username.."-->
+<!--                              />-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="mb-3 row">-->
+<!--                            <label class="col-lg-4 col-form-label" for="PD_NAME"-->
+<!--                              >商品名稱-->
+<!--                              <span class="text-danger">*</span>-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <input-->
+<!--                                type="text"-->
+<!--                                class="form-control"-->
+<!--                                id="PD_NAME"-->
+<!--                                placeholder="Enter a username.."-->
+<!--                                required=""-->
+<!--                              />-->
+<!--                              <div class="invalid-feedback">-->
+<!--                                Please enter a username.-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="mb-3 row">-->
+<!--                            <label-->
+<!--                              class="col-lg-4 col-form-label"-->
+<!--                              for="PD_PRICE"-->
+<!--                              >商品價錢<span class="text-danger">*</span>-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <input-->
+<!--                                type="text"-->
+<!--                                class="form-control"-->
+<!--                                id="PD_PRICE"-->
+<!--                                required=""-->
+<!--                              />-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="mb-3 row">-->
+<!--                            <label-->
+<!--                              class="col-lg-4 col-form-label"-->
+<!--                              for="PD_AMOUNT"-->
+<!--                              >商品庫存-->
+<!--                              <span class="text-danger">*</span>-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <input-->
+<!--                                type="text"-->
+<!--                                class="form-control"-->
+<!--                                id="PD_AMOUNT"-->
+<!--                              />-->
+<!--                            </div>-->
+<!--                            <div class="invalid-feedback">-->
+<!--                              Please select a one.-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-xl-6">-->
+<!--                          <div class="mb-3 row">-->
+<!--                            <label-->
+<!--                              class="col-lg-4 col-form-label" for="PD_STATUS">商品上架狀態-->
+<!--                              <span class="text-danger">*</span>-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <div class="form-check form-check-inline">-->
+<!--                                <input-->
+<!--                                  class="form-check-input"-->
+<!--                                  type="radio"-->
+<!--                                  name="PD_STATUS"-->
+<!--                                  id="offsell"-->
+<!--                                  value="0"-->
+<!--                                />-->
+<!--                                <label class="form-check-label" for="offsell"-->
+<!--                                  >下架</label-->
+<!--                                >-->
+<!--                              </div>-->
+<!--                              <div class="form-check form-check-inline">-->
+<!--                                <input-->
+<!--                                  class="form-check-input"-->
+<!--                                  type="radio"-->
+<!--                                  name="PD_STATUS"-->
+<!--                                  id="onsell"-->
+<!--                                  value="1"-->
+<!--                                />-->
+<!--                                <label class="form-check-label" for="onsell"-->
+<!--                                  >上架</label-->
+<!--                                >-->
+<!--                              </div>-->
+<!--                              <div class="invalid-feedback">-->
+<!--                                Please select a one.-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="mb-3 row">-->
+<!--                            <label-->
+<!--                              class="col-lg-4 col-form-label"-->
+<!--                              for="PD_UPDATE"-->
+<!--                              >近期更新時間-->
+<!--                              <span class="text-danger">*</span>-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <input-->
+<!--                                type="datetime"-->
+<!--                                class="form-control"-->
+<!--                                id="PD_UPDATE"-->
+<!--                              />-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                          <div class="mb-3 row">-->
+<!--                            <label class="col-lg-4 col-form-label" for="PIC_NO"-->
+<!--                              >商品圖片-->
+<!--                            </label>-->
+<!--                            <div class="col-lg-6">-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                              <div class="input-group">-->
+<!--                                <div class="form-file">-->
+<!--                                  <input-->
+<!--                                    type="file"-->
+<!--                                    class="form-file-input form-control"-->
+<!--                                  />-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="mb-3 row">-->
+<!--                          <label-->
+<!--                            class="col-lg-4 col-form-label"-->
+<!--                            for="PD_DESCRIPTION"-->
+<!--                            >商品資訊-->
+<!--                            <span class="text-danger">*</span>-->
+<!--                          </label>-->
+<!--                          <div class="col-lg-12">-->
+<!--                            <textarea-->
+<!--                              class="form-control"-->
+<!--                              rows="4"-->
+<!--                              id="PD_DESCRIPTION"-->
+<!--                            ></textarea>-->
+<!--                          </div>-->
+<!--                        </div>-->
+
+<!--                        <div class="mb-3 row">-->
+<!--                          <div-->
+<!--                            class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"-->
+<!--                          >-->
+<!--                            <button type="submit" class="btn btn-primary fs-5">-->
+<!--                              確認-->
+<!--                            </button>-->
+<!--                          </div>-->
                         </div>
                       </div>
                     </form>
@@ -530,218 +565,46 @@
           <!--**********************************
             商品清單列表 start
         ***********************************-->
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">商品清單列表</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-responsive-md">
-                    <thead>
-                      <tr>
-                        <th style="width: 50px">
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="checkAll"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="checkAll"
-                            ></label>
-                          </div>
-                        </th>
-                        <th><strong>ROLL NO.</strong></th>
-                        <th><strong>NAME</strong></th>
-                        <th><strong>Email</strong></th>
-                        <th><strong>Date</strong></th>
-                        <th><strong>Status</strong></th>
-                        <th><strong></strong></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox2"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox2"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/1.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-success me-1"></i>
-                            Successful
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox3"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox3"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/2.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-danger me-1"></i>
-                            Canceled
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox4"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox4"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/3.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-warning me-1"></i>
-                            Pending
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+<!--          <div class="col-lg-12">-->
+<!--            <div class="card">-->
+<!--              <div class="card-header">-->
+<!--                <h4 class="card-title">商品清單列表</h4>-->
+<!--              </div>-->
+<!--              <div class="card-body">-->
+<!--                <div class="table-responsive">-->
+<!--                  <table class="table table-responsive-md">-->
+<!--                    <thead>-->
+<!--                      <tr>-->
+<!--                        <th style="width: 50px">-->
+<!--                          <div-->
+<!--                            class="form-check custom-checkbox checkbox-success check-lg me-3"-->
+<!--                          >-->
+<!--                            <input-->
+<!--                              type="checkbox"-->
+<!--                              class="form-check-input"-->
+<!--                              id="checkAll"-->
+<!--                              required=""-->
+<!--                            />-->
+<!--                            <label-->
+<!--                              class="form-check-label"-->
+<!--                              for="checkAll"-->
+<!--                            ></label>-->
+<!--                          </div>-->
+<!--                        </th>-->
+<!--                        <th><strong>ROLL NO.</strong></th>-->
+<!--                        <th><strong>NAME</strong></th>-->
+<!--                        <th><strong>Email</strong></th>-->
+<!--                        <th><strong>Date</strong></th>-->
+<!--                        <th><strong>Status</strong></th>-->
+<!--                        <th><strong></strong></th>-->
+<!--                      </tr>-->
+<!--                    </thead>-->
+
+<!--                  </table>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
           <!--**********************************
             商品清單列表 end
         ***********************************-->
@@ -767,7 +630,8 @@
       <!--**********************************
            Support ticket button end
         ***********************************-->
-    </div>
+
+
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -776,25 +640,76 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="static/js/global.min.js"></script>
-    <script src="static/js/Chart.bundle.min.js"></script>
-    <script src="static/js/jquery.nice-select.min.js"></script>
+  
+    <script>
+    const search = document.querySelector('#search');
+    const url ='http://localhost:8082/book/ls';
+    const test =document.querySelector('#imagetest')
+    const imageurl =new Request('http://localhost:8082/book/image')
+    let pay=""
+    let check=""
+    fetch(url)
+	.then(resp => resp.json())
+	.then(list => {
+            for (let booking of list) {
+              if(booking.bookingPaymentStatus==1)
+              pay="<td>已付款</td>"
+              else
+              pay="<td><button type=button class='btn btn-primary btn-xxs' onclick=forDelete(${booking.bookingNo})>未付款</button></td>"
+               if(booking.bookingCheckStatus==1)
+               {
+                 check="<td>已報到</td>"
+               }
+               else{
+                check="<td><button type=button class='btn btn-primary btn-xxs' onclick=forDelete(${booking.bookingNo})>未報到</button></td>"
+               }
+                search.innerHTML += `
+                <tr>
+                   <td>${booking.bookingNo}</td>
+                   <td>${booking.memNo}</td>
+                   <td>${booking.bookingStartTime}</td>
+                   <td>${booking.bookingEndTime}</td>
+                   <td>${booking.bookingDate}</td>
+                   <td>${booking.bookingFinishDate}</td>
+                   <td>${booking.bookingTotalPrice}</td>
+                   <td>${booking.bookingPeople}</td>
+                   `+pay+`
+                   `+check+`
+                   <td><button id="delete" type="button" class='btn btn-primary btn-xxs'  onclick="forDelete(${booking.bookingNo})">取消</button></td>
+                  </tr> 
+                   `
+            }
+	});
 
-    <script src="static/js/Chart.bundle.min.js"></script>
+	fetch(imageurl)
+	.then(res => {
+	return res.blob()
+	})
+	.then(blob => {
+	const img = new Image
+        img.src = URL.createObjectURL(blob)
+        test.appendChild(img)
+	})
+</script>
+<script src="static/js/global.min.js"></script>
+<script src="static/js/Chart.bundle.min.js"></script>
+<script src="static/js/jquery.nice-select.min.js"></script>
 
-    <!-- Chart piety plugin files -->
-    <script src="static/js/jquery.peity.min.js"></script>
-    <script src="static/js/nouislider.min.js"></script>
-    <script src="static/js/wNumb.js"></script>
+<script src="static/js/Chart.bundle.min.js"></script>
 
-    <!-- Dashboard 1 -->
-    <script src="static/js/dashboard-1.js"></script>
+<!-- Chart piety plugin files -->
+<script src="static/js/jquery.peity.min.js"></script>
+<script src="static/js/nouislider.min.js"></script>
+<script src="static/js/wNumb.js"></script>
 
-    <script src="static/js/owl.carousel.js"></script>
+<!-- Dashboard 1 -->
+<script src="static/js/dashboard-1.js"></script>
 
-    <script src="static/js/custom.min.js"></script>
-    <script src="static/js/dlabnav-init.js"></script>
-    <script src="static/js/demo.js"></script>
-    <script src="static/js/styleSwitcher.js"></script>
+<script src="static/js/owl.carousel.js"></script>
+
+<script src="static/js/custom.min.js"></script>
+<script src="static/js/dlabnav-init.js"></script>
+<script src="static/js/demo.js"></script>
+<script src="static/js/styleSwitcher.js"></script>
   </body>
 </html>

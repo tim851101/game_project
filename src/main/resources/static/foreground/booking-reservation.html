@@ -127,7 +127,7 @@
                     </aside>
                     <!-- Sidebar Widget End -->
                 </div>
-                <button id="booking-submit-button" type="submit" class="btn ">送出</button>
+                <button id="booking-submit-button" type="submit" class="btn" onclick=submit()>送出</button>
                 <div style="float: left;">
                     <!-- booking detail -->
                 </div>
@@ -255,5 +255,31 @@
 <script src="static/js/main.js"></script>
 
 </body>
+<script>    
 
+datas={
+"bookingNo": "",
+"memNo": "32",
+"bookingDate": "2023-04-11",
+"bookingStartTime": "09:00:00",
+"bookingEndTime": "09:00:00",
+"bookingPaymentStatus": 0,
+"bookingCheckStatus": 0,
+"bookingFinishDate": "2023-04-11",
+"bookingTotalPrice": 1000,
+"bookingPeople": 5
+}
+
+function submit(){
+    $.ajax({
+  type: 'POST',
+  url: "http://localhost:8082/book/addbooking",
+  data: JSON.stringify(datas),
+  success: function() {console.log("yes")},
+ contentType: "application/json; charset=utf-8"
+});
+alert("ty")
+}
+
+</script>
 </html>

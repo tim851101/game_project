@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,8 +21,8 @@ public class SecurityConfig {
 
     private static final String[] PUBLIC = new String[] {
         "/test/**",
-        "/auth/**"
-//        "/**/**"
+        "/auth/**",
+        "/background/**"
     };
 
     @Autowired
@@ -32,29 +33,25 @@ public class SecurityConfig {
     @Autowired
     private JwtAuthFilter jwtAuthFilter;
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+
         return httpSecurity
             .csrf().disable()
             .authorizeHttpRequests()
             .requestMatchers(PUBLIC).permitAll()
-            .requestMatchers("/free.html", "/login.html", "/home.html").permitAll()
+            .requestMatchers("/free.html", "/login.html", "/home.html", "/management").permitAll()
             .requestMatchers("/charge.html").hasAuthority("USER")
             .requestMatchers("/admin.html").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.DELETE)
+            .hasAuthority("ADMIN")    // If UserDetails.getAuthorities return [ADMIN, ...]
 
-            .requestMatchers(HttpMethod.DELETE).hasAuthority("ADMIN")    // If UserDetails.getAuthorities return [ADMIN, ...]
-
-            //.requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")		// If UserDetails.getAuthorities return [ROLE_ADMIN, ...]
-//            .anyRequest().authenticated()
-            .anyRequest().permitAll()
-//            .and()
-//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .exceptionHandling().accessDeniedPage("/login.html")
+            .anyRequest().authenticated()
+//            .anyRequest().permitAll()
             .and()
             .formLogin()
             .loginPage("/login.html")
-//            .defaultSuccessUrl("/charge.html?token={BearerToken}")
             .defaultSuccessUrl("/home.html")
             .permitAll()
             .and()

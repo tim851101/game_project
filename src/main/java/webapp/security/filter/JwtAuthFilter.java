@@ -31,14 +31,25 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain)
         throws ServletException, IOException {
+        final String authorization = request.getHeader("Authorization");
+
+        // reject request if header without "Authorization" or "Authorization" with incorrect type
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         if (SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            final String authorization = request.getHeader("Authorization");
+            System.out.println("============ Authorization =================");
+            System.out.println(authorization);
             if (authorization != null && authorization.startsWith("Bearer ")) {
 
                 final String token = authorization.substring(7);
                 final Claims claims = jwtService.getClaims(token);
+                System.out.println(token);
+                System.out.println(claims);
+                System.out.println(claims.getExpiration().after(new Date()));
                 if (claims.getExpiration().after(new Date())) {
 
                     final String username = claims.getSubject();
@@ -46,7 +57,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
                     final UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(
-                            userDetails, null, userDetails.getAuthorities());
+                            userDetails,
+                            null,
+                            userDetails.getAuthorities());
 
                     authToken.setDetails(
                         new WebAuthenticationDetailsSource().buildDetails(request));

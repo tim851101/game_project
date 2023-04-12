@@ -112,7 +112,6 @@ function render() {
                         next: '<i class="fa fa-chevron-right"></i>'
                     },
                 },
-
             });
         });
 

@@ -1,10 +1,11 @@
 //結帳
 const memNo = 10;
 console.log('memNo = ' + memNo);
-
+let n = 1;
 setMemDataBymemNo(memNo);
 
-sumActulAmount();
+showProduct()
+
 
 
 $('#button_submit').click(e => {
@@ -78,10 +79,6 @@ $("#ordPick").change(() => {
         sumActulAmount()
     }
 })
-//運費變
-// $("#ordFee").change(()=>{
-    
-// })
 
 // =================== function start =========================
 
@@ -116,6 +113,8 @@ function insertOrderBymemNo(memNo) {
         console.error('There was a problem with the fetch operation:', error);
     });
 }
+
+
 
 // 新增訂單明細
 function saveOrdList(ordNo, pdNo, qty, price) {
@@ -222,4 +221,28 @@ function sumTotalAmount(){
         totalAmount += +productMoney.innerText;
     }
     return +totalAmount;
+}
+
+
+//購物車商品
+function showProduct(){
+    const producttBody = document.querySelector("#productTable")
+    let str = '';
+    producttBody.innerHTML = '';
+    for(item of shoppingcart){
+    const qty = item.qty;
+    const pdNo = item.pdNo
+    fetch(`/product/find-one?id=${pdNo}`,{
+        method:"GET"
+        }).then(response => response.json()
+        ).then(data=>{
+            str +=`  <tr class="cart_item">
+                                            <td class="cart-product-name"><span>${data.pdName}<strong class="product-quantity">× ${qty}</strong></span></td>
+                                            <td class="cart-product-total text-center">$<span id="productMoney" class="amount">${qty*data.pdPrice}</span></td>
+                                        </tr>`;
+
+            producttBody.innerHTML = str;                           
+            sumActulAmount()
+        });
+    }
 }

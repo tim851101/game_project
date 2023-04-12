@@ -13,7 +13,7 @@ import java.util.List;
 public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
     List<OrderList> findAllByOrdNo (Integer OrdNo);
 
-    @Query("SELECT new webapp.product.dto.backgroundOrderListDTO(pp.pdPic, p.pdName, ol.price, ol.qty, o.totalAmount, o.ordFee, o.useCoupon, o.actualAmount) " +
+    @Query("SELECT new webapp.product.dto.backgroundOrderListDTO(pp.picNo, p.pdName, ol.price, ol.qty, o.totalAmount, o.ordFee, o.useCoupon, o.actualAmount) " +
             "FROM OrderList ol " +
             "JOIN Product p ON p.pdNo = ol.pdNo " +
             "JOIN ProductPic pp ON ol.pdNo = pp.pdNo " +
@@ -22,3 +22,5 @@ public interface OrderListRepository extends JpaRepository<OrderList, Integer> {
             "AND pp.picNo IN (SELECT MIN(p.picNo) FROM ProductPic p WHERE p.pdNo = ol.pdNo GROUP BY p.pdNo)")
     List<backgroundOrderListDTO> findListByOrdNo(@Param("ordNo") Integer ordNo);
 }
+
+

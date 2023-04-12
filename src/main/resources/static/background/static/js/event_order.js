@@ -29,8 +29,8 @@ $(document).ready(e => {
         "paginate": {
           "first": "首頁",
           "last": "末頁",
-          "next": "下頁",
-          "previous": "前頁"
+          "next": "＞",
+          "previous": "＜"
         },
         "aria": {
           "sortAscending": ": 升冪",
@@ -54,12 +54,18 @@ $(document).ready(e => {
         { data: "eventFee" },
         {
           data: "eventNo",
-          render: (data) => {
-            return (
-              `<td><button value=` + data + ` id="cancel" type="button" class="btn btn-danger btn-xxs" style="padding: 0.4rem 0.8rem;">取消賽事</button></td> `
-            );
+          render: (data, type, row, meta) => {
+            if (row.eventStatus === 0) {
+              return (
+                `<td><button value=` + data + ` id="cancel" type="button" class="btn btn-danger btn-xxs" style="padding: 0.4rem 0.8rem;">取消賽事</button></td> `
+              );
+            } else {
+              return (
+                `<td><button value=` + data + ` id="cancel" type="button" class="btn  btn-success btn-xxs" style="padding: 0.4rem 0.8rem;" disabled>已完成</button></td> `
+              );
+
+            }
           }
-          , orderable: false
         },
 
         { data: "eventStatus", orderable: false }
@@ -68,11 +74,14 @@ $(document).ready(e => {
       rowCallback: function (row, data) {
         let $row = $(row);
         $row.attr('class', "eventNo." + data.eventNo);
+        $row.attr('style', "text-align:center;");
       }
     });
+
     const rowsToRemove = $('#ordList tbody tr').filter(function () {
       return $('td:last', this).text() === '2';
     });
+
 
     // 從DataTable中刪除這些行
     $('#ordList').DataTable();
@@ -93,6 +102,7 @@ $(document).ready(e => {
         tr.addClass("shown");
       }
     });
+
   }
 
   function PromiseData2(eventData, eventordData) {
@@ -126,7 +136,7 @@ $(document).ready(e => {
             "signupNum": 0,
             "eventStatus": 2
           }
-          
+
           // 賽事狀態取消
           fetch('/event/setStatus', {
             method: 'POST',
@@ -140,20 +150,20 @@ $(document).ready(e => {
                 throw new Error('Event not saved');
               }
               return response.json();
-              
+
             })
             .catch(error => {
               console.error('Error:', error.message);
             });
-            Swal.fire({
-              title: '賽事已取消!',
-              icon: 'success',
-              confirmButtonText: '確定',
-              confirmButtonColor: '#21870D',
-              preConfirm: setTimeout(() => {
-                  document.location.reload();
-                }, 2000)
-            });
+          Swal.fire({
+            title: '賽事已取消!',
+            icon: 'success',
+            confirmButtonText: '確定',
+            confirmButtonColor: '#21870D',
+            preConfirm: setTimeout(() => {
+              document.location.reload();
+            }, 2000)
+          });
         }
       });
     });
@@ -177,18 +187,30 @@ $(document).ready(e => {
       if (d.eventNo === e.eventno) {
         if (e.enevtStatus !== 2) {
           trString += `
-                  <tr id="eventordList"> 
+                  <tr id="eventordList" style="text-align:center;"> 
                         <th><strong>${e.memName}</strong></th>
                         <th ><strong >${e.memEmail}</strong></th>
                          <th><strong>${e.memPhone}</strong></th>
                          <th><strong>2022/04/04</strong></th>`
           switch (e.enevtStatus) {
             case 1: {
+              if (d.eventStatus === 1) {
+                trString +=
+                  `<td ><button class="btn btn-primary badge  btn-xxs bg-primary" id="${d.eventNo}enevtStatus${e.memNo}" disabled ><span class="fa fa-check me-1" ></span>完成報名</button></td>`
+
+                break;
+              }
               trString +=
                 `<td ><span class="badge btn btn-xxs bg-primary" onclick="enevtStatus(this)" id="${d.eventNo}enevtStatus${e.memNo}" ><span class="fa fa-check me-1"></span>完成報名</span></td>`
               break;
             }
             case 0: {
+              if (d.eventStatus === 1) {
+                trString +=
+                  `<td ><button class="btn btn-secondary badge  btn-xxs bg-secondary" id="${d.eventNo}enevtStatus${e.memNo}" disabled ><span class="fa fa-ban me-1" ></span>未付款</button></td>`
+
+                break;
+              }
               trString +=
                 `<td><span class="badge btn btn-xxs bg-secondary" onclick="enevtStatus(this)" id="${d.eventNo}enevtStatus${e.memNo}" ><span class="fa fa-ban me-1"></span>未付款</span></td>`
               break;
@@ -200,11 +222,21 @@ $(document).ready(e => {
             // }
           }
           if (e.memChecked === 1) {
-            trString +=
-              `<td "><span class="badge btn btn-xxs bg-primary" onclick="memChecked(this)" id="${d.eventNo}memChecked${e.memNo}" ><span class="fa fa-check me-1"></span>已報到</span></td>`
+            if (d.eventStatus === 1) {
+              trString +=
+                `<td ><button class="btn btn-primary badge  btn-xxs bg-primary" id="${d.eventNo}memChecked${e.memNo}" disabled ><span class="fa fa-check me-1" ></span>已報到</button></td>`
+            } else {
+              trString +=
+                `<td "><span class="badge btn btn-xxs bg-primary" onclick="memChecked(this)" id="${d.eventNo}memChecked${e.memNo}" ><span class="fa fa-check me-1"></span>已報到</span></td>`
+            }
           } else {
-            trString +=
-              `<td "><span class="badge btn btn-xxs bg-secondary" onclick="memChecked(this)" id="${d.eventNo}memChecked${e.memNo}" ><span class="fa fa-ban me-1"></span>未報到</span></td>`
+            if (d.eventStatus === 1) {
+              trString +=
+                `<td ><button class="btn btn-secondary badge  btn-xxs bg-secondary" id="${d.eventNo}memChecked${e.memNo}" disabled ><span class="fa fa-ban me-1" ></span>未報到</button></td>`
+            } else {
+              trString +=
+                `<td "><span class="badge btn btn-xxs bg-secondary" onclick="memChecked(this)" id="${d.eventNo}memChecked${e.memNo}" ><span class="fa fa-ban me-1"></span>未報到</span></td>`
+            }
           }
           trString += `</tr>`
 
@@ -230,6 +262,23 @@ function enevtStatus(badge) {
       memno: memNo,
       check: 1
     });
+    const cancelData={
+      'eventNo':eventNo
+    }
+    fetch('/event/delSignupNum', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(cancelData)
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('signupNum is cancel');
+        }
+        return response.json();
+      })
+
   } else {
     badge.classList.remove("bg-secondary");
     badge.classList.add("bg-primary");

@@ -17,7 +17,7 @@ methond:'GET'
         data1 += `
             <tr>
                 <td class="center fs-3">${n}</th>
-			    <td class="center"><img src="https://uploads-ssl.webflow.com/575714cc825e8dbc6c83b98a/5ab8f2a51f33703defd7807f_carcassonne_BOX_3D_2014.jpg" alt="" width="75px" height="75px"></td>
+			    <td class="center"><img src="/pic/getimage?picno=${item.picNo}" alt="" width="75px" height="75px"></td>
                 <td class="left fs-3">${item.pdName}</td>
                 <td class="right fs-3">$${item.price}</td>
                 <td class="center fs-3">${item.qty}</td>

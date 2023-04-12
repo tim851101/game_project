@@ -71,3 +71,12 @@ $(document).ready(function() {
         });    
   });
 });
+const app=Vue.createApp({
+  data(){
+    return{
+      showLogin:true,
+    }
+  }
+
+})
+app.mount("#app");

@@ -331,9 +331,9 @@
                   <h4 class="card-title">最新消息維護</h4>
                 </div>
                 <div class="card-body">
-                  <div class="form-validation">
+                  <div class="form-validation" id="addNewsForm">
                     <!-- form start -->
-                    <form class="needs-validation" novalidate="">
+                    <form id="newsForm" class="needs-validation" novalidate="">
                       <div class="row">
                         <div class="col-xl-12">
                           <div class="mb-3 row" hidden>
@@ -357,7 +357,7 @@
                             </label>
                             <div class="col-lg-8">
                               <input
-                                type="text"
+                                v-model.trim="textTitle"
                                 class="form-control"
                                 id="NEWS_TITLE"
                                 placeholder="請輸入主題..."
@@ -375,6 +375,7 @@
                             </label>
                             <div class="col-lg-8">
                               <textarea
+                                v-model.trim="textDesc"
                                 class="form-control"
                                 rows="4"
                                 id="NEWS_DESC"
@@ -387,46 +388,27 @@
                             <label
                               class="col-lg-2 col-form-label"
                               for="NEWS_STATUS"
-                              >消息狀態
+                              >下架日期
                               <span class="text-danger">*</span>
                             </label>
+                            <div>{{textTitle}} : {{textDesc}} : {{totalSec}} : {{myTime}} : {{myTimeDiff}}</div>
                             <div class="col-lg-8">
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="NEWS_STATUS"
-                                  id="offPost"
-                                  value="0"
-                                  checked
-                                />
-                                <label class="form-check-label" for="onJob"
-                                  >下架</label
-                                >
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="NEWS_STATUS"
-                                  id="onPost"
-                                  value="1"
-                                />
-                                <label class="form-check-label" for="quit"
-                                  >上架</label
-                                >
-                              </div>
-                            </div>
+                              <input
+                                v-model="myTime"
+                                type="datetime-local"
+                                class="form-control"
+                                id="setDueDate"
+                              />
                           </div>
                         </div>
                         <div class="mb-3 row">
                           <div
                             class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
                           >
-                            <button type="submit" class="btn btn-primary fs-5">
+                            <button @click="modifyNews" type="submit" class="btn btn-primary fs-5">
                               修改
                             </button>
-                            <button type="submit" class="btn btn-primary fs-5">
+                            <button @click="addNews" type="submit" class="btn btn-primary fs-5">
                               新增
                             </button>
                           </div>
@@ -456,189 +438,37 @@
                   <table class="table table-responsive-md">
                     <thead>
                       <tr>
-                        <th style="width: 50px">
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="checkAll"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="checkAll"
-                            ></label>
-                          </div>
-                        </th>
-                        <th><strong>ROLL NO.</strong></th>
-                        <th><strong>NAME</strong></th>
-                        <th><strong>Email</strong></th>
-                        <th><strong>Date</strong></th>
-                        <th><strong>Status</strong></th>
-                        <th><strong></strong></th>
+                        <th style="text-align: center;"><strong>主題</strong></th>
+                        <th style="text-align: center;"><strong>內容</strong></th>
+                        <th style="text-align: center;"><strong>到期時間</strong></th>
+                        <th style="text-align: left;"><strong>編輯</strong></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox2"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox2"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/1.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-success me-1"></i>
-                            Successful
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox3"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox3"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/2.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-danger me-1"></i>
-                            Canceled
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox4"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox4"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/3.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-warning me-1"></i>
-                            Pending
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
                   </table>
+                    <tbody>
+                      <div id="showNews">
+                        <div v-for="news in allNews" style="width: 100%;">
+                          <span style="display:inline-flex; justify-content: center; width: 20%;">{{ news.newsTitle }}</span>
+                          <span style="display:inline-flex; justify-content: center; width: 25%;">{{ news.newsDesc }}</span>
+                          <span style="display:inline-flex; justify-content: center; width: 30%;">{{ formatDate(news.dueDate) }}</span>
+                          <span style="display:inline-flex; justify-content: center; width: 15%;">
+                            <div class="d-flex">
+                              <a
+                                href="#"
+                                class="btn btn-primary shadow btn-xs sharp me-1"
+                                @click="handleClick(news.newsTitle)">
+                                <i class="fas fa-pencil-alt"></i>
+                              </a>
+                              <a
+                                href="#"
+                                class="btn btn-danger shadow btn-xs sharp"
+                                ><i class="fa fa-trash"></i
+                              ></a>
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </tbody>
                 </div>
               </div>
             </div>
@@ -697,5 +527,125 @@
     <script src="static/js/dlabnav-init.js"></script>
     <script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        inject: ['currentNewsTitle'],
+        data(){
+          return{
+            textTitle:'',
+            textDesc:'',
+            myTime:'',
+            myTimeDiff: ''
+          }
+        },
+        computed:{
+          totalSec(){
+            const nowTime=new Date().getTime();
+            const futureTime=new Date(this.myTime).getTime();
+            const myTimeDiff=futureTime-nowTime;
+            console.log(myTimeDiff);
+            return myTimeDiff;
+          },
+          dateString(){
+            const dateTimeString = this.myTime;
+            const dateTime = new Date(dateTimeString);
+            const formattedDateTime = myDate.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, '');
+            this.myTime=formattedDateTime;
+            return myTime;
+          }
+          
+        },
+        methods:{
+          addNews(event){
+            // console.log(myTime);
+            // console.log("test");
+            alert(`Hello ${this.textDesc}${this.textTitle}${this.myTime}${this.myTimeDiff}`);
+            if(event){
+              fetch(`/news/add-one`,{
+                method: 'POST',
+                body: JSON.stringify({
+                    "newsTitle":this.textTitle,
+                    "newsDesc":this.textDesc,
+                    "dueDate":this.myTime,
+                    "seconds":this.totalSec
+                }),
+                headers: {'Content-Type': 'application/json'},
+              })
+              .then(response => {
+                    sessionStorage.setItem("res",response.json());
+                    console.log(response.text());
+              }).then(data => {
+                    console.log(data);
+              }).catch(error => console.error(error));
+            }
+          },
+          modifyNews(event){
+            alert(`Hello ${this.textDesc}`);
+          }
+        },
+        mounted(){
+          // this.$root.$on('news-selected', news => {
+          //   this.textTitle = news.newsTitle;
+          //   this.textDesc = news.newsDesc;
+          //   this.myTime = news.dueDate;
+          // });
+        },
+      }).mount("#newsForm")
+
+      Vue.createApp({
+        data() {
+          return {
+            text:"Hello",
+            allNews:null,
+            finalRes:null,
+            // currentNewsTitle:'',
+          };
+        },
+        methods: {
+          async getData() {
+            const res = await fetch(`/news/list-all`);
+            const finalRes = await res.json();
+            finalRes.posts;
+            console.log(finalRes);
+            this.allNews = finalRes;
+          },
+          formatDate(value) {
+            const date = new Date(value);
+            const year = date.getFullYear();
+            const month = ("0" + (date.getMonth() + 1)).slice(-2);
+            const day = ("0" + date.getDate()).slice(-2);
+            const hours = ("0" + date.getHours()).slice(-2);
+            const minutes = ("0" + date.getMinutes()).slice(-2);
+            const seconds = ("0" + date.getSeconds()).slice(-2);
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+          },
+          handleClick(newsTitle) {
+            fetch(`/news/get-one/${newsTitle}`)
+              .then(response => response.json())
+              .then(news => {
+                this.news=news;
+                // this.$root.$emit('news-selected', news);
+                // this.$emit('update:textTitle', news.newsTitle);
+                // this.$emit('update:textDesc', news.newsDesc);
+                // this.$emit('update:myTime', news.dueDate);
+              })
+              .catch(error => {
+                console.error(error);
+            });
+          }
+        },
+        provide(){
+          return{
+            allNews:this.allNews,
+            // currentNewsTitle: this.currentNewsTitle,
+          };
+        },
+        mounted() {
+          this.getData()
+        },
+      }).mount('#showNews')
+      
+    </script>
   </body>
 </html>

@@ -1,4 +1,4 @@
-<header class="main-header-area">
+<header class="main-header-area" id="app">
     <!-- Header Top Area End Here -->
     <!-- Main Header Area Start -->
     <div class="main-header">
@@ -114,7 +114,7 @@
                             </nav>
                         </div>
                         <div class="col-lg-2 col-xl-3 col-sm-6 col-6 col-custom">
-                            <div class="header-right-area main-nav">
+                            <div class="header-right-area main-nav" v-if="showLogin">
                                 <ul class="nav">
                                     <li class="login-register-wrap d-none d-xl-flex">
                                         <span><a href="/foreground/login.html" onclick="saveCurrentUrl()" class="storeLocation">登入</a></span>
@@ -322,7 +322,7 @@
                             </nav>
                         </div>
                         <div class="col-lg-2 col-xl-3 col-sm-6 col-6 col-custom">
-                            <div class="header-right-area main-nav">
+                            <div class="header-right-area main-nav" v-if="showLogin">
                                 <ul class="nav">
                                     <li class="login-register-wrap d-none d-xl-flex">
                                         <span><a href="/foreground/login.html" onclick="saveCurrentUrl()" class="storeLocation">登入</a></span>

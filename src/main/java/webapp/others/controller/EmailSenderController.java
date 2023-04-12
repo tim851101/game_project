@@ -39,9 +39,9 @@ public class EmailSenderController {
         return "寄送成功";
     }
 
-//    @PostMapping("/test")
-//    String sendEmailtoMember() throws MessagingException {
-//                emailServiceImpl.sendPassword("a81194@icloud.com", "password");
-//                return "123";
-//    }
+    @PostMapping("/test")
+    String sendEmailtoMember() throws MessagingException {
+                emailServiceImpl.sendPassword("a81194@icloud.com", "password");
+                return "123";
+    }
 }

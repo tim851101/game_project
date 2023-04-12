@@ -51,10 +51,10 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         <div class="breadcrumb-content position-relative section-content">
-                            <h3 class="title-3">Product Details</h3>
+                            <h3 class="title-3">商品詳情</h3>
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li>Product Details</li>
+                                <li><a href="shop.html">首頁</a></li>
+                                <li>商品詳情</li>
                             </ul>
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                                         <h3 class="mb-5">留言</h3>
                                        留言 -->
                                         <form>
-                                            <label for="username">匿名：</label>
+                                            <label for="username">ID：</label>
                                             <input type="text" id="username" name="username"><br>
                                             <label for="message"></label><br>
                                             <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
@@ -311,9 +311,9 @@
                 <div class="row">
                     <div class="col-lg-5 m-auto text-center col-custom">
                         <div class="section-content">
-                            <h2 class="title-1 text-uppercase">Related Product</h2>
+                            <h2 class="title-1 text-uppercase">熱門商品</h2>
                             <div class="desc-content">
-                                <p>You can check the related product for your shopping collection.</p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -552,9 +552,9 @@
                 <div class="row">
                     <div class="col-lg-5 m-auto text-center col-custom">
                         <div class="section-content">
-                            <h2 class="title-1 text-uppercase">You May Also Like</h2>
+                            <h2 class="title-1 text-uppercase">相關商品</h2>
                             <div class="desc-content">
-                                <p>Most of the customers choose our products. You may also like our product.</p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -897,19 +897,28 @@
     <script src="static/js/main.js"></script>
     <script>
 
-<<<<<<< HEAD
-<!--      var queryString = window.location.search;-->
+      var queryString = window.location.search;
 
-<!--     // 使用 URLSearchParams 對象解析查詢參數，獲取 id 參數的值-->
-<!--     var searchParams = new URLSearchParams(queryString);-->
-<!--     let id = searchParams.get("picno");-->
+     // 使用 URLSearchParams 對象解析查詢參數，獲取 id 參數的值
+     var searchParams = new URLSearchParams(queryString);
+     let id = searchParams.get("picno");
 
-<!--     // 在控制台中輸出 id 的值-->
-<!--     // console.log(picno);-->
-<!--     let image1=document.querySelector("#toimage")-->
-<!--     let url="http://localhost:8082/pic/getimage?picno="+id-->
-<!--     image1.setAttribute("src", url)-->
+     // 在控制台中輸出 id 的值
+     // console.log(picno);
+     let image1=document.querySelector("#toimage")
+     let url="http://localhost:8082/pic/getimage?picno="+id
+     image1.setAttribute("src", url)
 
+<!--// 取得URL中的圖片參數-->
+<!--let queryString = window.location.search;-->
+<!--let urlParams = new URLSearchParams(queryString);-->
+<!--let imageUrl = urlParams.get('image');-->
+
+<!--// 取得要顯示圖片的元素-->
+<!--let imageElement = document.querySelector('#toimage');-->
+
+<!--// 設定圖片元素的src屬性為圖片參數的值-->
+<!--imageElement.src = decodeURIComponent(imageUrl);-->
 </script>
 </body>
 

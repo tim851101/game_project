@@ -30,6 +30,7 @@ public class ProductController {
         return productService.updateStatus(id, status);
     }
 
+//    新增商品
     @PostMapping("/save-product")
     @ResponseBody
     public Boolean saveProduct(@RequestBody ProductDTO productDTO) {
@@ -42,9 +43,24 @@ public class ProductController {
         return productService.findById(id);
     }
 
+//    查詢全部商品
     @GetMapping("/get-all")
     @ResponseBody
     public List<Product> getallProduct() {
         return productService.getAllProduct();
     }
+
+//    修改商品
+    @PostMapping("/update-product")
+    @ResponseBody
+    public Boolean updateProduct(@RequestBody ProductDTO productDTO) {
+        return productService.updateProduct(productDTO);
+    }
+//與前端商城作回應
+    @GetMapping("/get-pall")
+    @ResponseBody
+    public List<Product> getAllProducts() {
+    return productService.getAllProduct();
 }
+
+   }

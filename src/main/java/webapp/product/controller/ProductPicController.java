@@ -11,9 +11,7 @@ import webapp.product.repository.ProductPicRepository;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.*;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+
 
 
 @RestController

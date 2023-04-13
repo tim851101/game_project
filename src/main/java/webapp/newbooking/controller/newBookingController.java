@@ -41,7 +41,6 @@ public class newBookingController {
     public List<BookingDTO> getAllBooking(){
         return BookingService.getAllBooking();
     }
-
     @GetMapping("one")
     public List<BookingDTO> getOneBooking(Integer findno){
         return BookingService.getOneBooking(findno);
@@ -80,6 +79,7 @@ public class newBookingController {
     @PostMapping("paystatus")
     @ResponseBody
     public Boolean paystatus(Integer pay,Integer memno){
+        System.out.println(memno);
        return BookingService.updatepay(pay,memno);
     }
     @PostMapping("checkstatus")

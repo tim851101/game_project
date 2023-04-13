@@ -14,7 +14,7 @@
     <link href="static/css/nice-select.css" rel="stylesheet" />
     <link href="static/css/owl.carousel.css" rel="stylesheet" />
     <link rel="stylesheet" href="static/css/nouislider.min.css" />
-
+      <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
     <!-- Style css -->
     <link href="static/css/style.css" rel="stylesheet" />
 
@@ -353,19 +353,20 @@
                                     <div >
                                         </table>
                                     </div>
-                                    <table class="table table-bordered">
+                                    <table id="bookmem" class="table table-bordered">
                                         <thead class="thead-light" >
                                         <tr>
                                             <th>編號</th>
                                             <th>會員</th>
-                                            <th>當天起始時間</th>
-                                            <th>當天結束時間</th>
+                                            <th>起始時間</th>
+                                            <th>結束時間</th>
                                             <th>報名預約日期</th>
-                                            <th>預約截止日期</th>
+                                            <th>截止日期</th>
                                             <th>價格</th>
-                                            <th>當天人數</th>
+                                            <th>人數</th>
                                             <th>付款狀態</th>
                                             <th>報到狀態</th>
+                                            <th>刪除訂位</th>
 
                                         </tr>
                                         </thead>
@@ -641,56 +642,8 @@
     ***********************************-->
     <!-- Required vendors -->
   
-    <script>
-    const search = document.querySelector('#search');
-    const url ='http://localhost:8082/book/ls';
-    const test =document.querySelector('#imagetest')
-    const imageurl =new Request('http://localhost:8082/book/image')
-    let pay=""
-    let check=""
-    fetch(url)
-	.then(resp => resp.json())
-	.then(list => {
-            for (let booking of list) {
-              if(booking.bookingPaymentStatus==1)
-              pay="<td>已付款</td>"
-              else
-              pay="<td><button type=button class='btn btn-primary btn-xxs' onclick=forDelete(${booking.bookingNo})>未付款</button></td>"
-               if(booking.bookingCheckStatus==1)
-               {
-                 check="<td>已報到</td>"
-               }
-               else{
-                check="<td><button type=button class='btn btn-primary btn-xxs' onclick=forDelete(${booking.bookingNo})>未報到</button></td>"
-               }
-                search.innerHTML += `
-                <tr>
-                   <td>${booking.bookingNo}</td>
-                   <td>${booking.memNo}</td>
-                   <td>${booking.bookingStartTime}</td>
-                   <td>${booking.bookingEndTime}</td>
-                   <td>${booking.bookingDate}</td>
-                   <td>${booking.bookingFinishDate}</td>
-                   <td>${booking.bookingTotalPrice}</td>
-                   <td>${booking.bookingPeople}</td>
-                   `+pay+`
-                   `+check+`
-                   <td><button id="delete" type="button" class='btn btn-primary btn-xxs'  onclick="forDelete(${booking.bookingNo})">取消</button></td>
-                  </tr> 
-                   `
-            }
-	});
-
-	fetch(imageurl)
-	.then(res => {
-	return res.blob()
-	})
-	.then(blob => {
-	const img = new Image
-        img.src = URL.createObjectURL(blob)
-        test.appendChild(img)
-	})
-</script>
+  
+    
 <script src="static/js/global.min.js"></script>
 <script src="static/js/Chart.bundle.min.js"></script>
 <script src="static/js/jquery.nice-select.min.js"></script>
@@ -711,5 +664,127 @@
 <script src="static/js/dlabnav-init.js"></script>
 <script src="static/js/demo.js"></script>
 <script src="static/js/styleSwitcher.js"></script>
-  </body>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script>
+    const search = document.querySelector('#search');
+    const url ='http://localhost:8082/book/ls';
+    const test =document.querySelector('#imagetest')
+    const imageurl =new Request('http://localhost:8082/book/image')
+    let pay=""
+    let check=""
+    let Delete=""
+    function read(){
+    $('#bookmem').DataTable().clear().destroy();
+      search.innerHTML ="";
+      fetch(url)
+      .then(resp => resp.json())
+      .then(list => {
+        for (let booking of list) {
+              if(booking.bookingPaymentStatus==1)
+              pay="<td>已付款</td>"
+              else
+              pay="<td><button type=button class='btn btn-primary btn-xxs' onclick='toPay("+booking.bookingNo+")'>未付款</button></td>"
+               if(booking.bookingCheckStatus==1)
+               {
+                 check="<td>已報到</td>"
+                }
+                else{
+                check="<td><button type=button class='btn btn-primary btn-xxs' onclick=toCheck("+booking.bookingNo+")>未報到</button></td>"
+               }
+                Delete="<td><button id='delete' type='button' class='btn btn-primary btn-xxs'  onclick='forDelete("+booking.bookingNo+")'>取消</button></td>"
+                search.innerHTML += `
+                <tr>
+                   <td>${booking.bookingNo}</td>
+                   <td>${booking.memNo}</td>
+                   <td>${booking.bookingStartTime}</td>
+                   <td>${booking.bookingEndTime}</td>
+                   <td>${booking.bookingDate}</td>
+                   <td>${booking.bookingFinishDate}</td>
+                   <td>${booking.bookingTotalPrice}</td>
+                   <td>${booking.bookingPeople}</td>
+                   `+pay+`
+                   `+check+`
+                   `+Delete+`
+                     </tr> 
+                   `
+            }
+            $(document).ready( function () {
+            $('#bookmem').DataTable({
+                pageLength: 3,
+                lengthMenu: [3,5,10,20],
+                language: {
+                    emptyTable: "無資料",
+                    info: "顯示 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",
+                    lengthMenu: "顯示 _MENU_ 筆資料",
+                    paginate: {
+                        previous: '<i class="fa fa-chevron-left"></i>',
+                        next: '<i class="fa fa-chevron-right"></i>'
+                    },
+                },
+            });
+         });
+       });
+  }
+function toPay(bookno){
+  let  check=confirm("確認付款")
+if(check)
+{
+  $.ajax({
+  type: 'POST',
+  url: 'http://localhost:8082/book/paystatus',
+  data:{pay: 0,
+  memno: bookno,
+}
+});
+sleep(500).then(() => {
+   read();
+})
+}
+else{}
+}
+function forDelete(deleteno){ let confirmdelete = confirm('確認取消'+deleteno+"號訂位?");
+         if(confirmdelete){
+          $.post('http://localhost:8082/book/deletebook',{
+        deleteno:deleteno
+});
+}else{
+}
+sleep(500).then(() => {
+   read();
+})
+	}
+
+function toCheck(bookno){
+  let  check=confirm("確認已到現場")
+if(check)
+{$.ajax({
+  type: 'POST',
+  url: 'http://localhost:8082/book/checkstatus',
+  data:{check: 0,
+  memno: bookno} 
+});
+sleep(500).then(() => {
+   read();
+})
+}
+else{}
+}
+
+// 	fetch(imageurl)
+// 	.then(res => {
+// 	return res.blob()
+// 	})
+// 	.then(blob => {
+// 	const img = new Image
+//         img.src = URL.createObjectURL(blob)
+//         test.appendChild(img)
+// 	})
+read();
+function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+
+
+</script>
+</body>
 </html>

@@ -32,3 +32,11 @@
 #just-a-gap {
     margin-bottom: 10em;
 }
+
+.book-selected {
+    background-color: #eaD6f7;
+}
+
+.warn-booking {
+    color: red;
+}

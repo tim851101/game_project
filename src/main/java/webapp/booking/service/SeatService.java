@@ -125,9 +125,9 @@ public class SeatService {
     private List<Integer> getSeat(List<Integer> openRange) {
         // openRange: [start end], Integer, hour 0~24
         List<Integer> former = new ArrayList<>(Collections
-            .nCopies(openRange.get(0) - 1, 0));
+            .nCopies(openRange.get(0), 0));
         List<Integer> middle = new ArrayList<>(Collections
-            .nCopies(openRange.get(1) - openRange.get(0) + 1, TOTAL_SEAT));
+            .nCopies(openRange.get(1) - openRange.get(0), TOTAL_SEAT));
         List<Integer> latter = new ArrayList<>(Collections
             .nCopies(24 - openRange.get(1), 0));
 

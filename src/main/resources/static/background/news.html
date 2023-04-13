@@ -21,6 +21,7 @@
     <!-- harder sidebar footer import -->
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="/background/static/js/template.js"></script>
+    <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   </head>
   <body>
     <!--*******************
@@ -311,7 +312,7 @@
       <!--**********************************
             最新消息管理 start
         ***********************************-->
-      <div class="content-body" style="min-height: 876px">
+      <div class="content-body" style="min-height: 876px" id="app">
         <div class="container-fluid">
           <div class="row page-titles">
             <ol class="breadcrumb">
@@ -391,11 +392,11 @@
                               >下架日期
                               <span class="text-danger">*</span>
                             </label>
-                            <div>{{textTitle}} : {{textDesc}} : {{totalSec}} : {{myTime}} : {{myTimeDiff}}</div>
+                            <!-- <div>{{textTitle}} : {{textDesc}} : {{myTime}} </div> -->
                             <div class="col-lg-8">
                               <input
                                 v-model="myTime"
-                                type="datetime-local"
+                                type="date"
                                 class="form-control"
                                 id="setDueDate"
                               />
@@ -405,7 +406,7 @@
                           <div
                             class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
                           >
-                            <button @click="modifyNews" type="submit" class="btn btn-primary fs-5">
+                            <button @click="saveChanges" type="submit" class="btn btn-primary fs-5">
                               修改
                             </button>
                             <button @click="addNews" type="submit" class="btn btn-primary fs-5">
@@ -438,20 +439,20 @@
                   <table class="table table-responsive-md">
                     <thead>
                       <tr>
-                        <th style="text-align: center;"><strong>主題</strong></th>
-                        <th style="text-align: center;"><strong>內容</strong></th>
-                        <th style="text-align: center;"><strong>到期時間</strong></th>
-                        <th style="text-align: left;"><strong>編輯</strong></th>
+                        <th style="text-align: center;width: 200px;"><strong>主題</strong></th>
+                        <th style="text-align: center;width: 360px;"><strong>內容</strong></th>
+                        <th style="text-align: center;width: 200px;"><strong>到期時間</strong></th>
+                        <th style="text-align: center;width: 130px;"><strong>編輯</strong></th>
                       </tr>
                     </thead>
                   </table>
                     <tbody>
                       <div id="showNews">
                         <div v-for="news in allNews" style="width: 100%;">
-                          <span style="display:inline-flex; justify-content: center; width: 20%;">{{ news.newsTitle }}</span>
-                          <span style="display:inline-flex; justify-content: center; width: 25%;">{{ news.newsDesc }}</span>
-                          <span style="display:inline-flex; justify-content: center; width: 30%;">{{ formatDate(news.dueDate) }}</span>
-                          <span style="display:inline-flex; justify-content: center; width: 15%;">
+                          <span style="display:inline-flex; justify-content: flex-start; width: 198px;padding-left: 30px;">{{ news.newsTitle }}</span>
+                          <span style="display:inline-flex; justify-content: flex-start; width: 360px;">{{ news.newsDesc }}</span>
+                          <span style="display:inline-flex; justify-content: right; width: 175px;padding-right: 25px;">{{ news.dueDate }}</span>
+                          <span style="display:inline-flex; justify-content: right; width: 140px;margin-right: 20px;">
                             <div class="d-flex">
                               <a
                                 href="#"
@@ -462,7 +463,8 @@
                               <a
                                 href="#"
                                 class="btn btn-danger shadow btn-xs sharp"
-                                ><i class="fa fa-trash"></i
+                                @click="deleteClick(news.newsTitle)">
+                                <i class="fa fa-trash"></i
                               ></a>
                             </div>
                           </span>
@@ -528,124 +530,7 @@
     <script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script>
-      Vue.createApp({
-        inject: ['currentNewsTitle'],
-        data(){
-          return{
-            textTitle:'',
-            textDesc:'',
-            myTime:'',
-            myTimeDiff: ''
-          }
-        },
-        computed:{
-          totalSec(){
-            const nowTime=new Date().getTime();
-            const futureTime=new Date(this.myTime).getTime();
-            const myTimeDiff=futureTime-nowTime;
-            console.log(myTimeDiff);
-            return myTimeDiff;
-          },
-          dateString(){
-            const dateTimeString = this.myTime;
-            const dateTime = new Date(dateTimeString);
-            const formattedDateTime = myDate.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, '');
-            this.myTime=formattedDateTime;
-            return myTime;
-          }
-          
-        },
-        methods:{
-          addNews(event){
-            // console.log(myTime);
-            // console.log("test");
-            alert(`Hello ${this.textDesc}${this.textTitle}${this.myTime}${this.myTimeDiff}`);
-            if(event){
-              fetch(`/news/add-one`,{
-                method: 'POST',
-                body: JSON.stringify({
-                    "newsTitle":this.textTitle,
-                    "newsDesc":this.textDesc,
-                    "dueDate":this.myTime,
-                    "seconds":this.totalSec
-                }),
-                headers: {'Content-Type': 'application/json'},
-              })
-              .then(response => {
-                    sessionStorage.setItem("res",response.json());
-                    console.log(response.text());
-              }).then(data => {
-                    console.log(data);
-              }).catch(error => console.error(error));
-            }
-          },
-          modifyNews(event){
-            alert(`Hello ${this.textDesc}`);
-          }
-        },
-        mounted(){
-          // this.$root.$on('news-selected', news => {
-          //   this.textTitle = news.newsTitle;
-          //   this.textDesc = news.newsDesc;
-          //   this.myTime = news.dueDate;
-          // });
-        },
-      }).mount("#newsForm")
-
-      Vue.createApp({
-        data() {
-          return {
-            text:"Hello",
-            allNews:null,
-            finalRes:null,
-            // currentNewsTitle:'',
-          };
-        },
-        methods: {
-          async getData() {
-            const res = await fetch(`/news/list-all`);
-            const finalRes = await res.json();
-            finalRes.posts;
-            console.log(finalRes);
-            this.allNews = finalRes;
-          },
-          formatDate(value) {
-            const date = new Date(value);
-            const year = date.getFullYear();
-            const month = ("0" + (date.getMonth() + 1)).slice(-2);
-            const day = ("0" + date.getDate()).slice(-2);
-            const hours = ("0" + date.getHours()).slice(-2);
-            const minutes = ("0" + date.getMinutes()).slice(-2);
-            const seconds = ("0" + date.getSeconds()).slice(-2);
-            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-          },
-          handleClick(newsTitle) {
-            fetch(`/news/get-one/${newsTitle}`)
-              .then(response => response.json())
-              .then(news => {
-                this.news=news;
-                // this.$root.$emit('news-selected', news);
-                // this.$emit('update:textTitle', news.newsTitle);
-                // this.$emit('update:textDesc', news.newsDesc);
-                // this.$emit('update:myTime', news.dueDate);
-              })
-              .catch(error => {
-                console.error(error);
-            });
-          }
-        },
-        provide(){
-          return{
-            allNews:this.allNews,
-            // currentNewsTitle: this.currentNewsTitle,
-          };
-        },
-        mounted() {
-          this.getData()
-        },
-      }).mount('#showNews')
-      
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@latest"></script>
+    <script src="/background/static/js/news.js"></script>
   </body>
 </html>

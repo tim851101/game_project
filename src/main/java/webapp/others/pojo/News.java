@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Data // Lombok: Gene getter/setter by @getter/@setter
@@ -35,6 +36,19 @@ public class News implements Serializable {
 //    @Column(name = "NEWS_STATUS")
 //    private Boolean newsStatus;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private Date dueDate;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        News news = (News) o;
+        return Objects.equals(newsTitle, news.newsTitle) && Objects.equals(newsDesc, news.newsDesc) && Objects.equals(dueDate, news.dueDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(newsTitle, newsDesc, dueDate);
+    }
 }

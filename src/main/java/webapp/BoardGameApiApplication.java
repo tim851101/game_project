@@ -1,10 +1,12 @@
 package webapp;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
+import webapp.booking.service.SeatService;
 
 
 @SpringBootApplication
@@ -16,6 +18,9 @@ import org.springframework.context.annotation.FilterType;
     ))
 public class BoardGameApiApplication implements CommandLineRunner {
 
+    @Autowired
+    private SeatService seatService;
+
     public static void main(String[] args) {
         SpringApplication.run(BoardGameApiApplication.class, args);
 //         SpringApplication.exit(SpringApplication.run(BoardGameApiApplication.class, args));
@@ -24,7 +29,8 @@ public class BoardGameApiApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-
+        // initial seat vacancy into redis
+        seatService.initialSeat();
     }
 }
 

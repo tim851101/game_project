@@ -136,7 +136,6 @@ $(document).ready(e => {
             "signupNum": 0,
             "eventStatus": 2
           }
-
           // 賽事狀態取消
           fetch('/event/setStatus', {
             method: 'POST',
@@ -150,7 +149,6 @@ $(document).ready(e => {
                 throw new Error('Event not saved');
               }
               return response.json();
-
             })
             .catch(error => {
               console.error('Error:', error.message);
@@ -166,8 +164,8 @@ $(document).ready(e => {
           });
         }
       });
-    });
-  }
+    })
+    }
 
   function format(d, eventordData) {
     let trString = "";

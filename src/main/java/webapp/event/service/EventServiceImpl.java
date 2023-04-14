@@ -10,6 +10,7 @@ import webapp.event.dto.EventDTO;
 import webapp.event.pojo.Event;
 import webapp.event.repository.EventRepository;
 import webapp.others.pojo.EventNews;
+import webapp.others.pojo.News;
 
 import java.util.List;
 import java.util.Random;

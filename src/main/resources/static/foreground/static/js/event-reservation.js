@@ -15,7 +15,7 @@ function findAll(data) {
     let option = "";
     option = `<option id="change">-----請選擇賽事-----</option>`
     for (const e of data) {
-        if (e.eventStatus === 0 ) {
+        if (e.eventLimit != 0) {
             option += `<option value="${e.eventName}">${e.eventName}</option>`
         }
     }
@@ -24,7 +24,6 @@ function findAll(data) {
         const table = $('#Registration');
         let toString = "";
         let val = document.getElementById('select').value
-
         $("option").remove("#change");
         for (const e of data) {
             if (val === e.eventName) {
@@ -68,7 +67,7 @@ function findAll(data) {
                     }
                     case false: {
                         toString += `
-                        <th><button><a href="event-ord.html" class="obrien-button btn-warning btn-outline-dark">前往報名</a></button></th>
+                        <th><button><a href="index.html" class="obrien-button btn-warning btn-outline-dark">前往報名</a></button></th>
                         `
                         break;
                     }

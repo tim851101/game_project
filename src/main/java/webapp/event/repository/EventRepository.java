@@ -7,7 +7,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import webapp.event.pojo.Event;
+import webapp.others.pojo.EventNews;
 
+import java.util.List;
 
 
 @Repository
@@ -37,4 +39,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Transactional
     @Query("UPDATE Event e SET e.eventStatus = :eventStatus, e.eventLimit = :eventLimit, e.signupNum = :signupNum WHERE e.eventNo = :eventNo")
     void setEventStatus(@Param("eventStatus") Byte eventStatus, @Param("eventLimit") Integer eventLimit, @Param("signupNum") Integer signupNum, @Param("eventNo") Integer eventNo);
+
+    @Query(value = "SELECT * "+
+            "FROM `Event` WHERE event_Status=1 ",nativeQuery = true)
+    List<Event> findEventNewByStatus();
 }

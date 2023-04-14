@@ -27,16 +27,6 @@
   #eventList_paginate {
     margin-right: 40%;
   }
-  td.details-control {
-  cursor: pointer;
-}
-tr.shown td.details-control i {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
 </style>
 
 <body>
@@ -314,7 +304,7 @@ tr.shown td.details-control i {
               </div>
               <!-- form start -->
               <form id="event-form">
-              <div class="card-body" >
+              <div class="card-body">
                 <div class="form-validation">
                     <div class="row">
                       <div class="col-xl-12">
@@ -468,7 +458,7 @@ tr.shown td.details-control i {
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">關閉</button>
-                <button type="submit" class="btn btn-primary" id="saveWinner">儲存</button>
+                <button type="submit" class="btn btn-primary  fs-5" id="saveWinner" onClick="alertTest();">儲存</button>
               </div>
             </div>
           </div>
@@ -494,17 +484,23 @@ tr.shown td.details-control i {
             <div class="card-body">
               <div class="table-responsive">
                 <table id="eventList" class="table-striped table table-responsive-md">
-                  <thead style ="text-align:center;">
+                  <thead>
                     <tr>
-                      <th  style="padding: 0px;"></th>
+                      <th><strong>賽事編號</strong></th>
                       <th><strong>賽事名稱</strong></th>
                       <th><strong>賽事資訊</strong></th>
-                      <th><strong>舉辦時間</strong></th>
-                      <th  style="padding: 10px 4px;"><strong>報名開始及截止時間</strong></th>
-                      <th style="padding: -20px;"><strong>上限人數</strong></th>
+                      <th><strong>舉辦日期</strong></th>
+                      <th><strong>活動開始時間 </strong></th>
+                      <th><strong>活動結束時間</strong></th>
+                      <th><strong>報名上限人數</strong></th>
                       <th><strong>費用</strong></th>
-                        <th style="padding: -20px;"><strong>狀態</strong></th>
-                        <th><strong>賽事編號</strong></th>
+                      <th><strong>報名開始時間</strong></th>
+                      <th><strong>報名截止時間</strong></th>
+                      <th><strong>冠軍</strong></th>
+                      <th><strong>亞軍</strong></th>
+                      <th><strong>季軍</strong></th>
+                      <th><strong>賽事狀態</strong></th>
+                      <th><strong>修改賽事</strong></th>
                     </tr>
                   </thead>
                   <thead>
@@ -575,16 +571,13 @@ tr.shown td.details-control i {
   <!-- 創建日期和時間選擇器 -->
   <link rel="stylesheet" type="text/css" href="static/css/jquery.datetimepicker.css" />
   <script src="static/js/jquery.datetimepicker.full.js"></script>
-  
+
   <!-- DataTables -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
   <script src='//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css'></script>
   <link href='//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js' rel='stylesheet'>
-  
-  
-   <!-- Material Icons字型 -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
   <!-- <script src='//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
   <link href='//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css' rel='stylesheet'> -->
 

@@ -1,6 +1,7 @@
 package webapp.event.service;
 
 import webapp.event.dto.EventDTO;
+import webapp.event.pojo.Event;
 import webapp.others.pojo.EventNews;
 
 import java.util.List;

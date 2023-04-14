@@ -33,7 +33,7 @@ public class ProductPicController {
 
             // 儲存圖片到資料庫
             ProductPic productPic = new ProductPic();
-            productPic.setPdNo(pdNo);
+            productPic.setPdNO(pdNo);
             productPic.setPdPic(new SerialBlob(file.getBytes()));
             productPicRepository.save(productPic);
         }

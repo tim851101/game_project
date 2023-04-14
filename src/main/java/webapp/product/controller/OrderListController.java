@@ -11,22 +11,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/ordList")
 public class OrderListController {
-    @Autowired
-    private OrderListService orderListService;
-
-    @GetMapping("/getAllByordNo")
-    public List<OrderListDTO> getAllByOrdNo(Integer ordNo) {
-        return orderListService.getAllByOrdNo(ordNo);
-    }
-
-    @PostMapping("/save")
-    @ResponseBody
-    public void saveOrderList(@RequestBody OrderListDTO orderListDTO ){
-        orderListService.saveOrderList(orderListDTO);
-    }
-
-    @GetMapping("/getBackgroundOrderListByOrdNo")
-    public List<backgroundOrderListDTO> findListByOrdNo(Integer ordNo) {
-        return orderListService.findListByOrdNo(ordNo);
-    }
+//    @Autowired
+//    private OrderListService orderListService;
+//
+//    @GetMapping("/getAllByordNo")
+//    public List<OrderListDTO> getAllByOrdNo(Integer ordNo) {
+//        return orderListService.getAllByOrdNo(ordNo);
+//    }
+//
+//    @PostMapping("/save")
+//    @ResponseBody
+//    public void saveOrderList(@RequestBody OrderListDTO orderListDTO ){
+//        orderListService.saveOrderList(orderListDTO);
+//    }
+//
+//    @GetMapping("/getBackgroundOrderListByOrdNo")
+//    public List<backgroundOrderListDTO> findListByOrdNo(Integer ordNo) {
+//        return orderListService.findListByOrdNo(ordNo);
+//    }
 }

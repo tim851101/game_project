@@ -18,11 +18,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-//    @PostMapping("/register")
-//    public ResponseEntity<AuthResponseDTO> register(@RequestBody RegisterRequestDTO dto) {
-//        return ResponseEntity.ok(authService.register(dto));
-//    }
-
     @PostMapping("/authenticate")
     public ResponseEntity<AuthResponseDTO> authenticate(@RequestBody AuthRequestDTO dto) {
         return ResponseEntity.ok(authService.authenticate(dto));

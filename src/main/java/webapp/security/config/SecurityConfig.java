@@ -20,9 +20,10 @@ import webapp.security.filter.JwtAuthFilter;
 public class SecurityConfig {
 
     private static final String[] PUBLIC = new String[] {
-        "/test/**",
         "/auth/**",
-        "/background/**"
+        "/management",
+        "/background/**",
+        "foreground/**"
     };
 
     @Autowired
@@ -36,28 +37,27 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        return httpSecurity
+        httpSecurity
             .csrf().disable()
             .authorizeHttpRequests()
             .requestMatchers(PUBLIC).permitAll()
-            .requestMatchers("/free.html", "/login.html", "/home.html", "/management").permitAll()
-            .requestMatchers("/charge.html").hasAuthority("USER")
-            .requestMatchers("/admin.html").hasAuthority("ADMIN")
-            .requestMatchers(HttpMethod.DELETE)
-            .hasAuthority("ADMIN")    // If UserDetails.getAuthorities return [ADMIN, ...]
+            // .anyRequest().authenticated()
+            .anyRequest().permitAll();
 
-            .anyRequest().authenticated()
-//            .anyRequest().permitAll()
-            .and()
+        httpSecurity
             .formLogin()
-            .loginPage("/login.html")
-            .defaultSuccessUrl("/home.html")
-            .permitAll()
-            .and()
+            .loginPage("/background/login")
+            .defaultSuccessUrl("/management")
+            .permitAll();
+        httpSecurity
             .authenticationProvider(authenticationProvider())
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-            .build();
+            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return httpSecurity.build();
     }
 
     private AuthenticationProvider authenticationProvider() {

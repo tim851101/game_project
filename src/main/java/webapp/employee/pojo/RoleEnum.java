@@ -7,8 +7,8 @@ public enum RoleEnum {
     /**
      * Wrong ID or Desc all go to Guest. Read-Only
      */
-    USER(1, "ADMIN"),
-    ADMIN(2, "MANAGER"),
+    ADMIN(1, "ADMIN"),
+    USER(2, "MANAGER"),
     GUEST(3, "ENTRY");
 
     private Integer id;

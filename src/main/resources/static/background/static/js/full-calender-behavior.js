@@ -33,7 +33,7 @@ function fullCalender() {
         /**
          *  selectable
          */
-        selectable: true,
+        selectable: false, // disable click on calender to add
         selectMirror: true,
         select: function (arg) {
             Swal.fire({
@@ -61,7 +61,6 @@ function fullCalender() {
          */
         droppable: true,
         drop: args => {
-            console.log("drop", moment(args.date).format('YYYY/MM/DD')); // TODO:
             selectedDates.add(moment(args.start).format('YYYY/MM/DD'));
         },
         // make if dragable and resizable
@@ -70,8 +69,6 @@ function fullCalender() {
          *  droppable from calender
          */
         eventDrop: args => {
-            console.log("Event Drop", moment(args.date).format('YYYY/MM/DD')); // TODO:
-
             // Remove old date from set
             const oldDate = moment(args.oldEvent.start).format('YYYY/MM/DD');
             selectedDates.delete(oldDate);
@@ -101,17 +98,17 @@ function fullCalender() {
          */
         initialDate: moment().format('YYYY-MM-DD'),
         events: [
-            {
-                title: 'test',
-                start: moment().format('YYYY-MM-DD'),
-                className: "bg-warning"
-            },
-            {
-                title: 'test-range',
-                start: moment("2023/03/27").format('YYYY-MM-DD'),
-                end: moment("2023/03/29").format('YYYY-MM-DD'),
-                className: "bg-secondary"
-            }
+            // {
+            //     title: 'test',
+            //     start: moment().format('YYYY-MM-DD'),
+            //     className: "bg-warning"
+            // },
+            // {
+            //     title: 'test-range',
+            //     start: moment("2023/03/27").format('YYYY-MM-DD'),
+            //     end: moment("2023/03/29").format('YYYY-MM-DD'),
+            //     className: "bg-secondary"
+            // }
         ]
     });
     calendar.render();
@@ -125,5 +122,18 @@ jQuery(window).on('load', function () {
 
 // for test purpose
 document.getElementById('submit-button').addEventListener('click', function () {
-    console.log(selectedDates)
+    for (const date of selectedDates) {
+        const formatDate = date.replaceAll('/', '-');
+        fetch(`/seat/close`, {
+            method: 'POST',
+            body: JSON.stringify({
+                'date': formatDate
+            }),
+            headers: {'Content-Type': 'application/json'},
+        }).then(response => {
+        });
+    }
+    Swal.fire(
+        '儲存成功',
+    )
 });

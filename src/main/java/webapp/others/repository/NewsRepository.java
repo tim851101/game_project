@@ -1,12 +1,17 @@
 package webapp.others.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Repository;
 import webapp.others.pojo.News;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Set;
 
 @Repository
 public class NewsRepository {
@@ -15,6 +20,9 @@ public class NewsRepository {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public News save(News news) {
         String hashKey=HASH_KEY+":"+news.getNewsTitle();
@@ -38,5 +46,16 @@ public class NewsRepository {
 
     public Boolean deleteNewsById(String id) {
         return redisTemplate.delete(id);
+    }
+
+    public News randomSelectOne(){
+        List<Object> keys = redisTemplate.opsForValue().multiGet(redisTemplate.keys(HASH_KEY + ":*"));
+        if (keys != null && !keys.isEmpty()) {
+            int randomIndex = new Random().nextInt(keys.size());
+            Object randomKey = keys.get(randomIndex);
+            System.out.println(randomKey);
+            return (News) randomKey;
+        }
+        return null;
     }
 }

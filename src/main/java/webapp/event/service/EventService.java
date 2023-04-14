@@ -1,6 +1,8 @@
 package webapp.event.service;
 
 import webapp.event.dto.EventDTO;
+import webapp.event.pojo.Event;
+import webapp.others.pojo.EventNews;
 
 import java.util.List;
 
@@ -16,4 +18,8 @@ public interface EventService {
     Integer  selectEventLimit(EventDTO eventDTO);
 
     Boolean updateEventStatus(EventDTO eventDTO);
+
+    List<EventNews> saveDailyNewsToRedis();
+
+    EventNews randomSelectOneEvent();
 }

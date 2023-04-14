@@ -15,26 +15,14 @@ import java.util.Objects;
 @Data // Lombok: Gene getter/setter by @getter/@setter
 @AllArgsConstructor // Lombok: Auto gene args constructor
 @NoArgsConstructor // Lombok: read above
-//@Entity // JPA: mark this class as entity
 @RedisHash("NEWS")
-//@Table(name = "NEWS")
 public class News implements Serializable {
     private static final long serialVersionUID = 1L;
 
-//    @Id
-//    @Column(name = "NEWS_NO")
-//    private Integer newsNo;
-
-
-//    @Column(name = "NEWS_TITLE")
     @Id
     private String newsTitle;
 
-//    @Column(name = "NEWS_DESC")
     private String newsDesc;
-
-//    @Column(name = "NEWS_STATUS")
-//    private Boolean newsStatus;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd")
     private Date dueDate;

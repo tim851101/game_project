@@ -148,7 +148,7 @@ public class MemberServiceImpl implements MemberService{
         // 將傳進的email json字串轉乘String
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(memEmail, JsonObject.class);
-        String email = jsonObject.get("email").getAsString();
+        String email = jsonObject.get("memEmail").getAsString();
         System.out.println(email);
         String msg;
 
@@ -157,6 +157,7 @@ public class MemberServiceImpl implements MemberService{
         // 會員存在產生臨時密碼
         if (memberRepository.existsByMemEmail(email)){
             Members member=memberRepository.findByMemEmail(email);
+            System.out.println(member);
             BeanUtils.copyProperties(member, user);
             String newPassword=genAuthCode();
             user.setMemPassword(passwordEncoder.encode(newPassword));

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    
+
 
     <!-- CSS
 	============================================ -->
@@ -71,9 +71,9 @@
                         <div class="shop_toolbar_wrapper">
                             <div class="shop_toolbar_btn">
                                 <button data-role="grid_3" type="button" class="active btn-grid-3"
-                                        data-bs-toggle="tooltip" title="3"><i class="fa fa-th"></i></button>
+                                    data-bs-toggle="tooltip" title="3"><i class="fa fa-th"></i></button>
                                 <button data-role="grid_list" type="button" class="btn-list" data-bs-toggle="tooltip"
-                                        title="List"><i class="fa fa-th-list"></i></button>
+                                    title="List"><i class="fa fa-th-list"></i></button>
                             </div>
                             <div class="shop-select">
                                 <form class="d-flex flex-column w-100" action="#">
@@ -93,52 +93,7 @@
                         <!--shop toolbar end-->
                         <!-- Shop Wrapper Start -->
                         <div id="product-list" class="row shop_wrapper grid_3">
-                        <script>
-                        const productList = document.getElementById('product-list');
-                       
-                           fetch('/product/get-pall')
-                           .then(response => response.json())
-                           .then(products => {
-                           console.log(products); // 檢查資料
-                           products.filter(product => product.pdStatus) // 只顯示上架狀態為true的商品
-                           .forEach(product => {
-                           console.log(product)   //檢查每個商品
-                           const productHTML = `
-                                <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
-                                <div class="single-product position-relative">
-                                <div class="product-image">
-                                  <a class="d-block" href="product-details.html">
-                                      <img src="http://localhost:8082/pic/getimage?picno=1" alt="product image" class="product-image-1 w-100">
-                                      <img src="http://localhost:8082/pic/getimage?picno=2" alt="product image" class="product-image-2 position-absolute w-100">
-                                  </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                       <i class="fa fa-star"></i>
-                                       <i class="fa fa-star"></i>
-                                       <i class="fa fa-star"></i>
-                                       <i class="fa fa-star-o"></i>
-                                       <i class="fa fa-star-o"></i>
-                                    </div>
-                                  <div class="product-title">
-                                      <h4 class="title-2"><a href="product-details.html">${product.pdName}</a></h4>
-                                  </div>
-                                  <div class="price-box">
-                                      <span class="regular-price">$${product.pdPrice}</span>
-                                      ${product.discountedPrice ? `<span class="old-price"><del>$${product.discountedPrice}</del></span>` : ''}
-                                  </div>
-                                  <div class="add-action d-flex position-absolute">
-                                      <a href="cart.html" title="Add To cart"><i class="ion-bag"></i></a>
-                                      <a href="wishlist.html" title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>`;
-                  productList.insertAdjacentHTML('beforeend', productHTML);
-              });
-          })
-                 .catch(error => console.error(error));
-        </script>
+                            <!--                           商品列表與商品圖片的位置-->
                         </div>
                         <!-- Shop Wrapper End -->
                         <!-- Bottom Toolbar Start -->
@@ -174,7 +129,7 @@
                                     <div class="search-box">
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="搜尋商品名稱"
-                                                   aria-label="Search Our Store">
+                                                aria-label="Search Our Store">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" type="button">
                                                     <i class="fa fa-search"></i>
@@ -208,17 +163,17 @@
                                 <!-- Sidebar Widget End -->
                             </div>
                     </div>
-                    </div>
                 </div>
             </div>
-            </div>
-        <!-- Shop Main Area End Here -->
-        <!-- Support Area Start Here -->
-        <div id="support"></div>
-        <!-- Support Area End Here -->
-        <!-- Footer Area Start Here -->
-        <div id="footer"></div>
-        <!-- Footer Area End Here -->
+        </div>
+    </div>
+    <!-- Shop Main Area End Here -->
+    <!-- Support Area Start Here -->
+    <div id="support"></div>
+    <!-- Support Area End Here -->
+    <!-- Footer Area Start Here -->
+    <div id="footer"></div>
+    <!-- Footer Area End Here -->
     </div>
 
     <!-- Modal Area Start Here -->
@@ -254,7 +209,10 @@
                                             <i class="fa fa-star-o"></i>
                                             <span>1 Review</span>
                                         </div>
-                                        <p class="desc-content">we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame bel...</p>
+                                        <p class="desc-content">we denounce with righteous indignation and dislike men
+                                            who are so beguiled and demoralized by the charms of pleasure of the moment,
+                                            so blinded by desire, that they cannot foresee the pain and trouble that are
+                                            bound to ensue; and equal blame bel...</p>
                                         <form class="d-flex flex-column w-100" action="#">
                                             <div class="form-group">
                                                 <select class="form-control nice-select w-100">
@@ -275,7 +233,8 @@
                                                 </div>
                                             </div>
                                             <div class="add-to_cart">
-                                                <a class="btn obrien-button primary-btn" href="cart.html">Add to cart</a>
+                                                <a class="btn obrien-button primary-btn" href="cart.html">Add to
+                                                    cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -322,8 +281,94 @@
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
 
-<!--    使用fetch來取得圖片並設置在img標籤中-->
-    <script src="static/js/pic-getimage.js"></script>
+    <script>
+        const productList = document.getElementById('product-list');
+
+        const picSet = new Set(); // 儲存已經使用過的商品圖片編號
+        let picNo = 1;
+        let n = 1;
+        fetch('/product/get-all')
+            .then(response => response.json())
+            .then(products => {
+                console.log(products); // 檢查資料
+                if (!Array.isArray(products)) {
+                    throw new Error('Invalid response from server');
+                }
+
+                products.filter(product => product && product.pdStatus) //確保products陣列中每個元素都有pdStatus屬性，避免在filter方法中遇到undefined或null的元素
+                    .filter(product => product.pdStatus) // 只顯示上架狀態為true的商品
+                    .forEach((product, index) => {
+                        console.log(product)   //檢查每個商品
+
+                        // 取得商品圖片
+                        //                         fetch(`/pic/getimage?picno=${index + 1}`)
+                        //                             .then(response => response.blob())
+                        //                             .then(blob => {
+                        //                                 // 將圖片blob轉為URL
+                        //                                 const imageURL = "http://localhost:8082/pic/getimage?picno=" + (index + 1);
+
+                        //                                 // 檢查圖片編號是否已經使用過，如果是則跳過這個商品的圖片
+                        // <!--                                if (picSet.has(index + 1)) {-->
+                        // < !--console.log(`Image ${index + 1} has already been used, skip this product.`); -->
+                        // < !--                                    return; -->
+                        // < !--                                }-->
+                        //                             picSet.add(index + 1); // 把這個商品的圖片編號加入Set中
+
+                        const productHTML = `
+      <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+        <div class="single-product position-relative">
+          <div class="product-image">
+            <a class="d-block" href="product-details.html">
+              <img id = img${n++} src="/pic/getimage?picno=1" alt="product image" class="product-image-1 w-100">
+            </a>
+          </div>
+          <div class="product-content">
+            <div class="product-rating">
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <div class="product-title">
+              <h4 class="title-2"><a href="product-details.html">${product.pdName}</a></h4>
+            </div>
+            <div class="price-box">
+              <span class="regular-price">$${product.pdPrice}</span>
+              ${product.discountedPrice ? `<span class="old-price"><del>$${product.discountedPrice}</del></span>` : ''}
+            </div>
+            <div class="add-action d-flex position-absolute">
+              <a href="cart.html" title="Add To cart"><i class="ion-bag"></i></a>
+              <a href="wishlist.html" title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+
+                        productList.insertAdjacentHTML('beforeend', productHTML);
+
+                        // 檢查是否需要讀取下一張圖片
+                        // picNo++;
+                        // if (picNo <= products.length) {
+                        //     fetch(`/pic/getimage?picno=${picNo}`);
+                        // }
+                    })
+                    .catch(error => console.error(error));
+            });
+        // });
+
+        setTimeout(() => {
+            for (i = 1; i < n; i++) {
+                $(`#img${i}`).attr("src", `/pic/getimage?picno=${i}`);
+
+            }
+        }, 300)
+
+
+        // function getImg(proNo){
+        //     fetc(asijfjioasjf)
+        // }
+    </script>
 
 </body>
 

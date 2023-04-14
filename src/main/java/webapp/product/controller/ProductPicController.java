@@ -11,7 +11,7 @@ import webapp.product.repository.ProductPicRepository;
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.*;
 import java.sql.SQLException;
-
+import java.util.List;
 
 
 @RestController
@@ -45,6 +45,8 @@ public class ProductPicController {
         try {
 
             ProductPic productPic=productPicRepository.getReferenceById(picno);
+
+
             InputStream inputStream=productPic.getPdPic().getBinaryStream();
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -63,7 +65,7 @@ public class ProductPicController {
         }catch (Exception e){
             byte[] buffer = new byte[4096];
             int bytesRead = -1;
-            String imgFile ="C:\\BoardGameProject\\CGA106G1\\src\\main\\resources\\static\\foreground\\static\\image\\none.jpg";
+            String imgFile ="C:\\CGA106G1_new\\CGA106G1\\src\\main\\resources\\static\\foreground\\static\\image\\none.jpg";
             InputStream inputStream=new FileInputStream(imgFile);;
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             while ((bytesRead = inputStream.read(buffer)) != -1) {
@@ -76,8 +78,7 @@ public class ProductPicController {
 
             return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.OK);
         }
-
-
     }
+
 
 }

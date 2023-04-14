@@ -9,7 +9,8 @@ for(item of shoppingcart){
         }).then(response => response.json()
         ).then(data=>{
         cartBody.innerHTML += `<tr>
-                    <td class = pdNo style = "display:none">${pdNo}</td>
+                    <td id = pdNo style = "display:none">${pdNo}</td>
+                    <td id = pdStock style = "display:none">${data.pdStock}</td>
                     <td class="pro-thumbnail"><a href="product-details.html?pdNo=${pdNo}"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
                     <td class="pro-title fs-5"><a href="product-details.html?pdNo=${pdNo}">${data.pdName}</td>
                     <td class="pro-price fs-5" ><span>$${data.pdPrice}</span></td>
@@ -33,21 +34,26 @@ for(item of shoppingcart){
             '<div class="dec qtybutton"><i class="fa fa-minus"></i></div><div class="inc qtybutton"><i class="fa fa-plus"></i></div>'
         );
         $('.qtybutton').on('click', function () {
-            var $button = $(this);
-            var oldValue = $button.parent().find('input').val();
+            let $button = $(this);
+            let oldValue = $button.parent().find('input').val();
+            let pdNo = +$button.closest("tr").find("#pdNo").text();
+            let pdStock = +$button.closest("tr").find("#pdStock").text();
             if ($button.hasClass('inc')) {
-                var newVal = parseFloat(oldValue) + 1;
+                if(oldValue < +pdStock ){
+                    var newVal = parseFloat(oldValue) + 1;
+                } else {
+                    var newVal = parseFloat(oldValue);
+                }
             } else {
                 // Don't allow decrementing below zero
                 if (oldValue > 1) {
                     var newVal = parseFloat(oldValue) - 1;
-                } else {
+                } else{
                     newVal = 1;
                 }
             }
             $button.parent().find('input').val(newVal);
             
-            var pdNo = +$button.closest("tr").find(".pdNo").text();
             set(pdNo,newVal);
 
             var unitPrice = +$button.closest("tr").find(".pro-price span").text().replace("$", "");
@@ -64,48 +70,15 @@ for(item of shoppingcart){
                 productRow.remove();
             });
         });
-
-                
     });
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-// function showproduct(prdNo){ 
-//     fetch(`/product/find-one?id=${prdNo}`,{
-//     methone:"GET"
-//     }).then(response => response.json()
-//     ).then(data=>{
-//     console.log(data)
-    
-//     cartBody.innerHTML += `<tr>
-//                 <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
-//                 <td class="pro-title"><a href="#">${data.pdName}</td>
-//                 <td class="pro-price"><span>$${data.pdPrice}</span></td>
-//                 <td class="pro-quantity">
-//                     <div class="quantity">
-//                         <div class="cart-plus-minus">
-//                             <input id = "qty" class="cart-plus-minus-box" value="0" type="text">
-//                             <div class="dec qtybutton">-</div>
-//                             <div class="inc qtybutton">+</div>
-//                             <div class="dec qtybutton"><i class="fa fa-minus"></i></div>
-//                             <div class="inc qtybutton"><i class="fa fa-plus"></i></div>
-//                         </div>
-//                     </div>
-//                 </td>
-//                 <td id = "totalAmount${data.pdNo}" class="pro-subtotal"><span>$100</span></td>
-//                 <td class="pro-remove"><a href="#"><i class="ion-trash-b"></i></a>
-//                 </td>
-//             </tr>`
-//     })
-// }
+async function getProStock(proNo){
+    let pdStock = 0;
+    await fetch(`/product/find-one?id=${proNo}`)
+    .then(response => response.json())
+    .then(data =>{
+        pdStock = data.pdStock;
+    })
+    return pdStock
+}

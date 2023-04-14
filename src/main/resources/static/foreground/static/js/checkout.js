@@ -18,8 +18,6 @@ $('#button_submit').click(e => {
             if (checkForm()) {
                 //會員編號10的訂單
                 insertOrderBymemNo(memNo);
-                shoppingcart.splice(0, shoppingcart.length);
-                localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
                 Swal.fire({
                     title: "感謝您的購買!",
                     icon: "success" //success/info/warning/error/question
@@ -48,6 +46,7 @@ fetch(`/mem/find-one?id=${memNo}`,{
 }).then(response=>response.json()
 ).then(data=>{
     coupon = +data.coupon;
+    $('#memCoupon').text('目前持有的回饋金: '+coupon)
 })
 
 
@@ -59,7 +58,7 @@ $("#inputUseCoupon").blur(() => {
 
 
 
-//前端即時錯誤驗證
+//錯誤驗證
 $("#recipient").blur(checkRecipient);
 $("#recipientAddres").blur(checkRecipientAddres);
 $("#recipientPh").blur(checkRecipientPh);
@@ -129,9 +128,10 @@ function insertOrderBymemNo(memNo) {
             let qty = document.querySelector(`#qty${i}`).textContent
             let proPDM = productMoney / qty;
             let pdNo = document.querySelector(`#pdNo${i}`).textContent
-
             saveOrdList(+ordNo, +pdNo, +qty, +proPDM);
         }
+        shoppingcart.splice(0, shoppingcart.length);
+        localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
     }).catch((error) => {
         console.error('There was a problem with the fetch operation:', error);
     });
@@ -222,10 +222,10 @@ function checkUseCoupon() {
         inputUseCouponError.textContent = "請輸入回饋金數量";
         return false;
     } else if (!inputUseCouponRegex.test(inputUseCoupon.value.trim())) {
-        inputUseCouponError.textContent = "只能輸入大於等於0的整數數量";
+        inputUseCouponError.textContent = "請輸入大於等於0的整數";
         return false;
     }  else if (inputUseCoupon.value.trim() > coupon)  {
-        inputUseCouponError.textContent = "輸入數值請勿超過所擁有的回饋金";
+        inputUseCouponError.textContent = "輸入數值請勿超過持有的回饋金";
         return false;
     } else {
         inputUseCouponError.textContent = "";

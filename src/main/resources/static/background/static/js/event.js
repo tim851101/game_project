@@ -1,6 +1,5 @@
 $(document).ready(e => {
-
-  // 舉辦日期參數 
+  //  舉辦日期參數 
   $.datetimepicker.setLocale('zh'); // kr ko ja en
   $('#eventDate').datetimepicker({
     theme: '',          //theme: 'dark',
@@ -112,181 +111,265 @@ cancelButtonColor: '#d33',
 
   // 動態新增賽事清單(取出event table值) 
   fetch('/event/ls-event')
-    .then(response => {
-      if (!response.ok) {
-        console.log("event no return");
+      .then(response => {
+        if (!response.ok) {
+          console.log("event no return");
+        }
+        return response.json();
+      })
+      .then(data => {
+        findAll(data);
+      });
+
+
+  // DataTable樣式
+function findAll(data){
+  let table = $("#eventList").DataTable({
+    autoWidth: true,
+    // stateSave: true,
+    "lengthMenu": [[10, 20, 30, -1], [10, 20, 30, "全部"]],
+    language: {
+      "emptyTable": "無資料...",
+      "processing": "處理中...",
+      "loadingRecords": "載入中...",
+      "lengthMenu": "每頁 _MENU_ 筆資料",
+      "zeroRecords": "無搜尋結果",
+      "info": "_START_ 至 _END_ / 共 _TOTAL_ 筆",
+      "infoEmpty": "尚無資料",
+      "infoFiltered": "(從 _MAX_ 筆資料過濾)",
+      "infoPostFix": "",
+      "search": "搜尋字串:",
+      "paginate": {
+        "first": "首頁",
+        "last": "末頁",
+        "next": "＞",
+        "previous": "＜"
+      },
+      "aria": {
+        "sortAscending": ": 升冪",
+        "sortDescending": ": 降冪",
+      },
+    },
+    data: data,
+    columns: [
+      {
+        className: "details-control",
+        orderable: false,
+        data: null,
+        defaultContent: '<i class="material-icons"">expand_more</i>'
+      },
+      { data: "eventName" },
+      { data: null, 
+        render: (row) => {
+          return  `<th><textarea cols="10" rows="2" disabled >${row.eventDisc}</textarea></th>`;
+        } },
+       
+      
+      {    data: null,
+        render: (row) => {
+          return `<th style="padding: 0px;">${row.eventDate}</th><br>` + `<th>${row.eventStarttime}-${row.eventEndtime}</th>`;
+        } },
+       {data: null,
+        render: (row) => {
+        return `<th>${row.signupStartTime}</th><br>` + `<th>${row.signupDeadline}</th>`;
+      } },
+      { data: null  ,render: (row) => {
+        return `<th>${row.eventLimit}</th`;
+      }},
+      { data: "eventFee" },
+      { data: null,render: (row) => {
+        switch (row.eventStatus) {
+                                    case 1: {
+                                      
+                                     return  `<th><i class="fa fa-circle text-success me-1"> </i></th>` 
+                                    }
+                                    case 2: {
+                                      return `<th><i class="fa fa-circle text-danger me-1"></i></th>` 
+                                    }
+                                    default: {
+                                      return `<th><i class="fa fa-circle text-warning me-1"> </i></th>` 
+                                    }
+                                  }
       }
-      return response.json();
-    })
-    .then(data => {
-      findAll(data);
-      table();  
-    });
-
-    function table() {
-      table = $('#eventList').DataTable({
-        // disable 預設排序
-        "columnDefs": [{
-        "searchable": false,
-        "orderable": false,
-         "targets": 2},{
-          "searchable": false,
-          "orderable": false,
-           "targets": 14}],
-           
-        //以緊急時間欄為排列
-        "order": [[0, "DESC"]],
-        language: {
-          "emptyTable": "無資料...",
-          "processing": "處理中...",
-          "loadingRecords": "載入中...",
-          "lengthMenu": "每頁 _MENU_ 筆資料",
-          "zeroRecords": "無搜尋結果",
-          "info": "_START_ 至 _END_ / 共 _TOTAL_ 筆",
-          "infoEmpty": "尚無資料",
-          "infoFiltered": "(從 _MAX_ 筆資料過濾)",
-          "infoPostFix": "",
-          "search": "搜尋字串:",
-          "paginate": {
-            "first": "首頁",
-            "last": "末頁",
-            "next": "下頁",
-            "previous": "前頁"
-          },
-          "aria": {
-            "sortAscending": ": 升冪",
-            "sortDescending": ": 降冪",
-          },
-        }
-      });
-      // 隱藏此欄位
-      table.columns([0]).visible(false);
+    },
+      { data: "eventNo"}
+    ],
+    order: [[8, "desc"]],
+    rowCallback: function (row, data) {
+      let $row = $(row);
+      $row.attr('style', "text-align:center;");
     }
-
-  function findAll(data) {
-    const eventList = $('#prod-list');
-    let tdString = "";
-    for (const e of data) {
-        tdString += `
-                      <tr> 
-                        <th><strong >${e.eventNo}</strong></th>
-                        <th><strong >${e.eventName}</strong></th>
-                        <th><textarea cols="30" rows="1" disabled >${e.eventDisc}</textarea></th>
-                        <th><strong>${e.eventDate}</strong></th>
-                        <th><strong>${e.eventStarttime}</strong></th>
-                        <th><strong>${e.eventEndtime}</strong></th>
-                        <th><strong>${e.eventLimit}</strong></th>
-                        <th><strong>${e.eventFee}</strong></th>
-                        <th><strong>${e.signupStartTime}</strong></th>
-                        <th><strong>${e.signupDeadline}</strong></th>
-                        <th><strong>${e.eventWinner1}</strong></th>
-                        <th><strong>${e.eventWinner2}</strong></th>
-                        <th><strong>${e.eventWinner3}</strong></th>`
-                        switch (e.eventStatus) {
-                          case 1: {
-                            tdString += 
-                            `<th><i class="fa fa-circle text-success me-1"> </i></th>` 
-                            break;
-                          }
-                          case 2: {
-                            tdString += 
-                            `<th><i class="fa fa-circle text-danger me-1"></i></th>` 
-                            break;
-                          }
-                          default: {
-                            tdString += 
-                             `<th><i class="fa fa-circle text-warning me-1"> </i></th>` 
-                            break;
-                          }
-                        }
-                        tdString += `
-                        <th><a id="edit${e.eventNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 fas fa-pencil-alt" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo""></th>
-                      </tr>`;
-        
+  });
+  table.columns([8]).visible(false);
+  
+  
+  $("#eventList tbody").on("click", "td.details-control", function () {
+    let tr = $(this).closest("tr");
+    let row = table.row(tr);
+    
+    if (row.child.isShown()) {
+      row.child.hide();
+      tr.removeClass("shown");
+    } else {
+      row.child(format(row.data()), "p-0").show();
+      tr.addClass("shown");
     }
-    eventList.html(tdString);
-    $('#prod-list').find('a[id^="edit"]').on('click', function alertTest() {
-      $('#saveWinner').click(e => {
-        if ($.trim($("#eventWinner1").val()) === "" || $.trim($("#eventWinner2").val()) === "" || $.trim($("#eventWinner3").val()) === "") {
-          Swal.fire(
-            {
-              title: "內容不能空白！",
-              text:  "請再次檢查您輸入的字是否正確",
-              icon: 'error',
-              confirmButtonText: '確定'
-            }
-          );
-        } else {
-          let buttonId = $(this).attr('id');
-          let eventNo = buttonId.match(/edit(\d+)/)[1];
-          const formData = {
-            "eventNo": eventNo,
-            "eventWinner1": $("#eventWinner1").val(),
-            "eventWinner2": $("#eventWinner2").val(),
-            "eventWinner3": $("#eventWinner3").val(),
-            "eventStatus": 1
-          }
-          Swal.fire({
-            title: "確定要送出資料嗎？",
-            text: "資料送出後將無法修改！",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#21870D',
-        cancelButtonColor: '#d33',
-            confirmButtonText: '確定',
-            cancelButtonText: "取消"
-          }).then(function (result) {
-            if (result.value) {
-              fetch('/event/updateWinners', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-              })
-                .then(response => {
-                  if (!response.ok) {
-                    throw new Error('Event not update');
-                  }
-                  return response.json()
-                })
-                .catch(error => {
-                  console.error('Error:', error.message);
-                });
-                Swal.fire({
-                  title: "已送出資料！",
-                  icon: 'success',
-                  confirmButtonText: '確定',
-                  confirmButtonColor: '#21870D',
-                  preConfirm: setTimeout(() => {
-                      document.location.reload();
-                    }, 2000)
-                });
-               
-            }
-          });
-        }
-      });
-    });
+  });
+}
+
+  // 新增冠亞季軍欄位
+  function format(d) {
+    let trString = "";
+    if (d.eventStatus === 1) {
+      trString +=
+        `<thead >
+           <tr ">
+           <th  style="padding: 10px 18px;"></th>
+           <th  style="padding: 10px 18px;"></th>
+           <th><strong>冠軍</strong></th>
+           <th></th>
+           <th><strong>亞軍</strong></th>
+           <th></th>
+           <th><strong>季軍</strong></th>
+           <th></th>
+           </tr>
+         </thead>
+         <tr >
+         <th  style="padding: 10px 18px;"></th>
+         <th  style="padding: 10px 18px;"></th>
+           <th><strong>${d.eventWinner1}</strong></th>
+           <th></th>
+           <th><strong>${d.eventWinner2}</strong></th>
+           <th></th>
+           <th><strong>${d.eventWinner3}</strong></th>
+         </tr>`;
+    } else if(d.eventStatus === 0){
+      trString +=
+        `<thead >
+           <tr>
+           <th  style="padding: 10px 18px;"></th>
+           <th  style="padding: 10px 18px;"></th>
+             <th><strong>冠軍</strong></th>
+             <th></th>
+             <th><strong>亞軍</strong></th>
+             <th></th>
+             <th><strong>季軍</strong></th>
+             <th></th>
+             <th><strong>修改賽事</strong></th>
+           </tr>
+         </thead>
+         <tr >
+         <th  style="padding: 10px 18px;"></th>
+         <th  style="padding: 10px 18px;"></th>
+           <th><strong>無資料</strong></th>
+           <th></th>
+           <th><strong>無資料</strong></th>
+           <th></th>
+           <th><strong>無資料</strong></th>
+           <th></th>
+           <th><a id="edit${d.eventNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 fas fa-pencil-alt" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"  onClick="alertTest(this);"></a></th>
+         </tr>`;
+    }else{
+      trString +=
+      `<thead >
+         <tr>
+         <th  style="padding: 10px 18px;"></th>
+         <th  style="padding: 10px 18px;"></th>
+           <th><strong>冠軍</strong></th>
+           <th></th>
+           <th><strong>亞軍</strong></th>
+           <th></th>
+           <th><strong>季軍</strong></th>
+           <th></th>
+         </tr>
+       </thead>
+       <tr >
+       <th  style="padding: 10px 18px;"></th>
+       <th  style="padding: 10px 18px;"></th>
+         <th><strong>無資料</strong></th>
+         <th></th>
+         <th><strong>無資料</strong></th>
+         <th></th>
+         <th><strong>無資料</strong></th>
+         <th></th>
+       </tr>`;
+    }
+    return trString;
   };
-
-  // 提交頁面
-  let exampleModal = document.getElementById('exampleModal')
-  exampleModal.addEventListener('show.bs.modal', function (event) {
-    let button = event.relatedTarget
-    let recipient = button.getAttribute('data-bs-whatever')
-    let modalTitle = exampleModal.querySelector('.modal-title')
-    let modalBodyInput = exampleModal.querySelector('.modal-body input')
-    modalTitle.textContent = 'New message to ' + recipient
-    modalBodyInput.value = recipient
-  })
 });
 
+  // 修改冠亞季軍
+function alertTest(data){
+  $('#saveWinner').click(e => {
+    if ($.trim($("#eventWinner1").val()) === "" || $.trim($("#eventWinner2").val()) === "" || $.trim($("#eventWinner3").val()) === "") {
+      Swal.fire(
+        {
+          title: "內容不能空白！",
+          text:  "請再次檢查您輸入的字是否正確",
+          icon: 'error',
+          confirmButtonText: '確定'
+        }
+      );
+    } else {
+      let buttonId = $(data).attr('id');
+      let eventNo = buttonId.match(/edit(\d+)/)[1];
+      const formData = {
+        "eventNo": eventNo,
+        "eventWinner1": $("#eventWinner1").val(),
+        "eventWinner2": $("#eventWinner2").val(),
+        "eventWinner3": $("#eventWinner3").val(),
+        "eventStatus": 1
+      }
+      Swal.fire({
+        title: "確定要送出資料嗎？",
+        text: "資料送出後將無法修改！",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#21870D',
+    cancelButtonColor: '#d33',
+        confirmButtonText: '確定',
+        cancelButtonText: "取消"
+      }).then(function (result) {
+        if (result.value) {
+          fetch('/event/updateWinners', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Event not update');
+              }
+              return response.json()
+            })
+            .catch(error => {
+              console.error('Error:', error.message);
+            });
+            Swal.fire({
+              title: "已送出資料！",
+              icon: 'success',
+              confirmButtonText: '確定',
+              confirmButtonColor: '#21870D',
+              preConfirm: setTimeout(() => {
+                  document.location.reload();
+                }, 2000)
+            });
+        }
+      });
+    }
+
+  });
+}
 // 賽事資訊的欄寬隨字數自動增加
 function autoResize(textarea) {
-  textarea.style.height = 'auto';
-  textarea.style.height = textarea.scrollHeight + 'px';
+textarea.style.height = 'auto';
+textarea.style.height = textarea.scrollHeight + 'px';
 }
+
+
+
   // if ($.trim($("#eventWinner1").val()) === "" || $.trim($("#eventWinner2").val()) === "" || $.trim($("#eventWinner3").val()) === "") {
   //   Swal.fire(
   //     "內容不能空白", //標題 

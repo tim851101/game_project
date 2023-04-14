@@ -166,8 +166,8 @@ $(document).ready(e => {
           });
         }
       });
-    });
-  }
+    })
+    }
 
   function format(d, eventordData) {
     let trString = "";

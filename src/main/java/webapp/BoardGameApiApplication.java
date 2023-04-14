@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import webapp.booking.service.SeatService;
+import webapp.security.service.DatabaseService;
 
 
 @SpringBootApplication
@@ -23,6 +24,7 @@ public class BoardGameApiApplication implements CommandLineRunner {
     @Autowired
     private SeatService seatService;
 
+    private DatabaseService databaseService;
     public static void main(String[] args) {
         SpringApplication.run(BoardGameApiApplication.class, args);
 //         SpringApplication.exit(SpringApplication.run(BoardGameApiApplication.class, args));
@@ -32,6 +34,7 @@ public class BoardGameApiApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // initial seat vacancy into redis
         seatService.initialSeat();
+        databaseService.initializeDatabase();
     }
 }
 

@@ -3,61 +3,57 @@
 
 <head>
     <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="keywords" content="">
-	<meta name="author" content="">
-	<meta name="robots" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	<!-- PAGE TITLE HERE -->
-	<title>Invome Admin Dashboard</title>
-	
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- PAGE TITLE HERE -->
+    <title>Invome Admin Dashboard</title>
+
     <link href="static/css/style.css" rel="stylesheet">
 
 </head>
 
 <body class="vh-100">
-    <div class="authincation h-100">
-        <div class="container h-100">
-            <div class="row justify-content-center h-100 align-items-center">
-                <div class="col-md-6">
-                    <div class="authincation-content">
-                        <div class="row no-gutters">
-                            <div class="col-xl-12">
-                                <div class="auth-form">
-									<div class="text-center mb-3">
-										<a href="index.html"><img src="static/picture/baordgame-logo.png" alt=""></a>
-									</div>
-                                    <h4 class="text-center mb-4">員工登入</h4>
-                                    <form action="index.html">
-                                        <div class="mb-3">
-                                            <label class="mb-1"><strong>Email</strong></label>
-                                            <!-- TODO:  -->
-                                            <input type="email" class="form-control" value="hello@example.com"> 
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="mb-1"><strong>Password</strong></label>
-                                            <!-- TODO: -->
-                                            <input type="password" class="form-control" value="Password">
-                                        </div>
-                                        <div class="row d-flex justify-content-between mt-4 mb-2">
-                                            <div class="mb-3">
-                                               <div class="form-check custom-checkbox ms-1">
-													<input type="checkbox" class="form-check-input" id="basic_checkbox_1">
-													<label class="form-check-label" for="basic_checkbox_1">Remember my preference</label>
-												</div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <!-- TODO: -->
-                                                <a href="page-forgot-password.html">Forgot Password?</a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center">
-                                            <!-- TODO: -->
-                                            <button type="submit" class="btn btn-primary btn-block">Sign Me In</button>
-                                        </div>
-                                    </form>
+<div class="authincation h-100">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-md-6">
+                <div class="authincation-content">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="auth-form">
+                                <div class="text-center mb-3">
+                                    <a href="index.html"><img src="static/picture/baordgame-logo.png" alt=""></a>
                                 </div>
+                                <h4 class="text-center mb-4" style="font-weight: 600;">員工登入</h4>
+                                <form action="index.html">
+                                    <div class="mb-3">
+                                        <label class="mb-1"><strong>Email</strong></label>
+                                        <!-- TODO:  -->
+                                        <input id="login-email" type="email" class="form-control" value="jhon@mail.com"
+                                               required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="mb-1"><strong>Password</strong></label>
+                                        <!-- TODO: -->
+                                        <input id="login-pwd" type="password" class="form-control" value="222" required>
+                                    </div>
+                                    <div class="row d-flex justify-content-between mt-4 mb-2">
+                                        <div class="mb-3">
+                                            <!-- TODO: -->
+                                            <a href="/background/employee-forgot-password.html">忘記密碼</a>
+                                            <label id="login-error" class="mb-1" style="color: red"></label>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <!-- TODO: -->
+                                        <button id="submit" type="submit" class="btn btn-primary btn-block">登入
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -65,15 +61,48 @@
             </div>
         </div>
     </div>
+</div>
 
 
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <!-- Required vendors -->
-    <script src="static/js/global.min.js"></script>
-    <script src="static/js/custom.min.js"></script>
-    <script src="static/js/dlabnav-init.js"></script>
-	<script src="static/js/styleSwitcher.js"></script>
+<!--**********************************
+    Scripts
+***********************************-->
+
+<script>
+    // Store the token in local storage and redirect to home page
+    sessionStorage.removeItem('token');
+    document.querySelector('#submit').addEventListener('click', e => {
+        e.preventDefault();
+        const empEmail = document.querySelector('#login-email');
+        const empPwd = document.querySelector('#login-pwd');
+        fetch('/auth/authenticate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: empEmail.value,
+                password: empPwd.value
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                sessionStorage.setItem('token', data.token);
+                window.location.href = '/management';
+                return;
+            })
+            .catch(error => {
+                document.querySelector("#login-error").textContent = "帳號或密碼錯誤";
+            });
+    });
+</script>
 </body>
+</script>
+<!-- Required vendors -->
+<script src="static/js/global.min.js"></script>
+<script src="static/js/custom.min.js"></script>
+<script src="static/js/dlabnav-init.js"></script>
+<script src="static/js/styleSwitcher.js"></script>
+</body>
+
 </html>

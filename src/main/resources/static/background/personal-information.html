@@ -1,219 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="keywords" content="" />
-    <meta name="author" content="" />
-    <meta name="robots" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- PAGE TITLE HERE -->
-    <title>Invome Admin Dashboard</title>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <meta name="robots" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link href="static/css/nice-select.css" rel="stylesheet" />
-    <link href="static/css/owl.carousel.css" rel="stylesheet" />
-    <link rel="stylesheet" href="static/css/nouislider.min.css" />
+  <!-- PAGE TITLE HERE -->
+  <title>Invome Admin Dashboard</title>
 
-    <!-- Style css -->
-    <link href="static/css/style.css" rel="stylesheet" />
+  <link href="static/css/nice-select.css" rel="stylesheet" />
+  <link href="static/css/owl.carousel.css" rel="stylesheet" />
+  <link rel="stylesheet" href="static/css/nouislider.min.css" />
 
-    <!-- harder sidebar footer import -->
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="/background/static/js/template.js"></script>
-  </head>
-  <body>
-    <!--*******************
+  <!-- Style css -->
+  <link href="static/css/style.css" rel="stylesheet" />
+
+  <!-- harder sidebar footer import -->
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="/background/static/js/template.js"></script>
+
+  <!-- self-define js -->
+  <script src="/background/static/js/personal-information.js"></script>
+
+</head>
+
+<body>
+  <!--*******************
         Preloader start
     ********************-->
-    <div id="preloader">
-      <div class="lds-ripple">
-        <div></div>
-        <div></div>
-      </div>
+  <div id="preloader">
+    <div class="lds-ripple">
+      <div></div>
+      <div></div>
     </div>
-    <!--*******************
+  </div>
+  <!--*******************
         Preloader end
     ********************-->
 
-    <!--**********************************
+  <!--**********************************
         Main wrapper start
     ***********************************-->
-    <div id="main-wrapper">
-      <!--**********************************
+  <div id="main-wrapper">
+    <!--**********************************
             Nav header start
         ***********************************-->
-      <div class="nav-header">
-        <a href="" class="brand-logo">
-          <svg
-            class="logo-abbr"
-            width="57"
-            height="57"
-            viewbox="0 0 57 57"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M32.9585 1.84675C30.4961 -0.615584 26.5039 -0.615585 24.0415 1.84675L19.3876 6.50068H12.8059C9.32365 6.50068 6.50071 9.32362 6.50071 12.8059V19.3876L1.84675 24.0415C-0.615584 26.5039 -0.615585 30.4961 1.84675 32.9585L6.50071 37.6124V44.1941C6.50071 47.6763 9.32365 50.4993 12.8059 50.4993H19.3876L24.0415 55.1532C26.5039 57.6156 30.4961 57.6156 32.9585 55.1532L37.6124 50.4993H44.1941C47.6764 50.4993 50.4993 47.6763 50.4993 44.1941V37.6124L55.1532 32.9585C57.6156 30.4961 57.6156 26.5039 55.1532 24.0415L50.4993 19.3876V12.8059C50.4993 9.32362 47.6764 6.50068 44.1941 6.50068H37.6124L32.9585 1.84675Z"
-              fill="url(#paint0_linear)"
-            ></path>
-            <path
-              class="logo-text"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              d="M24.7614 37.345L20.7666 40.3417C20.4005 40.616 19.9111 40.6607 19.5015 40.4553C19.0919 40.2511 18.8333 39.833 18.8333 39.375V17.625C18.8333 16.958 19.3746 16.4167 20.0416 16.4167H36.9583C37.6253 16.4167 38.1666 16.958 38.1666 17.625V39.375C38.1666 39.833 37.9081 40.2511 37.4984 40.4553C37.0888 40.6607 36.5994 40.616 36.2333 40.3417L32.2386 37.345L29.3543 40.2293C28.883 40.7018 28.1169 40.7018 27.6457 40.2293L24.7614 37.345ZM35.75 36.9584V18.8334H21.25V36.9584L24.15 34.7834C24.6309 34.4221 25.3039 34.4704 25.7293 34.8957L28.5 37.6664L31.2707 34.8957C31.696 34.4704 32.3691 34.4221 32.85 34.7834L35.75 36.9584ZM27.2916 28.5H29.7083C30.3753 28.5 30.9166 27.9587 30.9166 27.2917C30.9166 26.6247 30.3753 26.0834 29.7083 26.0834H27.2916C26.6246 26.0834 26.0833 26.6247 26.0833 27.2917C26.0833 27.9587 26.6246 28.5 27.2916 28.5ZM24.875 23.6667H32.125C32.792 23.6667 33.3333 23.1254 33.3333 22.4584C33.3333 21.7914 32.792 21.25 32.125 21.25H24.875C24.208 21.25 23.6666 21.7914 23.6666 22.4584C23.6666 23.1254 24.208 23.6667 24.875 23.6667Z"
-              fill="white"
-            ></path>
-            <defs></defs>
-          </svg>
-          <div class="brand-title">
-            <h2 class="">inv<span>ome</span></h2>
-            <span class="brand-sub-title">Invoicing Admin</span>
-          </div>
-        </a>
-        <div class="nav-control">
-          <div class="hamburger">
-            <span class="line"></span><span class="line"></span
-            ><span class="line"></span>
-          </div>
+    <div class="nav-header">
+      <a href="" class="brand-logo">
+        <svg class="logo-abbr" width="57" height="57" viewbox="0 0 57 57" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M32.9585 1.84675C30.4961 -0.615584 26.5039 -0.615585 24.0415 1.84675L19.3876 6.50068H12.8059C9.32365 6.50068 6.50071 9.32362 6.50071 12.8059V19.3876L1.84675 24.0415C-0.615584 26.5039 -0.615585 30.4961 1.84675 32.9585L6.50071 37.6124V44.1941C6.50071 47.6763 9.32365 50.4993 12.8059 50.4993H19.3876L24.0415 55.1532C26.5039 57.6156 30.4961 57.6156 32.9585 55.1532L37.6124 50.4993H44.1941C47.6764 50.4993 50.4993 47.6763 50.4993 44.1941V37.6124L55.1532 32.9585C57.6156 30.4961 57.6156 26.5039 55.1532 24.0415L50.4993 19.3876V12.8059C50.4993 9.32362 47.6764 6.50068 44.1941 6.50068H37.6124L32.9585 1.84675Z"
+            fill="url(#paint0_linear)"></path>
+          <path class="logo-text" fill-rule="evenodd" clip-rule="evenodd"
+            d="M24.7614 37.345L20.7666 40.3417C20.4005 40.616 19.9111 40.6607 19.5015 40.4553C19.0919 40.2511 18.8333 39.833 18.8333 39.375V17.625C18.8333 16.958 19.3746 16.4167 20.0416 16.4167H36.9583C37.6253 16.4167 38.1666 16.958 38.1666 17.625V39.375C38.1666 39.833 37.9081 40.2511 37.4984 40.4553C37.0888 40.6607 36.5994 40.616 36.2333 40.3417L32.2386 37.345L29.3543 40.2293C28.883 40.7018 28.1169 40.7018 27.6457 40.2293L24.7614 37.345ZM35.75 36.9584V18.8334H21.25V36.9584L24.15 34.7834C24.6309 34.4221 25.3039 34.4704 25.7293 34.8957L28.5 37.6664L31.2707 34.8957C31.696 34.4704 32.3691 34.4221 32.85 34.7834L35.75 36.9584ZM27.2916 28.5H29.7083C30.3753 28.5 30.9166 27.9587 30.9166 27.2917C30.9166 26.6247 30.3753 26.0834 29.7083 26.0834H27.2916C26.6246 26.0834 26.0833 26.6247 26.0833 27.2917C26.0833 27.9587 26.6246 28.5 27.2916 28.5ZM24.875 23.6667H32.125C32.792 23.6667 33.3333 23.1254 33.3333 22.4584C33.3333 21.7914 32.792 21.25 32.125 21.25H24.875C24.208 21.25 23.6666 21.7914 23.6666 22.4584C23.6666 23.1254 24.208 23.6667 24.875 23.6667Z"
+            fill="white"></path>
+          <defs></defs>
+        </svg>
+        <div class="brand-title">
+          <h2 class="">inv<span>ome</span></h2>
+          <span class="brand-sub-title">Invoicing Admin</span>
+        </div>
+      </a>
+      <div class="nav-control">
+        <div class="hamburger">
+          <span class="line"></span><span class="line"></span><span class="line"></span>
         </div>
       </div>
-      <!--**********************************
+    </div>
+    <!--**********************************
             Nav header end
         ***********************************-->
 
-      <!--**********************************
+    <!--**********************************
             Chat box start
         ***********************************-->
-      <div id="chatbox"></div>
-      <!--**********************************
+    <div id="chatbox"></div>
+    <!--**********************************
             Chat box End
         ***********************************-->
 
-      <!--**********************************
+    <!--**********************************
             Header start
         ***********************************-->
-      <div id="header"></div>
-      <!--**********************************
+    <div id="header"></div>
+    <!--**********************************
             Header end ti-comment-alt
         ***********************************-->
 
-      <!--**********************************
+    <!--**********************************
             Sidebar start
         ***********************************-->
-      <div class="dlabnav">
-    <div class="dlabnav-scroll">
+    <div class="dlabnav">
+      <div class="dlabnav-scroll">
         <div class="dropdown header-profile2">
-            <a
-                    class="nav-link"
-                    href="javascript:void(0);"
-                    role="button"
-                    data-bs-toggle="dropdown"
-            >
-                <div class="header-info2 d-flex align-items-center border">
-                    <img src="/background/static/picture/pic1.jpg" alt=""/>
-                    <div class="d-flex align-items-center sidebar-info">
-                        <div>
-                            <span class="font-w700 d-block mb-2">Eren Yeager</span>
-                            <small class="text-end font-w400">Super Admin</small>
-                        </div>
-                        <i class="fas fa-sort-down ms-4"></i>
-                    </div>
+          <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
+            <div class="header-info2 d-flex align-items-center border">
+              <img src="/background/static/picture/pic1.jpg" alt="" />
+              <div class="d-flex align-items-center sidebar-info">
+                <div>
+                  <span class="font-w700 d-block mb-2">Eren Yeager</span>
+                  <small class="text-end font-w400">Super Admin</small>
                 </div>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-                <a href="/background/app-profile.html" class="dropdown-item ai-icon">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="text-primary"
-                            width="18"
-                            height="18"
-                            viewbox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                    >
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    <span class="ms-2">Profile </span>
-                </a>
-                <a href="/background/email-inbox.html" class="dropdown-item ai-icon">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="text-success"
-                            width="18"
-                            height="18"
-                            viewbox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                    >
-                        <path
-                                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                        ></path>
-                        <polyline points="22,6 12,13 2,6"></polyline>
-                    </svg>
-                    <span class="ms-2">Inbox </span>
-                </a>
-                <a id="logout-a" href="javascript:;" class="dropdown-item ai-icon">
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="text-danger"
-                            width="18"
-                            height="18"
-                            viewbox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                    >
-                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                        <polyline points="16 17 21 12 16 7"></polyline>
-                        <line x1="21" y1="12" x2="9" y2="12"></line>
-                    </svg>
-                    <span id="logout-span" class="ms-2">Logout </span>
-                </a>
+                <i class="fas fa-sort-down ms-4"></i>
+              </div>
             </div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end">
+            <a href="/background/app-profile.html" class="dropdown-item ai-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span class="ms-2">Profile </span>
+            </a>
+            <a href="/background/email-inbox.html" class="dropdown-item ai-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" class="text-success" width="18" height="18" viewbox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <span class="ms-2">Inbox </span>
+            </a>
+            <a id="logout-a" href="javascript:;" class="dropdown-item ai-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewbox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+              <span id="logout-span" class="ms-2">Logout </span>
+            </a>
+          </div>
         </div>
         <ul class="metismenu" id="menu">
-            <!-- 基本資料管理 li-ul-->
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fas fa-user-cog"></i>
-                    <span class="nav-text">基本資料管理</span>
-                </a>
-                <ul aria-expanded="false">
-                    <!--          <li><a href="/background/employee-update.html">員工帳號維護</a></li>-->
-                    <li><a href="/background/employee-update.html">員工帳號維護</a></li>
+          <!-- 基本資料管理 li-ul-->
+          <li>
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+              <i class="fas fa-user-cog"></i>
+              <span class="nav-text">基本資料管理</span>
+            </a>
+            <ul aria-expanded="false">
+              <!--          <li><a href="/background/employee-update.html">員工帳號維護</a></li>-->
+              <li><a href="/background/employee-update.html">員工帳號維護</a></li>
 
-                    <li><a href="/background/member-permissions.html">會員權限設定</a></li>
-                    <li><a href="/background/personal-information.html">個人基本資料</a></li>
-                    <li>
-                        <a href="/background/personal-information.html#change-password">變更密碼</a>
-                    </li>
-                    <li><a href="/background/employee-login-out.html">登出</a></li>
-                    <!-- <li><a href="/background/card-center.html">Card-Center</a></li>
+              <li><a href="/background/member-permissions.html">會員權限設定</a></li>
+              <li><a href="/background/personal-information.html">個人基本資料</a></li>
+              <li>
+                <a href="/background/personal-information.html#change-password">變更密碼</a>
+              </li>
+              <li><a href="/background/employee-login-out.html">登出</a></li>
+              <!-- <li><a href="/background/card-center.html">Card-Center</a></li>
                       <li><a href="/background/transaction-details.html">Transaction</a></li> -->
-                </ul>
-            </li>
-            <!-- 首頁資訊管理 li-ul-->
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fas fa-info-circle"></i>
-                    <span class="nav-text">首頁資訊管理</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="/background/news.html">最新消息管理</a></li>
-                    <li><a href="/background/product_ad.html">熱門遊戲管理</a></li>
-                    <!-- <li><a href="/background/app-calender.html">教學管理</a></li>
+            </ul>
+          </li>
+          <!-- 首頁資訊管理 li-ul-->
+          <li>
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+              <i class="fas fa-info-circle"></i>
+              <span class="nav-text">首頁資訊管理</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="/background/news.html">最新消息管理</a></li>
+              <li><a href="/background/product_ad.html">熱門遊戲管理</a></li>
+              <!-- <li><a href="/background/app-calender.html">教學管理</a></li>
                     <li><a href="/background/app-calender.html">Q&A管理</a></li> -->
-                    <!-- <li>
+              <!-- <li>
                         <a
                           class="has-arrow"
                           href="javascript:void()"
@@ -227,7 +184,7 @@
                         </ul>
                       </li> -->
 
-                    <!-- <li>
+              <!-- <li>
                         <a
                           class="has-arrow"
                           href="javascript:void()"
@@ -246,251 +203,163 @@
                           <li><a href="/background/ecom-customers.html">Customers</a></li>
                         </ul>
                       </li> -->
-                </ul>
-            </li>
-            <!-- 業務規則管理 -->
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fas fa-minus-circle"></i>
-                    <span class="nav-text">業務規則管理</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="/background/member-violation-rules.html">違規規則管理</a></li>
-                    <li><a href="/background/member-violation-rules.html#system-param">系統參數</a></li>
-                </ul>
-            </li>
-            <!-- 商品資料管理 li-ul-->
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="nav-text">商品資訊管理</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="/background/product-maintain.html">商品管理</a></li>
-                    <li><a href="/background/product_order.html">訂單管理</a></li>
-                    <li><a href="/background/product_message.html">留言管理</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fas fa-chair"></i>
-                    <span class="nav-text">訂位資訊管理</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="/background/on-site-order.html">現場劃位</a></li>
-                    <li><a href="/background/opentime-rules.html">營業時間設定</a></li>
-                    <li><a href="/background/booking-maintain.html">訂位管理</a></li>
-                </ul>
-            </li>
-            <li>
-                <a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="fas fa-chess"></i>
-                    <span class="nav-text">活動資訊管理</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="/background/event-maintain.html">活動管理</a></li>
-                    <li><a href="/background/event_order.html">訂單管理</a></li>
-                </ul>
-            </li>
+            </ul>
+          </li>
+          <!-- 業務規則管理 -->
+          <li>
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+              <i class="fas fa-minus-circle"></i>
+              <span class="nav-text">業務規則管理</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="/background/member-violation-rules.html">違規規則管理</a></li>
+              <li><a href="/background/member-violation-rules.html#system-param">系統參數</a></li>
+            </ul>
+          </li>
+          <!-- 商品資料管理 li-ul-->
+          <li>
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="nav-text">商品資訊管理</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="/background/product-maintain.html">商品管理</a></li>
+              <li><a href="/background/product_order.html">訂單管理</a></li>
+              <li><a href="/background/product_message.html">留言管理</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+              <i class="fas fa-chair"></i>
+              <span class="nav-text">訂位資訊管理</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="/background/on-site-order.html">現場劃位</a></li>
+              <li><a href="/background/opentime-rules.html">營業時間設定</a></li>
+              <li><a href="/background/booking-maintain.html">訂位管理</a></li>
+            </ul>
+          </li>
+          <li>
+            <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+              <i class="fas fa-chess"></i>
+              <span class="nav-text">活動資訊管理</span>
+            </a>
+            <ul aria-expanded="false">
+              <li><a href="/background/event-maintain.html">活動管理</a></li>
+              <li><a href="/background/event_order.html">訂單管理</a></li>
+            </ul>
+          </li>
 
 
-        <div class="copyright">
+          <div class="copyright">
             <p><strong>Tibame CGA106 游Game</strong> © 2023 All Rights Reserved</p>
             <p class="fs-12">Made with <span class="heart"></span> by CGA106第一組</p>
-        </div>
+          </div>
+      </div>
     </div>
-</div>
 
-      <!--**********************************
+    <!--**********************************
             Sidebar end
         ***********************************-->
 
-      <!--**********************************
+    <!--**********************************
             Content body start
         ***********************************-->
-      <!--**********************************
+    <!--**********************************
             基本資料管理 start
       ***********************************-->
-      <div class="content-body" style="min-height: 876px">
-        <div class="container-fluid">
-          <div class="row page-titles">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item active">
-                <a href="javascript:void(0)">基本資料管理</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a href="javascript:void(0)">員工基本資料</a>
-              </li>
-            </ol>
-          </div>
-          <!-- row -->
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">基本資料管理</h4>
-                </div>
-                <div class="card-body">
-                  <div class="form-validation">
-                    <!-- form start -->
-                    <form class="needs-validation" novalidate="">
-                      <div class="row">
-                        <div class="col-xl-6">
-                          <!-- 員工編號 -->
-                          <div class="mb-3 row" hidden>
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="EMPLOYEE_NO"
-                              >員工編號
-                              <span class="text-danger"></span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="EMPLOYEE_NO"
-                                disabled
-                              />
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="EMPLOYEE_NAME"
-                              >姓名
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="EMPLOYEE_NAME"
-                                required
-                              />
-                              <div class="invalid-feedback">
-                                Please enter a username.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="EMPLOYEE_EMAIL"
-                              >Email(帳號) <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                style="font-size: larger"
-                                class="form-control"
-                                id="EMPLOYEE_EMAIL"
-                                required
-                              />
-                              <div class="invalid-feedback">
-                                Please enter a Email.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="ROLE"
-                              >職位
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="ROLE"
-                                disabled
-                              />
-                            </div>
+    <div class="content-body" style="min-height: 876px">
+      <div class="container-fluid">
+        <div class="row page-titles">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+              <a href="javascript:void(0)">基本資料管理</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="javascript:void(0)">員工基本資料</a>
+            </li>
+          </ol>
+        </div>
+        <!-- row -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">員工帳號管理</h4>
+              </div>
+              <div class="card-body">
+                <div class="form-validation">
+                  <!-- form start -->
+                  <form id="emp-update-form" class="needs-validation" novalidate="">
+                    <div class="row">
+                      <div class="col-xl-6">
+                        <div class="mb-3 row">
+                          <label class="col-lg-4 col-form-label" for="emp-update-name">姓名
+                            <div id="msg-emp-name" class="error"></div>
+                          </label>
+                          <div class="col-lg-6">
+                            <input type="text" class="form-control" id="emp-update-name" placeholder="Enter your name"
+                              required />
+                            <span style="opacity: 0; font-size: 0.1em">space</span>
+                            <div class="invalid-feedback">請輸入電話.</div>
                           </div>
                         </div>
-                        <div class="col-xl-6">
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="validationCustom05"
-                              >性別
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="gender"
-                                  id="male"
-                                />
-                                <label class="form-check-label" for="male"
-                                  >男</label
-                                >
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="gender"
-                                  id="female"
-                                />
-                                <label class="form-check-label" for="female"
-                                  >女</label
-                                >
-                              </div>
-                              <div class="invalid-feedback">
-                                Please select a one.
-                              </div>
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="EMPLOYEE_PHONE"
-                              >電話
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="EMPLOYEE_PHONE"
-                                placeholder="09xx-xxx-xxx"
-                                required
-                              />
-                              <div class="invalid-feedback">請輸入電話.</div>
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-4 col-form-label"
-                              for="EMPLOYEE_ADDRESS"
-                              >通訊地址 <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="EMPLOYEE_ADDRESS"
-                                placeholder=""
-                                required
-                              />
-                              <div class="invalid-feedback">請輸入地址</div>
+                        <div class="mb-3 row">
+                          <label class="col-lg-4 col-form-label" for="emp-update-email">Email(帳號)
+                            <div id="msg-emp-email" class="error"></div>
+                          </label>
+                          <div class="col-lg-6">
+                            <input type="text" class="form-control" id="emp-update-email"
+                              placeholder="Your valid email.." required />
+                            <span style="opacity: 0; font-size: 0.1em">space</span>
+                            <div class="invalid-feedback">
+                              Please enter a Email.
                             </div>
                           </div>
                         </div>
                         <div class="mb-3 row">
-                          <div
-                            class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
-                          >
-                            <button type="submit" class="btn btn-primary">
-                              Submit
-                            </button>
+                          <label class="col-lg-4 col-form-label" for="emp-role">管理權限
+                            <span class="text-danger"></span>
+                          </label>
+                          <div class="col-lg-6">
+<!--                            <span id="emp-role" class="span"></span>-->
+                            <input type="text" class="form-control" id="emp-role" disabled />
                           </div>
                         </div>
                       </div>
-                    </form>
-                    <!-- form end -->
-                  </div>
+                      <div class="col-xl-6">
+                        <div class="mb-3 row">
+                          <label class="col-lg-4 col-form-label" for="emp-update-phone">電話
+                            <span class="text-danger"></span>
+                          </label>
+                          <div class="col-lg-6">
+                            <input type="text" class="form-control" id="emp-update-phone" placeholder="09xxxxxxxx"
+                              required="" />
+                            <span style="opacity: 0; font-size: 0.1em">space</span>
+                            <div class="invalid-feedback">請輸入電話.</div>
+                          </div>
+                        </div>
+                        <div class="mb-3 row">
+                          <label class="col-lg-4 col-form-label" for="emp-update-addr">通訊地址
+                            <span class="text-danger"></span>
+                          </label>
+                          <div class="col-lg-6 position-relative">
+                            <input type="text" class="form-control mb-3" id="emp-update-addr" placeholder="Your Address"
+                              required="" />
+                            <button id="emp-update-submit" type="button"
+                              class="btn mb-3 btn-primary fs-5 position-absolute end-0" style="margin-right: 3%;">
+                              確認
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="mb-3 row">
+
+                      </div>
+                    </div>
+                  </form>
+                  <!-- form end -->
                 </div>
               </div>
             </div>
@@ -499,169 +368,147 @@
         <!--**********************************
             基本資料管理 end
         ***********************************-->
-        <div class="container-fluid">
-          <div class="row page-titles">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item active">
-                <a href="javascript:void(0)">基本資料管理</a>
-              </li>
-              <li class="breadcrumb-item">
-                <a
-                  href="javascript:void(0)"
-                  name="change-password"
-                  id="change-password"
-                  >變更密碼</a
-                >
-              </li>
-            </ol>
-          </div>
-          <!--**********************************
+        <div class="row page-titles">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+              <a href="javascript:void(0)">基本資料管理</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="javascript:void(0)" name="change-password" id="change-password">變更密碼</a>
+            </li>
+          </ol>
+        </div>
+        <!--**********************************
             密碼變更 start
           ***********************************-->
-          <!-- row -->
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">密碼變更</h4>
-                </div>
-                <div class="card-body">
-                  <div class="basic-form">
-                    <!-- form start -->
-                    <form
-                      class="form-valide-with-icon needs-validation"
-                      novalidate=""
-                    >
-                      <div class="mb-3">
-                        <label
-                          class="text-label form-label"
-                          for="validationCustomUsername"
-                          >舊密碼</label
-                        >
-                        <div class="input-group">
-                          <span class="input-group-text">
-                            <i class="fa fa-user"></i>
-                          </span>
-                          <input
-                            type="text"
-                            class="form-control"
-                            id="validationCustomUsername"
-                            placeholder="請輸入舊密碼.."
-                            required=""
-                          />
-                          <div class="invalid-feedback">請輸入舊密碼.</div>
-                        </div>
+        <!-- row -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <h4 class="card-title">密碼變更</h4>
+              </div>
+              <div class="card-body">
+                <div class="basic-form">
+                  <!-- form start -->
+                  <form class="form-valide-with-icon needs-validation" novalidate="">
+                    <div class="mb-3">
+                      <label class="text-label form-label" for="validationCustomUsername">舊密碼</label>
+                      <span class="text-danger">*</span>
+                      <span id="msg-old-pwd" class="error"></span>
+
+                      <div class="input-group">
+                        <span class="input-group-text">
+                          <i class="fa fa-user"></i>
+                        </span>
+                        <input id="old-pwd" type="text" class="form-control" id="validationCustomUsername" placeholder="請輸入舊密碼.."
+                          required="" />
+                        <div class="invalid-feedback">請輸入舊密碼</div>
                       </div>
-                      <div class="mb-3">
-                        <label class="text-label form-label" for="dlab-password"
-                          >新密碼 *</label
-                        >
-                        <div class="input-group transparent-append">
-                          <span class="input-group-text">
-                            <i class="fa fa-lock"></i>
-                          </span>
-                          <input
-                            type="password"
-                            class="form-control"
-                            id="dlab-password"
-                            placeholder="請輸入新密碼.."
-                            required=""
-                          />
-                          <span class="input-group-text show-pass">
-                            <i class="fa fa-eye-slash"></i>
-                            <i class="fa fa-eye"></i>
-                          </span>
-                          <div class="invalid-feedback">請輸入新密碼.</div>
-                        </div>
+                    </div>
+                    <div class="mb-3">
+                      <label class="text-label form-label" for="dlab-password">新密碼</label>
+                      <span class="text-danger">*</span>
+                      <span id="msg-new-pwd" class="error"></span>
+
+                      <div class="input-group transparent-append">
+                        <span class="input-group-text">
+                          <i class="fa fa-lock"></i>
+                        </span>
+                        <input id="new-pwd" type="password" class="form-control" id="dlab-password" placeholder="請輸入新密碼.."
+                          required="" disabled />
+                        <span class="input-group-text show-pass">
+                          <i class="fa fa-eye-slash"></i>
+                          <i class="fa fa-eye"></i>
+                        </span>
+                        <div class="invalid-feedback">請輸入新密碼.</div>
                       </div>
-                      <div class="mb-3">
-                        <label class="text-label form-label" for="dlab-password"
-                          >確認新密碼 *</label
-                        >
-                        <div class="input-group transparent-append">
-                          <span class="input-group-text">
-                            <i class="fa fa-lock"></i>
-                          </span>
-                          <input
-                            type="password"
-                            class="form-control"
-                            id="dlab-password"
-                            placeholder="請再次輸入新密碼.."
-                            required=""
-                          />
-                          <span class="input-group-text show-pass">
-                            <i class="fa fa-eye-slash"></i>
-                            <i class="fa fa-eye"></i>
-                          </span>
-                          <div class="invalid-feedback">請再次輸入新密碼.</div>
-                        </div>
+                    </div>
+                    <div class="mb-3">
+                      <label class="text-label form-label" for="dlab-password">確認新密碼</label>
+                      <span class="text-danger">*</span>
+                      <span id="msg-check-pwd" class="error"></span>
+
+                      <div class="input-group transparent-append">
+                        <span class="input-group-text">
+                          <i class="fa fa-lock"></i>
+                        </span>
+                        <input id="check-pwd" type="password" class="form-control" id="dlab-password" placeholder="請再次輸入新密碼.."
+                          required="" disabled />
+                        <span class="input-group-text show-pass">
+                          <i class="fa fa-eye-slash"></i>
+                          <i class="fa fa-eye"></i>
+                        </span>
+                        <div class="invalid-feedback">請再次輸入新密碼.</div>
                       </div>
-                      <button type="submit" class="btn me-2 btn-primary">
-                        Submit
-                      </button>
-                      <button type="submit" class="btn btn-light">
-                        cencel
-                      </button>
-                    </form>
-                    <!-- form end -->
-                  </div>
+                    </div>
+                    <button id="emp-update-btn" type="button" class="btn me-2 btn-primary">
+                      Submit
+                    </button>
+                    <button type="submit" class="btn btn-light">
+                      cencel
+                    </button>
+                  </form>
+                  <!-- form end -->
                 </div>
               </div>
             </div>
           </div>
-          <!--**********************************
+        </div>
+        <!--**********************************
             密碼變更 end
           ***********************************-->
-        </div>
       </div>
+    </div>
 
-      <!--**********************************
+    <!--**********************************
             Content body end
         ***********************************-->
 
-      <!--**********************************
+    <!--**********************************
             Footer start
         ***********************************-->
-      <div id="footer"></div>
-      <!--**********************************
+    <div id="footer"></div>
+    <!--**********************************
             Footer end
         ***********************************-->
 
-      <!--**********************************
+    <!--**********************************
            Support ticket button start
         ***********************************-->
 
-      <!--**********************************
+    <!--**********************************
            Support ticket button end
         ***********************************-->
-    </div>
-    <!--**********************************
+  </div>
+  <!--**********************************
         Main wrapper end
     ***********************************-->
 
-    <!--**********************************
+  <!--**********************************
         Scripts
     ***********************************-->
-    <!-- Required vendors -->
-    <script src="static/js/global.min.js"></script>
-    <script src="static/js/Chart.bundle.min.js"></script>
-    <script src="static/js/jquery.nice-select.min.js"></script>
+  <!-- Required vendors -->
+  <script src="static/js/global.min.js"></script>
+  <script src="static/js/Chart.bundle.min.js"></script>
+  <script src="static/js/jquery.nice-select.min.js"></script>
 
-    <script src="static/js/Chart.bundle.min.js"></script>
+  <script src="static/js/Chart.bundle.min.js"></script>
 
-    <!-- Chart piety plugin files -->
-    <script src="static/js/jquery.peity.min.js"></script>
-    <script src="static/js/nouislider.min.js"></script>
-    <script src="static/js/wNumb.js"></script>
+  <!-- Chart piety plugin files -->
+  <script src="static/js/jquery.peity.min.js"></script>
+  <script src="static/js/nouislider.min.js"></script>
+  <script src="static/js/wNumb.js"></script>
 
-    <!-- Dashboard 1 -->
-    <script src="static/js/dashboard-1.js"></script>
+  <!-- Dashboard 1 -->
+  <script src="static/js/dashboard-1.js"></script>
 
-    <script src="static/js/owl.carousel.js"></script>
+  <script src="static/js/owl.carousel.js"></script>
 
-    <script src="static/js/custom.min.js"></script>
-    <script src="static/js/dlabnav-init.js"></script>
-    <script src="static/js/demo.js"></script>
-    <script src="static/js/styleSwitcher.js"></script>
-  </body>
+  <script src="static/js/custom.min.js"></script>
+  <script src="static/js/dlabnav-init.js"></script>
+  <script src="static/js/demo.js"></script>
+  <script src="static/js/styleSwitcher.js"></script>
+</body>
+
 </html>

@@ -7,5 +7,4 @@ public class ProductLoginDTO {
     private Integer pdNo;
     private String pdName;
 
-
 }

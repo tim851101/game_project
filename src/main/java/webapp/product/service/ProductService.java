@@ -16,4 +16,9 @@ public interface ProductService {
     Boolean updateStatus(Integer id, Boolean status);
 
     List<Product> getAllProduct();
+    Integer getNextPdNo();
+
+    Boolean updateProduct(ProductDTO productDTO);
+
+    List<ProductDTO> findAll();
 }

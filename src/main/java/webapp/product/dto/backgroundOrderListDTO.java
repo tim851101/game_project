@@ -7,7 +7,7 @@ import java.sql.Blob;
 @Data
 @AllArgsConstructor
 public class backgroundOrderListDTO {
-    private Blob pdPic;
+    private Integer picNo;
 
     private String pdName;
 

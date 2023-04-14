@@ -17,4 +17,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     @Transactional
     @Query("UPDATE Product e SET e.pdStatus = :status WHERE e.pdNo = :id")
     void updateProductStatus(@Param("id") Integer id, @Param("status") Boolean status);
+
+    @Query("SELECT MAX(p.pdNo) FROM Product p")
+    Integer findMaxPdNo();
 }

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<form id="upload-form">
+    <div>
+        <label for="file">選擇存圖檔案:</label>
+        <input type="file" id="file" name="file" accept="image/*" multiple>
+    </div>
+    <div>
+        <label for="pdNo">商品編號:</label>
+        <input type="text" id="pdNo" name="pdNo">
+    </div>
+    <div>
+        <button type="submit">儲存</button>
+    </div>
+</form>
+
+<script>
+const form = document.getElementById('upload-form');
+let successMessageDisplayed = false;
+
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const fileInput = document.getElementById('file');
+    const pdNoInput = document.getElementById('pdNo');
+
+    const formData = new FormData();
+    for (let i = 0; i < fileInput.files.length; i++) {
+        const file = fileInput.files[i];
+        // 檢查是否為圖片文件
+        if (!file.type.startsWith("image/")) {
+            alert(`第 ${i + 1} 個檔案非圖片檔案`);
+            return;
+        }
+        formData.append('files', file);
+    }
+    formData.append('pdNo', pdNoInput.value);
+
+    fetch('/pic/product-pic', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!successMessageDisplayed) {
+            const successMessage = document.createElement('p');
+            successMessage.textContent = '圖片存進資料庫成功';
+            form.appendChild(successMessage);
+            successMessageDisplayed = true;
+        }
+    })
+    .catch(error => {
+        console.error(error);
+        alert(error.message);
+    });
+});
+</script>
+</body>
+</html>

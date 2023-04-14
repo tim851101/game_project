@@ -54,7 +54,7 @@ function render() {
             }
             data += `
         <tr>
-            <td>#${item.ordNo}</td>
+            <td>${item.ordNo}</td>
             <td>${item.ordCreate}</td>
             <td>$${item.actualAmount}</td>
             <td>${item.ordPayStatus}</td>

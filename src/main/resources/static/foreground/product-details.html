@@ -51,10 +51,10 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         <div class="breadcrumb-content position-relative section-content">
-                            <h3 class="title-3">Product Details</h3>
+                            <h3 class="title-3">商品詳情</h3>
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li>Product Details</li>
+                                <li><a href="shop.html">首頁</a></li>
+                                <li>商品詳情</li>
                             </ul>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         }'>
                                 <div class="single-image border">
                                     <a href="static/PIC_NO(500x500)/1.jpg">
-                                        <img src="static/PIC_NO(500x500)/1.jpg" alt="Product">
+                                        <img id="toimage" src="static/PIC_NO(500x500)/1.jpg" alt="Product">
                                     </a>
                                 </div>
                                 <div class="single-image border">
@@ -86,31 +86,7 @@
                                         <img src="static/PIC_NO(500x500)/2.jpg" alt="Product">
                                     </a>
                                 </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/33.jpg">
-                                        <img src="static/picture/33.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/42.jpg">
-                                        <img src="static/picture/42.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/51.jpg">
-                                        <img src="static/picture/51.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/61.jpg">
-                                        <img src="static/picture/61.jpg" alt="Product">
-                                    </a>
-                                </div>
-                                <div class="single-image border">
-                                    <a href="static/picture/71.jpg">
-                                        <img src="static/picture/71.jpg" alt="Product">
-                                    </a>
-                                </div>
+
                             </div>
                             <div class="pd-slider-nav product-slider" data-slick-options='{
                         "slidesToShow": 4,
@@ -126,26 +102,12 @@
                             {"breakpoint":575, "settings": {"slidesToShow": 3}}
                         ]'>
                                 <div class="single-thumb border">
-                                    <img src="static/pic_no160X160/1.jpg" alt="Product Thumnail">
+                                    <img  src="static/pic_no160X160/1001.jpg" alt="Product Thumnail">
                                 </div>
                                 <div class="single-thumb border">
-                                    <img src="static/pic_no160X160/1.jpg" alt="Product Thumnail">
+                                    <img  src="static/pic_no160X160/1002.jpg" alt="Product Thumnail">
                                 </div>
-                                <!-- <div class="single-thumb border">
-                                    <img src="static/picture/34.jpg" alt="Product Thumnail">
-                                </div>
-                                <div class="single-thumb border">
-                                    <img src="static/picture/43.jpg" alt="Product Thumnail">
-                                </div>
-                                <div class="single-thumb border">
-                                    <img src="static/picture/52.jpg" alt="Product Thumnail">
-                                </div>
-                                <div class="single-thumb border">
-                                    <img src="static/picture/62.jpg" alt="Product Thumnail">
-                                </div>
-                                <div class="single-thumb border">
-                                    <img src="static/picture/72.jpg" alt="Product Thumnail">
-                                </div> -->
+
                             </div>
                         </div>
                     </div>
@@ -174,20 +136,18 @@
                             <div class="quantity-with_btn mb-4">
                                 <div class="quantity">
                                     <div class="cart-plus-minus">
-                                        <input class="cart-plus-minus-box" value="0" type="text">
+                                        <input id="qty" class="cart-plus-minus-box" value="0" type="text">
                                         <div class="dec qtybutton">-</div>
                                         <div class="inc qtybutton">+</div>
                                     </div>
                                 </div>
                                 <div class="add-to_cart">
                                     <a class="btn obrien-button primary-btn" href="">立刻結帳</a>
-                                    <a class="btn obrien-button-2 treansparent-color pt-0 pb-0" href="">加入購物車</a>
+                                    <a id= "addToCart"class="btn obrien-button-2 treansparent-color pt-0 pb-0" href="">加入購物車</a>
                                     <a class="btn obrien-button-2 treansparent-color pt-0 pb-0" href="">加入收藏</a>
                                 </div>
                             </div>
-                            <!-- <div class="buy-button mb-5">
-                                <a href="" class="btn obrien-button-3 black-button">商品討論區</a>
-                            </div> -->
+
                             <div class="social-share mb-4">
                                 <span>Share :</span>
                                 <a href="#"><i class="fa fa-facebook-square facebook-color"></i></a>
@@ -210,16 +170,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-uppercase" id="profile-tab" data-bs-toggle="tab"
-                                   href="#connect-2" role="tab" aria-selected="false">商品評價</a>
+                                   href="#connect-2" role="tab" aria-selected="false">商品留言</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link text-uppercase" id="contact-tab" data-bs-toggle="tab"
-                                    href="#connect-3" role="tab" aria-selected="false">Shipping Policy</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-uppercase" id="review-tab" data-bs-toggle="tab"
-                                    href="#connect-4" role="tab" aria-selected="false">Size Chart</a>
-                            </li> -->
+
                         </ul>
                         <div class="tab-content mb-text" id="myTabContent">
                             <div class="tab-pane fade show active" id="connect-1" role="tabpanel"
@@ -228,92 +181,54 @@
                                     <p class="mb-3">每回合檯面上都會擺出11張圖片卡，每位玩家都要將這11張卡祕密地兩兩配對。
                                         配對完成之後，所有人揭露自己的配對結果，如果有人配對與其他人相同便得分。
                                         最後剩下的卡片跟別人相同則會獲得更高的分數。遊戲進行四輪，四輪後分數最高的玩家獲勝！</p>
-                                    <!-- <p>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum
-                                        soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime
-                                        placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-                                        Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
-                                        saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
-                                        Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-                                        voluptatibus maiores alias consequatur aut perferendis doloribus asperiores
-                                        repellat.</p> -->
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="connect-2" role="tabpanel" aria-labelledby="profile-tab">
                                 <!-- Start Single Content -->
-                                <div class="product_tab_content  border p-3">
-                                    <div class="review_address_inner">
-                                        <!-- Start Single Review -->
-                                        <div class="pro_review mb-5">
-                                            <div class="review_thumb">
-                                                <img alt="review images" src="static/picture/15.jpg">
-                                            </div>
-                                            <div class="review_details">
-                                                <div class="review_info mb-2">
-                                                    <div class="product-rating mb-2">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                        <i class="fa fa-star-o"></i>
-                                                    </div>
-                                                    <h5>Admin - <span> December 19, 2020</span></h5>
-                                                </div>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in
-                                                    viverra ex, vitae vestibulum arcu. Duis sollicitudin metus sed lorem
-                                                    commodo, eu dapibus libero interdum. Morbi convallis viverra erat,
-                                                    et aliquet orci congue vel. Integer in odio enim. Pellentesque in
-                                                    dignissim leo. Vivamus varius ex sit amet quam tincidunt iaculis.
-                                                </p>
-                                            </div>
-                                        </div>
+<!--
+                                <div class="comment-area-wrapper mt-5">
+                                    <div class="comments-view-area">
+                                        <h3 class="mb-5">留言</h3>
+                                       留言 -->
+                                        <form>
+                                            <label for="username">ID：</label>
+                                            <input type="text" id="username" name="username"><br>
+                                            <label for="message"></label><br>
+                                            <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+                                            <input type="button" value="發佈留言" onclick="addMessage()">
+                                        </form>
+                                        <hr>
+                                        <!-- <h2>留言內容</h2> -->
+                                        <div id="discussion"></div>
+                                        <script>
+                                            // 留言列表
+                                            const messages = [];
+                                            // 新增留言
+                                            function addMessage() {
+                                                let username = document.getElementById("username").value;
+                                                let message = document.getElementById("message").value;
+                                                let timestamp = new Date();
+                                                let newMessage = { username: username, message: message, timestamp: timestamp };
+                                                messages.push(newMessage);
+                                                displayMessages();
+                                            }
+                                            // 顯示留言
+                                            function displayMessages() {
+                                                let discussionDiv = document.getElementById("discussion");
+                                                discussionDiv.innerHTML = "";
+                                                for (let i = 0; i < messages.length; i++) {
+                                                    let messageDiv = document.createElement("div");
+                                                    messageDiv.innerHTML = "<strong>" + messages[i].username + "</strong>：" + messages[i].message + "<br>" + messages[i].timestamp.toLocaleString() + "<hr>";
+                                                    discussionDiv.appendChild(messageDiv);
+                                                }
+                                            }
+                                        </script>
                                         <!-- End Single Review -->
                                     </div>
                                     <!-- Start RAting Area -->
-                                    <!-- <div class="rating_wrap">
-                                        <h5 class="rating-title-1 mb-2">Add a review </h5>
-                                        <p class="mb-2">Your email address will not be published. Required fields are
-                                            marked *</p>
-                                        <h6 class="rating-title-2 mb-2">Your Rating</h6>
-                                        <div class="rating_list mb-4">
-                                            <div class="review_info">
-                                                <div class="product-rating mb-3">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
+
                                     <!-- End RAting Area 商品留言-->
-                                    <!-- <div class="comments-area comments-reply-area">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-custom">
-                                                <form action="#" class="comment-form-area">
-                                                    <div class="row comment-input">
-                                                        <div class="col-md-6 col-custom comment-form-author mb-3">
-                                                            <label>Name <span class="required">*</span></label>
-                                                            <input type="text" required="required" name="Name">
-                                                        </div>
-                                                        <div class="col-md-6 col-custom comment-form-emai mb-3">
-                                                            <label>Email <span class="required">*</span></label>
-                                                            <input type="text" required="required" name="email">
-                                                        </div>
-                                                    </div>
-                                                    <div class="comment-form-comment mb-3">
-                                                        <label>Comment</label>
-                                                        <textarea class="comment-notes" required="required"></textarea>
-                                                    </div>
-                                                    <div class="comment-form-submit">
-                                                        <input type="submit" value="Submit"
-                                                            class="comment-submit btn obrien-button primary-btn">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
+
 
                                 <!-- End Single Content -->
                             </div>
@@ -395,9 +310,9 @@
                 <div class="row">
                     <div class="col-lg-5 m-auto text-center col-custom">
                         <div class="section-content">
-                            <h2 class="title-1 text-uppercase">Related Product</h2>
+                            <h2 class="title-1 text-uppercase">熱門商品</h2>
                             <div class="desc-content">
-                                <p>You can check the related product for your shopping collection.</p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -636,9 +551,9 @@
                 <div class="row">
                     <div class="col-lg-5 m-auto text-center col-custom">
                         <div class="section-content">
-                            <h2 class="title-1 text-uppercase">You May Also Like</h2>
+                            <h2 class="title-1 text-uppercase">相關商品</h2>
                             <div class="desc-content">
-                                <p>Most of the customers choose our products. You may also like our product.</p>
+                                <p></p>
                             </div>
                         </div>
                     </div>
@@ -979,7 +894,46 @@
 
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
+    <!-- My Js-->
+    <script src="static/js/shopcart.js"></script>
 
+    <script>
+        
+        var queryString = window.location.search;
+        var searchParams = new URLSearchParams(queryString);
+        let id = searchParams.get("pdNo")
+        console.log(id);
+
+
+      var queryString = window.location.search;
+
+     // 使用 URLSearchParams 對象解析查詢參數，獲取 id 參數的值
+    //  var searchParams = new URLSearchParams(queryString);
+    //  let id = searchParams.get("picno");
+
+     // 在控制台中輸出 id 的值
+     // console.log(picno);
+    //  let image1=document.querySelector("#toimage")
+    //  let url="http://localhost:8082/pic/getimage?picno="+id
+    //  image1.setAttribute("src", url)
+
+
+    $('#addToCart').click(()=>{
+        set(id, $("#qty").val());
+    });
+
+
+// <!--// 取得URL中的圖片參數-->
+// <!--let queryString = window.location.search;-->
+// <!--let urlParams = new URLSearchParams(queryString);-->
+// <!--let imageUrl = urlParams.get('image');-->
+
+// <!--// 取得要顯示圖片的元素-->
+// <!--let imageElement = document.querySelector('#toimage');-->
+
+// <!--// 設定圖片元素的src屬性為圖片參數的值-->
+// <!--imageElement.src = decodeURIComponent(imageUrl);-->
+</script>
 </body>
 
 </html>

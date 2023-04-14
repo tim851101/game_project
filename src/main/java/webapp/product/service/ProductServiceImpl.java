@@ -2,17 +2,17 @@ package webapp.product.service;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import webapp.employee.dto.EmployeeDTO;
-import webapp.employee.pojo.Employee;
 import webapp.product.dto.ProductDTO;
 import webapp.product.dto.ProductLoginDTO;
 import webapp.product.pojo.Product;
 import webapp.product.repository.ProductRepository;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -64,9 +64,45 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+//    查詢全部商品
     @Override
-    public List<Product> getAllProduct(){
+    public List<Product> getAllProduct() {
         return productRepository.findAll();
     }
 
+    @Override
+    public Integer getNextPdNo() {
+        Integer maxPdNo = productRepository.findMaxPdNo();
+        return maxPdNo == null ? 1 : maxPdNo + 1;
+    }
+
+//    修改商品
+    @Override
+    public Boolean updateProduct(ProductDTO productDTO) {
+        Optional<Product> optionalProduct = productRepository.findById(productDTO.getPdNo());
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            product.setPdName(productDTO.getPdName());
+            product.setPdPrice(productDTO.getPdPrice());
+            product.setPdStock(productDTO.getPdStock());
+            product.setPdDescription(productDTO.getPdDescription());
+            product.setPdStatus(productDTO.getPdStatus());
+            product.setPdUpdate(new Timestamp(System.currentTimeMillis()));
+            productRepository.save(product);
+            return true;
+        } else {
+            return false;
+        }
+    }
+//    與前端商城作回應
+public List<ProductDTO> findAll() {
+    List<Product> productList = productRepository.findAll();
+    List<ProductDTO> productDTOList = new ArrayList<>();
+    for (Product product : productList) {
+        ProductDTO productDTO = new ProductDTO();
+        BeanUtils.copyProperties(product, productDTO);
+        productDTOList.add(productDTO);
+    }
+    return productDTOList;
+}
 }

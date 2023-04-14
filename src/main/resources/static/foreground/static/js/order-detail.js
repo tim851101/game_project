@@ -16,7 +16,7 @@ methond:'GET'
         n++
         data1 += `
             <tr>
-                <td class="pro-thumbnail"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></td>
+                <td class="pro-thumbnail"><img class="img-fluid" src="/pic/getimage?picno=${item.picNo}" alt="Product"></td>
                 <td class="pro-title">${item.pdName}</td>
                 <td class="pro-price"><span>$${item.price}</span></td>
                 <td class="pro-quantity"><span>${item.qty}</span></td>
@@ -50,4 +50,3 @@ methond:'GET'
                         </tr>
                     </tfoot>`
 })
-

@@ -114,7 +114,7 @@ public class MemberController {
     @PostMapping("/genAuthCode")
     @ResponseBody
     public String forgetPassword(@RequestBody String memEmail) throws MessagingException {
-        System.out.println(memberServiceImpl.getNewPassword(memEmail));
+        System.out.println(memEmail);
         return memberServiceImpl.getNewPassword(memEmail);
     }
 

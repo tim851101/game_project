@@ -1,6 +1,7 @@
 package webapp.member.service;
 
 import com.nimbusds.jose.shaded.gson.Gson;
+import com.nimbusds.jose.shaded.gson.JsonElement;
 import com.nimbusds.jose.shaded.gson.JsonObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -17,6 +18,7 @@ import webapp.member.pojo.Members;
 import webapp.member.repository.MemberRepository;
 import webapp.others.service.EmailService;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -145,37 +147,43 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public String getNewPassword(String memEmail) {
-        // 將傳進的email json字串轉乘String
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(memEmail, JsonObject.class);
-        String email = jsonObject.get("memEmail").getAsString();
+
+        JsonElement emailElement = jsonObject.get("email");
+        if (emailElement == null || emailElement.isJsonNull()) {
+            return gson.toJson("請確認您所註冊Email");
+        }
+
+        String email = emailElement.getAsString();
         System.out.println(email);
         String msg;
 
-        MemberDTO user=new MemberDTO();
+        MemberDTO user = new MemberDTO();
         System.out.println();
-        // 會員存在產生臨時密碼
-        if (memberRepository.existsByMemEmail(email)){
-            Members member=memberRepository.findByMemEmail(email);
+
+        if (memberRepository.existsByMemEmail(email)) {
+            Members member = memberRepository.findByMemEmail(email);
             System.out.println(member);
             BeanUtils.copyProperties(member, user);
-            String newPassword=genAuthCode();
+            String newPassword = genAuthCode();
             user.setMemPassword(passwordEncoder.encode(newPassword));
-            memberRepository.save(modelMapper.map(user,Members.class));
+            memberRepository.save(modelMapper.map(user, Members.class));
             try {
-                msg=gson.toJson("臨時密碼已寄送");
-                emailServiceImpl.sendPassword(email,newPassword);
+                msg = gson.toJson("臨時密碼已寄送");
+                emailServiceImpl.sendPassword(email, newPassword);
                 return msg;
-            }catch (Exception e) {
-                msg=gson.toJson("請確認您所註冊Email");
+            } catch (Exception e) {
+                msg = gson.toJson("請確認您所註冊Email");
                 e.printStackTrace();
                 return msg;
             }
-        }else {
-            msg=gson.toJson("請確認您所註冊Email");
+        } else {
+            msg = gson.toJson("請確認您所註冊Email");
             return msg;
         }
     }
+
 
     public static String genAuthCode() {
         // 0~9 => 48-57 | A~Z => 65-90 | a~z => 97~122
@@ -189,7 +197,9 @@ public class MemberServiceImpl implements MemberService{
                 i--;
             }
         }
-        return Arrays.toString(verificationCode);
+        String verifiyString = new String(verificationCode);
+        System.out.println(verifiyString);
+        return verifiyString;
     }
 
 }

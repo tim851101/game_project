@@ -31,10 +31,11 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/foreground").setViewName("/foreground/index.html");
+        registry.addViewController("/foreground/index").setViewName("/foreground/index.html");
         registry.addViewController("/foreground/register").setViewName("/foreground/register.html");
         registry.addViewController("/foreground/login").setViewName("/foreground/login.html");
         registry.addViewController("/foreground/my-account").setViewName("/foreground/my-account.html");
+        registry.addViewController("/foreground/contact-us").setViewName("/foreground/contact-us.html");
 
         registry.addViewController("/management").setViewName("/background/index-backend.html");
         registry.addViewController("/background/login").setViewName("/background/employee-login.html");

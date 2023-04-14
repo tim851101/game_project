@@ -14,21 +14,21 @@
     <!-- CSS
 	============================================ -->
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/foreground/static/css/bootstrap.min.css">
     <!-- FontAwesome -->
-    <link rel="stylesheet" href="static/css/font.awesome.min.css">
+    <link rel="stylesheet" href="/foreground/static/css/font.awesome.min.css">
     <!-- Ionicons -->
-    <link rel="stylesheet" href="static/css/ionicons.min.css">
+    <link rel="stylesheet" href="/foreground/static/css/ionicons.min.css">
     <!-- Slick CSS -->
-    <link rel="stylesheet" href="static/css/slick.min.css">
+    <link rel="stylesheet" href="/foreground/static/css/slick.min.css">
     <!-- Animation -->
-    <link rel="stylesheet" href="static/css/animate.min.css">
+    <link rel="stylesheet" href="/foreground/static/css/animate.min.css">
     <!-- jQuery Ui -->
-    <link rel="stylesheet" href="static/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/foreground/static/css/jquery-ui.min.css">
     <!-- Nice Select -->
-    <link rel="stylesheet" href="static/css/nice-select.min.css">
+    <link rel="stylesheet" href="/foreground/static/css/nice-select.min.css">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="static/css/magnific-popup.css">
+    <link rel="stylesheet" href="/foreground/static/css/magnific-popup.css">
 
     <!-- Vendor & Plugins CSS (Please remove the comment from below vendor.min.css & plugins.min.css for better website load performance and remove css files from the above) -->
 
@@ -36,11 +36,11 @@
     <link rel="stylesheet" href="assets/css/plugins/plugins.min.css"> -->
 
     <!-- Main Style CSS (Please use minify version for better website load performance) -->
-    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="/foreground/static/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/style.min.css"> -->
     <!-- fontawesome icon -->
     <script src="https://kit.fontawesome.com/8fc0d2ad99.js" crossorigin="anonymous"></script>
-    <script src="./static/js/template.js"></script>
+    <script src="/foreground/static/js/template.js"></script>
 </head>
 
 <body>
@@ -80,7 +80,7 @@
                                             Dashboard</a>
                                         <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
                                             訂單管理</a>
-                                        <a href="wishlist.html"><i class="fa fa-heart"></i>
+                                        <a href="#wishlist" data-bs-toggle="tab" id="myWishlist"><i class="fa fa-heart"></i>
                                             我的收藏</a>
                                         <a href="#notify" data-bs-toggle="tab"><i class="fa fa-bell"></i>
                                             我的訊息</a>
@@ -106,7 +106,7 @@
                                             <div class="myaccount-content">
                                                 <h3>Dashboard</h3>
                                                 <div class="welcome">
-                                                    <p>您好, <strong>Alex Aya</strong></p>
+                                                    <p>您好, <strong id="myName">Alex Aya</strong></p>
                                                 </div>
                                                 <p class="mb-0">由你的帳戶管理頁面，你可以輕鬆地檢查和查看你最近的訂單與通知，管理你所預約的訂位與活動，以及編輯你的密碼和帳戶詳細資料。</p>
                                             </div>
@@ -123,39 +123,147 @@
                                                             <tr>
                                                                 <th>訂單編號</th>
                                                                 <th>下定日期</th>
-                                                                <th>訂單狀態</th>
                                                                 <th>付款金額</th>
+                                                                <th>付款狀態</th>
+                                                                <th>訂單狀態</th>
+                                                                <th>取貨方式</th>
                                                                 <th>訂單明細</th>
                                                                 <th>退貨申請</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody id = "ordersTable">
                                                             <tr>
                                                                 <td>1</td>
                                                                 <td>2023/3/10</td>
+                                                                <td>$300</td>
+                                                                <td>已付款</td>
                                                                 <td>退貨申請</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
+                                                                <td>宅配</td>
+                                                                <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
                                                                 <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>2023/3/09</td>
+                                                                <td>$3000</td>
+                                                                <td>已付款</td>
                                                                 <td>已出貨</td>
-                                                                <td>$200</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td>超商取貨</td>
+                                                                <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
+                                                                <td><button class="btn obrien-button-2 primary-color rounded-0" >退貨</button></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
+
+                                        <!-- Single Tab Content Start 我的收藏-->
+                                        <div class="tab-pane fade" id="wishlist" role="tabpanel">
+                                            <div class="myaccount-content">
+                                                <h3>收藏列表</h3>
+                                                <div class="myaccount-table table-responsive text-center">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="pro-thumbnail">商品圖片</th>
+                                                                <th class="pro-title">商品名稱</th>
+                                                                <th class="pro-price">售價</th>
+                                                                <th class="pro-stock">庫存量</th>
+                                                                <th class="pro-cart">加入購物車</th>
+                                                                <th class="pro-remove">移除收藏</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbody-context">
+                                                            <!-- <tr>
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">Product dummy title <br> s / green</a></td>
+                                                                <td class="pro-price"><span>$295.00</span></td>
+                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"><input type="text" hidden value></i></a></td>
+                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
                                                             </tr>
                                                             <tr>
-                                                                <td>3</td>
-                                                                <td>2023/3/08</td>
-                                                                <td>已完成</td>
-                                                                <td>$990</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/24.jpg" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">Product title here <br> red</a></td>
+                                                                <td class="pro-price"><span>$275.00</span></td>
+                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
                                                             </tr>
-                                                            
+                                                            <tr>
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/34.jpg" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">Product dummy title <br> s</a></td>
+                                                                <td class="pro-price"><span>$295.00</span></td>
+                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/43.jpg" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">Dummy Title</a></td>
+                                                                <td class="pro-price"><span>$110.00</span></td>
+                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                            </tr> -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Tab Content End -->
 
+                                        <!-- Single Tab Content Start 我的收藏-->
+                                        <div class="tab-pane fade" id="wishlist" role="tabpanel">
+                                            <div class="myaccount-content">
+                                                <h3>收藏列表</h3>
+                                                <div class="myaccount-table table-responsive text-center">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="pro-thumbnail">商品圖片</th>
+                                                                <th class="pro-title">商品名稱</th>
+                                                                <th class="pro-price">售價</th>
+                                                                <th class="pro-stock">庫存量</th>
+                                                                <th class="pro-cart">加入購物車</th>
+                                                                <th class="pro-remove">移除收藏</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">Product dummy title <br> s / green</a></td>
+                                                                <td class="pro-price"><span>$295.00</span></td>
+                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/24.jpg" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">Product title here <br> red</a></td>
+                                                                <td class="pro-price"><span>$275.00</span></td>
+                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/34.jpg" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">Product dummy title <br> s</a></td>
+                                                                <td class="pro-price"><span>$295.00</span></td>
+                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/43.jpg" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">Dummy Title</a></td>
+                                                                <td class="pro-price"><span>$110.00</span></td>
+                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -254,8 +362,6 @@
                                                                 <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
                                                                 <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
                                                             </tr>
-                                                            
-
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -415,7 +521,7 @@
                                                             <input type="tel" class="form-control" id="mem_phone" placeholder="Your Phone" required>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="" style="width: 80px;padding-bottom: 8px;">性別</label>
+                                                            <label style="width: 80px;padding-bottom: 8px;">性別</label>
                                                             <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
                                                                     <input class="form-check-input" type="radio" name="genderOptions" id="gender_male" value="1">
@@ -444,7 +550,7 @@
                                                             <input type="text" class="form-control" id="coupon" readonly>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="" style="width: 80px;padding-bottom: 8px;">預約權限</label>
+                                                            <label style="width: 80px;padding-bottom: 8px;">預約權限</label>
                                                             <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
                                                                     <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_on" value="1" disabled>
@@ -492,30 +598,35 @@
 ============================================ -->
 
     <!-- jQuery JS -->
-    <script src="static/js/jquery-3.6.0.min.js"></script>
+    <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
     <!-- jQuery Migrate JS -->
-    <script src="static/js/jquery-migrate-3.3.2.min.js"></script>
+    <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
     <!-- Modernizer JS -->
-    <script src="static/js/modernizr-2.8.3.min.js"></script>
+    <script src="/foreground/static/js/modernizr-2.8.3.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="static/js/bootstrap.bundle.min.js"></script>
+    <script src="/foreground/static/js/bootstrap.bundle.min.js"></script>
     <!-- Slick Slider JS -->
-    <script src="static/js/slick.min.js"></script>
+    <script src="/foreground/static/js/slick.min.js"></script>
     <!-- Countdown JS -->
-    <script src="static/js/jquery.countdown.min.js"></script>
+    <script src="/foreground/static/js/jquery.countdown.min.js"></script>
     <!-- Ajax JS -->
-    <script src="static/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/foreground/static/js/jquery.ajaxchimp.min.js"></script>
     <!-- Jquery Nice Select JS -->
-    <script src="static/js/jquery.nice-select.min.js"></script>
+    <script src="/foreground/static/js/jquery.nice-select.min.js"></script>
     <!-- Jquery Ui JS -->
-    <script src="static/js/jquery-ui.min.js"></script>
+    <script src="/foreground/static/js/jquery-ui.min.js"></script>
     <!-- jquery magnific popup js -->
-    <script src="static/js/jquery.magnific-popup.min.js"></script>
+    <script src="/foreground/static/js/jquery.magnific-popup.min.js"></script>
 
     <!-- Main JS -->
-    <script src="static/js/main.js"></script>
+    <script src="/foreground/static/js/main.js"></script>
+    <!-- table JS-->
+    <script src="/foreground/static/js/my-account-orders.js"></script>
 
 </body>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/foreground/static/js/myWishlist.js"></script>
 <script src="../js/member.js"></script>
 
 </html>

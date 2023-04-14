@@ -48,45 +48,83 @@
 
 <body>
 
-    <div class="home-wrapper home-1">
+    <div class="home-wrapper home-1" id="app1">
         <div id="header"></div>
         <!-- Header Area End Here -->
         <!-- Begin Slider Area One -->
         <div class="slider-area">
             <div class="obrien-slider arrow-style" data-slick-options='{
-        "slidesToShow": 1,
-        "slidesToScroll": 1,
-        "infinite": true,
-        "arrows": true,
-        "dots": true,
-        "autoplay" : true,
-        "fade" : true,
-        "autoplaySpeed" : 7000,
-        "pauseOnHover" : false,
-        "pauseOnFocus" : false
-        }' data-slick-responsive='[
-        {"breakpoint":992, "settings": {
-        "slidesToShow": 1,
-        "arrows": false,
-        "dots": true
-        }}
-        ]'>
-        <!-- 圖片由style.css的.side-1匯入,圖片路徑image -->
-                <div class="slide-item slide-1 bg-position slide-bg-1 animation-style-01">
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "infinite": true,
+                    "arrows": true,
+                    "dots": true,
+                    "autoplay" : true,
+                    "fade" : true,
+                    "autoplaySpeed" : 7000,
+                    "pauseOnHover" : false,
+                    "pauseOnFocus" : false}' 
+                    data-slick-responsive='[{
+                        "breakpoint":992, "settings": {
+                        "slidesToShow": 1,
+                        "arrows": false,
+                        "dots": true}
+                    }]'>
+        <!-- 圖片由style.css的.slide-1匯入,圖片路徑image -->
+                <div class="slide-item slide-2 bg-position slide-bg-1 animation-style-01">
                     <div class="slider-content">
-                        <h4 class="slider-small-title">Cold processed organic fruit</h4>
-                        <h2 class="slider-large-title">Fresh Avocado</h2>
+                        <h3 class="slider-small-title" style="text-align: center;">活動時間：{{ eventDate }} {{ eventStarttime }} ~ {{ eventEndtime }}</h3>
+                        <h2 class="slider-large-title" style="text-align: center;">活動名稱：{{ eventName }}</h2>
                         <div class="slider-btn">
-                            <a class="obrien-button black-btn" href="shop.html">Shop Now</a>
+                            <a class="obrien-button black-btn" href="#">Join Us</a>
                         </div>
                     </div>
                 </div>
-                <div class="slide-item slide-2 bg-position slide-bg-1 animation-style-01">
+                <div class="slide-item slide-1 bg-position slide-bg-1 animation-style-01">
                     <div class="slider-content">
-                        <h4 class="slider-small-title">Healthy life with</h4>
-                        <h2 class="slider-large-title">Natural Organic</h2>
+                        <h4 class="slider-small-title" style="color: rgb(207, 233, 10);font-weight: 900;">{{ newsDesc }}</h4>
+                        <h2 class="slider-large-title" style="text-align: center;color: #eee6e6;">{{ newsDueDate }} {{ newsTitle }}</h2>
                         <div class="slider-btn">
-                            <a class="obrien-button black-btn" href="shop.html">Shop Now</a>
+                            <!-- <a class="obrien-button black-btn" href="shop.html">Shop Now</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slider-area">
+            <div class="obrien-slider arrow-style" data-slick-options='{
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "infinite": true,
+                    "arrows": true,
+                    "dots": true,
+                    "autoplay" : true,
+                    "fade" : true,
+                    "autoplaySpeed" : 7000,
+                    "pauseOnHover" : false,
+                    "pauseOnFocus" : false}' 
+                    data-slick-responsive='[{
+                        "breakpoint":992, "settings": {
+                        "slidesToShow": 1,
+                        "arrows": false,
+                        "dots": true}
+                    }]'>
+        <!-- 圖片由style.css的.slide-1匯入,圖片路徑image -->
+                <!-- <div class="slide-item slide-2 bg-position slide-bg-1 animation-style-01">
+                    <div class="slider-content">
+                        <h3 class="slider-small-title" style="text-align: center;">活動時間：{{ eventDate }} {{ eventStarttime }} ~ {{ eventEndtime }}</h3>
+                        <h2 class="slider-large-title" style="text-align: center;">活動名稱：{{ eventName }}</h2>
+                        <div class="slider-btn">
+                            <a class="obrien-button black-btn" href="#">Join Us</a>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="slide-item slide-1 bg-position slide-bg-1 animation-style-01">
+                    <div class="slider-content">
+                        <h4 class="slider-small-title" style="color: rgb(207, 233, 10);font-weight: 900;">{{ newsDesc }}</h4>
+                        <h2 class="slider-large-title" style="text-align: center;color: #eee6e6;">{{ newsDueDate }} {{ newsTitle }}</h2>
+                        <div class="slider-btn">
+                            <!-- <a class="obrien-button black-btn" href="shop.html">Shop Now</a> -->
                         </div>
                     </div>
                 </div>
@@ -485,13 +523,16 @@
 ============================================ -->
 
     <!-- jQuery JS -->
-    <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
+     <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>-->
     <!-- jQuery Migrate JS -->
-    <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
+     <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
+<!--    <script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js" integrity="sha256-Ap4KLoCf1rXb52q+i3p0k2vjBsmownyBTE1EqlRiMwA=" crossorigin="anonymous"></script>-->
     <!-- Modernizer JS -->
     <script src="/foreground/static/js/modernizr-2.8.3.min.js"></script>
     <!-- Bootstrap JS -->
-    <script src="/foreground/static/js/bootstrap.bundle.min.js"></script>
+     <script src="/foreground/static/js/bootstrap.bundle.min.js"></script>
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>-->
     <!-- Slick Slider JS -->
     <script src="/foreground/static/js/slick.min.js"></script>
     <!-- Countdown JS -->
@@ -501,13 +542,70 @@
     <!-- Jquery Nice Select JS -->
     <script src="/foreground/static/js/jquery.nice-select.min.js"></script>
     <!-- Jquery Ui JS -->
-    <script src="/foreground/static/js/jquery-ui.min.js"></script>
+     <script src="/foreground/static/js/jquery-ui.min.js"></script>
+<!--    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>-->
     <!-- jquery magnific popup js -->
     <script src="/foreground/static/js/jquery.magnific-popup.min.js"></script>
 
     <!-- Main JS -->
     <script src="/foreground/static/js/main.js"></script>
-
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@latest"></script>
 </body>
+<script src="/foreground/static/js/location.js"></script>
+<script>
+Vue.createApp({
+    data() {
+       return{
+        randomSelectOne:null,
+        newsDueDate:'',
+        newsTitle:'',
+        newsDesc:'',
+        randomSelectOneEvent:null,
+        eventNo:'',
+        eventDate:'',
+        eventStarttime:'',
+        eventEndtime:'',
+        eventName:''
+       };
+    },
+    methods: {
+        loadOneNews(){
+            return fetch('/news/get-one-random')
+              .then(response => response.json())
+              .then(data => {
+                this.randomSelectOne = data;
+                this.newsDueDate=this.randomSelectOne.dueDate;
+                this.newsTitle=this.randomSelectOne.newsTitle;
+                this.newsDesc=this.randomSelectOne.newsDesc;
+                return data;
+              })
+              .catch(error => console.error(error));
+        },
+        loadOneEventNews(){
+            return fetch('/news/get-one-random-event')
+              .then(response => response.json())
+              .then(data => {
+                this.randomSelectOneEvent = data;
+                this.eventNo=this.randomSelectOneEvent.eventNo;
+                this.eventDate=this.randomSelectOneEvent.eventDate;
+                this.eventStarttime=this.randomSelectOneEvent.eventStarttime;
+                this.eventEndtime=this.randomSelectOneEvent.eventEndtime;
+                this.eventName=this.randomSelectOneEvent.eventName;
+                return data;
+              })
+              .catch(error => console.error(error));
+        }
+    },
+    provide() {
+        return{
 
+        };
+    },
+    mounted() {
+        this.loadOneNews();
+        this.loadOneEventNews();
+    },
+}).mount("#app1")
+</script>
 </html>

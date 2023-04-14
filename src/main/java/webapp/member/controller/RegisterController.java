@@ -1,10 +1,12 @@
 package webapp.member.controller;
 
+import com.nimbusds.jose.shaded.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import webapp.member.dto.MemberDTO;
 import webapp.member.service.MemberService;
+
 
 
 @Controller
@@ -14,17 +16,20 @@ public class RegisterController {
     @Autowired
     private MemberService memberServiceImpl;
 
-
     @PostMapping("/reg")
     @ResponseBody
-    public Boolean addMember(@RequestBody MemberDTO memberDTO){
-        // 驗證user輸入資料
+    public Object addMember(@RequestBody MemberDTO user) {
+        try {
+            return memberServiceImpl.addMember(user);
+        }catch (Exception e) {
+            e.printStackTrace();
+            Gson gson = new Gson();
+            String errorMsg = gson.toJson(e.getMessage());
+            System.out.println(errorMsg);
+            return errorMsg;
+        }
 
-        // 密碼加密
-        return memberServiceImpl.addMember(memberDTO);
     }
-
-
 
 //    @GetMapping("/foreground/register")
 //    public String showRegisterPage() {

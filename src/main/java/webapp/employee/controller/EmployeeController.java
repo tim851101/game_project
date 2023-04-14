@@ -44,9 +44,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/find-one")
-    @ResponseBody
-    public EmployeeDTO findEmpById(@RequestParam Integer id){
+    public EmployeeDTO findEmpById(@RequestParam Integer id) {
         return employeeService.findById(id);
+    }
+
     @GetMapping("/ls-all")
     public List<EmployeeDTO> listAll(){
         return employeeService.findAllDTO();

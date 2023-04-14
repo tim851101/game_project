@@ -24,6 +24,7 @@ public class BoardGameApiApplication implements CommandLineRunner {
     @Autowired
     private SeatService seatService;
 
+    @Autowired
     private DatabaseService databaseService;
     public static void main(String[] args) {
         SpringApplication.run(BoardGameApiApplication.class, args);

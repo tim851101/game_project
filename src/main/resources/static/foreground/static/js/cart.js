@@ -64,7 +64,7 @@ for(item of shoppingcart){
         
         deleteButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const pdNoNode = button.closest('tr').querySelector('.pdNo');
+                const pdNoNode = button.closest('tr').querySelector('#pdNo');
                 del(pdNoNode.textContent);
                 const productRow = button.parentNode;
                 productRow.remove();

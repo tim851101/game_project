@@ -12,12 +12,13 @@
   <!-- PAGE TITLE HERE -->
   <title>Invome Admin Dashboard</title>
 
-  <link href="static/css/nice-select.css" rel="stylesheet">
-  <link href="static/css/style.css" rel="stylesheet">
+    <link href="static/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="static/css/nice-select.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
 
   
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-  <script src="/background/static/js/template.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/background/static/js/template.js"></script>
 </head>
 
 <body>
@@ -295,202 +296,75 @@
     <!--**********************************
             Content body start
         ***********************************-->
-    <!--**********************************
-            訂單維護 start
-        ***********************************-->
-    <div class="content-body" style="min-height: 876px">
-      <div class="container-fluid">
-        <div class="row page-titles">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item active">
-              <a href="javascript:void(0)">商品資料管理</a>
-            </li>
-            <li class="breadcrumb-item">
-              <a href="javascript:void(0)">訂單狀態維護</a>
-            </li>
-          </ol>
+        <div class="content-body">
+            <div class="container-fluid">
+				<div class="row page-titles">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item active"><a href="javascript:void(0)">訂單維護</a></li>
+						<li class="breadcrumb-item"><a href="javascript:void(0)">訂單明細</a></li>
+					</ol>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+
+                        <div class="card mt-3">
+                                <div class="table-responsive">
+                                    <table  class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th class="center">#</th>
+												<th class="center">商品</th>
+                                                <th>商品名稱</th>
+                                                <th class="right">單價</th>
+                                                <th class="center">數量</th>
+                                                <th class="right">總額</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id = "orderDetail" >
+                                            <tr>
+                                                <td class="center fs-3">1</th>
+												<td class="center"><img src="https://uploads-ssl.webflow.com/575714cc825e8dbc6c83b98a/5ab8f2a51f33703defd7807f_carcassonne_BOX_3D_2014.jpg" alt="" width="75px" height="75px"></td>
+                                                <td class="left fs-3">卡卡頌</td>
+                                                <td class="right fs-3">$999,00</td>
+                                                <td class="center fs-3">1</td>
+                                                <td class="right fs-3">$999,00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-5"> 
+										<a  href="product_order.html" class="btn btn-primary btn-lg ms-5 mt-3" >返回訂單</a>
+									</div>
+                                    <div class="col-lg-4 col-sm-5 ms-auto">
+                                        <table id = "money" class="table table-clear">
+                                            <tbody >
+                                                <tr>
+                                                    <td class="left fs-4"><strong>商品總價</strong></td>
+                                                    <td class="right fs-4">$4.000</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="left fs-4"><strong>運費</strong></td>
+                                                    <td class="right fs-4">$200</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="left fs-4"><strong>使用回饋金</strong></td>
+                                                    <td class="right fs-4">$-100</td>
+                                                </tr>
+                                            </tbody>
+											<tfoot>
+												<td class="left fs-4"><strong>應付款</strong></td>
+												<td class="right fs-4"><strong>$7.477</strong></td>
+											</tfoot>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- row -->
-        <div class="row">
-          <div class="col-lg-12">
-              <div class="card">
-                  <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table table-sm mb-0">
-                              <thead>
-                                  <tr>
-                                      <th class="align-middle" style="font-size: 10px;">訂單編號</th>
-                                      <th class="align-middle" style="font-size: 10px;">會員姓名</th>
-                                      <th class="align-middle" style="font-size: 10px;">下單日期</th>
-                                      <th class="align-middle" style="font-size: 10px;">折扣金額</th>
-                                      <th class="align-middle" style="font-size: 10px;">實付金額</th>
-                                      <th class="align-middle" style="font-size: 10px;">運費</th>
-                                      <th class="align-middle" style="font-size: 10px;">付款狀態</th>
-                                      <th class="align-middle" style="font-size: 10px;">訂單狀態</th>
-                                      <th class="align-middle" style="font-size: 10px;">取貨方式</th>
-                                      <th class="align-middle" style="font-size: 10px;">收件人</th>
-                                      <th class="align-middle" style="min-width: 10em; font-size: 10px;">收件地址</th>
-                                      <th class="align-middle" style="font-size: 10px;">收件人電話</th>
-                                      <th class="align-middle" style="font-size: 10px;">訂單明細</th>
-                                      <th class="align-middle" style="font-size: 10px;"></th>
-                                      <th class="no-sort"></th>
-                                  </tr>
-                              </thead>
-                              <tbody id="orders">
-                                  <tr class="btn-reveal-trigger">
-                                      <td class="py-2">7001</td>
-                                      <td class="py-2">你好啊</td>  
-                                      <td class="py-2">20/04/2020</td>
-                                      <td class="py-2">$100</td>
-                                      <td class="py-2">$2000</td>
-                                      <td class="py-2">免運</td>
-                                      <td class="py-2 text-end"><span class="badge badge-secondary">未付款<span class="ms-1 fa fa-ban"></span></span>
-                                      </td>
-                                      <td class="py-2 text-end"><span class="badge badge-success">已完成<span class="ms-1 fa fa-check"></span></span>
-                                      </td>
-                                      <td class="py-2 text-end"><span class="badge badge-success">宅配</span>
-                                      </td>
-                                      <td class="py-2">我不好</td>
-                                      <td class="py-2" ><address>桃園市中壢區復興路46號9樓</address></td>
-                                      
-                                      <td class="py-2 text-end">0912345678</td>
-                                      <td><button type="button" class="btn btn-primary btn-xxs" style="padding: 0.4rem 0.8rem;">查詢</button></td>
-                                      <td class="py-2 text-end">
-                                          <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
-                                              <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                                                  <div class="py-2"><a class="dropdown-item" href="javascript:void(0);">未出貨</a><a class="dropdown-item" href="javascript:void(0);">已出貨</a><a class="dropdown-item" href="javascript:void(0);">已完成</a>
-                                                      <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">取消</a>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </td>
-                                  </tr>
-                                  <tr class="btn-reveal-trigger">
-                                    <td class="py-2">7001</td>
-                                    <td class="py-2">你好啊</td>  
-                                    <td class="py-2">20/04/2020</td>
-                                    <td class="py-2">$100</td>
-                                    <td class="py-2">$2000</td>
-                                    <td class="py-2">免運</td>
-                                    <td class="py-2 text-end"><span class="badge badge-secondary">未付款<span class="ms-1 fa fa-ban"></span></span>
-                                    </td>
-                                    <td class="py-2 text-end"><span class="badge badge-success">已完成<span class="ms-1 fa fa-check"></span></span>
-                                    </td>
-                                    <td class="py-2 text-end"><span class="badge badge-success">宅配</span>
-                                    </td>
-                                    <td class="py-2">我不好</td>
-                                    <td class="py-2" ><address>桃園市中壢區復興路46號9樓</address></td>
-                                    
-                                    <td class="py-2 text-end">0912345678</td>
-                                    <td><button type="button" class="btn btn-primary btn-xxs" style="padding: 0.4rem 0.8rem;">查詢</button></td>
-                                    <td class="py-2 text-end">
-                                        <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
-                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                                                <div class="py-2"><a class="dropdown-item" href="javascript:void(0);">未出貨</a><a class="dropdown-item" href="javascript:void(0);">已出貨</a><a class="dropdown-item" href="javascript:void(0);">已完成</a>
-                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">取消</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                  </tr>
-                                  <tr class="btn-reveal-trigger " >
-                                    <td class="py-2">7001</td>
-                                    <td class="py-2">你好啊</td>  
-                                    <td class="py-2">20/04/2020</td>
-                                    <td class="py-2">$100</td>
-                                    <td class="py-2">$2000</td>
-                                    <td class="py-2">免運</td>
-                                    <td class="py-2 text-end"><span class="badge badge-secondary">未付款<span class="ms-1 fa fa-ban"></span></span>
-                                    </td>
-                                    <td class="py-2 text-end"><span class="badge badge-success">已完成<span class="ms-1 fa fa-check"></span></span>
-                                    </td>
-                                    <td class="py-2 text-end"><span class="badge badge-success">宅配</span>
-                                    </td>
-                                    <td class="py-2">我不好</td>
-                                    <td class="py-2" ><address>桃園市中壢區復興路46號9樓</address></td>
-                                    
-                                    <td class="py-2 text-end">0912345678</td>
-                                    <td><button type="button" class="btn btn-primary btn-xxs" style="padding: 0.4rem 0.8rem;">查詢</button></td>
-                                    <td class="py-2 text-end">
-                                        <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
-                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                                                <div class="py-2"><a class="dropdown-item" href="javascript:void(0);">未出貨</a><a class="dropdown-item" href="javascript:void(0);">已出貨</a><a class="dropdown-item" href="javascript:void(0);">已完成</a>
-                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">取消</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                  </tr>
-                                  <tr class="btn-reveal-trigger">
-                                    <td class="py-2">7001</td>
-                                    <td class="py-2">你好啊</td>  
-                                    <td class="py-2">20/04/2020</td>
-                                    <td class="py-2">$100</td>
-                                    <td class="py-2">$2000</td>
-                                    <td class="py-2">免運</td>
-                                    <td class="py-2 text-end"><span class="badge badge-secondary">未付款<span class="ms-1 fa fa-ban"></span></span>
-                                    </td>
-                                    <td class="py-2 text-end"><span class="badge badge-success">已完成<span class="ms-1 fa fa-check"></span></span>
-                                    </td>
-                                    <td class="py-2 text-end"><span class="badge badge-success">宅配</span>
-                                    </td>
-                                    <td class="py-2">我不好</td>
-                                    <td class="py-2" ><address>桃園市中壢區復興路46號9樓</address></td>
-                                    
-                                    <td class="py-2 text-end">0912345678</td>
-                                    <td><button type="button" class="btn btn-primary btn-xxs" style="padding: 0.4rem 0.8rem;">查詢</button></td>
-                                    <td class="py-2 text-end">
-                                        <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
-                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                                                <div class="py-2"><a class="dropdown-item" href="javascript:void(0);">未出貨</a><a class="dropdown-item" href="javascript:void(0);">已出貨</a><a class="dropdown-item" href="javascript:void(0);">已完成</a>
-                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">取消</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                  </tr>
-                                  <tr class="btn-reveal-trigger">
-                                    <td class="py-2">7001</td>
-                                    <td class="py-2">你好啊</td>  
-                                    <td class="py-2">20/04/2020</td>
-                                    <td class="py-2">$100</td>
-                                    <td class="py-2">$2000</td>
-                                    <td class="py-2">免運</td>
-                                    <td class="py-2 text-end"><span class="badge badge-secondary">未付款<span class="ms-1 fa fa-ban"></span></span>
-                                    </td>
-                                    <td class="py-2 text-end"><span class="badge badge-success">已完成<span class="ms-1 fa fa-check"></span></span>
-                                    </td>
-                                    <td class="py-2 text-end"><span class="badge badge-success">宅配</span>
-                                    </td>
-                                    <td class="py-2">我不好</td>
-                                    <td class="py-2" ><address>桃園市中壢區復興路46號9樓</address></td>
-                                    
-                                    <td class="py-2 text-end">0912345678</td>
-                                    <td><button type="button" class="btn btn-primary btn-xxs" style="padding: 0.4rem 0.8rem;">查詢</button></td>
-                                    <td class="py-2 text-end">
-                                        <div class="dropdown text-sans-serif"><button class="btn btn-primary tp-btn-light sharp" type="button" id="order-dropdown-0" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false"><span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18px" height="18px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg></span></button>
-                                            <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-0">
-                                                <div class="py-2"><a class="dropdown-item" href="javascript:void(0);">未出貨</a><a class="dropdown-item" href="javascript:void(0);">已出貨</a><a class="dropdown-item" href="javascript:void(0);">已完成</a>
-                                                    <div class="dropdown-divider"></div><a class="dropdown-item text-danger" href="javascript:void(0);">取消</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                  </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-        <!--**********************************
-            訂單維護 end
-        ***********************************-->
-
-
-      </div>
-    </div>
 
     <!--**********************************
             Content body end
@@ -520,12 +394,13 @@
         Scripts
     ***********************************-->
   <!-- Required vendors -->
-  <script src="static/js/global.min.js"></script>
+    <script src="static/js/global.min.js"></script>
 	<script src="static/js/jquery.nice-select.min.js"></script>
     <script src="static/js/custom.min.js"></script>
 	<script src="static/js/dlabnav-init.js"></script>
 	<script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
+    <script src="static/js/product_order_detai.js"></script>
 </body>
 
 </html>

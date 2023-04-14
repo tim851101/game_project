@@ -333,26 +333,12 @@
                 <div class="card-body">
                   <div class="form-validation">
                     <!-- form start -->
-                    <form class="needs-validation" novalidate="">
+                      <form id="product-form" action="/addProduct" method="post" class="needs-validation" novalidate="" onsubmit="return validateForm()" >
                       <div class="row">
                         <div class="col-xl-6">
                           <!-- PRODUCT -->
-                          <div class="mb-3 row" hidden>
-                            <label class="col-lg-4 col-form-label" for="PD_NO"
-                              >商品編號
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-6">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="PD_NO"
-                                placeholder="Enter a username.."
-                              />
-                            </div>
-                          </div>
                           <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="PD_NAME"
+                            <label class="col-lg-4 col-form-label" for="pdName"
                               >商品名稱
                               <span class="text-danger">*</span>
                             </label>
@@ -360,8 +346,9 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_NAME"
-                                placeholder="Enter a username.."
+                                id="pdName"
+                                placeholder="輸入商品名稱"
+                                name="pdName"
                                 required=""
                               />
                               <div class="invalid-feedback">
@@ -372,22 +359,24 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_PRICE"
+                              for="pdPrice"
                               >商品價錢<span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_PRICE"
+                                id="pdPrice"
                                 required=""
+                                placeholder="輸入商品價錢"
+                                name="pdPrice"
                               />
                             </div>
                           </div>
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_AMOUNT"
+                              for="pdStock"
                               >商品庫存
                               <span class="text-danger">*</span>
                             </label>
@@ -395,7 +384,9 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                id="PD_AMOUNT"
+                                id="pdStock"
+                                placeholder="輸入商品庫存"
+                                name="pdStock"
                               />
                             </div>
                             <div class="invalid-feedback">
@@ -407,7 +398,7 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_STATUS"
+                              name="pdStatus"
                               >商品上架狀態
                               <span class="text-danger">*</span>
                             </label>
@@ -416,11 +407,11 @@
                                 <input
                                   class="form-check-input"
                                   type="radio"
-                                  name="PD_STATUS"
-                                  id="offsell"
-                                  value="0"
+                                  name="pdStatus"
+                                  id="c2"
+                                  value="false"
                                 />
-                                <label class="form-check-label" for="offsell"
+                                <label class="form-check-label" for="c2"
                                   >下架</label
                                 >
                               </div>
@@ -428,11 +419,11 @@
                                 <input
                                   class="form-check-input"
                                   type="radio"
-                                  name="PD_STATUS"
-                                  id="onsell"
-                                  value="1"
+                                  name="pdStatus"
+                                  id="c1"
+                                  value="true"
                                 />
-                                <label class="form-check-label" for="onsell"
+                                <label class="form-check-label" for="c1"
                                   >上架</label
                                 >
                               </div>
@@ -444,47 +435,17 @@
                           <div class="mb-3 row">
                             <label
                               class="col-lg-4 col-form-label"
-                              for="PD_UPDATE"
+                              for="pdUpdate"
                               >近期更新時間
                               <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
                               <input
-                                type="datetime"
+                                type="datetime-local"
                                 class="form-control"
-                                id="PD_UPDATE"
+                                id="pdUpdate"
+                                name="pdUpdate"
                               />
-                            </div>
-                          </div>
-                          <div class="mb-3 row">
-                            <label class="col-lg-4 col-form-label" for="PIC_NO"
-                              >商品圖片
-                            </label>
-                            <div class="col-lg-6">
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
-                              <div class="input-group">
-                                <div class="form-file">
-                                  <input
-                                    type="file"
-                                    class="form-file-input form-control"
-                                  />
-                                </div>
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -492,7 +453,7 @@
                         <div class="mb-3 row">
                           <label
                             class="col-lg-4 col-form-label"
-                            for="PD_DESCRIPTION"
+                            for="pdDescription"
                             >商品資訊
                             <span class="text-danger">*</span>
                           </label>
@@ -500,7 +461,9 @@
                             <textarea
                               class="form-control"
                               rows="4"
-                              id="PD_DESCRIPTION"
+                              id="pdDescription"
+                              placeholder="輸入商品資訊"
+                              name="pdDescription"
                             ></textarea>
                           </div>
                         </div>
@@ -510,18 +473,34 @@
                             class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
                           >
                             <button type="submit" class="btn btn-primary fs-5">
-                              確認
+                              新增商品
                             </button>
                           </div>
                         </div>
                       </div>
                     </form>
                     <!-- form end -->
+                      <!-- 圖片 -->
+                      <form id="upload-form">
+                          <div>
+                              <label for="file">選擇存圖檔案:</label>
+                              <input type="file" id="file" name="file" accept="image/*" multiple>
+                          </div>
+                          <div>
+                              <label for="pdNo">商品編號:</label>
+                              <input type="text" id="pdNo" name="pdNo">
+                          </div>
+                          <div>
+                              <button type="submit">儲存</button>
+                          </div>
+                      </form>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+            </form>
+            <!-- form end -->
           <!--**********************************
             商品維護 end
         ***********************************-->
@@ -529,221 +508,45 @@
           <!--**********************************
             商品清單列表 start
         ***********************************-->
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">商品清單列表</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-responsive-md">
-                    <thead>
-                      <tr>
-                        <th style="width: 50px">
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="checkAll"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="checkAll"
-                            ></label>
-                          </div>
-                        </th>
-                        <th><strong>ROLL NO.</strong></th>
-                        <th><strong>NAME</strong></th>
-                        <th><strong>Email</strong></th>
-                        <th><strong>Date</strong></th>
-                        <th><strong>Status</strong></th>
-                        <th><strong></strong></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox2"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox2"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/1.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-success me-1"></i>
-                            Successful
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox3"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox3"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/2.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-danger me-1"></i>
-                            Canceled
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox4"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox4"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/3.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-warning me-1"></i>
-                            Pending
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">商品清單</h4>
+                        <span style="margin-right: 10px;padding-left: 10px;"><i class="fa fa-circle text-success me-1"></i>已上架</span>
+                        <span style="margin-right: auto;padding-left: 10px;"><i class="fa fa-circle text-danger me-1"></i>已下架</span>
+<!--                        <input id="productId">-->
+<!--                        <button id="findById" class="btn btn-primary fs-5">單筆查詢</button>-->
+<!--                        <table id="show"></table>-->
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="allshow" class="table-striped table table-responsive-md" border="1">
+                                <thead>
+                                <tr>
+                                    <th><strong>商品編號</strong></th>
+                                    <th><strong>商品名稱</strong></th>
+                                    <th><strong>商品價錢</strong></th>
+                                    <th><strong>商品庫存</strong></th>
+                                    <th><strong>商品資訊</strong></th>
+                                    <th><strong>商品上架狀態</strong></th>
+                                    <th><strong>更新時間</strong></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!--這裡將商品資料直接插入到這個tbody-->
+                                </tbody>
+                            </table>
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center"></ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
-          <!--**********************************
-            商品清單列表 end
-        ***********************************-->
+
+            <!--**********************************
+              商品清單列表 end
+          ***********************************-->
         </div>
       </div>
 
@@ -795,5 +598,14 @@
     <script src="static/js/dlabnav-init.js"></script>
     <script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
+<!--    商品新增、查詢、修改-->
+    <script src="static/js/product.js"></script>
+<!--    圖片新增-->
+    <script src="static/js/picadd.js"></script>
+<!--    日期時間-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- 顯示彈出式警告框和對話框 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
   </body>
 </html>

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import webapp.event.pojo.EventOrdVO;
 
 import java.util.List;
@@ -17,4 +18,10 @@ public interface EventOrdRepository extends JpaRepository<EventOrdVO, Integer> {
     @Modifying
     @Query(value = "SELECT * FROM boardgame.event_ord WHERE EVENT_NO= :eventno", nativeQuery = true)
     List<EventOrdVO> selectmembyevent(@Param("eventno") Integer eventno);
+
+    @Modifying
+    @Transactional
+    @Query(value = "delete FROM boardgame.event_ord where EVENT_NO= :eventno AND MEM_NO= :memno", nativeQuery = true)
+    void deleevent(@Param("eventno") Integer eventno,@Param("memno")Integer memno);
+    EventOrdVO findByEventnoAndMemNo(Integer event_no,Integer mem_no );
 }

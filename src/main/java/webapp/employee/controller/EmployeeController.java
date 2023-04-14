@@ -43,4 +43,10 @@ public class EmployeeController {
     public Boolean updateStatus(@RequestParam Integer id, @RequestParam Boolean status) {
         return employeeService.updateStatus(id, status);
     }
+
+    @GetMapping("/find-one")
+    @ResponseBody
+    public EmployeeDTO findEmpById(@RequestParam Integer id){
+        return employeeService.findById(id);
+    }
 }

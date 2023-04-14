@@ -21,6 +21,12 @@
     <!-- harder sidebar footer import -->
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="/background/static/js/template.js"></script>
+      <style>
+          #imagetest{
+ margin-left:auto;
+    margin-right:auto;
+          }
+      </style>
   </head>
   <body>
     <!--*******************
@@ -317,10 +323,10 @@
           <div class="row page-titles">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active">
-                <a href="javascript:void(0)">商品資料管理</a>
+                <a href="javascript:void(0)">訂位資料管理</a>
               </li>
               <li class="breadcrumb-item">
-                <a href="javascript:void(0)">商品狀態維護</a>
+                <a href="javascript:void(0)">維護</a>
               </li>
             </ol>
           </div>
@@ -329,7 +335,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">商品狀態管理</h4>
+                  <h4 class="card-title">訂單狀態管理</h4>
                 </div>
                 <div class="card-body">
                   <div class="form-validation">
@@ -338,9 +344,35 @@
                       <div class="row">
                         <div class="col-xl-6">
                           <!-- PRODUCT -->
+                            <div >
+                                <div >
+                                    <h3>訂位訂單</h3>
+                                    <div >
+                                        </table>
+                                    </div>
+                                    <table class="table table-bordered">
+                                        <thead class="thead-light" >
+                                        <tr>
+                                            <th>NO</th>
+                                            <th>會員</th>
+                                            <th>當天起始時間</th>
+                                            <th>當天結束時間</th>
+                                            <th>預約日期</th>
+                                            <th>預約截止日期</th>
+                                            <th>價格</th>
+                                            <th>當天人數
+
+                                        </tr>
+                                        </thead>
+                                        <tbody id="search">
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+
                           <div class="mb-3 row" hidden>
-                            <label class="col-lg-4 col-form-label" for="PD_NO"
-                              >商品編號
+                            <label class="col-lg-4 col-form-label" for="PD_NO">編號
                               <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-6">
@@ -564,179 +596,7 @@
                         <th><strong></strong></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox2"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox2"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/1.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-success me-1"></i>
-                            Successful
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox3"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox3"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/2.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-danger me-1"></i>
-                            Canceled
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox4"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox4"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/3.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-warning me-1"></i>
-                            Pending
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="product_ad.html#PD_NO"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fa fa-plus-circle"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
+
                   </table>
                 </div>
               </div>
@@ -767,7 +627,8 @@
       <!--**********************************
            Support ticket button end
         ***********************************-->
-    </div>
+
+    <div id="imagetest"></div>
     <!--**********************************
         Main wrapper end
     ***********************************-->
@@ -796,5 +657,44 @@
     <script src="static/js/dlabnav-init.js"></script>
     <script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
+    <script>
+    const search = document.querySelector('#search');
+    const url ='http://localhost:8082/book/ls';
+    const test =document.querySelector('#imagetest')
+    const imageurl =new Request('http://localhost:8082/book/image')
+    fetch(url)
+	.then(resp => resp.json())
+	.then(list => {
+            for (let booking of list) {
+                search.innerHTML += `
+                <tr>
+                   <td>${booking.bookingNo}</td>
+                   <td>${booking.memNo}</td>
+                   <td>${booking.bookingStartTime}</td>
+                   <td>${booking.bookingEndTime}</td>
+                   <td>${booking.bookingDate}</td>
+                   <td>${booking.bookingFinishDate}</td>
+                   <td>${booking.bookingTotalPrice}</td>
+                   <td>${booking.bookingPeople}</td>
+                    <td><button id="update" onclick="forUpdate(${booking.bookingNo} type="submit" class="btn btn-primary fs-5")">修改</button></td>
+                    <td><button id="delete" onclick="forDelete(${booking.bookingNo} type="submit" class="btn btn-primary fs-5")">取消</button></td>
+                </tr>
+            `
+            if(booking.bookingPaymentStatus)
+
+            search.innerHTML += `
+            }
+	});
+
+	fetch(imageurl)
+	.then(res => {
+	return res.blob()
+	})
+	.then(blob => {
+	const img = new Image
+        img.src = URL.createObjectURL(blob)
+        test.appendChild(img)
+	})
+</script>
   </body>
 </html>

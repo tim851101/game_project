@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> <!--時間要加上這條才不會報錯-->
+    <script>
+
+</script>
+</head>
+
+<body>
+<!--form表單顯示網頁的內容-->
+<form id="proud-form" action="/addProduct" method="post">
+    <table>
+        <tr>
+            <td>商品編號:</td>
+            <td><input type="text" name="pdNo" id="pdNo" value="9"></td>
+        </tr>
+        <tr>
+            <td>商品名稱:</td>
+            <td><input type="text" name="pdName" id="pdName" value="化裝舞會"></td>
+        </tr>
+        <tr>
+            <td>商品價錢:</td>
+            <td><input type="text" name="pdPrice" id="pdPrice" value="890"></td>
+        </tr>
+        <tr>
+            <td>商品庫存:</td>
+            <td><input type="text" name="pdStock" id="pdStock" value="30"></td>
+        </tr>
+        <tr>
+            <td>商品資訊:</td>
+            <td><input type="text" name="pdDescription" id="pdDescription" value="國王、女巫、小偷……揭示隱藏在面具後的真實身份！"></td>
+        </tr>
+        <tr>
+            <td>商品上架狀態:</td>
+            <td><input id="c1" type="radio" name="pdStatus" value="true"> 上架</td>
+            <td><input id="c2" type="radio" name="pdStatus" value="false"> 未上架</td>
+        </tr>
+        <tr>
+            <td>更新時間:</td>
+            <td><input type="datetime-local" name="pdUpdate" id="pdUpdate" value=""></td>
+        </tr>
+    </table>
+    <button id="save" type="submit">儲存</button>
+</form>
+
+<div>
+    <input id="productId">
+    <button id="findById">查詢</button>
+    <table id="show"></table>
+</div>
+
+<div>
+<button id="getAllProduct">查詢全部商品</button>
+    <table id="allshow" ></table>
+</div>
+<script>
+<!--      單筆查詢-->
+    const findByIdBtn = document.getElementById('findById');
+    const inputEmployeeId = document.getElementById('productId');
+    const showTable = document.getElementById('show');
+
+    findByIdBtn.addEventListener('click', () => {
+        const productId = inputEmployeeId.value;
+
+        fetch(`/product/find-one?id=${productId}`) //response
+            .then(response => response.json()   //promise 轉 data
+            )
+            .then(data => {
+                console.log(`/emp/find-one?id='${productId}'`);
+                console.log(data);
+                showTable.setAttribute('border', '1');
+
+                const table = document.getElementById('show');
+                table.innerHTML="";
+                for (const property in data) {
+                    const row = table.insertRow();
+                    const keyCell = row.insertCell();
+                    const valueCell = row.insertCell();
+                    keyCell.innerHTML = property;
+                    valueCell.innerHTML = data[property];
+                }
+            })
+    })
+</script>
+
+<script>
+    <!--查詢全部-->
+const findAllBtn = document.getElementById('getAllProduct');
+const allshowTable = document.getElementById('allshow');
+
+const loadData = () => {
+  // 使用 Fetch API 發送 HTTP 請求，並獲取服務端返回的 JSON 數據
+  fetch(`/product/get-all`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+
+      // 在表格中顯示數據前，先清空表格
+      allshowTable.setAttribute('border', '1');
+      const table = document.getElementById('allshow');
+      table.innerHTML = '';
+
+      // 創建表格的表頭
+      const header = table.createTHead();
+      const headerRow = header.insertRow();
+      const columnNames = ['商品編號', '商品名稱', '商品價錢', '商品庫存', '商品資訊', '商品上架狀態', '更新時間'];
+      for (const name of columnNames) {
+        const headerCell = headerRow.insertCell();
+        headerCell.innerHTML = name;
+      }
+
+      // 為每個產品創建一個表格行
+      for (const product of data) {
+        const row = table.insertRow();
+        const idCell = row.insertCell();
+        const nameCell = row.insertCell();
+        const priceCell = row.insertCell();
+        const stockCell = row.insertCell();
+        const descCell = row.insertCell();
+        const statusCell = row.insertCell();
+        const updateCell = row.insertCell();
+
+        // 在表格行中顯示產品數據
+        idCell.innerHTML = product.pdNo;
+        nameCell.innerHTML = product.pdName;
+        priceCell.innerHTML = product.pdPrice;
+        stockCell.innerHTML = product.pdStock;
+        descCell.innerHTML = product.pdDescription;
+        statusCell.innerHTML = product.pdStatus;
+        updateCell.innerHTML = moment(product.pdUpdate).format('YYYY-MM-DD HH:mm:ss');
+      }
+    });
+};
+
+// 初次載入時自動查詢全部商品
+loadData();
+
+// 為 "查詢全部" 按鈕設置點擊事件
+findAllBtn.addEventListener('click', () => {
+  loadData();
+});</script>
+
+<script>
+<!--  新增商品-->
+    $('#proud-form').submit(e => {
+        e.preventDefault();
+        // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒
+        const formData = {
+            'pdNo': +$("#pdNo").val(),
+            'pdName': $("#pdName").val(),
+            'pdPrice': +$("#pdPrice").val(),
+            'pdStock': +$("#pdStock").val(),
+            'pdDescription': $("#pdDescription").val(),
+            'pdStatus': $("#c1").prop('checked'),
+            'pdUpdate': moment($("#pdUpdate").val()).format('YYYY-MM-DD HH:mm:ss')
+        }
+        console.log(formData);
+
+        // Send form data as POST request
+        fetch('/product/save-product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' //一定要設定!
+            },
+            body: JSON.stringify(formData) //轉JOSN字串
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    });
+
+</script>
+</body>
+
+</html>

@@ -41,5 +41,40 @@ public class EventOrdservice {
                 .map(this::EntityToDTO)
                 .collect(Collectors.toList());
     }
-
+    public Boolean updatecheck(Integer memno,Integer eventno,Boolean check){
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.LOOSE);
+        EventOrdVO updateCH;
+        updateCH=EventOrdRepository.findByEventnoAndMemNo(eventno,memno);
+        if (check){
+            updateCH.setMemChecked(0);
+            EventOrdRepository.save(updateCH);
+        System.out.println(updateCH);
+        return false;
+        }
+        else {
+            updateCH.setMemChecked(1);
+            EventOrdRepository.save(updateCH);
+        System.out.println(updateCH);
+        return  true;
+        }
+    }
+    public Boolean updatepay(Integer memno,Integer eventno,Boolean check){
+        modelMapper.getConfiguration()
+                .setMatchingStrategy(MatchingStrategies.LOOSE);
+        EventOrdVO updateCH;
+        updateCH=EventOrdRepository.findByEventnoAndMemNo(eventno,memno);
+        if (check){
+            updateCH.setEnevtStatus(2);
+            EventOrdRepository.save(updateCH);
+            System.out.println(updateCH);
+            return false;
+        }
+        else {
+            updateCH.setEnevtStatus(1);
+            EventOrdRepository.save(updateCH);
+            System.out.println(updateCH);
+            return  true;
+        }
+    }
 }

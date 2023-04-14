@@ -35,3 +35,5 @@ build/
 ### Porject Exlucde ###
 src/main/resources/*.properties
 .mvn/
+node_modules/*
+boardgame/*

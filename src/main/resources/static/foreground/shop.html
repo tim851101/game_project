@@ -93,56 +93,7 @@
                         <!--shop toolbar end-->
                         <!-- Shop Wrapper Start -->
                         <div id="product-list" class="row shop_wrapper grid_3">
-<<<<<<< HEAD
                             <!--                           商品列表與商品圖片的位置-->
-=======
-                        <script>
-                        const productList = document.getElementById('product-list');
-                       
-                           fetch('/product/get-pall')
-                           .then(response => response.json())
-                           .then(products => {
-                           console.log(products); // 檢查資料
-                           products.filter(product => product.pdStatus) // 只顯示上架狀態為true的商品
-                           .forEach(product => {
-                           console.log(product)   //檢查每個商品
-                           const productHTML = `
-                                <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
-                                <div class="single-product position-relative">
-                                <div class="product-image">
-                                  <a class="d-block" href="product-details.html">
-                                      <img src="http://localhost:8082/pic/getimage?picno=1" alt="product image" class="product-image-1 w-100">
-                                      <img src="http://localhost:8082/pic/getimage?picno=2" alt="product image" class="product-image-2 position-absolute w-100">
-                                  </a>
-                                </div>
-                                <div class="product-content">
-                                    <div class="product-rating">
-                                       <i class="fa fa-star"></i>
-                                       <i class="fa fa-star"></i>
-                                       <i class="fa fa-star"></i>
-                                       <i class="fa fa-star-o"></i>
-                                       <i class="fa fa-star-o"></i>
-                                    </div>
-                                  <div class="product-title">
-                                      <h4 class="title-2"><a href="product-details.html">${product.pdName}</a></h4>
-                                  </div>
-                                  <div class="price-box">
-                                      <span class="regular-price">$${product.pdPrice}</span>
-                                      ${product.discountedPrice ? `<span class="old-price"><del>$${product.discountedPrice}</del></span>` : ''}
-                                  </div>
-                                  <div class="add-action d-flex position-absolute">
-                                      <a href="javascript:void(0)" title="加入購物車" onclick="add(${product.pdNo})"><i class="ion-bag"></i></a>
-                                      <a href="wishlist.html" title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>`;
-                  productList.insertAdjacentHTML('beforeend', productHTML);
-              });
-          })
-                 .catch(error => console.error(error));
-        </script>
->>>>>>> 1801ae63cc1928d85e4dd704ff59065fcf149113
                         </div>
                         <!-- Shop Wrapper End -->
                         <!-- Bottom Toolbar Start -->
@@ -330,7 +281,7 @@
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
 
-<<<<<<< HEAD
+
     <script>
         const productList = document.getElementById('product-list');
 
@@ -368,8 +319,9 @@
       <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
         <div class="single-product position-relative">
           <div class="product-image">
-            <a class="d-block" href="product-details.html">
-              <img id = img${n++} src="/pic/getimage?picno=1" alt="product image" class="product-image-1 w-100">
+            <a class="d-block" href="product-details.html" >
+              <img id = img${n++} src="/pic/getimage?picno=1" onmouseover="this.src="/pic/getimage?picno=1" alt="product image" class="product-image-1 w-100">
+<!--              <img id = img${n++} src="/pic/getimage?picno=2" onmouseout="this.src="/pic/getimage?picno=2" alt="product image" class="product-image-2 w-100">-->
             </a>
           </div>
           <div class="product-content">
@@ -388,7 +340,7 @@
               ${product.discountedPrice ? `<span class="old-price"><del>$${product.discountedPrice}</del></span>` : ''}
             </div>
             <div class="add-action d-flex position-absolute">
-              <a href="cart.html" title="Add To cart"><i class="ion-bag"></i></a>
+              <a href="javascript:void(0)" title="加入購物車" onclick="add(${product.pdNo})"><i class="ion-bag"></i></a>
               <a href="wishlist.html" title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
             </div>
           </div>
@@ -403,7 +355,7 @@
                         //     fetch(`/pic/getimage?picno=${picNo}`);
                         // }
                     })
-                    .catch(error => console.error(error));
+                // .catch(error => console.error(error));
             });
         // });
 
@@ -412,20 +364,17 @@
                 $(`#img${i}`).attr("src", `/pic/getimage?picno=${i}`);
 
             }
-        }, 300)
+        }, 250)
 
 
         // function getImg(proNo){
         //     fetc(asijfjioasjf)
         // }
     </script>
-=======
-<!--    使用fetch來取得圖片並設置在img標籤中-->
-    <script src="static/js/pic-getimage.js"></script>
-    
+
     <!-- My Js-->
     <script src="static/js/shopcart.js"></script>
->>>>>>> 1801ae63cc1928d85e4dd704ff59065fcf149113
+
 
 </body>
 

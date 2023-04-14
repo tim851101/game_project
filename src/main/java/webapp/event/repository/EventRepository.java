@@ -11,23 +11,20 @@ import webapp.others.pojo.EventNews;
 
 import java.util.List;
 
-
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
     @Modifying
     @Transactional
     @Query("UPDATE Event e set e.eventWinner1 = :eventWinner1, e.eventWinner2 = :eventWinner2 , e.eventWinner3 = :eventWinner3, e.eventStatus = :eventStatus WHERE e.eventNo = :eventNo")
-    void updateEventWinners(@Param("eventWinner1") String eventWinner1, @Param("eventWinner2") String eventWinner2, @Param("eventWinner3") String eventWinner3, @Param("eventStatus") Byte eventStatus, @Param("eventNo") Integer eventNo);
-
-
+    void updateEventWinners(@Param("eventWinner1") String eventWinner1, @Param("eventWinner2") String eventWinner2,
+            @Param("eventWinner3") String eventWinner3, @Param("eventStatus") Byte eventStatus,
+            @Param("eventNo") Integer eventNo);
 
     @Modifying
     @Transactional
     @Query("UPDATE Event e SET e.signupNum = e.signupNum + :count WHERE e.eventNo = :eventNo")
     void updateEventSignupNum(@Param("count") Integer count, @Param("eventNo") Integer eventNo);
-
-
 
     @Query("SELECT e.signupNum FROM Event e WHERE e.eventNo = :eventNo")
     Integer getEventSignupNum(@Param("eventNo") Integer eventNo);
@@ -38,9 +35,10 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Modifying
     @Transactional
     @Query("UPDATE Event e SET e.eventStatus = :eventStatus, e.eventLimit = :eventLimit, e.signupNum = :signupNum WHERE e.eventNo = :eventNo")
-    void setEventStatus(@Param("eventStatus") Byte eventStatus, @Param("eventLimit") Integer eventLimit, @Param("signupNum") Integer signupNum, @Param("eventNo") Integer eventNo);
+    void setEventStatus(@Param("eventStatus") Byte eventStatus, @Param("eventLimit") Integer eventLimit,
+            @Param("signupNum") Integer signupNum, @Param("eventNo") Integer eventNo);
 
-    @Query(value = "SELECT * "+
-            "FROM `Event` WHERE event_Status=1 ",nativeQuery = true)
+    @Query(value = "SELECT * " +
+            "FROM `Event` WHERE event_Status=1 ", nativeQuery = true)
     List<Event> findEventNewByStatus();
 }

@@ -13,12 +13,12 @@ import java.sql.Timestamp;
 @AllArgsConstructor // Lombok: Auto gene args constructor
 @NoArgsConstructor // Lombok: read above
 @Entity // JPA: mark this class as entity
-@Table(name = "EVENT")// JPA: specify the table this class mapping to
+@Table(name = "EVENT") // JPA: specify the table this class mapping to
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EVENT_NO",insertable = false)
+    @Column(name = "EVENT_NO", insertable = false)
     private Integer eventNo;
     @Column(name = "EVENT_NAME")
     private String eventName;
@@ -44,9 +44,9 @@ public class Event {
     private String eventWinner3;
     @Column(name = "EVENT_STATUS")
     private Byte eventStatus;
-    @Column(name = "SIGNUP_START_TIME",updatable = false)
+    @Column(name = "SIGNUP_START_TIME", updatable = false)
     private Timestamp signupStartTime;
-    @Column(name = "SIGNUP_DEADLINE",updatable = false)
+    @Column(name = "SIGNUP_DEADLINE", updatable = false)
     private Timestamp signupDeadline;
 
     @Column(name = "EVENT_PIC")

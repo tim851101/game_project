@@ -1,6 +1,5 @@
 package webapp.event.service;
 
-
 import core.service.BasicService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +22,9 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
     private final ModelMapper modelMapper;
     private final EventRepository eventRepository;
 
-    public static final String HASH_KEY="EVENT_NEWS";
+    public static final String HASH_KEY = "EVENT_NEWS";
     @Autowired
     private RedisTemplate redisTemplate;
-
 
     @Autowired
     public EventServiceImpl(ModelMapper modelMapper, EventRepository eventRepository) {
@@ -49,7 +47,8 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
 
     @Override
     public Boolean updateWinner(EventDTO eventDTO) {
-        eventRepository.updateEventWinners(eventDTO.getEventWinner1(), eventDTO.getEventWinner2(), eventDTO.getEventWinner3(), eventDTO.getEventStatus(), eventDTO.getEventNo());
+        eventRepository.updateEventWinners(eventDTO.getEventWinner1(), eventDTO.getEventWinner2(),
+                eventDTO.getEventWinner3(), eventDTO.getEventStatus(), eventDTO.getEventNo());
         return true;
     }
 
@@ -64,7 +63,6 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
             return true;
         }
     }
-
 
     @Override
     public Boolean cancelSignupNum(EventDTO eventDTO) {
@@ -83,14 +81,14 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
     }
 
     @Override
-    public Boolean updateEventStatus(EventDTO eventDTO){
-        if(eventDTO.getEventStatus() == 0 || eventDTO.getEventStatus() == 1 || eventDTO.getEventStatus() == 2){
-            eventRepository.setEventStatus(eventDTO.getEventStatus(),eventDTO.getEventLimit(), eventDTO.getSignupNum() ,eventDTO.getEventNo());
+    public Boolean updateEventStatus(EventDTO eventDTO) {
+        if (eventDTO.getEventStatus() == 0 || eventDTO.getEventStatus() == 1 || eventDTO.getEventStatus() == 2) {
+            eventRepository.setEventStatus(eventDTO.getEventStatus(), eventDTO.getEventLimit(), eventDTO.getSignupNum(),
+                    eventDTO.getEventNo());
             return true;
-        }else {
+        } else {
             return false;
         }
-
 
     }
 
@@ -105,14 +103,14 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
         // 存到Redis
         for (EventNews eventNews : eventNewsList) {
             System.out.println(eventNewsList);
-            String key = HASH_KEY+":" + eventNews.getEventNo();
+            String key = HASH_KEY + ":" + eventNews.getEventNo();
             redisTemplate.opsForValue().set(key, eventNews);
         }
         return eventNewsList;
     }
 
     @Override
-    public EventNews randomSelectOneEvent(){
+    public EventNews randomSelectOneEvent() {
         List<Object> keys = redisTemplate.opsForValue().multiGet(redisTemplate.keys(HASH_KEY + ":*"));
         if (keys != null && !keys.isEmpty()) {
             int randomIndex = new Random().nextInt(keys.size());
@@ -123,8 +121,3 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
         return null;
     }
 }
-
-
-
-
-

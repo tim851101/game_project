@@ -3,9 +3,6 @@ render();
 
 
 
-
-
-
 function render() {
     // table.innerHTML = "";
     fetch('/ord/getAllOrdJoinMemName', {
@@ -112,7 +109,6 @@ function render() {
                         next: '<i class="fa fa-chevron-right"></i>'
                     },
                 },
-
             });
         });
 

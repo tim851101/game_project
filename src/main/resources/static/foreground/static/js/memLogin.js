@@ -20,7 +20,12 @@ $(document).ready(function() {
     .then(data => {
       console.log(data)
       if(data==="帳號或密碼錯誤"){
-        document.getElementById("msg").innerText="帳號或密碼錯誤";
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: '帳號或密碼錯誤!',
+        })
+        // document.getElementById("msg").innerText="帳號或密碼錯誤";
       }else{
         // const jwt=require('jsonwebtoken');
         // const payload={'memNo', JSON.parse(data).memNo};

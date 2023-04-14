@@ -117,4 +117,11 @@ public class MemberController {
         return memberServiceImpl.getNewPassword(memEmail);
     }
 
+    @PostMapping("/genAuthCode")
+    @ResponseBody
+    public String forgetPassword(@RequestBody String memEmail) throws MessagingException {
+        System.out.println(memEmail);
+        return memberServiceImpl.getNewPassword(memEmail);
+    }
+
 }

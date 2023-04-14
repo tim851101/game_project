@@ -1,6 +1,7 @@
 package webapp.member.service;
 
 import com.nimbusds.jose.shaded.gson.Gson;
+import com.nimbusds.jose.shaded.gson.JsonElement;
 import com.nimbusds.jose.shaded.gson.JsonObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -16,6 +17,8 @@ import webapp.member.dto.MemberDTO;
 import webapp.member.pojo.Members;
 import webapp.member.repository.MemberRepository;
 import webapp.others.service.EmailService;
+
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Set;
@@ -104,6 +107,24 @@ public class MemberServiceImpl implements MemberService {
         } else {
             return modelMapper.map(new Members(), MemberDTO.class);
         }
+        // 使用原有密碼跳過驗證設定
+        Members member = memberRepository.findByMemEmail(user.getMemEmail());
+        user.setMemPassword(member.getMemPassword());
+        // 資料驗證錯誤訊息
+        Set<ConstraintViolation<MemberDTO>> violations = validator.validate(user);
+        if (!violations.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<MemberDTO> constraintViolation : violations) {
+                sb.append(constraintViolation.getMessage() + "</br>");
+            }
+            throw new ConstraintViolationException(sb.toString(), violations);
+        }
+        // 儲存修改資料
+        memberRepository.save(modelMapper.map(user, Members.class));
+        Gson gson = new Gson();
+        String successMsg = gson.toJson("會員資料修改成功");
+        System.out.println(successMsg);
+        return successMsg;
     }
 
     @Override
@@ -144,10 +165,15 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String getNewPassword(String memEmail) {
-        // 將傳進的email json字串轉乘String
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(memEmail, JsonObject.class);
-        String email = jsonObject.get("memEmail").getAsString();
+
+        JsonElement emailElement = jsonObject.get("email");
+        if (emailElement == null || emailElement.isJsonNull()) {
+            return gson.toJson("請確認您所註冊Email");
+        }
+
+        String email = emailElement.getAsString();
         System.out.println(email);
         String msg;
 
@@ -188,7 +214,9 @@ public class MemberServiceImpl implements MemberService {
                 i--;
             }
         }
-        return Arrays.toString(verificationCode);
+        String verifiyString = new String(verificationCode);
+        System.out.println(verifiyString);
+        return verifiyString;
     }
 
 }

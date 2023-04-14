@@ -20,6 +20,7 @@ public class RedisConfig {
     @Value("${spring.data.redis.port}")
     private Integer redisPort;
     @Bean
+
     public JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
         redisConfig.setHostName(redisHostName);
@@ -36,7 +37,9 @@ public class RedisConfig {
         redisTemplate.setHashKeySerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setEnableTransactionSupport(true);
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
-    }
-}
+
+        rn redisTemplate;
+
+    
+
+

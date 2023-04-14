@@ -10,6 +10,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import webapp.booking.dto.SeatDTO;
 import webapp.newbooking.dto.BookingDTO;
 import webapp.newbooking.image.image;
 import webapp.newbooking.pojo.newBooking;
@@ -145,7 +146,7 @@ public class newBookingController {
             redisTemplate.opsForValue().set(datetime, "60");
             return "加入";
     }
-    @RequestMapping("/ ")
+    @RequestMapping("/")
     public Object getRedis(String date ,Integer TIME) {
         Object value = redisTemplate.opsForValue().get(date);
         return value;
@@ -165,4 +166,14 @@ public class newBookingController {
         }else
             return "沒座位了";
     }
+    @PostMapping("/testseat")
+    public Integer minseat(String date,Integer minTime,Integer maxTime){
+        System.out.println(date+minTime+maxTime);
+        return BookingService.minseat(date,minTime,maxTime);
+    }
+    @PostMapping("/saveseat4time")
+    public List<SeatDTO> saveseat4time(String date, Integer minTime, Integer maxTime,Integer change){
+    return BookingService.saveseat(date,minTime,maxTime,change);
+    }
+
 }

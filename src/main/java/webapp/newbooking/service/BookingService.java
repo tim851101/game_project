@@ -5,10 +5,13 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import webapp.booking.dto.SeatDTO;
+import webapp.booking.service.SeatService;
 import webapp.newbooking.dto.BookingDTO;
 import webapp.newbooking.pojo.newBooking;
 import webapp.newbooking.repository.WriteBookingRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -127,5 +130,27 @@ public class BookingService {
         }
         writeBookingRepository.save(newBooking);
         return true;
+    }
+    @Autowired
+    private SeatService seatservice;
+    public  Integer minseat(String date, Integer minTime ,Integer maxTime){
+       List<Integer> Intergerlist= seatservice.findByDate(date);
+        int minseat=100;
+        for (int i=minTime-1;i<maxTime-1;i++){
+
+    if(minseat>Intergerlist.get(i)){
+        minseat=Intergerlist.get(i);
+    }
+    System.out.println(minseat);
+        }
+        return minseat;
+    }
+    public List<SeatDTO> saveseat(String date, Integer minTime ,Integer maxTime,Integer change){
+        List<SeatDTO> seat=new ArrayList<>();
+        for(int i=minTime;i<=maxTime;i++){
+        seat.add(new SeatDTO(date,i,change));
+       }
+        seatservice.updateSeat(seat);
+       return seat;
     }
 }

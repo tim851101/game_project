@@ -12,7 +12,7 @@ import webapp.booking.pojo.Seat;
 @Repository
 public class SeatRepository {
     public static final String HASH_KEY = "Seat";
-    final private RedisTemplate<String, Map<String, List<Integer>>> seatTemplate;
+    final private RedisTemplate<String, Map<String, List<Integer> > > seatTemplate;
 
     @Autowired
     public SeatRepository(RedisTemplate<String, Map<String, List<Integer>>> seatTemplate) {

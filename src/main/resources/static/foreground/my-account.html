@@ -529,7 +529,7 @@
      const tbody = document.querySelector('#booking');
       const update= document.querySelector('#update');
       const updatebook= document.querySelector('#updatebook')
-     const url ='http://localhost:8082/book/ls';
+     const url ='http://localhost:8082/book/bookingbymemno?memno=32';//目前寫死
       const MonthFromNow = new Date();
     MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
      let bookno=null;
@@ -593,6 +593,7 @@ sleep(500).then(() => {
    read();
 })
 	}
+	let deadline=null
 	function forUpdate(updateno){
 	const url ='http://localhost:8082/book/one?findno='+updateno;
 	fetch(url)
@@ -601,10 +602,14 @@ sleep(500).then(() => {
             for (let booking of list) {
             bookno=booking.bookingNo
             memno=booking.memNo
-            if(booking.bookingFinishDate==null)
+            if(booking.bookingFinishDate==null){
              deadlineStr="<button id='toPay' class='btn obrien-button-2 primary-color rounded-0'>去付款</button>"
-             else
+            deadline=null
+            }
+             else{
              deadlineStr=""+booking.bookingFinishDate
+             deadline=booking.bookingFinishDate
+             }
 
                 update.innerHTML =``
                 update.innerHTML += `
@@ -612,7 +617,7 @@ sleep(500).then(() => {
                     <td>${booking.bookingNo}</td>
                     <td><input type="text" id="srattime" value="09:00"></td>
                     <td><input type="text" id="endtime" value="09:00"></td>
-                    <td><input type="text"  id="date" onchange=datechange() value=""></td>
+                    <td><input type="text"  id="date" value=""></td>
                     <td><p id='price'>${booking.bookingTotalPrice}</p></td>
                     <td><select id="people" onchange=pricechange() >
                     <option value="${booking.bookingPeople}">人數</option>
@@ -628,6 +633,38 @@ sleep(500).then(() => {
                 </tr>
             `
             }
+            update.addEventListener('change',()=>{  
+                let check=0;
+                a=document.getElementById('srattime').value.substr(0, 2)
+                b=document.getElementById('endtime').value.substr(0, 2)
+                datas={
+                    date:document.getElementById('date').value,
+                    minTime:a,
+                    maxTime:b
+                }
+                $.ajax({
+                url : 'http://localhost:8082/book/testseat',
+                type : 'post', 
+                data : datas,
+                success : function(response) {
+                check=(response-(document.getElementById('people').value))
+                console.log(check); 
+                if(check>0)
+                    {
+                  //  console.log("還有位置");
+                    document.getElementById('post').removeAttribute('disabled')  
+                    }
+                    else
+                    {
+                  //  console.log("沒有");
+                    document.getElementById('post').setAttribute('disabled',true)     
+                    } 
+                 },
+                 
+            });
+           
+        }
+            )
         $.datetimepicker.setLocale('zh');
         $('#date').datetimepicker({
            theme: '',              //theme: 'dark',
@@ -662,17 +699,13 @@ sleep(500).then(() => {
         let price=document.querySelector("#price")
         price.innerHTML = (people*200)
         }
-        function datechange(){
-        deadline=document.getElementById("deadline").value
-        let date=document.querySelector("#date")
-        price.innerHTML = (people*200)
-        }
+
     function change(){
    pricechange();
     let a=document.getElementById("date").value
     let b=document.getElementById("srattime").value+":00"
     let c=document.getElementById("endtime").value+":00"
-    let d=document.getElementById("deadline").value
+    let d=deadline
     let e=people*200
     let data={bookingNo:bookno,
               memNo:memno,
@@ -684,7 +717,24 @@ sleep(500).then(() => {
               bookingPeople:people ,
               bookingPaymentStatus:0,
               bookingCheckStatus:0,
-    } 
+    }
+// redis改動
+           
+                redisdata={
+                date:document.getElementById('date').value,
+                minTime:document.getElementById('srattime').value.substr(0, 2),
+                maxTime:document.getElementById('endtime').value.substr(0, 2),
+                change:document.getElementById('people').value
+                }
+    $.ajax({
+                url : 'http://localhost:8082/book/saveseat4time',
+                type : 'post', 
+                data : redisdata,
+                success : function(response) {
+                 },
+                 
+            });
+
     $.ajax({
   url : 'http://localhost:8082/book/addbooking',
   type : 'post', 

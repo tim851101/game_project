@@ -19,6 +19,7 @@ public class RedisConfig {
 
     @Value("${spring.data.redis.port}")
     private Integer redisPort;
+
     @Bean
 
     public JedisConnectionFactory jedisConnectionFactory() {
@@ -29,16 +30,18 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String,Object> redisTemplate() {
-        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, Object> redisTemplate() {
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(jedisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
         redisTemplate.setHashKeySerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setEnableTransactionSupport(true);
-
-        rn redisTemplate;
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
+    }
+}
 
     
 

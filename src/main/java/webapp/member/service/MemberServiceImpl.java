@@ -101,30 +101,12 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberDTO findById(Integer id) {
         System.out.println(memberRepository.findById(id));
-        Optional<Members> optional = memberRepository.findById(id);
+        Optional<Members> optional=memberRepository.findById(id);
         if (optional.isPresent()) {
             return modelMapper.map(optional.get(), MemberDTO.class);
-        } else {
-            return modelMapper.map(new Members(), MemberDTO.class);
+        }else {
+            return modelMapper.map(new Members(),MemberDTO.class);
         }
-        // 使用原有密碼跳過驗證設定
-        Members member = memberRepository.findByMemEmail(user.getMemEmail());
-        user.setMemPassword(member.getMemPassword());
-        // 資料驗證錯誤訊息
-        Set<ConstraintViolation<MemberDTO>> violations = validator.validate(user);
-        if (!violations.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<MemberDTO> constraintViolation : violations) {
-                sb.append(constraintViolation.getMessage() + "</br>");
-            }
-            throw new ConstraintViolationException(sb.toString(), violations);
-        }
-        // 儲存修改資料
-        memberRepository.save(modelMapper.map(user, Members.class));
-        Gson gson = new Gson();
-        String successMsg = gson.toJson("會員資料修改成功");
-        System.out.println(successMsg);
-        return successMsg;
     }
 
     @Override

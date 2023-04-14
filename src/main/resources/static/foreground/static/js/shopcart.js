@@ -8,7 +8,11 @@ console.log(shoppingcart);
 
 function set(pdNo, qty) {
     let item = shoppingcart.find((item) => (+item.pdNo === +pdNo))
+    if(pdNo===null){
+        return;
+    }
     if (item) {
+        
         if (+qty === 0){
             del(+pdNo);
         } else{
@@ -36,6 +40,7 @@ function add(pdNo) {
         }
         shoppingcart.push(item);
     }
+    localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
 }
 
 function reduce(pdNo) {

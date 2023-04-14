@@ -3,9 +3,6 @@ render();
 
 
 
-
-
-
 function render() {
     // table.innerHTML = "";
     fetch('/ord/getAllOrdJoinMemName', {

@@ -1,13 +1,10 @@
-//結帳
 const memNo = 10;
 console.log('memNo = ' + memNo);
-let n = 1;
 setMemDataBymemNo(memNo);
-
-showProduct()
-
+showProduct();
 
 
+//結帳
 $('#button_submit').click(e => {
     e.preventDefault();
     // type must be the samew
@@ -21,6 +18,8 @@ $('#button_submit').click(e => {
             if (checkForm()) {
                 //會員編號10的訂單
                 insertOrderBymemNo(memNo);
+                shoppingcart.splice(0, shoppingcart.length);
+                localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
                 Swal.fire({
                     title: "感謝您的購買!",
                     icon: "success" //success/info/warning/error/question
@@ -37,7 +36,25 @@ $('#button_submit').click(e => {
                 })
             }
         }
-    });
+    })
+});
+
+
+
+//獲取會員回饋金
+let coupon = 0;
+fetch(`/mem/find-one?id=${memNo}`,{
+    method:"GET"
+}).then(response=>response.json()
+).then(data=>{
+    coupon = +data.coupon;
+})
+
+
+//回饋金input即時抓取
+$("#inputUseCoupon").blur(() => {
+    $("#useCoupon").text($("#inputUseCoupon").val());
+    sumActulAmount()
 });
 
 
@@ -46,6 +63,7 @@ $('#button_submit').click(e => {
 $("#recipient").blur(checkRecipient);
 $("#recipientAddres").blur(checkRecipientAddres);
 $("#recipientPh").blur(checkRecipientPh);
+$("#inputUseCoupon").blur(checkUseCoupon);
 
 
 //信用卡輸入框
@@ -59,18 +77,18 @@ $("#ordPayStatus").change(() => {
 //到店取貨時，地址定在商家地址並隱藏地址input，並且改變運費金額
 $("#ordPick").change(() => {
     if (+$('#ordPick').val() === 0) {
-        $("#recipientAddres").val("");
+        $("#recipientAddres").val("店面取貨");
         $("#input-addres").hide();
         $("#ordFee").text("0")
         sumActulAmount()
-    } else if(+$('#ordPick').val() === 1){
+    } else if (+$('#ordPick').val() === 1) {
         $.get(`/mem/find-one?id=${memNo}`, function (result) {
             $("#recipientAddres").val(result.memAddress);
         })
         $("#input-addres").show();
         $("#ordFee").text("75")
         sumActulAmount()
-    } else if(+$('#ordPick').val() === 2){
+    } else if (+$('#ordPick').val() === 2) {
         $.get(`/mem/find-one?id=${memNo}`, function (result) {
             $("#recipientAddres").val(result.memAddress);
         })
@@ -84,7 +102,7 @@ $("#ordPick").change(() => {
 
 //新增訂單
 function insertOrderBymemNo(memNo) {
-    const totalAmount =  sumTotalAmount();
+    const totalAmount = sumTotalAmount();
     const ordFormData = {
         "memNo": +memNo,
         "useCoupon": +$("#useCoupon").text(),
@@ -106,9 +124,14 @@ function insertOrderBymemNo(memNo) {
     }).then((response) => {
         return response.text();
     }).then((ordNo) => {
-        saveOrdList(+ordNo, 10, 10, 1000);
-        saveOrdList(+ordNo, 3, 10, 1000);
-        saveOrdList(+ordNo, 2, 10, 1000);
+        for (i = 1; i <= shoppingcart.length; i++) {
+            let productMoney = document.querySelector(`#productMoney${i}`).textContent
+            let qty = document.querySelector(`#qty${i}`).textContent
+            let proPDM = productMoney / qty;
+            let pdNo = document.querySelector(`#pdNo${i}`).textContent
+
+            saveOrdList(+ordNo, +pdNo, +qty, +proPDM);
+        }
     }).catch((error) => {
         console.error('There was a problem with the fetch operation:', error);
     });
@@ -140,9 +163,13 @@ function saveOrdList(ordNo, pdNo, qty, price) {
 function checkRecipient() {
     const recipientInput = document.getElementById("recipient");
     const recipientError = document.getElementById("recipientError");
+    const recipientRegex = /^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$/;
 
     if (recipientInput.value.trim() === "") {
         recipientError.textContent = "請輸入收件人名稱";
+        return false;
+    } else if (!recipientRegex.test(recipientInput.value.trim())) {
+        recipientError.textContent = "只能是中、英文字母、數字和_ , 且長度必需在2到10之間";
         return false;
     } else {
         recipientError.textContent = "";
@@ -185,14 +212,36 @@ function checkRecipientPh() {
         return true;
     }
 }
+//驗證回饋金
+function checkUseCoupon() {
+    const inputUseCoupon = document.getElementById("inputUseCoupon");
+    const inputUseCouponError = document.getElementById("inputUseCouponError");
+    const inputUseCouponRegex = /^[0-9]+$/;
+
+    if (inputUseCoupon.value.trim() === "") {
+        inputUseCouponError.textContent = "請輸入回饋金數量";
+        return false;
+    } else if (!inputUseCouponRegex.test(inputUseCoupon.value.trim())) {
+        inputUseCouponError.textContent = "只能輸入大於等於0的整數數量";
+        return false;
+    }  else if (inputUseCoupon.value.trim() > coupon)  {
+        inputUseCouponError.textContent = "輸入數值請勿超過所擁有的回饋金";
+        return false;
+    } else {
+        inputUseCouponError.textContent = "";
+        return true;
+    }
+}
+
 
 // 驗證表單
 function checkForm() {
     const recipientValid = checkRecipient();
     const recipientAddresValid = checkRecipientAddres();
     const recipientPhValid = checkRecipientPh();
+    const useCouponValid = checkUseCoupon();
 
-    return (recipientValid && recipientAddresValid && recipientPhValid);
+    return (recipientValid && recipientAddresValid && recipientPhValid && useCouponValid);
 }
 
 // 獲取會員資料並放入輸入框
@@ -209,12 +258,12 @@ function setMemDataBymemNo(memNo) {
 }
 
 //計算應付金額
-function sumActulAmount(){
+function sumActulAmount() {
     const totalAmount = sumTotalAmount();
     $("#actualAmount").text(totalAmount + (+$("#ordFee").text()) - (+$("#useCoupon").text()));
 }
 //計算產品總金額
-function sumTotalAmount(){
+function sumTotalAmount() {
     const productMoneyList = $("[id^='productMoney']")
     let totalAmount = 0;
     for (productMoney of productMoneyList) {
@@ -224,25 +273,29 @@ function sumTotalAmount(){
 }
 
 
-//購物車商品
-function showProduct(){
+//獲取購物車商品
+function showProduct() {
     const producttBody = document.querySelector("#productTable")
     let str = '';
     producttBody.innerHTML = '';
-    for(item of shoppingcart){
-    const qty = item.qty;
-    const pdNo = item.pdNo
-    fetch(`/product/find-one?id=${pdNo}`,{
-        method:"GET"
+    let n = 1;
+    for (item of shoppingcart) {
+        const qty = item.qty;
+        const pdNo = item.pdNo
+        fetch(`/product/find-one?id=${pdNo}`, {
+            method: "GET"
         }).then(response => response.json()
-        ).then(data=>{
-            str +=`  <tr class="cart_item">
-                                            <td class="cart-product-name"><span>${data.pdName}<strong class="product-quantity">× ${qty}</strong></span></td>
-                                            <td class="cart-product-total text-center">$<span id="productMoney" class="amount">${qty*data.pdPrice}</span></td>
-                                        </tr>`;
+        ).then(data => {
+            str += ` <tr class="cart_item">
+                        <td id = "pdNo${n}" style = "display:none">${pdNo}</td>
+                        <td class="cart-product-name"><span>${data.pdName}<strong class="product-quantity">× </strong><strong id="qty${n}" class="product-quantity">${qty}</strong></span></td>
+                        <td class="cart-product-total text-center">$<span id="productMoney${n++}" class="amount">${qty * data.pdPrice}</span></td>
+                    </tr>`;
 
-            producttBody.innerHTML = str;                           
+            producttBody.innerHTML = str;
             sumActulAmount()
         });
     }
 }
+
+

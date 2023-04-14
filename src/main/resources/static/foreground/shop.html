@@ -128,7 +128,7 @@
                                       ${product.discountedPrice ? `<span class="old-price"><del>$${product.discountedPrice}</del></span>` : ''}
                                   </div>
                                   <div class="add-action d-flex position-absolute">
-                                      <a href="cart.html" title="Add To cart"><i class="ion-bag"></i></a>
+                                      <a href="javascript:void(0)" title="加入購物車" onclick="add(${product.pdNo})"><i class="ion-bag"></i></a>
                                       <a href="wishlist.html" title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
                                   </div>
                               </div>
@@ -324,6 +324,9 @@
 
 <!--    使用fetch來取得圖片並設置在img標籤中-->
     <script src="static/js/pic-getimage.js"></script>
+    
+    <!-- My Js-->
+    <script src="static/js/shopcart.js"></script>
 
 </body>
 

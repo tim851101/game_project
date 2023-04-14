@@ -11,8 +11,8 @@ for(item of shoppingcart){
         cartBody.innerHTML += `<tr>
                     <td class = pdNo style = "display:none">${pdNo}</td>
                     <td class="pro-thumbnail"><a href="product-details.html?pdNo=${pdNo}"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
-                    <td class="pro-title"><a href="product-details.html?pdNo=${pdNo}">${data.pdName}</td>
-                    <td class="pro-price"><span>$${data.pdPrice}</span></td>
+                    <td class="pro-title fs-5"><a href="product-details.html?pdNo=${pdNo}">${data.pdName}</td>
+                    <td class="pro-price fs-5" ><span>$${data.pdPrice}</span></td>
                     <td class="pro-quantity">
                         <div class="quantity">
                             <div class="cart-plus-minus">
@@ -24,7 +24,7 @@ for(item of shoppingcart){
                             </div>
                         </div>
                     </td>
-                    <td id = "totalAmount${n++}" class="pro-subtotal"><span>$${qty*data.pdPrice}</span></td>
+                    <td id = "totalAmount${n++}" class="pro-subtotal fs-5"><span>$${qty*data.pdPrice}</span></td>
                     <td class="pro-remove"><a href="javascript:void(0)"><i class="ion-trash-b"></i></a>
                     </td>
                 </tr>`;
@@ -46,6 +46,9 @@ for(item of shoppingcart){
                 }
             }
             $button.parent().find('input').val(newVal);
+            
+            var pdNo = +$button.closest("tr").find(".pdNo").text();
+            set(pdNo,newVal);
 
             var unitPrice = +$button.closest("tr").find(".pro-price span").text().replace("$", "");
             $button.closest('tr').find(".pro-subtotal span").text("$" + (unitPrice * newVal))

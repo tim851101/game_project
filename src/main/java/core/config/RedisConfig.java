@@ -21,7 +21,6 @@ import redis.clients.jedis.JedisPoolConfig;
 @EnableRedisRepositories
 public class RedisConfig {
 
-
     @Value("${spring.data.redis.host}")
     private String redisHostName;
 
@@ -70,6 +69,17 @@ public class RedisConfig {
     @Bean
     public RedisTemplate<String, Map<String, List<Integer>>> seatTemplate() {
         RedisTemplate<String, Map<String, List<Integer>>> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactorySeat());
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(List.class));
+        template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(List.class));
+        return template;
+    }
+
+    @Bean
+    public RedisTemplate<String, Map<String, List<String>>> offDateTemplate() {
+        RedisTemplate<String, Map<String, List<String>>> template = new RedisTemplate<>();
         template.setConnectionFactory(jedisConnectionFactorySeat());
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setKeySerializer(new StringRedisSerializer());

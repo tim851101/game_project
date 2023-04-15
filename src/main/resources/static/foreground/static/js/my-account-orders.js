@@ -1,8 +1,10 @@
-render();
+const memNo = 10;
+render(memNo);
 
-function render() {
+
+function render(memNo) {
     const table = document.querySelector('#ordersTable');
-    fetch('/ord/getAllByMemNo?memNo=5', {
+    fetch(`/ord/getAllByMemNo?memNo=${memNo}`, {
         methond: "POST"
     }).then((response) => {
         return response.json();

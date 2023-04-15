@@ -6,8 +6,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import webapp.product.dto.ProductPicDTO;
 import webapp.product.pojo.ProductPic;
 import webapp.product.repository.ProductPicRepository;
+
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.*;
 import java.sql.SQLException;
@@ -79,6 +81,12 @@ public class ProductPicController {
             return new ResponseEntity<byte[]>(bytes, headers, HttpStatus.OK);
         }
     }
+    @GetMapping("/getPicDTOByPdNo")
+    public List<ProductPicDTO> getPicByPdNo(Integer pdNo){
+        return productPicRepository.findAllByPdNo(pdNo);
+    }
+
+
 
 
 

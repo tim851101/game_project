@@ -17,13 +17,13 @@ $('#button_submit').click(e => {
         if (result.value) {
             if (checkForm()) {
                 //會員編號10的訂單
-                insertOrderBymemNo(memNo);
+                const ordNo = insertOrderBymemNo(memNo);
                 Swal.fire({
                     title: "感謝您的購買!",
                     icon: "success" //success/info/warning/error/question
                 }).then(function (result) {
                     if (result.value) {
-                        window.location.href = "/foreground/shop.html"
+                        ordNo.then(data=>window.location.href = `http://127.0.0.1:8082/foreground/order-detail.html?ordNo=${data}`);
                     };
                 });
             } else {
@@ -100,7 +100,7 @@ $("#ordPick").change(() => {
 // =================== function start =========================
 
 //新增訂單
-function insertOrderBymemNo(memNo) {
+async function insertOrderBymemNo(memNo) {
     const totalAmount = sumTotalAmount();
     const ordFormData = {
         "memNo": +memNo,
@@ -113,8 +113,9 @@ function insertOrderBymemNo(memNo) {
         "recipientAddres": $("#recipientAddres").val(),
         "recipientPh": $("#recipientPh").val()
     }
+    let ordNoOut;
     // Send form data as POST request
-    fetch('/ord/save', {
+    await fetch('/ord/save', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -130,11 +131,13 @@ function insertOrderBymemNo(memNo) {
             let pdNo = document.querySelector(`#pdNo${i}`).textContent
             saveOrdList(+ordNo, +pdNo, +qty, +proPDM);
         }
+        ordNoOut = ordNo;
         shoppingcart.splice(0, shoppingcart.length);
         localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
     }).catch((error) => {
         console.error('There was a problem with the fetch operation:', error);
     });
+    return ordNoOut;
 }
 
 

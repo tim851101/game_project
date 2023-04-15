@@ -47,5 +47,4 @@ public class OrdersController {
     public void updateOrdStatePayByOrdNo(@RequestBody OrdersPayStatusDTO ordersPayStatusDTO){
         ordersService.updateOrdPayStateByOrdNo(ordersPayStatusDTO.getOrdNo() , ordersPayStatusDTO.getOrdPayStatus() );
     }
-
 }

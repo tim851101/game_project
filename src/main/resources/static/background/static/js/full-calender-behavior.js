@@ -165,8 +165,13 @@ document.getElementById('submit-button').addEventListener('click', function () {
             }),
             headers: {'Content-Type': 'application/json'},
         }).then(response => {
+            Swal.fire(
+                '儲存成功',
+            )
         }).catch(
-
+            Swal.fire(
+                '儲存失敗',
+            )
         );
     }
 
@@ -182,9 +187,7 @@ document.getElementById('submit-button').addEventListener('click', function () {
         body: JSON.stringify(offDateList),
         headers: {'Content-Type': 'application/json'},
     }).then(response => {
+
     }).catch(
     );
-    Swal.fire(
-        '儲存成功',
-    )
 });

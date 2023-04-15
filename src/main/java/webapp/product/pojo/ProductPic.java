@@ -19,7 +19,7 @@ public class ProductPic {
     private Integer picNo;
 
     @Column(name = "PD_NO")
-    private Integer pdNO;
+    private Integer pdNo;
 
     @Column(name = "PD_PIC")
     private Blob pdPic;

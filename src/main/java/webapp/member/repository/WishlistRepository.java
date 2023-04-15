@@ -21,7 +21,7 @@ public interface WishlistRepository extends JpaRepository<Collection,Integer> {
     @Query(value =
             "SELECT new webapp.member.dto.WishlistDTO(pd.pdNo, pd.pdName,pd.pdPrice, pd.pdStock,"+
             "(SELECT pp.pdPic FROM ProductPic pp "+
-            "WHERE pp.pdNO = pd.pdNo ORDER BY pp.picNo ASC LIMIT 1) AS pdPic) "+
+            "WHERE pp.pdNo = pd.pdNo ORDER BY pp.picNo ASC LIMIT 1) AS pdPic) "+
             "FROM Product pd JOIN Collection cl ON cl.pdNo = pd.pdNo "+
             "WHERE cl.memNo= :memNO AND pd.pdStatus = 1 "
     )

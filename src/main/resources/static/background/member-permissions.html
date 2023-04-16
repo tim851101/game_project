@@ -18,6 +18,7 @@
 
     <!-- Style css -->
     <link href="static/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
     <!-- harder sidebar footer import -->
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
@@ -274,120 +275,7 @@
                     </li>
                 </ol>
             </div>
-            <!--**********************************
-                會員帳號管理 start
-            ***********************************-->
-            <!-- row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">會員帳號管理</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-validation">
-                                <!-- form start -->
-                                <form class="needs-validation" novalidate="">
-                                    <div class="row">
-                                        <div class="col-xl-6">
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-no">會員編號
-                                                    <span class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="mem-no"
-                                                           placeholder="請輸入會員編號..." />
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-name">姓名
-                                                    <span class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="mem-name" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-email">Email(帳號) <span
-                                                        class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="mem-email" disabled />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6">
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label">性別
-                                                    <span class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="gender" id="mem-male" disabled />
-                                                        <label class="form-check-label" for="male">男</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="gender" id="mem-female" disabled />
-                                                        <label class="form-check-label" for="female">女</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-phone">電話
-                                                    <span class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input style="font-size: larger" type="text" id="mem-phone" class="form-control"
-                                                           disabled />
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-addr">通訊地址 <span
-                                                        class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input style="font-size: larger" type="text" class="form-control" id="mem-addr"
-                                                           disabled />
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" >預約權限狀態
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="reserveAuth" id="mem-closed" />
-                                                        <label class="form-check-label" for="closed">鎖定</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="reserveAuth" id="mem-open" checked />
-                                                        <label class="form-check-label" for="open">開放</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="mb-3 row">
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto">
-                                                <button type="submit" class="btn btn-primary">
-                                                    查詢
-                                                </button>
-                                                <button type="submit" class="btn btn-danger">
-                                                    修改
-                                                </button>
-                                                <button type="submit" class="btn btn-danger" style="opacity: 0;">
-                                                    修改
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- form end -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!--**********************************
                 會員帳號管理 end
             ***********************************-->
@@ -400,115 +288,17 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-responsive-md">
+                            <table id="table-example" class="table table-responsive-md">
                                 <thead>
                                 <tr>
-                                    <th style="width: 50px">
-                                        <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                            <input type="checkbox" class="form-check-input" id="checkAll" required="" />
-                                            <label class="form-check-label" for="checkAll"></label>
-                                        </div>
-                                    </th>
-                                    <th><strong>ROLL NO.</strong></th>
-                                    <th><strong>NAME</strong></th>
-                                    <th><strong>Email</strong></th>
-                                    <th><strong>Date</strong></th>
-                                    <th><strong>Status</strong></th>
-                                    <th><strong></strong></th>
+                                    <th><strong>會員編號</strong></th>
+                                    <th><strong>會員姓名</strong></th>
+                                    <th><strong>會員 Email</strong></th>
+                                    <th><strong>預約權限</strong></th>
+                                    <th><strong>更新權限</strong></th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                            <input type="checkbox" class="form-check-input" id="customCheckBox2" required="" />
-                                            <label class="form-check-label" for="customCheckBox2"></label>
-                                        </div>
-                                    </td>
-                                    <td><strong>542</strong></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="static/picture/1.jpg" class="rounded-lg me-2" width="24" alt="" />
-                                            <span class="w-space-no">Dr. Jackson</span>
-                                        </div>
-                                    </td>
-                                    <td>example@example.com</td>
-                                    <td>01 August 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa fa-circle text-success me-1"></i>
-                                            Successful
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                            <input type="checkbox" class="form-check-input" id="customCheckBox3" required="" />
-                                            <label class="form-check-label" for="customCheckBox3"></label>
-                                        </div>
-                                    </td>
-                                    <td><strong>542</strong></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="static/picture/2.jpg" class="rounded-lg me-2" width="24" alt="" />
-                                            <span class="w-space-no">Dr. Jackson</span>
-                                        </div>
-                                    </td>
-                                    <td>example@example.com</td>
-                                    <td>01 August 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa fa-circle text-danger me-1"></i>
-                                            Canceled
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                            <input type="checkbox" class="form-check-input" id="customCheckBox4" required="" />
-                                            <label class="form-check-label" for="customCheckBox4"></label>
-                                        </div>
-                                    </td>
-                                    <td><strong>542</strong></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="static/picture/3.jpg" class="rounded-lg me-2" width="24" alt="" />
-                                            <span class="w-space-no">Dr. Jackson</span>
-                                        </div>
-                                    </td>
-                                    <td>example@example.com</td>
-                                    <td>01 August 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa fa-circle text-warning me-1"></i>
-                                            Pending
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
+                                <tbody id="mem-ls-all"></tbody>
                             </table>
                         </div>
                     </div>
@@ -565,6 +355,8 @@
 <script src="static/js/dlabnav-init.js"></script>
 <script src="static/js/demo.js"></script>
 <script src="static/js/styleSwitcher.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 </body>
 
 </html>

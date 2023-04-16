@@ -4,12 +4,14 @@ import com.nimbusds.jose.shaded.gson.Gson;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import webapp.member.dto.LoginDTO;
 import webapp.member.dto.MemberDTO;
+import webapp.member.dto.ReserveAuthDTO;
 import webapp.member.service.MemberService;
 import webapp.others.service.EmailService;
 
@@ -117,4 +119,15 @@ public class MemberController {
         return memberServiceImpl.getNewPassword(memEmail);
     }
 
+    @GetMapping("/ls-dtos")
+    @ResponseBody
+    public List<MemberDTO> findAllDto(){
+        return memberServiceImpl.findAllDto();
+    }
+
+    @PostMapping("/save-all-auth")
+    @ResponseBody
+    public Boolean findAllDto(@RequestBody List<ReserveAuthDTO> dtoList){
+        return memberServiceImpl.saveAllAuth(dtoList);
+    }
 }

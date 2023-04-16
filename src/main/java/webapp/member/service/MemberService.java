@@ -1,10 +1,12 @@
 package webapp.member.service;
 
+import java.util.List;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import webapp.member.dto.LoginDTO;
 import webapp.member.dto.MemberDTO;
+import webapp.member.dto.ReserveAuthDTO;
 
 @Component
 public interface MemberService {
@@ -25,4 +27,7 @@ public interface MemberService {
 
     String getNewPassword(String memEmail);
 
+    List<MemberDTO> findAllDto();
+
+    Boolean saveAllAuth(List<ReserveAuthDTO> dto);
 }

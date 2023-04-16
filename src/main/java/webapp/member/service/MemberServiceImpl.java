@@ -6,6 +6,7 @@ import com.nimbusds.jose.shaded.gson.JsonObject;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
+import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import webapp.member.dto.LoginDTO;
 import webapp.member.dto.MemberDTO;
+import webapp.member.dto.ReserveAuthDTO;
 import webapp.member.pojo.Members;
 import webapp.member.repository.MemberRepository;
 import webapp.others.service.EmailService;
@@ -105,7 +107,7 @@ public class MemberServiceImpl implements MemberService {
         if (optional.isPresent()) {
             return modelMapper.map(optional.get(), MemberDTO.class);
         }else {
-            return modelMapper.map(new Members(),MemberDTO.class);
+            return modelMapper.map(new Members(), MemberDTO.class);
         }
     }
 
@@ -201,4 +203,20 @@ public class MemberServiceImpl implements MemberService {
         return verifiyString;
     }
 
+    @Override
+    public List<MemberDTO> findAllDto() {
+        return memberRepository.findAllDto();
+    }
+
+    @Override
+    public Boolean saveAllAuth(List<ReserveAuthDTO> dtoList) {
+        try {
+            for (ReserveAuthDTO dto : dtoList) {
+                memberRepository.updateReserveAuth(dto.getMemNo(), dto.getReserveAuth());
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 }

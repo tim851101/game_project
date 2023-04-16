@@ -514,11 +514,17 @@
                         <h4 class="card-title">商品清單</h4>
                         <span style="margin-right: 10px;padding-left: 10px;"><i class="fa fa-circle text-success me-1"></i>已上架</span>
                         <span style="margin-right: auto;padding-left: 10px;"><i class="fa fa-circle text-danger me-1"></i>已下架</span>
-<!--                        <input id="productId">-->
-<!--                        <button id="findById" class="btn btn-primary fs-5">單筆查詢</button>-->
-<!--                        <table id="show"></table>-->
                     </div>
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 mt-5">
+                                <button id="getAllProduct" class="btn btn-primary fs-5">查詢全部</button>
+                            </div>
+                            <div class="col-md-6 mt-5">
+                                <button id="findById" class="btn btn-primary fs-5">單筆查詢</button>
+                                <input id="productId">
+                            </div>
+                        </div>
                         <div class="table-responsive">
                             <table id="allshow" class="table-striped table table-responsive-md" border="1">
                                 <thead>

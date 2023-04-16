@@ -168,8 +168,13 @@ public class newBookingController {
     }
     @PostMapping("/testseat")
     public Integer minseat(String date,Integer minTime,Integer maxTime){
+        try{
+
         System.out.println(date+minTime+maxTime);
         return BookingService.minseat(date,minTime,maxTime);
+        }catch (Exception e){
+            return -100;
+        }
     }
     @PostMapping("/saveseat4time")
     public List<SeatDTO> saveseat4time(String date, Integer minTime, Integer maxTime,Integer change){

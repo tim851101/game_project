@@ -134,6 +134,8 @@ public class BookingService {
     @Autowired
     private SeatService seatservice;
     public  Integer minseat(String date, Integer minTime ,Integer maxTime){
+        if(minTime>=maxTime)
+        {  return -100;}
        List<Integer> Intergerlist= seatservice.findByDate(date);
         int minseat=100;
         for (int i=minTime-1;i<maxTime-1;i++){

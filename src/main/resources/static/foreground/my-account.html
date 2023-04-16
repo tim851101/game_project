@@ -605,7 +605,8 @@
 <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <!-- jQuery JS -->
-    <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!--    <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>-->
     <!-- jQuery Migrate JS -->
     <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
     <!-- Modernizer JS -->
@@ -632,12 +633,15 @@
     <!-- table JS-->
     <script src="/foreground/static/js/my-account-orders.js"></script>
 
+
 </body>
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>-->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/foreground/static/js/myWishlist.js"></script>
 <script src="../js/member.js"></script>
 <script>
+
+
      const tbody = document.querySelector('#booking');
       const update= document.querySelector('#update');
       const updatebook= document.querySelector('#updatebook')
@@ -645,7 +649,7 @@
       const MonthFromNow = new Date();
     MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
      let bookno=null;
-      
+
      function read(){
         $('#booktable').DataTable().clear().destroy();
         tbody.innerHTML = ""
@@ -690,7 +694,7 @@
          });
          //datatable END
             });
-           
+
         }
         // let table = new DataTable('#booktable');
         read();
@@ -727,9 +731,9 @@ sleep(500).then(() => {
                 update.innerHTML += `
                 <tr>
                     <td>${booking.bookingNo}</td>
-                    <td><input type="text" id="srattime" value="09:00"></td>
-                    <td><input type="text" id="endtime" value="09:00"></td>
-                    <td><input type="text"  id="date" value=""></td>
+                    <td><input type="text" id="srattime"onchange="checkredis()" value="09:00"></td>
+                    <td><input type="text" id="endtime" onchange="checkredis()"value="09:00"></td>
+                    <td><input type="text"  id="date"   onchange="checkredis()" value=""></td>
                     <td><p id='price'>${booking.bookingTotalPrice}</p></td>
                     <td><select id="people" onchange=pricechange() >
                     <option value="${booking.bookingPeople}">人數</option>
@@ -745,7 +749,7 @@ sleep(500).then(() => {
                 </tr>
             `
             }
-            update.addEventListener('change',()=>{  
+            update.addEventListener('change',()=>{
                 let check=0;
                 a=document.getElementById('srattime').value.substr(0, 2)
                 b=document.getElementById('endtime').value.substr(0, 2)
@@ -754,29 +758,35 @@ sleep(500).then(() => {
                     minTime:a,
                     maxTime:b
                 }
+                console.log(datas);
                 $.ajax({
                 url : 'http://localhost:8082/book/testseat',
-                type : 'post', 
+                type : 'POST',
                 data : datas,
                 success : function(response) {
                 check=(response-(document.getElementById('people').value))
-                console.log(check); 
+                console.log(check);
+                if(deadline!=null)
+               {
+               document.getElementById('post').setAttribute('style',"display:none")
+               }
                 if(check>0)
                     {
-                  //  console.log("還有位置");
-                    document.getElementById('post').removeAttribute('disabled')  
+             //       console.log("還有位置");
+                    document.getElementById('post').removeAttribute('disabled')
                     }
                     else
                     {
-                  //  console.log("沒有");
-                    document.getElementById('post').setAttribute('disabled',true)     
-                    } 
+               //     console.log("沒有");
+                    document.getElementById('post').setAttribute('disabled',true)
+                    }
                  },
-                 
+
             });
-           
+
         }
             )
+              update.addEventListener('change',checkredis() )
         $.datetimepicker.setLocale('zh');
         $('#date').datetimepicker({
            theme: '',              //theme: 'dark',
@@ -822,16 +832,16 @@ sleep(500).then(() => {
     let data={bookingNo:bookno,
               memNo:memno,
               bookingDate:a ,
-              bookingStartTime:b, 
+              bookingStartTime:b,
               bookingEndTime:c ,
-              bookingFinishDate:d, 
-              bookingTotalPrice:e, 
+              bookingFinishDate:d,
+              bookingTotalPrice:e,
               bookingPeople:people ,
               bookingPaymentStatus:0,
               bookingCheckStatus:0,
     }
 // redis改動
-           
+
                 redisdata={
                 date:document.getElementById('date').value,
                 minTime:document.getElementById('srattime').value.substr(0, 2),
@@ -840,17 +850,17 @@ sleep(500).then(() => {
                 }
     $.ajax({
                 url : 'http://localhost:8082/book/saveseat4time',
-                type : 'post', 
+                type : 'post',
                 data : redisdata,
                 success : function(response) {
                  },
-                 
+
             });
 
     $.ajax({
   url : 'http://localhost:8082/book/addbooking',
-  type : 'post', 
-  dataType : 'json', 
+  type : 'post',
+  dataType : 'json',
   contentType : 'application/json; charset=utf-8', // 要送到server的資料型態
   data : JSON.stringify(data),
   success : function(result) {
@@ -865,7 +875,42 @@ sleep(500).then(() => {
      function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
+function checkredis(){
+                let check=0;
+                a=document.getElementById('srattime').value.substr(0, 2)
+                b=document.getElementById('endtime').value.substr(0, 2)
+                datas={
+                    date:document.getElementById('date').value,
+                    minTime:a,
+                    maxTime:b
+                }
+                console.log(datas);
+                $.ajax({
+                url : 'http://localhost:8082/book/testseat',
+                type : 'POST',
+                data : datas,
+                success : function(response) {
+                check=(response-(document.getElementById('people').value))
+                console.log(check);
+                if(deadline!=null)
+               {
+               document.getElementById('post').setAttribute('style',"display:none")
+               }
+                if(check>0)
+                    {
+             //       console.log("還有位置");
+                    document.getElementById('post').removeAttribute('disabled')
+                    }
+                    else
+                    {
+               //     console.log("沒有");
+                    document.getElementById('post').setAttribute('disabled',true)
+                    }
+                 },
 
+            });
+
+        }
 
 
 

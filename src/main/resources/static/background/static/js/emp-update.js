@@ -202,7 +202,7 @@ function findAll(employees) {
      */
     $('#table-example').DataTable({
         paging: true,
-        pageLength: 3,
+        pageLength: 5,
         language: {
             paginate: {
                 previous: '<i class="fa fa-chevron-left"></i>',

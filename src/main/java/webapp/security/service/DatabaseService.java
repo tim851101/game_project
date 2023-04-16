@@ -33,7 +33,7 @@ public class DatabaseService {
             .employeeName("John")
             .employeePhone("2234567890")
             .employeeAddress("Not Gonna Tell You St.")
-            .employeeEmail("jhon@mail.com")
+            .employeeEmail("john@mail.com")
             .employeePassword(passwordEncoder.encode("222"))
             .roleNo(2)
             .employeeStatus(true)

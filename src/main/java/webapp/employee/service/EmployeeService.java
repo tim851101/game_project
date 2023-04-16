@@ -16,14 +16,11 @@ public interface EmployeeService {
     Boolean updateStatus(Integer id, Boolean status);
     List<EmployeeDTO> findAllDTO();
     EmpRoleDTO findJoinRoleById(Integer id);
-    Integer savePwdById(String pwd, Integer id);
+    Boolean savePwdByEmail(AuthRequestDTO dto);
     String findPwdById(Integer id);
     Boolean checkPwd(AuthRequestDTO dto);
     EmployeeDTO findDTOByEmail(String email);
-
-    void updateEmployeePartial(EmpLimitDTO empPartial);
-
+    Boolean updateEmployeePartial(EmpLimitDTO empPartial);
     Boolean emailDuplicateCheck(String email);
-
     Employee create(Employee employee);
 }

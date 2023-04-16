@@ -2,37 +2,27 @@ window.onload = () => {
     const dummyId = 6;
 
     // get all dom element we need
-    const employeeNo = $("#emp-update-no");
+    let employeeNo = null;
     const employeeName = $("#emp-update-name");
     const employeePhone = $("#emp-update-phone");
     const employeeAddress = $("#emp-update-addr");
     const employeeEmail = $("#emp-update-email");
-    const employeePassword = $("#emp-update-pwd");
-    const employeeRole = $('#emp-role');
 
     const token = sessionStorage.getItem('token');
-    const email = parseJwt(token).sub;
-    console.log(email);
+    const tokenGotEmail = parseJwt(token).sub;
     fetch(`/emp/ls-by-email?email=${parseJwt(token).sub}`)
-        .then(response => response.json()) // promise -> data
+        .then(response => response.json())
         .then(emp => {
-            employeeNo.val(emp.employeeNo);
+            employeeNo = emp.employeeNo;
             employeeName.val(emp.employeeName);
             employeeEmail.val(emp.employeeEmail);
-            employeePassword.val(emp.employeePassword);
             employeePhone.val(emp.employeePhone);
             employeeAddress.val(emp.employeeAddress);
-            employeeRole.val(emp.roleName);
         })
     /**
      * sanity check
      */
     $('#old-pwd').blur(e => {
-        console.log('target:' + e.target.value)
-        console.log({
-            "email": employeeEmail.val(),
-            "password": e.target.value + ""
-        })
         fetch(`/emp/pwd-check`, {
             method: 'POST',
             body: JSON.stringify({
@@ -102,20 +92,26 @@ window.onload = () => {
      * update password
      */
     $('#emp-update-btn').click(e => {
-        console.log($('#check-pwd').val())
+        if ($('#msg-check-pwd').text().length != 0){
+            return
+        }
+
         fetch('/emp/save-one-pwd', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                'id': dummyId,
+                'email': tokenGotEmail,
                 'password': $('#check-pwd').val()
             })
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            .then(response => response.json())
+            .then(ok => {
+                if (ok) {
+                    swal.fire('密碼更新成功');
+                } else {
+                    swal.fire('密碼更新失敗');
                 }
             })
     })
@@ -125,14 +121,12 @@ window.onload = () => {
      */
     $('#emp-update-submit').click(() => {
         const formData = {
-            'employeeNo': dummyId, // 型態一定要對到
+            'employeeNo': employeeNo,
             'employeeName': employeeName.val(),
             'employeePhone': employeePhone.val(),
             'employeeAddress': employeeAddress.val(),
             'employeeEmail': employeeEmail.val()
         }
-        console.log('fromData', formData);
-
         fetch('/emp/save-one-part', {
             method: 'POST',
             headers: {
@@ -140,25 +134,16 @@ window.onload = () => {
             },
             body: JSON.stringify(formData)
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            .then(response => response.json())
+            .then( ok => {
+                if (ok) {
+                    swal.fire('個人資料更新成功');
+                } else {
+                    swal.fire('個人資料更新失敗');
                 }
             })
-            .then(() => {
-            })
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+            .catch(() => {
+                swal.fire('個人資料更新失敗!');
             });
     })
-}
-
-function parseJwt (token) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
 }

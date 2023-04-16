@@ -87,4 +87,15 @@ public class RedisConfig {
         template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(List.class));
         return template;
     }
+
+    @Bean
+    public RedisTemplate<String, String> verifyCodeTemplate() {
+        RedisTemplate<String, String> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactorySeat());
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new StringRedisSerializer());
+        template.setHashValueSerializer(new StringRedisSerializer());
+        return template;
+    }
 }

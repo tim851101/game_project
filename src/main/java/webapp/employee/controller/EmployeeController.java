@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import webapp.employee.dto.EmpLimitDTO;
 import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
-import webapp.employee.dto.PwdIdDTO;
 import webapp.employee.service.EmployeeService;
 import webapp.security.dto.AuthRequestDTO;
 
@@ -59,13 +58,13 @@ public class EmployeeController {
     }
 
     @PostMapping("/save-one-pwd")
-    public Integer savePwdById(@RequestBody PwdIdDTO dto) {
-        return employeeService.savePwdById(dto.getPassword(), dto.getId());
+    public Boolean savePwdById(@RequestBody AuthRequestDTO dto) {
+        return employeeService.savePwdByEmail(dto);
     }
 
     @PostMapping("/save-one-part")
-    public void saveEmpPartial(@RequestBody EmpLimitDTO dto) {
-        employeeService.updateEmployeePartial(dto);
+    public Boolean saveEmpPartial(@RequestBody EmpLimitDTO dto) {
+        return employeeService.updateEmployeePartial(dto);
     }
 
     @PostMapping("/pwd-check")

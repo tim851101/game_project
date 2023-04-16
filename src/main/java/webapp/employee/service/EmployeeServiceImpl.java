@@ -88,12 +88,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Integer savePwdById(String pwd, Integer id) {
+    public Boolean savePwdByEmail(AuthRequestDTO dto) {
         try {
-            return employeeRepository.savePwdById(pwd, id);
+            employeeRepository
+                .savePwdByEmail(dto.getEmail(), passwordEncoder.encode(dto.getPassword()));
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
@@ -102,9 +104,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findPwdById(id);
     }
 
-    public void updateEmployeePartial(EmpLimitDTO partial) {
-        employeeRepository.updateEmployeePartial(partial.getEmployeeNo(), partial.getEmployeeName(),
-            partial.getEmployeePhone(), partial.getEmployeeAddress(), partial.getEmployeeEmail());
+    public Boolean updateEmployeePartial(EmpLimitDTO partial) {
+        try {
+            employeeRepository.updateEmployeePartial(
+                partial.getEmployeeNo(),
+                partial.getEmployeeName(),
+                partial.getEmployeePhone(),
+                partial.getEmployeeAddress(),
+                partial.getEmployeeEmail()
+            );
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     // login

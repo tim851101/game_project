@@ -18,6 +18,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
     Optional<Employee> findByEmployeeEmail(String email);
     Boolean existsByEmployeeNameAndEmployeePassword(String name, String password);
+    Boolean existsByEmployeeEmail(String email);
 
     @Transactional
     @Modifying
@@ -58,4 +59,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
     @Modifying
     @Query("UPDATE Employee e SET e.employeeName = :employeeName, e.employeePhone = :employeePhone, e.employeeAddress = :employeeAddress, e.employeeEmail = :employeeEmail WHERE e.employeeNo = :employeeNo")
     void updateEmployeePartial(@Param("employeeNo") Integer employeeNo, @Param("employeeName") String employeeName, @Param("employeePhone") String employeePhone, @Param("employeeAddress") String employeeAddress, @Param("employeeEmail") String employeeEmail);
+
+    @Query("SELECT e.employeePassword FROM Employee e WHERE e.employeeEmail = :email")
+    String findPwdByEmail(@Param("email") String email);
 }

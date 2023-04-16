@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 import webapp.employee.dto.EmpLimitDTO;
 import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
-import webapp.employee.dto.LoginDTO;
 import webapp.employee.dto.PwdIdDTO;
 import webapp.employee.service.EmployeeService;
+import webapp.security.dto.AuthRequestDTO;
 
 @RestController
 @RequestMapping("/emp")
@@ -23,9 +23,9 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @PostMapping("/login-check")
-    public Boolean loginCheck(@RequestBody LoginDTO loginDTO) {
-        return employeeService.loginCheck(loginDTO);
+    @GetMapping("/login-check")
+    public Boolean loginCheck(@RequestParam String email) {
+        return employeeService.emailDuplicateCheck(email);
     }
 
     @PostMapping("/save")
@@ -58,11 +58,6 @@ public class EmployeeController {
         return employeeService.findJoinRoleById(id);
     }
 
-    @GetMapping("/ls-one-pwd")
-    public String findPwdById(@RequestParam Integer id){
-        return employeeService.findPwdById(id);
-    }
-
     @PostMapping("/save-one-pwd")
     public Integer savePwdById(@RequestBody PwdIdDTO dto) {
         return employeeService.savePwdById(dto.getPassword(), dto.getId());
@@ -71,5 +66,15 @@ public class EmployeeController {
     @PostMapping("/save-one-part")
     public void saveEmpPartial(@RequestBody EmpLimitDTO dto) {
         employeeService.updateEmployeePartial(dto);
+    }
+
+    @PostMapping("/pwd-check")
+    public Boolean checkPwd(@RequestBody AuthRequestDTO dto) {
+        return employeeService.checkPwd(dto);
+    }
+
+    @GetMapping("/ls-by-email")
+    public EmployeeDTO findByEmail(@RequestParam String email){
+        return employeeService.findDTOByEmail(email);
     }
 }

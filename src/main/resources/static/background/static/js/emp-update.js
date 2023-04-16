@@ -27,7 +27,7 @@ $(document).ready(() => {
             for (let i = 0; i < nameList.length; i++) {
                 str += `<option value="${i + 1}">${nameList[i]}</option>`;
             }
-            $('#emp-role-select').html('<select id="emp-role" class="default-select form-control wide">' + str + '</select>');
+            $('#emp-role-select').html('<select id="emp-role" class="default-select form-control wide border-dark">' + str + '</select>');
         });
 
     // list all employee
@@ -56,13 +56,30 @@ $(document).ready(() => {
         msgEmpName.text('');
     });
     employeeEmail.blur(e => {
-        // if (employeeName.val().length == 0) {
         if (e.target.value.length == 0) {
             msgEmpEmail.text('Email 為必填');
             return;
         }
-        msgEmpEmail.text('');
+
+        // check if email is duplicated
+        fetch(`/emp/login-check?email=${e.target.value}`, {
+            method: 'GET',
+        })
+            .then(response => response.json())
+            .then(isDuplicate => {
+                console.log(isDuplicate);
+                if (isDuplicate) {
+                    msgEmpEmail.text('此帳號已被使用');
+                    return;
+                } else {
+                    msgEmpEmail.text('');
+                }
+            })
+            .catch(error => {
+                msgEmpEmail.text('');
+            });
     });
+
     employeePassword.blur(e => {
         // if (employeeName.val().length == 0) {
         if (e.target.value.length == 0) {
@@ -87,7 +104,7 @@ $(document).ready(() => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                'employeeNo': +employeeNo.val(), // 型態一定要對到
+                'employeeNo': +employeeNo.val() - 1000, // 型態一定要對到
                 'employeeName': employeeName.val(),
                 'employeePhone': employeePhone.val(),
                 'employeeAddress': employeeAddress.val(),
@@ -97,8 +114,14 @@ $(document).ready(() => {
                 'employeeStatus': $("#emp-onJob").prop('checked')
             })
         })
-            .then(response => {
-                response.text();
+            .then(response => response.json())
+            .then(ok => {
+                const behavior = employeeNo.val().length == 0 ? '新增' : '更新';
+                if (ok && msgEmpEmail.text() == '') {
+                    swal.fire(behavior + '成功')
+                } else {
+                    swal.fire(behavior + '失敗')
+                }
                 // reset input after submit
                 resetAllInput()
                 fetch(`/emp/ls-all`)
@@ -118,7 +141,7 @@ $(document).ready(() => {
         fetch(`/emp/ls-one?id=${empId}`)
             .then(response => response.json()) // promise -> data
             .then(emp => {
-                employeeNo.val(emp.employeeNo);
+                employeeNo.val(emp.employeeNo + 1000);
                 employeeName.val(emp.employeeName);
                 employeeEmail.val(emp.employeeEmail);
                 employeePassword.val(emp.employeePassword);
@@ -134,14 +157,11 @@ $(document).ready(() => {
     $('#emp-item-group').click(e => {
         if (e.target.id === 'btn-emp-add') {
             $('#emp-no-text').text('');
-            $("#emp-update-no").prop("disabled", true);
-            $('#emp-update-no').attr('placeholder', 'ID will be generate automatically');
+            $('#emp-update-no').attr('placeholder', 'ID generate automatically');
             employeeNo.val('');
             clearErrMsg();
 
         } else if (e.target.id === 'btn-emp-update') {
-            $('#emp-no-text').text('*');
-            $("#emp-update-no").prop("disabled", false);
             clearErrMsg();
         }
     })
@@ -191,5 +211,3 @@ function findAll(employees) {
         }
     });
 }
-
-

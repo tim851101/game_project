@@ -6,6 +6,7 @@ import webapp.employee.dto.EmpRoleDTO;
 import webapp.employee.dto.EmployeeDTO;
 import webapp.employee.dto.LoginDTO;
 import webapp.employee.pojo.Employee;
+import webapp.security.dto.AuthRequestDTO;
 
 public interface EmployeeService {
     Employee findByEmail(String email);
@@ -17,9 +18,12 @@ public interface EmployeeService {
     EmpRoleDTO findJoinRoleById(Integer id);
     Integer savePwdById(String pwd, Integer id);
     String findPwdById(Integer id);
+    Boolean checkPwd(AuthRequestDTO dto);
+    EmployeeDTO findDTOByEmail(String email);
 
     void updateEmployeePartial(EmpLimitDTO empPartial);
 
-    //login
+    Boolean emailDuplicateCheck(String email);
+
     Employee create(Employee employee);
 }

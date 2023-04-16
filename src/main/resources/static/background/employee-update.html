@@ -317,13 +317,13 @@
                                     <div class="row">
                                         <div class="col-xl-6">
                                             <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="emp-update-no">員工編號
-                                                    <span id="emp-no-text" class="text-danger">*</span>
+                                                <label class="col-lg-4 col-form-label" for="emp-update-no" disabled>員工編號
+                                                    <span id="emp-no-text" class="text-danger"></span>
                                                     <div id="msg-emp-no" class="error"></div>
                                                 </label>
                                                 <div class="col-lg-6">
                                                     <input type="number" class="form-control" id="emp-update-no"
-                                                           placeholder="Enter a username.." required=""/>
+                                                           placeholder="ID generate automatically.." disabled required=""/>
                                                     <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">
                                                         Please enter a username.
@@ -337,7 +337,7 @@
                                                     <div id="msg-emp-email" class="error"></div>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="emp-update-email"
+                                                    <input type="text" class="form-control border-dark" id="emp-update-email"
                                                            placeholder="Your valid email.." required/>
                                                     <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">
@@ -351,7 +351,7 @@
                                                     <div id="msg-emp-pwd" class="error"></div>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="password" class="form-control" id="emp-update-pwd"
+                                                    <input type="password" class="form-control border-dark" id="emp-update-pwd"
                                                            placeholder="Choose a safe one.." required/>
                                                     <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">
@@ -374,7 +374,7 @@
                                                     <div id="msg-emp-name" class="error"></div>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="emp-update-name"
+                                                    <input type="text" class="form-control border-dark" id="emp-update-name"
                                                            placeholder="Enter your name" required/>
                                                     <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">請輸入電話.</div>
@@ -385,7 +385,7 @@
                                                     <span class="text-danger"></span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="emp-update-phone"
+                                                    <input type="text" class="form-control border-dark" id="emp-update-phone"
                                                            placeholder="09xxxxxxxx" required=""/>
                                                     <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">請輸入電話.</div>
@@ -396,7 +396,7 @@
                                                     <span class="text-danger"></span>
                                                 </label>
                                                 <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="emp-update-addr"
+                                                    <input type="text" class="form-control border-dark" id="emp-update-addr"
                                                            placeholder="Your Address" required=""/>
                                                     <span style="opacity: 0; font-size: 0.1em">space</span>
                                                     <div class="invalid-feedback">請輸入地址</div>
@@ -457,11 +457,11 @@
                             <table id="table-example" class="table table-responsive-md">
                                 <thead>
                                 <tr>
-                                    <th><strong>ROLL NO.</strong></th>
-                                    <th><strong>NAME</strong></th>
-                                    <th><strong>Email</strong></th>
-                                    <th><strong>Phone</strong></th>
-                                    <th><strong>Status</strong></th>
+                                    <th><strong>員工編號</strong></th>
+                                    <th><strong>員工姓名</strong></th>
+                                    <th><strong>信箱地址</strong></th>
+                                    <th><strong>電話號碼</strong></th>
+                                    <th><strong>在職狀態</strong></th>
                                     <th><strong></strong></th>
                                 </tr>
                                 </thead>
@@ -526,7 +526,7 @@
 <script src="static/js/demo.js"></script>
 <script src="static/js/styleSwitcher.js"></script>
 
-<!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 </body>
 

@@ -1,33 +1,32 @@
 package webapp.member.service;
 
+import com.google.gson.reflect.TypeToken;
 import com.nimbusds.jose.shaded.gson.Gson;
 import com.nimbusds.jose.shaded.gson.JsonElement;
 import com.nimbusds.jose.shaded.gson.JsonObject;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import webapp.member.dto.LoginDTO;
+import webapp.member.dto.ChangePwdDTO;
 import webapp.member.dto.MemberDTO;
 import webapp.member.pojo.Members;
 import webapp.member.repository.MemberRepository;
 import webapp.others.service.EmailService;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
     final MemberRepository memberRepository;
-    // private PasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
 
     final ModelMapper modelMapper;
 
@@ -39,63 +38,104 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private MemberDTO memberDTO;
-    private LoginDTO loginDTO;
-
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private ChangePwdDTO changePwdDTO;
 
     @Autowired
     private Validator validator;
 
     @Autowired
+    private RedisTemplate redisTemplate;
+
+    @Autowired
     private EmailService emailServiceImpl;
 
     @Override
-    public String addMember(MemberDTO user) {
-        if (memberRepository.existsByMemEmail(user.getMemEmail())) {
-            System.out.println("電子信箱已存在，請勿重複註冊");
-            return "電子信箱已存在，請勿重複註冊";
+    public Members addMember(MemberDTO memberDTO) {
+        String memEmail = memberDTO.getMemEmail();
+        if (memberRepository.existsByMemEmail(memEmail)) {
+            return null;
         }
-        Set<ConstraintViolation<MemberDTO>> violations = validator.validate(user);
-
-        if (!violations.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<MemberDTO> constraintViolation : violations) {
-                sb.append(constraintViolation.getMessage() + "</br>");
-            }
-            throw new ConstraintViolationException(sb.toString(), violations);
+        try {
+            // 將MemberDTO轉換為Members物件
+            Members member = modelMapper.map(memberDTO, Members.class);
+            // 将密碼加密後存入資料庫
+            member.encryptPassword();
+            return memberRepository.save(member);
+        }catch (Exception e) {
+            e.printStackTrace();
         }
-        user.setMemPassword(passwordEncoder.encode(user.getMemPassword()));
-        memberRepository.save(modelMapper.map(user, Members.class));
-        Gson gson = new Gson();
-        String successMsg = gson.toJson("會員註冊成功");
-        System.out.println(successMsg);
-        return successMsg;
+        return null;
     }
 
-    // @Override
-    // public Boolean addMember(MemberDTO dto) {
-    // // 驗證輸入資料欄位
-    // try {
-    // memberRepository.save(modelMapper.map(dto,Members.class));
-    // return true;
-    // }catch (Exception e) {
-    // e.printStackTrace();
-    // return false;
-    // }
-    // }
-
     @Override
-    public String memberLogin(LoginDTO loginDTO) {
-        if (memberRepository.existsByMemEmail(loginDTO.getMemEmail())) {
-            Members member = memberRepository.findByMemEmail(loginDTO.getMemEmail());
-            if (passwordEncoder.matches(loginDTO.getMemPassword(), member.getMemPassword())) {
-                return "登入成功";
-            } else {
-                return "帳號密碼錯誤";
-            }
-        } else {
-            return "帳號密碼錯誤";
+    public Members updateMember(MemberDTO memberDTO) {
+//        System.out.println("start...1");
+//        if (memberDTO == null) {
+//            System.out.println("start...2");
+//            return null;
+//        }
+        Members member = memberRepository.findById(memberDTO.getMemNo()).orElse(null);
+        if (member == null) {
+            System.out.println("start...3");
+            return null;
         }
+
+        try {
+            System.out.println("start...4");
+            // Keep the existing password if no new password is provided
+            if (memberDTO.getMemPassword() == null) {
+                memberDTO.setMemPassword(member.getMemPassword());
+            }
+            System.out.println("start...5");
+            return memberRepository.save(modelMapper.map(memberDTO, Members.class));
+        } catch (Exception e) {
+            System.out.println("start...6");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // sessionId 跟 Member資料到redis
+    public Members toLogin(String email,String password){
+        Members member = memberRepository.findByMemEmail(email);
+        if (member != null) {
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (encoder.matches(password, member.getMemPassword())) {
+                return member;
+            }
+        }
+        return null;
+    }
+
+    // 會員登入成功將sessionId及會員資料存在Redis
+    public static final String HASH_KEY = "LOGIN_CHECK";
+
+    public static byte[] toUtf8ByteArray(String str) throws UnsupportedEncodingException {
+        return str.getBytes("UTF-8");
+    }
+    @Override
+    public void saveSessionToRedis(String sessionId, Members member) throws UnsupportedEncodingException {
+        String hashKey=HASH_KEY+":"+sessionId;
+
+        // 將sessionId與會員編號存到Redis
+        Map<String, Object> data = new HashMap<>();
+        data.put(hashKey, member.getMemNo());
+        redisTemplate.opsForValue().set(hashKey, data.toString());
+        // 設置過期時間
+        redisTemplate.expire(hashKey, 3, TimeUnit.DAYS);
+
+    }
+
+    // 透過seesionId取會員編號
+    @Override
+    public Integer getMemberNoFromSession(String sessionId) {
+        String hashKey = HASH_KEY + ":" + sessionId;
+        String sessionData = (String) redisTemplate.opsForValue().get(hashKey);
+        if (sessionData == null) {
+            return null;
+        }
+        Map<String, Object> data = new Gson().fromJson(sessionData, new TypeToken<Map<String, Object>>() {}.getType());
+        return (Integer) data.get(hashKey);
     }
 
     @Override
@@ -110,39 +150,19 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String saveMember(MemberDTO user) {
-        String oldEmail = memberRepository.findById(user.getMemNo()).get().getMemEmail();
-        // System.out.println(oldEmail instanceof String);
-        // System.out.println(user.getMemEmail() instanceof String);
-        if (!oldEmail.equals(user.getMemEmail()) && memberRepository.existsByMemEmail(user.getMemEmail())) {
-            System.out.println("電子信箱已存在，請勿重複註冊");
-            return "電子信箱已存在，請勿重複註冊";
+    public MemberDTO findByMemEmail(String memEmail) {
+        Members member = memberRepository.findByMemEmail(memEmail);
+        if (member == null) {
+            return null;
         }
-        // 使用原有密碼跳過驗證設定
-        Members member = memberRepository.findByMemEmail(user.getMemEmail());
-        user.setMemPassword(member.getMemPassword());
-        // 資料驗證錯誤訊息
-        Set<ConstraintViolation<MemberDTO>> violations = validator.validate(user);
-        if (!violations.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<MemberDTO> constraintViolation : violations) {
-                sb.append(constraintViolation.getMessage() + "</br>");
-            }
-            throw new ConstraintViolationException(sb.toString(), violations);
-        }
-        // 儲存修改資料
-        memberRepository.save(modelMapper.map(user, Members.class));
-        Gson gson = new Gson();
-        String successMsg = gson.toJson("會員資料修改成功");
-        System.out.println(successMsg);
-        return successMsg;
+        MemberDTO memberDTO = new MemberDTO();
+        modelMapper.map(member, memberDTO);
+        return memberDTO;
     }
 
     @Override
-    public MemberDTO findByMemEmail(String memEmail) {
-
-        return modelMapper.map(memberRepository.findByMemEmail(memEmail), MemberDTO.class);
-
+    public Members updatePwd(MemberDTO memberDTO){
+        return memberRepository.save(modelMapper.map(memberDTO, Members.class));
     }
 
     @Override
@@ -159,16 +179,14 @@ public class MemberServiceImpl implements MemberService {
         System.out.println(email);
         String msg;
 
-        MemberDTO user = new MemberDTO();
-        System.out.println();
         // 會員存在產生臨時密碼
         if (memberRepository.existsByMemEmail(email)) {
             Members member = memberRepository.findByMemEmail(email);
             System.out.println(member);
-            BeanUtils.copyProperties(member, user);
             String newPassword = genAuthCode();
-            user.setMemPassword(passwordEncoder.encode(newPassword));
-            memberRepository.save(modelMapper.map(user, Members.class));
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            member.setMemPassword(encoder.encode(newPassword));
+            memberRepository.save(member);
             try {
                 msg = gson.toJson("臨時密碼已寄送");
                 emailServiceImpl.sendPassword(email, newPassword);
@@ -200,5 +218,4 @@ public class MemberServiceImpl implements MemberService {
         System.out.println(verifiyString);
         return verifiyString;
     }
-
 }

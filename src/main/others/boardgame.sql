@@ -7,13 +7,13 @@ USE boardgame;
 
 -- 新增MEMBERS表格
 DROP TABLE IF EXISTS MEMBERS;
-CREATE TABLE MEMBERS 
+CREATE TABLE MEMBERS
 (
     MEM_NO	       INT NOT NULL AUTO_INCREMENT ,
     MEM_NAME	   VARCHAR(10) NOT NULL,
     MEM_GENDER	   TINYINT NOT NULL,
     MEM_EMAIL	   VARCHAR(30) NOT NULL UNIQUE,
-    MEM_PASSWORD   CHAR(40) NOT NULL,
+    MEM_PASSWORD   CHAR(100) NOT NULL,
     MEM_PHONE	   VARCHAR(10) NOT NULL,
     MEM_ADDRESS	   VARCHAR(100) NOT NULL,
     MEM_BIRTHDAY   DATE,
@@ -25,20 +25,20 @@ CREATE TABLE MEMBERS
 );
 -- 新增MEMBERS資料
 INSERT INTO MEMBERS VALUES
-('1', '張三', '1', 'zhangsan@gmail.com', sha1('123456'), '0912345678', '台北市中山區南京東路', '1990/1/1', '500', '1', '0', '2023/3/15'),
-('2', '李四', '1', 'lisi@yahoo.com',  sha1('654321'), '0912345679', '台北市大安區信義路', '1995/3/20', '1000', '1', '1', '2023/3/11'),
-('3', '王五', '1', 'wangwu@hotmail.com',  sha1('password123'), '0912345680', '台北市中正區羅斯福路', '1992/12/18', '200', '1', '2', '2023/3/12'),
-('4', '陳美麗', '0', 'meilichen@yahoo.com.tw',  sha1('abcd1234'), '0912345681', '新北市板橋區中山路', '1993/7/2', '800', '1', '0', '2023/3/13'),
-('5', '林志玲', '0', 'linzhiling@gmail.com',  sha1('pass1234'), '0912345682', '台北市士林區中正路', '1974/11/29', '1200', '1', '0', '2023/3/14'),
-('6', '張曼玉', '0', 'zhangmanyu@hotmail.com', sha1('qwerasdf'), '0912345683', '台北市大同區民權西路', '1963/10/23', '300', '1', '1', '2023/3/10'),
-('7', '張麗珠', '0', 'misszhang@gmail.com',  sha1('qazwsx'), '0977888999', '新竹市東區中華路30號', '1999/7/7', '200', '0', '0', '2023/3/6'),
-('8', '陳偉銘', '1', 'mrchen@yahoo.com.tw',  sha1('asdfgh'), '0988777666', '高雄市鳳山區中山路80號', '1985/9/15', '1500', '1', '1', '2023/3/2'),
-('9', '林宣宣', '0', 'misslin@hotmail.com', sha1('zxcvbn'), '0966666777', '台南市北區成功路10號', '1992/2/28', '300', '0', '0', '2023/2/26'),
-('10', '吳柏毅', '1', 'mrwu@gmail.com',  sha1('qwerty'), '0933444555', '桃園市中壢區龍岡路50號', '1998/11/11', '100', '0', '3', '2023/2/22');
+('1', '張三', '1', 'zhangsan@gmail.com', '123456', '0912345678', '台北市中山區南京東路', '1990/1/1', '500', '1', '0', '2023/3/15'),
+('2', '李四', '1', 'lisi@yahoo.com',  '654321', '0912345679', '台北市大安區信義路', '1995/3/20', '1000', '1', '1', '2023/3/11'),
+('3', '王五', '1', 'wangwu@hotmail.com',  'password123', '0912345680', '台北市中正區羅斯福路', '1992/12/18', '200', '1', '2', '2023/3/12'),
+('4', '陳美麗', '0', 'meilichen@yahoo.com.tw',  'abcd1234', '0912345681', '新北市板橋區中山路', '1993/7/2', '800', '1', '0', '2023/3/13'),
+('5', '林志玲', '0', 'linzhiling@gmail.com',  'pass1234', '0912345682', '台北市士林區中正路', '1974/11/29', '1200', '1', '0', '2023/3/14'),
+('6', '張曼玉', '0', 'zhangmanyu@hotmail.com', 'qwerasdf', '0912345683', '台北市大同區民權西路', '1963/10/23', '300', '1', '1', '2023/3/10'),
+('7', '張麗珠', '0', 'misszhang@gmail.com',  'qazwsx', '0977888999', '新竹市東區中華路30號', '1999/7/7', '200', '0', '0', '2023/3/6'),
+('8', '陳偉銘', '1', 'mrchen@yahoo.com.tw',  'asdfgh', '0988777666', '高雄市鳳山區中山路80號', '1985/9/15', '1500', '1', '1', '2023/3/2'),
+('9', '林宣宣', '0', 'misslin@hotmail.com', 'zxcvbn', '0966666777', '台南市北區成功路10號', '1992/2/28', '300', '0', '0', '2023/2/26'),
+('10', '吳柏毅', '1', 'mrwu@gmail.com',  'qwerty', '0933444555', '桃園市中壢區龍岡路50號', '1998/11/11', '100', '0', '3', '2023/2/22');
 
 -- 新增MEM_PERMISSION表格
 DROP TABLE IF EXISTS MEM_PERMISSION;
-CREATE TABLE MEM_PERMISSION 
+CREATE TABLE MEM_PERMISSION
 (
 	PERMISSIONS_NO INT NOT NULL AUTO_INCREMENT,
     DURATION INT,
@@ -103,7 +103,7 @@ INSERT INTO PRODUCT_PIC VALUES
 
 -- 新增PRODUCT_DISCUSS表格
 DROP TABLE IF EXISTS PRODUCT_DISCUSS;
-CREATE TABLE PRODUCT_DISCUSS 
+CREATE TABLE PRODUCT_DISCUSS
 (
     DIS_NO			INT NOT NULL AUTO_INCREMENT,
     PD_NO			INT NOT NULL,
@@ -121,14 +121,14 @@ INSERT INTO PRODUCT_DISCUSS VALUES
 
 -- 新增COLLECTION表格
 DROP TABLE IF EXISTS COLLECTION;
-CREATE TABLE COLLECTION 
+CREATE TABLE COLLECTION
 (
     MEM_NO	INT NOT NULL,
     PD_NO	INT NOT NULL,
     CONSTRAINT PK_MEM_COLLECTION PRIMARY KEY(MEM_NO,PD_NO)
 );
 -- 新增COLLECTION資料
-INSERT INTO COLLECTION VALUES 
+INSERT INTO COLLECTION VALUES
 ('1', '2'),
 ('1', '6'),
 ('1', '1'),
@@ -171,7 +171,7 @@ INSERT INTO ORDERS VALUES
 
 -- 新增ORDERS表格
 DROP TABLE IF EXISTS ORDERLIST;
-CREATE TABLE ORDERLIST 
+CREATE TABLE ORDERLIST
 (
     ORD_NO	INT NOT NULL,
     PD_NO	INT NOT NULL,
@@ -199,7 +199,7 @@ INSERT INTO ORDERLIST(ORD_NO, PD_NO, QTY, PRICE ) VALUES
 
 -- 新增PRODUCT_AD表格
 DROP TABLE IF EXISTS PRODUCT_AD;
-CREATE TABLE PRODUCT_AD 
+CREATE TABLE PRODUCT_AD
 (
     AD_NO	INT NOT NULL AUTO_INCREMENT,
     PD_NO	INT,
@@ -207,7 +207,7 @@ CREATE TABLE PRODUCT_AD
     PRIMARY KEY (AD_NO)
 );
 -- 新增PRODUCT_AD資料
-INSERT INTO PRODUCT_AD VALUES 
+INSERT INTO PRODUCT_AD VALUES
 (1, 2, '2023/3/10'),
 (2, 3, '2023/3/10'),
 (3, 5, '2023/3/10'),
@@ -253,35 +253,34 @@ INSERT INTO OPENNING_TIME VALUES
 DROP TABLE IF EXISTS EVENT;
 CREATE TABLE EVENT
 (
-    EVENT_NO		INT NOT NULL AUTO_INCREMENT,
-    EVENT_NAME		VARCHAR(15) NOT NULL,
-    EVENT_DISC		TEXT,
-    EVENT_DATE		DATE,
-    EVENT_STARTTIME	TIME,
-    EVENT_ENDTIME	TIME,
-    EVENT_LIMIT		INT,
-    SIGNUP_NUM		INT,
-    EVENT_FEE		INT UNSIGNED,
+    EVENT_NO	INT PRIMARY KEY AUTO_INCREMENT,
+    EVENT_NAME	VARCHAR(15) NOT NULL,
+    EVENT_DISC	TEXT,
+    EVENT_DATE	DATE,
+    EVENT_STARTTIME	TIMESTAMP,
+    EVENT_ENDTIME	TIMESTAMP,
+    EVENT_LIMIT	INT,
+    SIGNUP_NUM	INT,
+    EVENT_FEE	INT UNSIGNED,
     EVENT_WINNER1	VARCHAR(10),
     EVENT_WINNER2	VARCHAR(10),
     EVENT_WINNER3	VARCHAR(10),
     EVENT_STATUS	TINYINT,
-    SIGNUP_START_TIME	DATETIME,
-    SIGNUP_DEADLINE	 	DATETIME,
-    EVENT_PIC	        LONGBLOB,
-	PRIMARY KEY(EVENT_NO)
+    SIGNUP_START_TIME	TIMESTAMP,
+    SIGNUP_DEADLINE	 TIMESTAMP,
+    EVENT_PIC	         LONGBLOB
 );
--- 新增EVENT資料
+
+
 -- 第一筆資料(已完賽)
--- 第一筆資料(已完賽)
-INSERT INTO EVENT (  	
+INSERT INTO boardgame.event (
  EVENT_NAME,
- EVENT_DISC,	
- EVENT_DATE,	
- EVENT_STARTTIME,	
- EVENT_ENDTIME,	
- EVENT_LIMIT,	
- SIGNUP_NUM,	
+ EVENT_DISC,
+ EVENT_DATE,
+ EVENT_STARTTIME,
+ EVENT_ENDTIME,
+ EVENT_LIMIT,
+ SIGNUP_NUM,
  EVENT_FEE,
  EVENT_WINNER1	,
  EVENT_WINNER2	,
@@ -291,29 +290,30 @@ INSERT INTO EVENT (
  SIGNUP_DEADLINE
 )
 VALUES (
-'風聲', 
+'風聲',
 '在《風聲》桌遊中，將分為兩大對立的陣營（潛伏戰線、軍情處），大部分玩家都會扮演忠於某個陣營的的間諜角色，其餘玩家則會扮演無辜捲入間諜生活的路人。（打醬油）
 
 遊戲開始時，每位玩家手上都會分發一定數量的手牌，這些手牌就是你手裡掌握的情報。每位玩家每回合開始時，會補充兩張手牌，然後就要想辦法將有利於自身陣營的情報傳遞到同伴那裡。其他扮演對立陣營的間諜玩家，則會想方設法阻撓你那些情報的傳遞。
 
 整個遊戲過程中，會穿插著許許多多虛假的情報，情報收與不收，是否能捕捉其他玩家不經意間透露的"蛛絲馬跡"，憑藉自己的推理和判斷，步步為營，忍辱負重，找出暗藏的敵人與同伴，將是對玩家判斷能力與邏輯推理能力最為關鍵的考驗。作為間諜的您，如果收集到的假情報超過一定數量時，將會被宣判收取假情報太多而死亡。反之，如果您收集到一定數量屬於您自己陣營的情報時，那您同您的盟友們就可以獲得遊戲的勝利啦！
 
-是“神一樣的對手，還是豬一樣的隊友？”趕快來體驗一下《風聲》桌遊帶給您的無限樂趣吧！！', 
-'2023-04-05', 
-'08:00:00', 
-'12:00:00', 
+是“神一樣的對手，還是豬一樣的隊友？”趕快來體驗一下《風聲》桌遊帶給您的無限樂趣吧！！',
+'2023-04-05',
+'2023-04-05 11:00:00',
+'2023-04-05 21:30:00',
 '60',
-'55', 
+'55',
 '400',
 '馬櫻韭',
 '蔡瑛雯',
 '陳衰貶',
 '1',
-'2023-03-01 00:00:00',
-'2023-03-15 00:00:00'
+'2023-03-15 09:30:00',
+'2023-03-20 23:30:00'
 );
+
 -- 第二筆資料(未完賽)
-INSERT INTO EVENT (  	
+INSERT INTO boardgame.event (
  EVENT_NAME	,
  EVENT_DISC	,
  EVENT_DATE	,
@@ -323,26 +323,62 @@ INSERT INTO EVENT (
  SIGNUP_NUM	,
  EVENT_FEE	,
  EVENT_STATUS	,
- SIGNUP_START_TIME,	
- SIGNUP_DEADLINE	
+ SIGNUP_START_TIME,
+ SIGNUP_DEADLINE
 )
 VALUES (
-'獵巫鎮', 
+'獵巫鎮',
 '在1692年馬賽諸塞州的塞林鎮，一群少女同時患上了怪病。為了追查病原，人們逮捕了當地幾名婦女，並聲稱她們是女巫。頓時，鎮子上籠罩上了可怕的陰影，人人自危。誰都不知道下一秒自己是否被指控。你會被指控嗎？你會自首嗎？還是要把你所有親友都送上斷頭臺，來換取自己生存的機會？
 
 獵巫鎮，是一款以真實歷史事件為主題發想而成的陣營遊戲。塞林鎮的女巫審判狂潮是從幾名女子開始的，這幾名女子同時得了怪病，於是教會將其認定為惡魔附身。很快，憤怒的人們將此歸結於是女巫的詛咒，並將無辜的人推向審判。許多婦女被逼無奈下，承認了自己參與巫術，但等待她們的不是救贖，而是死亡。在1692年的狂潮中，共有150人被指控有女巫罪，其中19人被處以絞刑，1人被活活壓死，另外有至少5人在監獄中被虐待致死。遊戲中所使用的角色也根據該事件進行改編。
 
-在遊戲過程中，玩家需要使用手中的卡牌，努力說服其他玩家自己是無辜的村民，並幫助自己的同夥贏得勝利。持有女巫身分的玩家，如果殺死了所有村民，則女巫一方立刻獲勝。如果玩家在遊戲過程中從未獲得過女巫身分卡，則是無辜村民，他們要努力揭開女巫的身分。遊戲中傳染事件會令恐懼蔓延，女巫會把其他人變成女巫。', 
-'2023-04-10', 
-'10:00:00', 
-'14:00:00', 
+在遊戲過程中，玩家需要使用手中的卡牌，努力說服其他玩家自己是無辜的村民，並幫助自己的同夥贏得勝利。持有女巫身分的玩家，如果殺死了所有村民，則女巫一方立刻獲勝。如果玩家在遊戲過程中從未獲得過女巫身分卡，則是無辜村民，他們要努力揭開女巫的身分。遊戲中傳染事件會令恐懼蔓延，女巫會把其他人變成女巫。',
+'2023-04-10',
+'2023-04-10 14:30:00',
+'2023-04-10 17:30:00',
 '60',
-'10', 
+'0',
 '300',
 '0',
-'2023-03-20 00:00:00',
-'2023-03-31 00:00:00'
+'2023-03-30 06:00:00',
+'2023-04-06 22:30:00'
 );
+
+-- 第三筆資料(已取消)
+INSERT INTO boardgame.event (
+ EVENT_NAME	,
+ EVENT_DISC	,
+ EVENT_DATE	,
+ EVENT_STARTTIME,
+ EVENT_ENDTIME	,
+ EVENT_LIMIT	,
+ SIGNUP_NUM	,
+ EVENT_FEE	,
+ EVENT_STATUS	,
+ SIGNUP_START_TIME,
+ SIGNUP_DEADLINE
+)
+VALUES (
+'卡坦島',
+'發現新世界！
+
+你們是首批登陸卡坦島的勇敢拓荒者，迅速創立了初期的村莊和道路，透過收集島上豐富的資源來擴展聚落，進而興建城市，並且藉由交易各取所需，解決資源分佈不均的問題。
+然而這兒畢竟是個小島，土地與資源都很有限；當各自的勢力越來越強大，衝突也隨之而來。你是否能從群雄中脫穎而出，稱霸卡坦島？
+
+自1995年榮獲德國年度遊戲冠軍以來，卡坦島讓全球數百萬玩家為之瘋狂，流連於這款充滿益智與趣味的遊戲中。
+
+想進入桌上遊戲世界，你一定不能錯過卡坦島！',
+'2023-04-01',
+'2023-04-10 09:30:00',
+'2023-04-10 16:30:00',
+'0',
+'0',
+'300',
+'2',
+'2023-03-20 09:00:00',
+'2023-03-15 23:30:00'
+);
+
 
 
 -- 新增EMPLOYEE表格
@@ -353,15 +389,15 @@ CREATE TABLE EMPLOYEE (
     EMPLOYEE_PHONE 		VARCHAR(10),
     EMPLOYEE_ADDRESS 	VARCHAR(100),
     EMPLOYEE_EMAIL 		VARCHAR(30) NOT NULL,
-    EMPLOYEE_PASSWORD 	VARCHAR(40) NOT NULL,
+    EMPLOYEE_PASSWORD 	VARCHAR(100) NOT NULL,
     ROLE_NO 			INT,
     EMPLOYEE_STATUS 	TINYINT,
     PRIMARY KEY (EMPLOYEE_NO)
 );
 -- 新增EMPLOYEE資料
 INSERT INTO EMPLOYEE (EMPLOYEE_NAME, EMPLOYEE_PHONE, EMPLOYEE_ADDRESS, EMPLOYEE_EMAIL, EMPLOYEE_PASSWORD, ROLE_NO, EMPLOYEE_STATUS)
-VALUES 
-('李四', '0987654321', '台灣台北市大安區', 'lisi@example.com', 'mypassword', 1, 1),  
+VALUES
+('李四', '0987654321', '台灣台北市大安區', 'lisi@example.com', 'mypassword', 1, 1),
 ('王五', '0912345678', '台灣台中市南區', 'wangwu@example.com', 'mypassword', 2, 1),
 ('陳六', '0922333444', '台灣高雄市三民區', 'chenliu@example.com', 'mypassword', 2, 0),
 ('林七', '0933123456', '台灣新北市板橋區', 'linqi@example.com', 'mypassword', 3, 1),
@@ -383,7 +419,7 @@ DROP TABLE IF EXISTS ROLE_PERMISSIONS;
 CREATE TABLE ROLE_PERMISSIONS (
     ROLE_PERMS_NO 	INT NOT NULL AUTO_INCREMENT,
     ROLE_NO 		INT NOT NULL,
-    PERMS_NO 		INT NOT NULL, -- not sure yet 
+    PERMS_NO 		INT NOT NULL, -- not sure yet
     PRIMARY KEY (ROLE_PERMS_NO)
 );
 -- 新增ROLE_PERMISSIONS資料
@@ -400,7 +436,7 @@ CREATE TABLE PERMISSIONS (
 
 -- 新增SERVICE表格
 DROP TABLE IF EXISTS SERVICE;
-CREATE TABLE SERVICE 
+CREATE TABLE SERVICE
 (
     SERVICE_NO		INT NOT NULL AUTO_INCREMENT ,
     EMPLOYEE_NO		INT,
@@ -411,7 +447,7 @@ CREATE TABLE SERVICE
     PRIMARY KEY(SERVICE_NO)
 );
 
-INSERT INTO SERVICE (SERVICE_NO, EMPLOYEE_NO, MEM_NO, SERVICE_MSG, SERVICE_TIME, DIALOGUE_DIRECTION) VALUES 
+INSERT INTO SERVICE (SERVICE_NO, EMPLOYEE_NO, MEM_NO, SERVICE_MSG, SERVICE_TIME, DIALOGUE_DIRECTION) VALUES
 ('1', '1', '1', '請問有哪些桌遊是適合小孩子玩的呢？', '2023/3/10 10:30:00', '1'),
 ('2', '1', '1', '我們店裡有提供雙胞胎及矮人礦坑都很適合小孩子玩。', '2023/3/10 10:33:00', '0'),
 ('3', '1', '2', '請問您們店裡有哪些新款桌遊可以推薦嗎？', '2023/3/10 11:45:00', '1'),
@@ -427,7 +463,7 @@ INSERT INTO SERVICE (SERVICE_NO, EMPLOYEE_NO, MEM_NO, SERVICE_MSG, SERVICE_TIME,
 
 -- 新增NEWS表格
 DROP TABLE IF EXISTS NEWS;
-CREATE TABLE NEWS 
+CREATE TABLE NEWS
 (
     NEWS_NO	  	INT NOT NULL AUTO_INCREMENT ,
     NEWS_TITLE	VARCHAR(25),
@@ -436,7 +472,7 @@ CREATE TABLE NEWS
     PRIMARY KEY(NEWS_NO)
 );
 -- 新增NEWS資料
-INSERT INTO NEWS (NEWS_TITLE, NEWS_DESC, NEWS_STATUS) VALUES 
+INSERT INTO NEWS (NEWS_TITLE, NEWS_DESC, NEWS_STATUS) VALUES
 ('新增咖啡廳桌遊', '我們最新上架了一款咖啡廳主題桌遊，歡迎來店體驗！', '1'),
 ('五月份活動預告', '五月份將會舉辦慶祝端午節的活動，敬請期待！', '0'),
 ('網站更新公告', '桌遊店的官方網站進行了一次更新，新增了線上訂購的功能。', '1'),
@@ -454,7 +490,7 @@ CREATE TABLE SYSTEM_PARAM(
 
 -- 新增BOOKING表格
 DROP TABLE IF EXISTS BOOKING;
-CREATE TABLE BOOKING 
+CREATE TABLE BOOKING
 (
     BOOKING_NO		INT NOT NULL AUTO_INCREMENT,
     MEM_NO			INT,
@@ -469,32 +505,38 @@ CREATE TABLE BOOKING
     PRIMARY KEY(BOOKING_NO)
 );
 -- 新增BOOKING資料
-INSERT INTO BOOKING (MEM_NO, BOOKING_DATE, BOOKING_START_TIME, BOOKING_END_TIME, BOOKING_PAYMENT_STATUS, BOOKING_CHECK_STATUS, BOOKING_FINISH_DATE, BOOKING_TOTAL_PRICE, BOOKING_PEOPLE) VALUES 
+INSERT INTO BOOKING (MEM_NO, BOOKING_DATE, BOOKING_START_TIME, BOOKING_END_TIME, BOOKING_PAYMENT_STATUS, BOOKING_CHECK_STATUS, BOOKING_FINISH_DATE, BOOKING_TOTAL_PRICE, BOOKING_PEOPLE) VALUES
 ('1', '2023-03-10', '8:00:00', '12:00:00', '1', '0', '2023-03-11 12:00:00', '800', '4'),
 ('2', '2023-03-10', '8:00:00', '12:00:00', '1', '0', '2023-03-11 12:00:00', '800', '4'),
 ('3', '2023-03-15', '8:00:00', '19:00:00', '1', '1', '2023-03-11 12:00:00', '400', '2');
 
 -- 新增EVENT_ORD表格
 DROP TABLE IF EXISTS EVENT_ORD;
-CREATE TABLE EVENT_ORD 
+CREATE TABLE EVENT_ORD
 (
     EVENT_NO	INT NOT NULL,
     MEM_NO		INT NOT NULL,
     MEM_CHECKED	TINYINT DEFAULT 0,
+    MEM_NAME    VARCHAR(10) NOT NULL,
+    MEM_ADDRESS VARCHAR(100) NOT NULL,
+    MEM_EMAIL   VARCHAR(30)  NOT NULL,
+    MEM_PHONE  VARCHAR(10)  NOT NULL,
+    EVENT_STATUS TINYINT,
     CONSTRAINT PK_MEM_EVENT_ORD PRIMARY KEY(EVENT_NO, MEM_NO)
 );
 -- 新增EVENT_ORD資料
-INSERT INTO EVENT_ORD (EVENT_NO, MEM_NO, MEM_CHECKED) VALUES ('1', '1', '0');
-INSERT INTO EVENT_ORD (EVENT_NO, MEM_NO, MEM_CHECKED) VALUES ('1', '3', '1');
-INSERT INTO EVENT_ORD (EVENT_NO, MEM_NO, MEM_CHECKED) VALUES ('2', '6', '1');
-INSERT INTO EVENT_ORD (EVENT_NO, MEM_NO, MEM_CHECKED) VALUES ('2', '7', '1');
-INSERT INTO EVENT_ORD (EVENT_NO, MEM_NO, MEM_CHECKED) VALUES ('3', '2', '1');
-INSERT INTO EVENT_ORD (EVENT_NO, MEM_NO, MEM_CHECKED) VALUES ('3', '5', '1');
-INSERT INTO EVENT_ORD (EVENT_NO, MEM_NO, MEM_CHECKED) VALUES ('3', '8', '1');
+INSERT INTO EVENT_ORD (EVENT_NO, MEM_NO, MEM_CHECKED, MEM_NAME, MEM_ADDRESS, MEM_EMAIL, MEM_PHONE, EVENT_STATUS) VALUES
+('1', '1', '0', '張三', '台北市中山區南京東路', 'zhangsan@gmail.com', '0912345678', '0'),
+('1', '3', '1', '王五', '台北市中正區羅斯福路', 'wangwu@hotmail.com', '0912345680', '1'),
+('2', '6', '1', '張曼玉', '台北市大同區民權西路', 'zhangmanyu@hotmail.com', '0912345683', '1'),
+('2', '7', '0', '張麗珠', '新竹市東區中華路30號', 'misszhang@gmail.com', '0977888999', '2'),
+('3', '2', '1', '李四', '台北市大安區信義路', 'lisi@yahoo.com', '0912345679', '1'),
+('3', '5', '1', '林志玲', '台北市士林區中正路', 'linzhiling@gmail.com', '0912345682', '1'),
+('3', '8', '1', '陳偉銘', '高雄市鳳山區中山路80號', 'mrchen@yahoo.com.tw', '0988777666', '1');
 
 -- 新增NOTIFICATION表格
 DROP TABLE IF EXISTS NOTIFICATION;
-CREATE TABLE NOTIFICATION 
+CREATE TABLE NOTIFICATION
 (
     NOTICE_NO	INT NOT NULL AUTO_INCREMENT,
     MEM_NO		INT,
@@ -513,7 +555,7 @@ INSERT INTO NOTIFICATION (MEM_NO, NOTICE_DESC, NOTICE_TIME, NOTICE_READ) VALUES
 ('7', '親愛的參賽者您好..........', '2023-05-06', '1');
 
 -- CONSTRAINT FK
--- 商品圖片 
+-- 商品圖片
 -- ALTER TABLE PRODUCT_PIC
 -- ADD CONSTRAINT FK_PD_NO FOREIGN KEY (PD_NO) REFERENCES PRODUCT(PD_NO);
 -- -- 商品討論區

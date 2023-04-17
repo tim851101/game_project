@@ -1,5 +1,6 @@
 package webapp.member.service;
 
+import com.google.gson.Gson;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import webapp.member.pojo.Members;
 import webapp.member.repository.WishlistRepository;
 import webapp.product.pojo.Product;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,9 +49,9 @@ public class WishlistServiceImpl implements WishlistService{
         collection.setPdNo(pdNo);
         if(!wishlistRepository.existsByPdNoAndMemNo(pdNo,memNo)){
             wishlistRepository.save(modelMapper.map(collection, Collection.class));
-            return "收藏成功";
+            return new Gson().toJson(Collections.singletonMap("message", "商品收藏成功"));
         }else {
-            return "商品已收藏";
+            return new Gson().toJson(Collections.singletonMap("message", "商品已收藏"));
         }
     }
 
@@ -61,9 +63,9 @@ public class WishlistServiceImpl implements WishlistService{
 //        wishlistRepository.delete(collection);
         if (wishlistRepository.findByPdNoAndMemNo(pdNo,memNo)!=null){
             wishlistRepository.delete(modelMapper.map(collection, Collection.class));
-            return "取消收藏成功";
+            return new Gson().toJson(Collections.singletonMap("message", "取消收藏成功"));
         }
-        return "";
+        return new Gson().toJson(Collections.singletonMap("message", "取消收藏失敗"));
     }
 
     @Override

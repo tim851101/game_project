@@ -65,7 +65,7 @@ public class ProductPicController {
         }catch (Exception e){
             byte[] buffer = new byte[4096];
             int bytesRead = -1;
-            String imgFile ="C:\\Users\\Tibame_T14\\Desktop\\test\\CGA106G1\\src\\main\\resources\\static\\foreground\\static\\image\\none.jpg";
+            String imgFile ="C:\\Users\\a81194\\Desktop\\TibameProject\\CGA106G1\\src\\main\\resources\\static\\foreground\\static\\image\\none.jpg";
             InputStream inputStream=new FileInputStream(imgFile);;
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             while ((bytesRead = inputStream.read(buffer)) != -1) {

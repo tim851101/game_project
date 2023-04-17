@@ -4,6 +4,7 @@ import core.service.BasicService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import webapp.event.dto.EventDTO;
 import webapp.event.pojo.Event;
@@ -92,22 +93,7 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
 
     }
 
-    @Override
-    public List<EventNews> saveDailyNewsToRedis() {
-        List<Event> eventList = eventRepository.findEventNewByStatus();
-        // Event -> EventNews
-        List<EventNews> eventNewsList = eventList.stream()
-                .map(event -> modelMapper.map(event, EventNews.class))
-                .collect(Collectors.toList());
-        System.out.println(eventNewsList.size());
-        // 存到Redis
-        for (EventNews eventNews : eventNewsList) {
-            System.out.println(eventNewsList);
-            String key = HASH_KEY + ":" + eventNews.getEventNo();
-            redisTemplate.opsForValue().set(key, eventNews);
-        }
-        return eventNewsList;
-    }
+
 
     @Override
     public EventNews randomSelectOneEvent() {

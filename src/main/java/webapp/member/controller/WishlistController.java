@@ -24,7 +24,7 @@ public class WishlistController {
 
     @GetMapping("/myList")
     @ResponseBody
-    public List<WishlistDTO> findListByMemNo(Integer memNo){
+    public List<WishlistDTO> findListByMemNo(@RequestParam Integer memNo){
         System.out.println("start....");
         System.out.println(wishlistServiceImpl.findWishlistByMemNo(memNo));
         return wishlistServiceImpl.findWishlistByMemNo(memNo);
@@ -32,8 +32,10 @@ public class WishlistController {
 
     @PostMapping("/delete-one")
     @ResponseBody
-    public String deleteWishlistByPdNo(@RequestParam Integer memNo, @RequestParam Integer pdNo){
-        return wishlistServiceImpl.deleteByMemNoAndPdNo(memNo,pdNo);
+    public String deleteWishlistByPdNo(@RequestBody CollectionDTO collectionDTO){
+        System.out.println(collectionDTO.getMemNo());
+        System.out.println(collectionDTO.getPdNo());
+        return wishlistServiceImpl.deleteByMemNoAndPdNo(collectionDTO.getMemNo(),collectionDTO.getPdNo());
     }
 
     @PostMapping("/add-one")

@@ -72,12 +72,13 @@
                                 <p class="desc-content">Please login using account detail bellow.</p>
                                 <p id="msg" style="color: red;"></p>
                             </div>
-                            <form id="login-form">
+                            <div id="login-form">
+                            <form  @submit.prevent="login">
                                 <div class="single-input-item mb-3">
-                                    <input id="loginEmail" type="email" placeholder="Enter your Email">
+                                    <input v-model="email" id="loginEmail" type="email" placeholder="Enter your Email">
                                 </div>
                                 <div class="single-input-item mb-3">
-                                    <input id="loginPassword" type="password" placeholder="Enter your Password">
+                                    <input v-model="password" id="loginPassword" type="password" placeholder="Enter your Password">
                                 </div>
                                 <div class="single-input-item mb-3">
                                     <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
@@ -90,7 +91,7 @@
                                     </div>
                                 </div>
                                 <div class="single-input-item mb-3" style="display: inline;">
-                                    <button id="mem-login" class="btn obrien-button-2 primary-color">Login</button>
+                                    <button id="mem-login" @click="login" class="btn obrien-button-2 primary-color" type="submit" >Login</button>
                                     
                                     <a
                                     class="btn btn-lg btn-google"
@@ -109,7 +110,8 @@
                                                 >
                                                 
                                             </div>
-                                        </form>
+                            </form>
+                            </div>
                                         <div class="single-input-item" style="margin-top: 10px;">
                                             <a href="register.html">Creat Account</a>
                                             <button id="getPassword" class="forget-pwd mb-3" style="position: relative;left: 30%;">Forget Password?</button>
@@ -162,4 +164,5 @@
 <script src="/foreground/static/js/memLogin.js"></script>
 <script src="/foreground/static/js/forgetPassword.js"></script>
 <script src="/foreground/static/js/location.js"></script>
+<script src="/foreground/static/js/headerUse.js"></script>
 </html>

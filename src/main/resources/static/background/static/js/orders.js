@@ -101,7 +101,7 @@ function render() {
             table.innerHTML = data;
 
             $('#table-1').DataTable({
-                pageLength: 5,
+                pageLength: 10,
                 lengthMenu: [5,10,15,20],
                 language: {
                     emptyTable: "無資料",
@@ -158,12 +158,12 @@ function but2(ordNo, payStatus) {
         )
         .then(data => {
             console.log(data);
+            render();
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
         });
 
-    setTimeout(render, 100)
 };
 
 

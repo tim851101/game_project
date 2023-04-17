@@ -70,8 +70,9 @@ function fullCalender() {
             }
         },
 
-        eventClick: function (info) {
+        eventClick: args => {
             // Ask for confirmation before deleting the event
+            const eventText = args.event.title;
             Swal.fire({
                 title: '確認要刪除嗎',
                 showCancelButton: true,
@@ -82,13 +83,19 @@ function fullCalender() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     // Remove the event from the calendar
-                    info.event.remove();
+                    args.event.remove();
 
                     // Remove the selected dates from the set
-                    const start = moment(info.event.start).format('YYYY/MM/DD');
-                    const end = moment(info.event.end).subtract(1, 'day').format('YYYY/MM/DD');
-                    for (let m = moment(start); m.isSameOrBefore(end); m.add(1, 'days')) {
-                        selectedDates.delete(m.format('YYYY/MM/DD'));
+                    const start = moment(args.event.start).format('YYYY/MM/DD');
+                    const end = moment(args.event.end).subtract(1, 'day').format('YYYY/MM/DD');
+                    if (end == 'Invalid date') {
+                        selectedDates.delete(moment(start).format('YYYY-MM-DD'));
+                        selectedMap.get(eventText).delete(moment(start).format('YYYY-MM-DD'));
+                    } else {
+                        for (let m = moment(start); m.isSameOrBefore(end); m.add(1, 'days')) {
+                            selectedDates.delete(m.format('YYYY-MM-DD'));
+                            selectedMap.get(eventText).delete(m.format('YYYY-MM-DD'));
+                        }
                     }
                 }
             });
@@ -182,6 +189,8 @@ document.getElementById('submit-button').addEventListener('click', function () {
             "date": [...value]
         });
     }
+    console.log(offDateList);
+    console.log(selectedMap);
     fetch(`/off-date/save-all`, {
         method: 'POST',
         body: JSON.stringify(offDateList),

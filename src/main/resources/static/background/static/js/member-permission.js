@@ -1,8 +1,15 @@
 $(document).ready(() => {
     const memList = document.getElementById("mem-ls-all");
-
+    const token = sessionStorage.getItem('token');
+    if (token == null) {
+        return;
+    }
     // list all member
-    fetch(`/mem/ls-dtos`)
+    fetch(`/mem/ls-dtos`, {
+        headers: {
+            'Authorization': 'Bearer ' + token,
+        }
+    })
         .then(response => response.json()) // promise -> data
         .then(members => {
             findAll(members);
@@ -26,7 +33,10 @@ $(document).ready(() => {
                     'memNo': memNo,
                     'reserveAuth': memAuth == '有權' ? true : false
                 }]),
-                headers: {'Content-Type': 'application/json'}
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
             })
                 .then(response => response.json()) // promise -> data
                 .then(ok => {

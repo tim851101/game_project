@@ -9,9 +9,14 @@ Vue.createApp({
     }
   },
   methods: {
-    async saveCurrentUrl() {
-      const currentUrl = window.location.pathname + window.location.search;
-      sessionStorage.setItem('currentUrl', currentUrl);
+    async toCurrentUrl() {
+      let currentUrl = sessionStorage.getItem('currentUrl');
+      if (!currentUrl) {
+        currentUrl = '/foreground/my-account.html';
+      }
+      const url = new URL(window.location.href);
+      const redirectUrl = url.origin + currentUrl;
+      window.location.href = redirectUrl;
     },
     getCookie(name) {
       const cookies = document.cookie.split(';');
@@ -55,25 +60,17 @@ Vue.createApp({
         } else if (response.ok) {
           const data = await response.json();
           if (data.message === 'Login successful') {
-
-            // 紀錄當前路徑
-            // await this.saveCurrentUrl();
             Swal.fire({
               text: data.message,
               icon: 'success',
-            }).then(() => {
-
-              const currentUrl = sessionStorage.getItem('currentUrl') || '/foreground/login.html';
-              const url = new URL(window.location.href);
-              const redirectUrl = url.origin + currentUrl;
-              window.location.href = redirectUrl;
+            }).then(async () => {              
+              await this.toCurrentUrl();
             });
           } else {
             sessionStorage.removeItem("session");
             throw new Error('Unexpected response');
           }
         }
-
       } catch (error) {
         console.error(error);
         Swal.fire({

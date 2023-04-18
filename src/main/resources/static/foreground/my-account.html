@@ -82,11 +82,11 @@
                         <!-- My Account Page Start -->
                         <div class="myaccount-page-wrapper">
                             <!-- My Account Tab Menu Start -->
-                            <div class="row">
+                            <div class="row" id="memberAllData">
                                 <div class="col-lg-3 col-md-4 col-custom">
                                     <div class="myaccount-tab-menu nav" role="tablist">
-                                        <input id="memNo" type="text" hidden value="1">
-                                        <a href="#dashboad" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
+                                        <input id="memNo" type="text" hidden>
+                                        <a href="#dashboard" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
                                             Dashboard</a>
                                         <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
                                             訂單管理</a>
@@ -112,11 +112,12 @@
                                 <div class="col-lg-9 col-md-8 col-custom">
                                     <div class="tab-content" id="myaccountContent">
                                         <!-- Single Tab Content Start -->
-                                        <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                        <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                                            <div hidden id="memNo_dash">{{ defaultMemNo }}</div>
                                             <div class="myaccount-content">
                                                 <h3>Dashboard</h3>
                                                 <div class="welcome">
-                                                    <p>您好, <strong id="myName">Alex Aya</strong></p>
+                                                    <p>您好, <strong id="myName">{{defaultMemName}}</strong></p>
                                                 </div>
                                                 <p class="mb-0">由你的帳戶管理頁面，你可以輕鬆地檢查和查看你最近的訂單與通知，管理你所預約的訂位與活動，以及編輯你的密碼和帳戶詳細資料。</p>
                                             </div>
@@ -516,69 +517,69 @@
                                                 <div class="account-details-form">
                                                     <form id="mem-form" action="/mem/save" method="POST">
                                                         <div class="single-input-item mb-3">
-                                                            <input id="mem_no" type="number" hidden value="">
-                                                            <input type="password" name="" id="mem_password" hidden>
+                                                            <input id="mem_no" type="number" v-model="memberData.memNo" hidden>
+                                                            <!-- <input type="password" name="" id="mem_password" v-model="memberData.memNo" hidden> -->
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_name" class="form-label">姓名</label>
-                                                            <input type="text" class="form-control" id="mem_name" placeholder="Your Name" required>
+                                                            <input type="text" class="form-control" id="mem_name"  v-model.trim="memberData.memName" placeholder="Your Name" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_phone" class="form-label">電話</label>
-                                                            <input type="tel" class="form-control" id="mem_phone" placeholder="Your Phone" required>
+                                                            <input type="tel" class="form-control" id="mem_phone" v-model.trim="memberData.memPhone" placeholder="Your Phone" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label style="width: 80px;padding-bottom: 8px;">性別</label>
                                                             <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="genderOptions" id="gender_male" value="1">
+                                                                    <input class="form-check-input" type="radio" name="genderOptions" v-model="memberData.memGender" id="gender_male" value="1">
                                                                     <label class="form-check-label" for="gender_male">Male</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="genderOptions" id="gender_female" value="0">
+                                                                    <input class="form-check-input" type="radio" name="genderOptions" v-model="memberData.memGender" id="gender_female" value="0">
                                                                     <label class="form-check-label" for="gender_female">Female</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_birthday" class="form-label">生日</label>
-                                                            <input type="date" class="form-control" id="mem_birthday">
+                                                            <input type="date" class="form-control" id="mem_birthday" v-model="memberData.memBirthday">
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_email" class="form-label">信箱</label>
-                                                            <input type="email" class="form-control" id="mem_email" required>
+                                                            <input type="email" class="form-control" id="mem_email" v-model.trim="memberData.memEmail" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_address" class="form-label">地址</label>
-                                                            <input type="text" class="form-control" id="mem_address" required>
+                                                            <input type="text" class="form-control" id="mem_address" v-model="memberData.memAddress" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="coupon" class="form-label">回饋金</label>
-                                                            <input type="text" class="form-control" id="coupon" readonly>
+                                                            <input type="text" class="form-control" id="coupon" v-model="memberData.coupon" readonly>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="coupon" style="width: 80px;padding-bottom: 8px;">預約權限</label>
                                                             <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_on" value="1" disabled>
+                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_on" v-model="memberData.reserveAuth" value="1" disabled>
                                                                     <label class="form-check-label" for="reserve_on">可預約</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_off" value="0" disabled>
+                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_off" v-model="memberData.reserveAuth" value="0" disabled>
                                                                     <label class="form-check-label" for="reserve_off">鎖定中</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_vio" class="form-label">違規次數</label>
-                                                            <input type="text" class="form-control" id="mem_vio" readonly>
+                                                            <input type="text" class="form-control" id="mem_vio" v-model="memberData.memVIO" readonly>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_status" class="form-label">解鎖日期</label>
-                                                            <input type="date" class="form-control" id="mem_status" readonly>
+                                                            <input type="date" class="form-control" id="mem_status" v-model="memberData.memStatus" readonly>
                                                         </div>
                                                         <div class="single-input-item single-item-button">
-                                                            <button id="mem-save" class="btn obrien-button primary-btn">Save Changes</button>
+                                                            <button id="mem-save" class="btn obrien-button primary-btn" @click="updateMember">Save Changes</button>
                                                         </div>
                                                     </form>   
                                                 </div>
@@ -637,9 +638,9 @@
 </body>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="/foreground/static/js/myWishlist.js"></script>
-<script src="../js/member.js"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="/foreground/static/js/headerUse.js"></script>
+<script src="../js/member.js"></script>
 <script>
      const tbody = document.querySelector('#booking');
       const update= document.querySelector('#update');

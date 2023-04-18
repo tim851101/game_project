@@ -1,5 +1,6 @@
 package webapp.member.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.*;
 import lombok.Data;
@@ -66,6 +67,7 @@ public class MemberDTO {
     @Past(groups = {
             MemberVaildationRules.MemAdd.class,MemberVaildationRules.MemUpdate.class,
     },message = "生日不可為未來日期")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date memBirthday;
 
     private Integer coupon;

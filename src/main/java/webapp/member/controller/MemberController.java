@@ -108,11 +108,13 @@ public class MemberController {
         session.setAttribute("location", location);
     }
 
-    // 取得client cookie的sessionId
-    // 比對Redis找出client的memNo
-    // 有回傳客戶編號,沒有回傳null
-    // 會員編號放在header的<div hidden id="memNo_header">{{ memNo }}</
-    // 應該結合showLoginForm,當回傳值是null時->儲存當前頁面->導到登入頁面->前端js導回先前頁面
+    /*
+    * 取得client cookie的sessionId
+    * 比對Redis找出client的memNo
+    * 有回傳客戶編號,沒有回傳null
+    * 可以考慮將會員編號放在header的<div hidden id="memNo_header">{{ memNo }}</>
+    * 應該結合showLoginForm,當回傳值是null時->儲存當前頁面->導到登入頁面->前端js導回先前頁面
+    */
     @PostMapping("/get-memNo")
     public Integer getMemNoForRedisUseSession(HttpServletRequest request){
         // 檢查 session 和 request 是否為 null
@@ -181,26 +183,17 @@ public class MemberController {
     }
 
 
-    // toLogin
-    // 1.取得當前路徑網址儲存在session => location(key):currentUrl(value)
-    // 2.登入成功後儲存sessionId與memNo到redis
+    /*
+    * toLogin
+    * 1.取得當前路徑網址儲存在session => location(key):currentUrl(value)
+    * 2.登入成功後儲存sessionId與memNo到redis
+    * */
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<ErrorResponse> login(
             @Validated(MemberVaildationRules.MemLogin.class) @RequestBody MemberDTO login,
-//            HttpServletRequest request,
-//            HttpServletResponse response,
             BindingResult bindingResult
     ) throws IOException {
-        // 檢查輸入資料格式正確性
-        // 回傳型態
-        // {
-        //    "status": "BAD_REQUEST",
-        //    "errors": [
-        //        "Email格式不正確",
-        //        "Email不可為空白"
-        //    ]
-        // }
         System.out.println(login.getMemEmail());
         System.out.println("incoming" + login);
         List<String> errors = new ArrayList<>();
@@ -212,14 +205,6 @@ public class MemberController {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse(HttpStatus.BAD_REQUEST, "Validation failed", errors));
         }
-        // 檢查會員存不存在或帳密輸入是否錯誤
-        // 回傳型態
-        // {
-        //    "status": "BAD_REQUEST",
-        //    "errors": [
-        //        "帳號或密碼輸入錯誤"
-        //    ]
-        //}
 //        System.out.println(loginDTO.getMemEmail()+ loginDTO.getMemPassword());
         Members memberOptional = memberServiceImpl.toLogin(login.getMemEmail(), login.getMemPassword());
         if (memberOptional != null) {
@@ -233,7 +218,6 @@ public class MemberController {
             // 将sessionId存储到localStorage中
             String script = "localStorage.setItem('sessionId', '" + sessionId + "');";
             System.out.println(script);
-
             // 将sessionId和會員資料存到Redis
             memberServiceImpl.saveSessionToRedis(sessionId, member);
             return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Login successful", Collections.emptyList()));
@@ -401,15 +385,15 @@ public class MemberController {
         return memberServiceImpl.findById(id);
     }
 
-    @GetMapping("/ls-one")
-    @ResponseBody
-    public MemberDTO findById(@RequestParam Integer id,HttpServletRequest request) {
-        HttpSession session=request.getSession();
-        Integer memNo= (Integer) session.getAttribute("memNo");
-        System.out.println(session);
-        System.out.println(memNo);
-        return memberServiceImpl.findById(id);
-    }
+//    @GetMapping("/ls-one")
+//    @ResponseBody
+//    public MemberDTO findById(@RequestParam Integer id,HttpServletRequest request) {
+//        HttpSession session=request.getSession();
+//        Integer memNo= (Integer) session.getAttribute("memNo");
+//        System.out.println(session);
+//        System.out.println(memNo);
+//        return memberServiceImpl.findById(id);
+//    }
 
 
 

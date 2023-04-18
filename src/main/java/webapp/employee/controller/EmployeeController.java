@@ -1,7 +1,15 @@
 package webapp.employee.controller;
 
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +23,7 @@ import webapp.security.dto.AuthRequestDTO;
 
 @RestController
 @RequestMapping("/emp")
+@Validated
 public class EmployeeController {
     final EmployeeService employeeService;
 
@@ -28,9 +37,12 @@ public class EmployeeController {
     }
 
     @PostMapping("/save")
-    public Boolean saveEmployee(@RequestBody EmployeeDTO employeeDTO) {
+    public Boolean saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
         return employeeService.saveEmployee(employeeDTO);
     }
+//    @PostMapping("/save")
+//    public ResponseEntity<EmployeeDTO> saveEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
+//        return new ResponseEntity(employeeDTO, HttpStatus.OK);
 
     @GetMapping("/ls-one")
     public EmployeeDTO findById(@RequestParam Integer id) {
@@ -48,7 +60,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/ls-all")
-    public List<EmployeeDTO> listAll(){
+    public List<EmployeeDTO> listAll() {
         return employeeService.findAllDTO();
     }
 
@@ -73,7 +85,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/ls-by-email")
-    public EmployeeDTO findByEmail(@RequestParam String email){
+    public EmployeeDTO findByEmail(@RequestParam String email) {
         return employeeService.findDTOByEmail(email);
     }
 }

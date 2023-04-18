@@ -17,6 +17,8 @@ $(document).ready(() => {
     const msgEmpName = $('#msg-emp-name');
     const msgEmpEmail = $('#msg-emp-email');
     const msgEmpPWD = $('#msg-emp-pwd');
+    const msgEmpPhone = $('#msg-emp-phone');
+    const msgEmpAddr = $('#msg-emp-addr');
     const employeeList = document.getElementById("emp-ls-all");
 
     // list all role
@@ -56,6 +58,11 @@ $(document).ready(() => {
         msgEmpName.text('');
     });
     employeeEmail.blur(e => {
+        const emailRegex = /^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+        if(!emailRegex.test(e.target.value)) {
+            msgEmpEmail.text('Email 格式不正確');
+            return;
+        }
         if (e.target.value.length == 0) {
             msgEmpEmail.text('Email 為必填');
             return;
@@ -88,6 +95,31 @@ $(document).ready(() => {
         }
         msgEmpPWD.text('');
     });
+
+    employeePhone.blur( e=> {
+        const phoneRegex = /^09\d{8}$/;
+        if (e.target.value == '') {
+            msgEmpPhone.text("");
+            return;
+        }
+        else if(!phoneRegex.test(e.target.value)) {
+            msgEmpPhone.text("電話格式請以 09xx 開頭\nxx 共 8 碼");
+            return;
+        }
+        msgEmpPhone.text("");
+    })
+
+    employeeAddress.blur( e => {
+        const addressRegex = /.*(市|縣|州|鎮|區|道|路|街|巷)[^市縣區]+(路|街|巷)[^號]+號.*/;
+        if (e.target.value == '') {
+            msgEmpAddr.text("");
+            return;
+        } else if(!addressRegex.test(e.target.value)) {
+            msgEmpAddr.text("請輸入正確地址");
+            return;
+        }
+        msgEmpAddr.text("");
+    })
 
     /**
      * update to database when submit

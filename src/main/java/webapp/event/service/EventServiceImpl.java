@@ -120,4 +120,9 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
         }
         return null;
     }
+
+    public EventDTO selectOneEvent(Integer eventNo) {
+       Event event= eventRepository.getReferenceById(eventNo);
+      return  modelMapper.map(event,EventDTO.class);
+    }
 }

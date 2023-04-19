@@ -74,4 +74,18 @@ public class EventController {
     public Boolean updateEventStatus(@RequestBody EventDTO eventDTO){
         return eventServiceImpl.updateEventStatus(eventDTO);
     }
-}
+    @PostMapping("/selecteventone")
+    @ResponseBody
+    public EventDTO selectOneEvent(@RequestParam(required = true)Integer eventNo){
+        try {
+
+        System.out.println(eventNo);
+        return eventServiceImpl.selectOneEvent(eventNo);
+        }catch (IllegalArgumentException e) {
+            // 處理異常
+            return null;
+        }catch (Exception E){
+        return null;
+        }
+    }
+ }

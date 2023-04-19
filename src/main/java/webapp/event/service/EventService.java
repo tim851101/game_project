@@ -24,4 +24,6 @@ public interface EventService {
     List<EventNews> saveDailyNewsToRedis();
 
     EventNews randomSelectOneEvent();
+     EventDTO selectOneEvent(Integer eventNo);
+
 }

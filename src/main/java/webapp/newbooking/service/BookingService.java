@@ -11,6 +11,7 @@ import webapp.newbooking.dto.BookingDTO;
 import webapp.newbooking.pojo.newBooking;
 import webapp.newbooking.repository.WriteBookingRepository;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -112,8 +113,10 @@ public class BookingService {
             newBooking.setBookingPaymentStatus(0);
         }
         if (pay==0)
-        {
+        { long miliseconds = System.currentTimeMillis();
+            Date date = new Date(miliseconds);
             newBooking.setBookingPaymentStatus(1);
+            newBooking.setBookingFinishDate(date);
         }
         writeBookingRepository.save(newBooking);
         return true;

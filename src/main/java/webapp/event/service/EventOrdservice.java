@@ -5,9 +5,9 @@ import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import webapp.event.dto.EventOrdDTO;
+import webapp.event.dto.memofeventDTO;
 import webapp.event.pojo.EventOrdVO;
 import webapp.event.repository.EventOrdRepository;
-
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,5 +76,12 @@ public class EventOrdservice {
             System.out.println(updateCH);
             return  true;
         }
+    }
+    public void insertEventOrd(EventOrdVO dto) {
+        EventOrdRepository.save(dto);
+    }
+    public List<memofeventDTO> findeventotmem(Integer memno)
+    {
+      return  EventOrdRepository.findAllBymemno(memno);
     }
 }

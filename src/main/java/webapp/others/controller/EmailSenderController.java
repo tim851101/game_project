@@ -2,7 +2,6 @@ package webapp.others.controller;
 
 import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import webapp.others.dto.EmailMessageDTO;
 import webapp.others.service.EmailService;
@@ -41,7 +40,22 @@ public class EmailSenderController {
 
     @PostMapping("/test")
     String sendEmailtoMember() throws MessagingException {
-        emailServiceImpl.sendPassword("a81194@icloud.com", "password");
+        emailServiceImpl.sendPassword("smile4510121@gmail.com", "password");
         return "123";
+    }
+
+
+    // 寄送取消賽事通知給會員
+    @PostMapping("/cancelEvent")
+    @ResponseBody
+    String sendCancelEvent(@RequestBody EmailMessageDTO emailMessageDTO) throws MessagingException {
+      try {
+          emailServiceImpl.sendCancelEvent(emailMessageDTO.getName(), emailMessageDTO.getFrom(), emailMessageDTO.getSubject(), emailMessageDTO.getText());
+          return "寄送成功";
+      }catch (Exception e){
+          e.printStackTrace();
+          return "寄送失敗";
+
+      }
     }
 }

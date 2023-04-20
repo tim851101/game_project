@@ -24,10 +24,23 @@
   <script src="/background/static/js/template.js"></script>
 </head>
 <style>
-  #eventList_paginate {
+.card-body{
+  padding: 10px;
+  
+}
+#eventList_wrapper{
+  margin: 2%;
+}
+tr .details-control{
+  padding: 0px;
+}
+#prod-list td{
+  padding: 0px;
+}
+#eventList_paginate {
     margin-right: 40%;
   }
-  td.details-control {
+td.details-control {
   cursor: pointer;
 }
 tr.shown td.details-control i {
@@ -313,7 +326,7 @@ tr.shown td.details-control i {
                 <h4 class="card-title">創建賽事</h4>
               </div>
               <!-- form start -->
-              <form id="event-form">
+              <!-- <form id="event-form"> -->
               <div class="card-body">
                 <div class="form-validation">
                     <div class="row">
@@ -330,18 +343,15 @@ tr.shown td.details-control i {
                         <div class="container">
                           <div class="row">
                             <div class="col-2-md-auto">
-                              <label class=" col-form-label" for="eventName">賽事名稱 <span class="text-danger">*</span>
-                              </label>
+                              <label class=" col-form-label" for="eventName">賽事名稱 <span class="text-danger">*</span></label>&emsp;&emsp;<p id="eventNameError"  style="color: red; display: inline-block; margin: 0;"></p>
                               <div class="col-9">
                                 <input type="text" class="form-control" id="eventName" placeholder="請輸入賽事名稱..." required
                                   autocomplete="off" />
                               </div>
                             </div>
 
-                            <div class="mb-3 row">
-                              <label class="col-form-label" for="eventDisc">賽事資訊
-                                <span class="text-danger">*</span>
-                              </label>
+                            <div class="col-2-md-auto">
+                              <label class="col-form-label" for="eventDisc">賽事資訊<span class="text-danger">*</span></label>&emsp;&emsp;<p id="eventDiscError"  style="color: red; display: inline-block; margin: 0;"></p>
                               <div class="col-9">
                                 <textarea class="form-control" id="eventDisc" placeholder="請輸入賽事活動內容..." required
                                   autocomplete="off" oninput="autoResize(this)" style="overflow:hidden"></textarea>
@@ -349,30 +359,24 @@ tr.shown td.details-control i {
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-auto">
-                              <label class="col-lg-4 col-form-label" for="eventDate">舉辦日期
-                                <span class="text-danger">*</span>
-                              </label>
+                            <div class="col-4">
+                              <label class="col-lg-4 col-form-label" for="eventDate">舉辦日期<span class="text-danger">*</span>&emsp;&emsp;<p id="eventDateError"  style="color: red; display: inline-block; margin: 0;"></p></label>
                               <div class="col-10">
                                 <input class="form-control " type="text" id="eventDate" required
                                   placeholder="例:2023-01-01" autocomplete="off"
                                   oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" />
                               </div>
                             </div>
-                            <div class="col-auto">
-                              <label class="col-lg-7 col-form-label" for="eventStarttime">活動開始時間
-                                <span class="text-danger">*</span>
-                              </label>
+                            <div class="col-4">
+                              <label class="col-lg-7 col-form-label" for="eventStarttime">活動開始時間<span class="text-danger">*</span></label>&emsp;&emsp;<p id="eventStarttimeError"  style="color: red; display: inline-block; margin: 0;"></p>
                               <div class="col-6">
                                 <input class="hint--error form-control " type="text" id="eventStarttime" required
                                   placeholder="例:09:00" autocomplete="off"
                                   oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" />
                               </div>
                             </div>
-                            <div class="col-auto">
-                              <label class="col-lg-8 col-form-label" for="eventEndtime">活動結束時間
-                                <span class="text-danger">*</span>
-                              </label>
+                            <div class="col-4">
+                              <label class="col-lg-8 col-form-label" for="eventEndtime">活動結束時間<span class="text-danger">*</span></label>&emsp;&emsp;<p id="eventEndtimeError"  style="color: red; display: inline-block; margin: 0;"></p>
                               <div class="col-6">
                                 <input class="form-control " type="text" step="3600" id="eventEndtime" required
                                   placeholder="例:17:00" autocomplete="off" />
@@ -380,39 +384,32 @@ tr.shown td.details-control i {
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-auto">
-                              <label class="col-lg-8 col-form-label" for="eventLimit">報名上限人數
-                                <span class="text-danger">*</span>
-                              </label>
+                            <div class="col-4">
+                              <label class="col-form-label" for="eventLimit">報名上限人數<span class="text-danger">*</span<></label>&emsp;&emsp;<p id="eventLimitError"  style="color: red; display: inline-block; margin: 0;"></p>
                               <div class="col-7">
                                 <input id="eventLimit" class=form-control type="text" placeholder="請輸入人數... "
                                   oninput="value=value.replace(/^(0+)|[^\d]+/g,'' )" required autocomplete="off">
                               </div>
                             </div>
-                            <div class="col-auto">
-                              <label class="col-lg-3 col-form-label" for="eventFee">費用
-                                <span class="text-danger">*</span>
-                              </label>
+                            <div class="col-4">
+                              <label class="col-form-label" for="eventFee">費用<span class="text-danger">*</span></label>&emsp;&emsp;<p id="eventFeeError"  style="color: red; display: inline-block; margin: 0;"></p>
                               <div class="col-6">
                                 <input id="eventFee" class=form-control type=text placeholder=報名費用
-                                  oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" required autocomplete="off">
+                                   required autocomplete="off">
+                                   <!-- oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" -->
                               </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col-auto">
-                              <label class="col-lg-8 col-form-label" for="signupStartTime">報名開始時間
-                                <span class="text-danger">*</span>
-                              </label>
+                              <label class="col-lg-8 col-form-label" for="signupStartTime">報名開始時間   <span class="text-danger">*</span></label>&emsp;&emsp;<p id="signupStartTimeError"  style="color: red; display: inline-block; margin: 0;"></p>
                               <div class="col-10">
                                 <input name="start_date" id="signupStartTime" type="text" class="form-control"
                                   id="NEWS_TITLE" autocomplete="off" required placeholder=報名開始>
                               </div>
                             </div>
                             <div class="col-auto">
-                              <label class="col-lg-8 col-form-label" for="signupDeadline">報名截止時間
-                                <span class="text-danger">*</span>
-                              </label>
+                              <label class="col-lg-8 col-form-label" for="signupDeadline">報名截止時間<span class="text-danger">*</span></label>&emsp;&emsp;<p id="signupDeadlineError"  style="color: red; display: inline-block; margin: 0;"></p>
                               <div class="col-10">
                                 <input name="end_date" type="text" class="form-control" id="signupDeadline"
                                   autocomplete="off" required placeholder=報名截止>
@@ -426,13 +423,13 @@ tr.shown td.details-control i {
                   </div>
                 <div class="mb-3 row">
                   <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto">
-                    <button id="enterBtn" type="submit" class="btn btn-primary fs-5">
+                    <button id="enterBtn" type="submit" class="btn btn-primary fs-5" >
                       確認
                     </button>
                   </div>
                 </div>
               </div>
-              </form>
+              <!-- </form> -->
               <!-- form end -->
             </div>
           </div>
@@ -495,8 +492,8 @@ tr.shown td.details-control i {
               <div class="table-responsive">
                 <table id="eventList" class="table-striped table table-responsive-md">
                   <thead style ="text-align:center;">
-                    <tr>
-                      <th  style="padding: 0px;"></th>
+                    <tr style="padding: 0px;">
+                      <th  ></th>
                       <th><strong>賽事名稱</strong></th>
                       <th><strong>賽事資訊</strong></th>
                       <th><strong>舉辦時間</strong></th>
@@ -508,7 +505,7 @@ tr.shown td.details-control i {
                     </tr>
                   </thead>
                   <thead>
-                  <tbody id="prod-list">
+                  <tbody id="prod-list" style ="text-align:center;">
                   </tbody>
                   </thead>
                 </table>

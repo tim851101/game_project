@@ -1,4 +1,9 @@
+let eventDate = 0; 
+let eventStarttime = 0; 
+let eventEndtime = 0; 
+
 $(document).ready(e => {
+  // document.getElementById("eventName").focus();
   //  舉辦日期參數 
   $.datetimepicker.setLocale('zh'); // kr ko ja en
   $('#eventDate').datetimepicker({
@@ -14,12 +19,13 @@ $(document).ready(e => {
   $('#signupStartTime').datetimepicker({
     theme: '',
     timepicker: true,
-    step: 30,
+    step: 60,
     format: 'Y-m-d H:i',
     defaultTime: '09:00',
     minDate: '-1969-12-31',
     defaultDate: '-1969-12-31',
   });
+
 
   //  報名截止時間  disable隔天，選擇後天
   $.datetimepicker.setLocale('zh'); // kr ko ja en
@@ -31,7 +37,20 @@ $(document).ready(e => {
     minDate: '-1969-12-30',
     defaultTime: '09:00',
     defaultDate: '-1969-12-30'
-  });
+  }
+  );
+
+  $('#eventStarttime').change(()=>{ 
+    eventStarttime = $('#eventStarttime').val().substring(0,2)
+  })
+  
+  $('#eventEndtime').change(()=>{ 
+    eventEndtime = $('#eventEndtime').val().substring(0,2)
+  })
+  
+  $('#eventDate').change(()=>{ 
+    eventDate = $('#eventDate').val()
+  })
 
   // 活動開始時間 
   $.datetimepicker.setLocale('zh');
@@ -49,64 +68,111 @@ $(document).ready(e => {
     defaultTime: '09:00'
   });
 
-  // 新增資料至event table
-  // $('#enterBtn').click(e => {
-  $('#event-form').submit(e => {
-    e.preventDefault();
-  Swal.fire({
-    title: "確定要新增該賽事嗎？",
-    text: "資料送出後將無法修改！",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#21870D',
-cancelButtonColor: '#d33',
-    confirmButtonText: '確定',
-    cancelButtonText: "取消"
+
+function eventLimit(){
+  // const eventLimit = document.getElementById("eventLimit");
+  const eventLimitError = document.getElementById("eventLimitError");
+  const enterBtn = $("#enterBtn");
+  datas={
+    date: eventDate,
+    minTime: eventStarttime,
+    maxTime: eventEndtime
+  } 
+  $.ajax({url:"/book/testseat", 
+  type:'post',
+  data:datas,
+ success : function(response){ 
+  if(response != 60){
+    eventLimitError.textContent = "該時間人數已達上限";
+    enterBtn.attr('disabled', true);
+        return false;
+  }else{
+    eventLimitError.textContent = "";
+    enterBtn.attr('disabled', false);
+    return true;
+  }
+}});
+  }
+
+$("#eventEndtime").on('blur', e=>{
+  eventLimit();
+});
+
+
+// 新增資料至event table
+$('#enterBtn').click(e => {
+  const formData = {
+    'eventName': $("#eventName").val(),
+    'eventDisc': $("#eventDisc").val(),
+    'eventDate': $("#eventDate").val(),
+    'eventStarttime': $('#eventStarttime').val(),
+    'eventEndtime': $('#eventEndtime').val(),
+    'eventLimit': $("#eventLimit").val(),
+    'signupNum':0,
+    'eventFee': $("#eventFee").val(),
+    'signupStartTime': $("#signupStartTime").val(),
+    'signupDeadline': $("#signupDeadline").val(),
+    'eventStatus': ""
+  };
+
+  // 驗證表單資料
+  fetch('/event/save-event', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(formData)
   })
-  .then(function (result) {
-    if (result.value) {
-    const formData = {
-      'eventName': $("#eventName").val(),
-      'eventDisc': $("#eventDisc").val(),
-      'eventDate': $("#eventDate").val(),
-      'eventStarttime': $('#eventStarttime').val(),
-      'eventEndtime': $('#eventEndtime').val(),
-      'eventLimit': $("#eventLimit").val(),
-      'signupNum':0,
-      'eventFee': $("#eventFee").val(),
-      'signupStartTime': $("#signupStartTime").val(),
-      'signupDeadline': $("#signupDeadline").val(),
-      'eventStatus': 0
-    }
-    fetch('/event/save-event', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(formData)
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Event not saved');
+  .then(response => {
+    // 檢查是否有錯誤訊息
+    return response.json().then(errors => {
+     
+      if (Object.keys(errors).length === 0) {
+        $.post("/book/saveseat4time", {
+          date: eventDate,
+          minTime: eventStarttime,
+          maxTime: eventEndtime,
+          change:60
+        });
+
+        // 如果沒有錯誤訊息，顯示提示視窗
+        Swal.fire({
+          title: "已送出資料！",
+          icon: 'success',
+          confirmButtonText: '確定',
+          confirmButtonColor: '#21870D',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      } else {
+        // 如果有錯誤訊息，顯示錯誤訊息
+        if (errors.eventName) {
+          $("#eventNameError").text(`${errors.eventName}`);
+        } else {
+          $("#eventNameError").text("");
         }
-        return response.json();
-      })
-      .catch(error => {
-        console.error('Error:', error.message);
-      });
-
-      Swal.fire({
-        title: "已送出資料！",
-        icon: 'success',
-        confirmButtonText: '確定',
-        confirmButtonColor: '#21870D',
-        preConfirm: setTimeout(() => {
-            document.location.reload();
-          }, 2000)
-      })
-
-    }} );
+        if (errors.eventDisc) {
+          $("#eventDiscError").text(`${errors.eventDisc}`);
+        } else {
+          $("#eventDiscError").text("");
+        }
+        if (errors.eventLimit) {
+          $("#eventLimitError").text(`${errors.eventLimit}`);
+        } else {
+          $("#eventLimitError").text("");
+        }
+        if (errors.eventFee) {
+          $("#eventFeeError").text(`${errors.eventFee}`);
+        } else {
+          $("#eventFeeError").text("");
+        }
+      }
+    })
   });
+  });
+
 
 
   // 動態新增賽事清單(取出event table值) 
@@ -118,10 +184,11 @@ cancelButtonColor: '#d33',
         return response.json();
       })
       .then(data => {
+
         findAll(data);
+
       });
-
-
+   
   // DataTable樣式
 function findAll(data){
   let table = $("#eventList").DataTable({
@@ -180,7 +247,6 @@ function findAll(data){
       { data: null,render: (row) => {
         switch (row.eventStatus) {
                                     case 1: {
-                                      
                                      return  `<th><i class="fa fa-circle text-success me-1"> </i></th>` 
                                     }
                                     case 2: {
@@ -201,8 +267,6 @@ function findAll(data){
     }
   });
   table.columns([8]).visible(false);
-  
-  
   $("#eventList tbody").on("click", "td.details-control", function () {
     let tr = $(this).closest("tr");
     let row = table.row(tr);
@@ -223,7 +287,7 @@ function findAll(data){
     if (d.eventStatus === 1) {
       trString +=
         `<thead >
-           <tr ">
+           <tr>
            <th  style="padding: 10px 18px;"></th>
            <th  style="padding: 10px 18px;"></th>
            <th><strong>冠軍</strong></th>
@@ -267,7 +331,7 @@ function findAll(data){
            <th></th>
            <th><strong>無資料</strong></th>
            <th></th>
-           <th><a id="edit${d.eventNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 fas fa-pencil-alt" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"  onClick="alertTest(this);"></a></th>
+           <th ><a id="edit${d.eventNo}" href="#" class="btn btn-primary shadow btn-xs sharp me-1 fas fa-pencil-alt" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"  onClick="alertTest(this);"></a></th>
          </tr>`;
     }else{
       trString +=
@@ -352,9 +416,10 @@ function alertTest(data){
               icon: 'success',
               confirmButtonText: '確定',
               confirmButtonColor: '#21870D',
-              preConfirm: setTimeout(() => {
-                  document.location.reload();
-                }, 2000)
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.reload();
+              }
             });
         }
       });

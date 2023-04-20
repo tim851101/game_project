@@ -13,6 +13,7 @@ public interface EmailService {
     void receiveEmails(String name, String to, String subject, String text) throws MessagingException;
 
     void sendPassword(String to, String text) throws MessagingException;
+    void sendCancelEvent(String name, String to, String eventName, String text) throws MessagingException;
 
     void send(SimpleMailMessage simpleMessage) throws MailException;
 

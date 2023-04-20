@@ -553,6 +553,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@latest"></script>
 </body>
 <script src="/foreground/static/js/location.js"></script>
+<script src="/foreground/static/js/headerUse.js"></script>
 <script>
 Vue.createApp({
     data() {
@@ -595,7 +596,20 @@ Vue.createApp({
                 return data;
               })
               .catch(error => console.error(error));
-        }
+        },
+        doThis() {
+            fetch('/mem/login', {
+            method: 'GET'
+            })
+            .then(response => {
+                return response.json();
+            // 在這裡處理回應
+            })
+            .catch(error => {
+                console.error(error); // log the error to the console
+            // 在這裡處理錯誤
+             });
+        },
     },
     provide() {
         return{
@@ -607,5 +621,37 @@ Vue.createApp({
         this.loadOneEventNews();
     },
 }).mount("#app1")
+
+Vue.createApp({
+    data() {
+       return{
+            response: null, // 用於存儲從伺服器返回的數據
+            error: null, // 用於存儲錯誤
+       };
+    },
+    methods: {
+        doThis() {
+            fetch('/mem/login', {
+            method: 'GET'
+            })
+            .then(response => {
+                return response.json();
+            // 在這裡處理回應
+            })
+            .catch(error => {
+                console.error(error); // log the error to the console
+            // 在這裡處理錯誤
+             });
+        },
+    },
+    provide() {
+        return{
+
+        };
+    },
+    mounted() {
+
+    },
+}).mount("#app_header")
 </script>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import webapp.event.pojo.Event;
 import webapp.others.pojo.EventNews;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
@@ -41,4 +42,6 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     @Query(value = "SELECT * " +
             "FROM `Event` WHERE event_Status=1 ", nativeQuery = true)
     List<Event> findEventNewByStatus();
+
+
 }

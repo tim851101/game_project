@@ -1,6 +1,8 @@
 package webapp.event.pojo;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +36,7 @@ public class Event {
     private Integer eventLimit;
     @Column(name = "SIGNUP_NUM")
     private Integer signupNum;
+
     @Column(name = "EVENT_FEE")
     private Integer eventFee;
     @Column(name = "EVENT_WINNER1", insertable = false)

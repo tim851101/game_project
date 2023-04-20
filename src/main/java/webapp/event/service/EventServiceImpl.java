@@ -4,6 +4,7 @@ import core.service.BasicService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import webapp.event.dto.EventDTO;
 import webapp.event.pojo.Event;
@@ -11,6 +12,8 @@ import webapp.event.repository.EventRepository;
 import webapp.others.pojo.EventNews;
 import webapp.others.pojo.News;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -120,4 +123,31 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
         }
         return null;
     }
+
+//    @Scheduled(cron = "0 0 * * * *")
+//    public void checkPouconStatus() {
+//        Date date = new java.util.Date();
+//        Timestamp time = new Timestamp(date.getTime());
+//        List<Event> events = eventRepository.findAll();
+
+//        for (Event event : events) {
+//                if(event.getEventStatus()==null){
+//
+//                }
+//            if (event.ge){
+//                LocalDateTime start = pcoupon.getPcoupnsdate();
+//                LocalDateTime end = pcoupon.getPcoupnedate();
+//                byte status = 0;
+//                if (today.isEqual(start) || today.isEqual(end)) {
+//                    status = 1;
+//                } else if (today.isAfter(start) && today.isBefore(end)) {
+//                    status = 1;
+//                }
+//                pcoupon.setPcouponstatus(status);
+//                pcouponRepository.save(pcoupon);
+//            }
+//        }
+//    }
+
+
 }

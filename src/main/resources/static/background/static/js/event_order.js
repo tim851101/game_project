@@ -10,6 +10,8 @@ $(document).ready(e => {
   }).catch(error => {
     console.log('Error: ', error);
   });
+
+    // DataTable
   function PromiseData(eventData, eventordData) {
     let table = $("#ordList").DataTable({
       autoWidth: true,
@@ -63,7 +65,6 @@ $(document).ready(e => {
               return (
                 `<td><button value=` + data + ` id="cancel" type="button" class="btn  btn-success btn-xxs" style="padding: 0.4rem 0.8rem;" disabled>已完成</button></td> `
               );
-
             }
           }
         },
@@ -78,10 +79,10 @@ $(document).ready(e => {
       }
     });
 
+    // 去掉狀態:2的賽事名稱不顯示至 DataTable
     const rowsToRemove = $('#ordList tbody tr').filter(function () {
       return $('td:last', this).text() === '2';
     });
-
 
     // 從DataTable中刪除這些行
     $('#ordList').DataTable();
@@ -90,6 +91,7 @@ $(document).ready(e => {
     // 隱藏DataTable第10欄位
     table.columns([9]).visible(false);
 
+     // 第一顆按鈕切換顯示會員資訊
     $("#ordList tbody").on("click", "td.details-control", function () {
       let tr = $(this).closest("tr");
       let row = table.row(tr);
@@ -105,12 +107,15 @@ $(document).ready(e => {
 
   }
 
+  // 取消賽事
   function PromiseData2(eventData, eventordData) {
     $("#ordList tbody").on("click", 'button.btn', function () {
       const eventNo = $(this).val();
       Swal.fire({
         title: '確定要取消賽事？',
         text: "此動作將無法復原！",
+        input: 'text',
+        inputPlaceholder: '請輸入原因...',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#21870D',
@@ -119,56 +124,94 @@ $(document).ready(e => {
         cancelButtonText: "取消",
       }).then((result) => {
         if (result.isConfirmed) {
+          if ($.trim(result.value) === "") {
+            Swal.fire(
+              {
+                title: "內容不能空白！",
+                text: "請正確填寫原因",
+                icon: 'error',
+                confirmButtonText: '確定'
+              })
+          } else {
 
-          // 會員訂單狀態取消
-          for (const e of eventordData) {
-            if (eventNo == e.eventno) {
-              $.post("/eventord/updatepay", {
-                eventno: eventNo,
-                memno: e.memNo,
-                check: 1
-              });
-            }
-          };
-          const formData = {
-            "eventNo": eventNo,
-            "eventLimit": 0,
-            "signupNum": 0,
-            "eventStatus": 2
-          }
+            //  取消賽事後email通知會員
+            for (const e1 of eventData) {
+              for (const e of eventordData) {
+                if (eventNo == e1.eventNo && e.eventno == eventNo && e.enevtStatus !== 2) {
+                  const formData1 = {
+                    "name": e.memName,
+                    "from": e.memEmail,
+                    "subject": e1.eventName,
+                    "text": result.value
+                  }
+                  fetch('/test/cancelEvent', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData1)
+                  })
+                    .then(response => {
+                      if (!response.ok) {
+                        throw new Error('member is not cancel finish');
+                      }
+                      return response.json();
+                    })
+                    .catch(error => {
+                      console.error('Error:', error.message);
+                    });
 
-          // 賽事狀態取消
-          fetch('/event/setStatus', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-          })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Event not saved');
+                  // // 會員狀態取消
+                  $.post("/eventord/updatepay", {
+                    eventno: eventNo,
+                    memno: e.memNo,
+                    check: 1
+                  });
+                }
               }
-              return response.json();
 
-            })
-            .catch(error => {
-              console.error('Error:', error.message);
-            });
-          Swal.fire({
-            title: '賽事已取消!',
-            icon: 'success',
-            confirmButtonText: '確定',
-            confirmButtonColor: '#21870D',
-            preConfirm: setTimeout(() => {
-              document.location.reload();
-            }, 2000)
-          });
+              // 賽事狀態取消
+              const formData = {
+                "eventNo": eventNo,
+                "eventLimit": 0,
+                "signupNum": 0,
+                "eventStatus": 2
+              }
+              fetch('/event/setStatus', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+              })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Event not saved');
+                  }
+                  return response.json();
+                })
+                .catch(error => {
+                  console.error('Error:', error.message);
+                });
+              Swal.fire({
+                title: '賽事已取消!',
+                icon: 'success',
+                confirmButtonText: '確定',
+                confirmButtonColor: '#21870D',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.reload();
+                }
+              });
+            };
+          }
         }
       });
     });
   }
 
+
+   // 定義會員欄位
   function format(d, eventordData) {
     let trString = "";
     trString +=
@@ -215,11 +258,6 @@ $(document).ready(e => {
                 `<td><span class="badge btn btn-xxs bg-secondary" onclick="enevtStatus(this)" id="${d.eventNo}enevtStatus${e.memNo}" ><span class="fa fa-ban me-1"></span>未付款</span></td>`
               break;
             }
-            // default: {
-            //   trString +=
-            //     `<td><span class="badge btn btn-xxs bg-secondary" onclick="enevtStatus(this)" id="${d.eventNo}enevtStatus${e.memNo}" ><span class="fa fa-times"></span>取消訂單</span></td>`
-            //   break;
-            // }
           }
           if (e.memChecked === 1) {
             if (d.eventStatus === 1) {

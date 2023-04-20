@@ -322,5 +322,24 @@ function updateTime() {
   }, 500);
 }
 
+function editProduct(pdNo){
+     fetch(`/product/find-one?id=${pdNo}`)
+             .then(response => response.json())
+             .then(data => {
+             const modal = new bootstrap.Modal(document.getElementById('editModal'));
+                          modal.show();
+
+                          document.getElementById('editPdId').value = data.pdNo;
+                          document.getElementById('editPdName').value = data.pdName;
+                          document.getElementById('editPdPrice').value = data.pdPrice;
+                          document.getElementById('editPdStock').value = data.pdStock;
+                          document.getElementById('editPdDescription').value = data.pdDescription;
+                          document.getElementById('editPdStatus').checked = data.pdStatus;
+                          document.getElementById('editPdUpdated').value = moment(data.pdUpdate).format('YYYY-MM-DD HH:mm:ss');
+
+
+             });
+}
+
 
 

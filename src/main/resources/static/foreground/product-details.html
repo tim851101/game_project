@@ -77,8 +77,8 @@
                         "asNavFor": ".pd-slider-nav"
                         }'>
                                 <div class="single-image border">
-                                    <a href="static/${picNo}.jpg">
-                                        <img id="toimage" src="static/${picNo}.jpg" alt="Product">
+                                    <a href="">
+                                        <img id="toimage" src="/pic/getimage?picno=" alt="Product">
                                     </a>
                                 </div>
                                 <!--                                <div class="single-image border">-->
@@ -984,27 +984,11 @@
                 document.getElementById('pdDescription').textContent = product.pdDescription;
                 document.getElementById('pdDescription1').textContent = product.pdDescription;
             });
-    </script>
 
-    <script>
         <!--動態抓取商品資料-->
-        const searchParams = new URLSearchParams(window.location.search);
-        const picNo = searchParams.get('picNo');
-
-        if (!picNo) {
-            alert('沒有圖片編號');
-            window.location.href = 'shop.html';
-        }
-
-        fetch(`/pic/getimage?picno=${picNo}`)
-            .then(response => response.json())
-            .then(product => {
-                console.log(product); // 檢查資料
-                if (!product) {
-                    throw new Error('Invalid response from server');
-                }
-                document.getElementById('toimage').src = `static/${product.picNo}.jpg`;
-            });
+        const picNos = urlSearchParams.get('pdNo');
+        document.getElementById('toimage').setAttribute("src", "/pic/getimage?picno=" + picNos);
+        console.log(picNos);
     </script>
 </body>
 

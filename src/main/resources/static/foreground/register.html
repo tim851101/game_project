@@ -63,7 +63,7 @@
         </div>
         <!-- Breadcrumb Area End Here -->
         <!-- Login Area Start Here -->
-        <div class="login-register-area mt-no-text mb-no-text">
+        <div class="login-register-area mt-no-text mb-no-text" id="app_register">
             <div class="container container-default-2 custom-area">
                 <div class="row">
                     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-custom">
@@ -72,63 +72,53 @@
                                 <h2 class="title-4 mb-2">Create Account</h2>
                                 <p class="desc-content">Please Register using account detail bellow.</p>
                             </div>
-                            <form action="/mem/reg" method="post">
+                            <form>
                                 <p id="msg" style="color: brown;text-align: center;justify-content: center;"></p>
                                 <div class="single-input-item mb-3">
                                     <input id="" type="text" hidden>
                                 </div>
                                 <div class="single-input-item mb-3">
                                     <label for="mem_name" class="form-label">姓名</label>
-                                    <input type="text" class="form-control" id="mem_name" placeholder="Your Name" required>
+                                    <input type="text" class="form-control" v-model="memName" id="mem_name" placeholder="Your Name" required>
                                 </div>
                                 <div class="single-input-item mb-3">
                                     <label for="mem_phone" class="form-label">電話</label>
-                                    <input type="tel" class="form-control" id="mem_phone" placeholder="Your Phone" required>
+                                    <input type="tel" class="form-control" v-model="memPhone" id="mem_phone" placeholder="Your Phone" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="" style="width: 80px;padding-bottom: 8px;">性別</label>
                                     <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="genderOptions" id="gender_male" value="1">
-                                            <label class="form-check-label" for="gender_male">Male</label>
+                                            <input class="form-check-input" type="radio" v-model="memGender" id="gender_male" value="1">
+                                            <label class="form-check-label" for="gender_male">男性</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="genderOptions" id="gender_female" value="0">
-                                            <label class="form-check-label" for="gender_female">Female</label>
+                                            <input class="form-check-input" type="radio" v-model="memGender" id="gender_female" value="0">
+                                            <label class="form-check-label" for="gender_female">女性</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="single-input-item mb-3">
                                     <label for="mem_birthday" class="form-label">生日</label>
-                                    <input type="date" class="form-control" id="mem_birthday">
+                                    <input type="date" class="form-control" id="mem_birthday" v-model="memBirthday">
                                 </div>
                                 <div class="single-input-item mb-3">
                                     <label for="mem_email" class="form-label">信箱</label>
-                                    <input type="email" class="form-control" id="mem_email" required>
+                                    <input type="email" class="form-control" id="mem_email" v-model="memEmail" required>
                                 </div>
                                 <div class="single-input-item mb-3">
                                     <label for="mem_password" class="form-label">密碼</label>
-                                    <input type="password" class="form-control" id="mem_password" required>
+                                    <input type="password" class="form-control" id="mem_password" v-model="memPassword" required>
                                 </div>
                                 <div class="single-input-item mb-3">
                                     <label for="mem_address" class="form-label">地址</label>
                                     <div id="">
                                         <select id="citySelect" class="form-select-sm"></select><select id="districtSelect" class="form-select-sm" aria-label=".form-select-sm example"></select>
-                                        <input type="text" class="form-control" id="mem_address" required>
+                                        <input type="text" class="form-control" v-model="memAddress" id="mem_address" required>
                                     </div>
                                 </div>
-                                <!-- <div class="single-input-item mb-3">
-                                    <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                        <div class="remember-meta mb-3">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                                <label class="custom-control-label" for="rememberMe">Subscribe Our Newsletter</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="single-input-item mb-3">
-                                    <button id="mem-reg" class="btn obrien-button-2 primary-color">Register</button>
+                                    <button id="mem-reg" @click="register" class="btn obrien-button-2 primary-color">Register</button>
                                 </div>
                             </form>
                         </div>
@@ -173,8 +163,11 @@
     <script src="static/js/main.js"></script>
 
 </body>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/foreground/static/js/register.js"></script>
+<script src="/foreground/static/js/headerUse.js"></script>
 <script src="/foreground/static/js/location.js"></script>
 <script>
     const cities = {

@@ -84,8 +84,8 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-custom">
                                     <div class="myaccount-tab-menu nav" role="tablist">
-                                        <input id="memNo" type="text" hidden value="1">
-                                        <a href="#dashboad" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
+                                        <input id="memNo" type="text" hidden>
+                                        <a href="#dashboard" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
                                             Dashboard</a>
                                         <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
                                             訂單管理</a>
@@ -102,7 +102,7 @@
                                         <a href="#account-info" data-bs-toggle="tab" id="myPersonalData"><i class="fa fa-user"></i>
                                             帳號維護</a>
                                         <a href="#password-edit" data-bs-toggle="tab"><i class="fa fa-key"></i>密碼變更</a>
-                                        <a href="login.html"><i class="fa fa-sign-out"></i>會員登出</a>
+                                        <a href="#" id="logoutButton"><i class="fa fa-sign-out"></i>會員登出</a>
                                     </div>
                                 </div>
                                 <!-- My Account Tab Menu End -->
@@ -111,11 +111,12 @@
                                 <div class="col-lg-9 col-md-8 col-custom">
                                     <div class="tab-content" id="myaccountContent">
                                         <!-- Single Tab Content Start -->
-                                        <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                        <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                                            <div hidden id="memNo_dash">{{ defaultMemNo }}</div>
                                             <div class="myaccount-content">
                                                 <h3>Dashboard</h3>
                                                 <div class="welcome">
-                                                    <p>您好, <strong id="myName">Alex Aya</strong></p>
+                                                    <p>您好, <strong id="myName">{{defaultMemName}}</strong></p>
                                                 </div>
                                                 <p class="mb-0">由你的帳戶管理頁面，你可以輕鬆地檢查和查看你最近的訂單與通知，管理你所預約的訂位與活動，以及編輯你的密碼和帳戶詳細資料。</p>
                                             </div>
@@ -185,6 +186,16 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id="tbody-context">
+
+                                                            <tr v-for="item in memWishlist" :key="item.pdNo">
+                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" :src="item.pdPic" alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">{{ item.pdName }}</a></td>
+                                                                <td class="pro-price"><span>{{ item.price }}</span></td>
+                                                                <td class="pro-stock"><span><strong>{{ item.pdStock }}</strong></span></td>
+                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                                <td class="pro-remove"><button @click.prevent="removeOne" :data-pd-no="item.pdNo"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></button></td>
+                                                            </tr>
+
                                                             <!-- <tr>
                                                                 <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
                                                                 <td class="pro-title"><a href="#">Product dummy title <br> s / green</a></td>
@@ -217,62 +228,6 @@
                                                                 <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
                                                                 <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
                                                             </tr> -->
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start 我的收藏-->
-                                        <div class="tab-pane fade" id="wishlist" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>收藏列表</h3>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="pro-thumbnail">商品圖片</th>
-                                                                <th class="pro-title">商品名稱</th>
-                                                                <th class="pro-price">售價</th>
-                                                                <th class="pro-stock">庫存量</th>
-                                                                <th class="pro-cart">加入購物車</th>
-                                                                <th class="pro-remove">移除收藏</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">Product dummy title <br> s / green</a></td>
-                                                                <td class="pro-price"><span>$295.00</span></td>
-                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/24.jpg" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">Product title here <br> red</a></td>
-                                                                <td class="pro-price"><span>$275.00</span></td>
-                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/34.jpg" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">Product dummy title <br> s</a></td>
-                                                                <td class="pro-price"><span>$295.00</span></td>
-                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/43.jpg" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">Dummy Title</a></td>
-                                                                <td class="pro-price"><span>$110.00</span></td>
-                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
-                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -339,7 +294,7 @@
                                                         <thead class="thead-light">
                                                             <tr>
                                                                 <th>訂單編號</th>
-                                 F                               <th>下定日期</th>
+                                                                <th>下定日期</th>
                                                                 <th>訂單狀態</th>
                                                                 <th>付款金額</th>
                                                                 <th>訂單明細</th>
@@ -483,24 +438,24 @@
                                                     <form action="#">
                                                         <div class="single-input-item mb-3">
                                                             <label for="current-pwd" class="required mb-1">Current Password</label>
-                                                            <input type="password" id="current-pwd" placeholder="Current Password">
+                                                            <input type="password" v-model.trim="oldPwd" id="current-pwd" placeholder="Current Password">
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6 col-custom">
                                                                 <div class="single-input-item mb-3">
                                                                     <label for="new-pwd" class="required mb-1">New Password</label>
-                                                                    <input type="password" id="new-pwd" placeholder="New Password">
+                                                                    <input type="password" id="new-pwd" v-model.trim="newPwd" placeholder="New Password">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-custom">
                                                                 <div class="single-input-item mb-3">
                                                                     <label for="confirm-pwd" class="required mb-1">Confirm Password</label>
-                                                                    <input type="password" id="confirm-pwd" placeholder="Confirm Password">
+                                                                    <input type="password" id="confirm-pwd" v-model.trim="CheckNewPwd" placeholder="Confirm Password">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item single-item-button">
-                                                            <button class="btn obrien-button primary-btn">Save Changes</button>
+                                                            <button class="btn obrien-button primary-btn" @click="changePwd">Save Changes</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -513,71 +468,71 @@
                                             <div class="myaccount-content">
                                                 <h3>帳戶維護</h3>
                                                 <div class="account-details-form">
-                                                    <form id="mem-form" action="/mem/save" method="POST">
+                                                    <form>
                                                         <div class="single-input-item mb-3">
-                                                            <input id="mem_no" type="number" hidden value="">
-                                                            <input type="password" name="" id="mem_password" hidden>
+                                                            <input id="mem_no" type="number" v-model="memberData.memNo" hidden>
+                                                            <!-- <input type="password" name="" id="mem_password" v-model="memberData.memNo" hidden> -->
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_name" class="form-label">姓名</label>
-                                                            <input type="text" class="form-control" id="mem_name" placeholder="Your Name" required>
+                                                            <input type="text" class="form-control" id="mem_name"  v-model.trim="memberData.memName" placeholder="Your Name" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_phone" class="form-label">電話</label>
-                                                            <input type="tel" class="form-control" id="mem_phone" placeholder="Your Phone" required>
+                                                            <input type="tel" class="form-control" id="mem_phone" v-model.trim="memberData.memPhone" placeholder="Your Phone" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label style="width: 80px;padding-bottom: 8px;">性別</label>
                                                             <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="genderOptions" id="gender_male" value="1">
+                                                                    <input class="form-check-input" type="radio" name="genderOptions" v-model="memberData.memGender" id="gender_male" value="1">
                                                                     <label class="form-check-label" for="gender_male">Male</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="genderOptions" id="gender_female" value="0">
+                                                                    <input class="form-check-input" type="radio" name="genderOptions" v-model="memberData.memGender" id="gender_female" value="0">
                                                                     <label class="form-check-label" for="gender_female">Female</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_birthday" class="form-label">生日</label>
-                                                            <input type="date" class="form-control" id="mem_birthday">
+                                                            <input type="date" class="form-control" id="mem_birthday" v-model="memberData.memBirthday">
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_email" class="form-label">信箱</label>
-                                                            <input type="email" class="form-control" id="mem_email" required>
+                                                            <input type="email" class="form-control" id="mem_email" v-model.trim="memberData.memEmail" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_address" class="form-label">地址</label>
-                                                            <input type="text" class="form-control" id="mem_address" required>
+                                                            <input type="text" class="form-control" id="mem_address" v-model="memberData.memAddress" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="coupon" class="form-label">回饋金</label>
-                                                            <input type="text" class="form-control" id="coupon" readonly>
+                                                            <input type="text" class="form-control" id="coupon" v-model="memberData.coupon" readonly>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label for="coupon" style="width: 80px;padding-bottom: 8px;">預約權限</label>
                                                             <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_on" value="1" disabled>
+                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_on" v-model="memberData.reserveAuth" value="true" disabled>
                                                                     <label class="form-check-label" for="reserve_on">可預約</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_off" value="0" disabled>
+                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_off" v-model="memberData.reserveAuth" value="false" disabled>
                                                                     <label class="form-check-label" for="reserve_off">鎖定中</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_vio" class="form-label">違規次數</label>
-                                                            <input type="text" class="form-control" id="mem_vio" readonly>
+                                                            <input type="text" class="form-control" id="mem_vio" v-model="memberData.memVIO" readonly>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_status" class="form-label">解鎖日期</label>
-                                                            <input type="date" class="form-control" id="mem_status" readonly>
+                                                            <input type="date" class="form-control" id="mem_status" v-model="memberData.memStatus" readonly>
                                                         </div>
                                                         <div class="single-input-item single-item-button">
-                                                            <button id="mem-save" class="btn obrien-button primary-btn">Save Changes</button>
+                                                            <button id="mem-save" class="btn obrien-button primary-btn" @click="updateMember">Save Changes</button>
                                                         </div>
                                                     </form>   
                                                 </div>
@@ -604,7 +559,8 @@
 ============================================ -->
 <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
-    <!-- jQuery JS -->
+<!-- jQuery JS -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
     <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
     <!-- jQuery Migrate JS -->
     <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
@@ -633,10 +589,11 @@
     <script defer src="/foreground/static/js/my-account-orders.js"></script>
 
 </body>
-<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="/foreground/static/js/myWishlist.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="../js/member.js"></script>
+<script src="/foreground/static/js/headerUse.js"></script>
 <script>
      const tbody = document.querySelector('#booking');
       const update= document.querySelector('#update');
@@ -866,6 +823,35 @@ sleep(500).then(() => {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
+const logoutButton = document.getElementById('logoutButton');
+
+logoutButton.addEventListener('click', async (event) => {
+  event.preventDefault();
+  try {
+    const logoutResponse = await fetch('/mem/to-logout', {
+      method: 'POST'
+    });
+    console.log(logoutResponse);
+    if (logoutResponse.ok) {
+      localStorage.removeItem("memNo");
+      const responseText = await logoutResponse.text();
+      console.log(responseText);
+      Swal.fire({
+        text: responseText,
+        icon: 'success',
+      }).then(() => {
+        // 成功登出後重新導向到登入頁面
+        const url = new URL(window.location.href);
+        const redirectUrl = url.origin + "/foreground/login.html";
+        window.location.href = redirectUrl;
+      });
+    } else {
+      console.error(logoutResponse.status);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+});
 
 
 

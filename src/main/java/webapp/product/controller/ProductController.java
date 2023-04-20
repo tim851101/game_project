@@ -44,6 +44,7 @@ public class ProductController {
         return productService.saveProduct(productDTO);
     }
 
+    //單筆查詢
     @GetMapping("/find-one")
     @ResponseBody
     public ProductDTO findProdById(@RequestParam Integer id){

@@ -1,171 +1,13 @@
-// const findByIdBtn=document.getElementById('myPersonalData');
-// const inputMemberId=document.getElementById('memNo_header');
 
-// // 轉換日期
-// function dateFromat(str){
-//     if(str!=null){
-//         // 取出日期字串
-//         const datestr=`${str}`;
-//         // 將日期字串轉換成 Date 物件
-//         const dateObj=new Date(datestr);
-//         // 取出年、月、日
-//         const year = dateObj.getUTCFullYear();
-//         const month = (dateObj.getUTCMonth() + 1).toString().padStart(2, "0");
-//         const day = dateObj.getUTCDate().toString().padStart(2, "0");
-//         return `${year}-${month}-${day}`;
-//     }else{
-//         return null;
-//     }
-    
-// }
-// // let password;
-// // 利用session
-// window.onload = function() {
-//     // 註冊成功所需資訊
-//     const name=sessionStorage.getItem("username");
-//     document.getElementById("myName").innerText=name;
-
-//     const email=sessionStorage.getItem("email");
-
-
-//     document.getElementById("mem_no").value=sessionStorage.getItem("memNo");
-//     console.log(document.getElementById("mem_no").value);
-   
-
-//     // 會員帳號維護頁面,讀取會員資料
-//     findByIdBtn.addEventListener('click',()=>{
-//         const memberNo=inputMemberId;
-//         if(memberNo===""){
-//             fetch(`/mem/find-email?email=${email}`)
-//             .then(response=>response.json())
-//             .then(data=>{
-//                 console.log(`/mem/find-email?email=${email}`);
-//                 console.log(data);
-
-//                 document.getElementById('mem_no').value=`${data.memNo}`;
-//                 // password=`${data.memPassword}`;
-//                 document.getElementById('mem_name').value=`${data.memName}`;
-//                 document.getElementById('mem_phone').value=`${data.memPhone}`;
-//                 document.querySelector(`input[name="genderOptions"][value="${data.memGender}"]`).checked = true;
-//                 document.getElementById('mem_birthday').value=dateFromat(data.memBirthday);
-//                 document.getElementById('mem_email').value=`${data.memEmail}`;
-//                 document.getElementById('mem_address').value=`${data.memAddress}`;
-//                 document.getElementById('coupon').value=`${data.coupon}`;
-//                 document.querySelector(`input[name="reserve_auth"][value="${data.reserveAuth?1:0}"]`).checked = true;
-//                 document.getElementById('mem_vio').value=`${data.memVIO}`;
-//                 document.getElementById('mem_status').value=dateFromat(data.memStatus);
-//             })
-//         }else{
-//             console.log(typeof(memberNo));
-//             fetch(`/mem/find-one?id=${memberNo}`)
-//                 .then(response=>response.json())
-//                 .then(data=>{
-//                     console.log(`/mem/find-one?id=${memberNo}`);
-//                     console.log(data);
-    
-//                     document.getElementById('mem_no').value=`${data.memNo}`;
-//                     // password=`${data.memPassword}`;
-//                     document.getElementById('mem_name').value=`${data.memName}`;
-//                     document.getElementById('mem_phone').value=`${data.memPhone}`;
-//                     document.querySelector(`input[name="genderOptions"][value="${data.memGender}"]`).checked = true;
-//                     document.getElementById('mem_birthday').value=dateFromat(data.memBirthday);
-//                     document.getElementById('mem_email').value=`${data.memEmail}`;
-//                     document.getElementById('mem_address').value=`${data.memAddress}`;
-//                     document.getElementById('coupon').value=`${data.coupon}`;
-//                     document.querySelector(`input[name="reserve_auth"][value="${data.reserveAuth?1:0}"]`).checked = true;
-//                     document.getElementById('mem_vio').value=`${data.memVIO}`;
-//                     document.getElementById('mem_status').value=dateFromat(data.memStatus);
-    
-//             })
-//         }
-
-//     })
-
-
-//     findByIdBtn.addEventListener('click',()=>{
-//         const memberNo=inputMemberId.value;
-//         console.log(memberNo);
-//         fetch(`/mem/find-one?id=${memberNo}`)
-//             .then(response=>response.json())
-//             .then(data=>{
-//                 console.log(`/mem/find-one?id=${memberNo}`);
-//                 console.log(data);
-
-//                 document.getElementById('mem_no').value=`${data.memNo}`;
-//                 // password=`${data.memPassword}`;
-//                 document.getElementById('mem_name').value=`${data.memName}`;
-//                 document.getElementById('mem_phone').value=`${data.memPhone}`;
-//                 document.querySelector(`input[name="genderOptions"][value="${data.memGender}"]`).checked = true;
-//                 document.getElementById('mem_birthday').value=dateFromat(data.memBirthday);
-//                 document.getElementById('mem_email').value=`${data.memEmail}`;
-//                 document.getElementById('mem_address').value=`${data.memAddress}`;
-//                 document.getElementById('coupon').value=`${data.coupon}`;
-//                 document.querySelector(`input[name="reserve_auth"][value="${data.reserveAuth?1:0}"]`).checked = true;
-//                 document.getElementById('mem_vio').value=`${data.memVIO}`;
-//                 document.getElementById('mem_status').value=dateFromat(data.memStatus);
-
-//             })
-//     })
-
-
-//     // 會員修改資料
-//     let modifyData={};
-//     $('#mem-save').click((e) => {
-//         e.preventDefault();
-//         // 取得user輸入的資料
-//         modifyData.memNo=document.getElementById('mem_no').value;
-//         modifyData.memName=document.getElementById('mem_name').value;
-//         // modifyData.memPassword=password;
-//         modifyData.memEmail=document.getElementById("mem_email").value;
-//         modifyData.memPhone=document.getElementById("mem_phone").value;
-//         modifyData.memAddress=document.getElementById("mem_address").value;
-//         modifyData.memBirthday=document.getElementById("mem_birthday").value;
-//         modifyData.memGender=document.querySelector('input[name="genderOptions"]:checked').value;
-//         console.log(modifyData);
-//         fetch(`/mem/save`, {
-//             method: 'POST',
-//             body: JSON.stringify(modifyData),
-//             headers: {'Content-Type': 'application/json'},
-//         }).then(response => response.json())
-//         .then(data => console.log(data))
-//         .catch(error => console.error(error));
-//     });
-
-//     $('#mem-form').submit(e=>{
-
-//         e.preventDefault();
-//         console.log(modifyData);
-
-//         // Send form data as POST request
-//         fetch(e.target.action, {
-//             method: 'POST',
-//             body: JSON.stringify(modifyData),
-//             headers: {'Content-Type': 'application/json'}
-//         })
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             console.log(data);
-//         })
-//         .catch(error => {
-//             console.error('There was a problem with the fetch operation:', error);
-//         });   
-//     })
-
-// }
-
-window.onload = function() {
-    Vue.createApp({
+Vue.createApp({
       data() {
         return {
             memNo:'',
             defaultMemNo:'',
             defaultMemName: '',
             memberData:'',
+            // memWishlist:'',
+
         };
       },
       methods: {
@@ -186,10 +28,352 @@ window.onload = function() {
                 console.error(error);
             }
         },
-      },
-      mounted() {
+        async updateMember(event) {
+            event.preventDefault();
+            try {
+                // if (!this.memGender) {
+                //     throw new Error("請選擇性別");
+                // }
+                console.log(this.memberData);
+                const response = await fetch(`/mem/save`, {
+                    method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.memberData)
+                });
+                console.log("response:", response); // test
+                await this.handleResponse(response);
+                return;
+            } catch (error) {
+                console.error(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.message,
+                });
+            }
+        },
+        async handleResponse(response) {
+            console.log("response:", response); // test
+            if (response.status === 400) {
+                const data = await response.json();
+                if (data.errors && data.errors.length > 0) {
+                    throw new Error(data.errors[0]);
+                } else {
+                    throw new Error("Validation error");
+                }
+            } else if (response.status === 401) {
+                const data = await response.json();
+                if (data.errors && data.errors.length > 0) {
+                    throw new Error(data.errors[0]);
+                } else {
+                    throw new Error("Unauthorized");
+                }
+            } else if (response.status === 405) {
+                const data = await response.json();
+                console.log(data);
+                if (data.errors && data.errors.length > 0) {
+                    throw new Error(data.errors[0]);
+                } else {
+                    throw new Error("Unauthorized");
+                }
+            } else if (response.ok) {
+                const data = await response.json();
+                console.log(data);
+                if (data.message === "Update successful") {
+                    // 紀錄當前路徑
+                    // await this.saveCurrentUrl();
+                    Swal.fire({
+                        text: data.message,
+                        icon: "success",
+                    })
+                } else {
+                    throw new Error("Unexpected response");
+                }
+            } else {
+                throw new Error("Unexpected response");
+            }
+        },        
+    },
+    mounted() {
         this.getMemberData();
-      },
-    }).mount('#memberAllData');
-  };
+    },
+    destroyed(){
+        this.getMemberData();
+    },
+}).mount('#account-info');
+
+
+Vue.createApp({
+        data() {
+          return {
+              memNo:'',
+              defaultMemNo:'',
+              defaultMemName: '',
+              memberData:'',
+              // memWishlist:'',
   
+          };
+        },
+        methods: {
+            async getMemberData() {
+                try {
+                    const memNoResponse = await fetch('/mem/get-memNo', {
+                    method: 'POST',
+                    });
+                    const memNo = await memNoResponse.json();
+                    console.log(memNo);
+                    this.defaultMemNo = memNo;
+                    const memberResponse = await fetch(`/mem/find-one?id=${memNo}`);
+                    const memberData = await memberResponse.json();
+                    this.memberData=memberData;
+                    console.log(memberData);
+                    this.defaultMemName = memberData.memName;
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+        
+        },
+        mounted() {
+            this.getMemberData();
+        },
+        destroyed(){
+            this.getMemberData();
+        },
+}).mount('#dashboard');
+
+Vue.createApp({
+            data() {
+            return {
+                memNo:'',
+                memWishlist:'',
+            };
+            },
+            methods: {
+            async fetchMemNo() {
+                try {
+                    const memNoResponse = await fetch('/mem/get-memNo', {
+                    method: 'POST'
+                    });
+                    const memNo = await memNoResponse.json();
+                    this.memNo = memNo;
+                    return memNo;
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+            async fetchWishlist() {
+                try {
+                    const memNo = await this.fetchMemNo();
+                    const memWishlistResponse = await fetch(`/wish/myList?memNo=${memNo}`, {
+                    method: 'GET'
+                    });
+                    const memWishlist = await memWishlistResponse.json();
+                    this.memWishlist = memWishlist;
+                    console.log(memWishlist);
+                } catch (error) {
+                    console.error(error);
+                }
+                },
+                async renderWishlist() {
+                try {
+                    await this.fetchWishlist();
+                    const currentUrl = "/foreground/my-account.html#wishlist";
+                    const url = new URL(window.location.href);
+                    const redirectUrl = url.origin + currentUrl;
+                    window.location.href = redirectUrl;
+                } catch (error) {
+                    console.error(error);
+                }
+            },
+            async showWishlist(){
+                try{
+                    const memNoResponse = await fetch('/mem/get-memNo', {
+                        method: 'POST',
+                        });
+                    const memNo=await memNoResponse.json();
+                    const memWishlistResponse=await fetch(`/wish/myList?memNo=${memNo}`,{
+                        method:'GET'
+                    });
+                    await this.fetchWishlist();
+                    console.log(this.memWishlist);
+                    await this.renderWishlist();
+                }catch(error){
+                    console.error(error);
+                }
+            },
+            async showWishlist(event){
+                event.preventDefault();
+                    try{
+                        const memNoResponse = await fetch('/mem/get-memNo', {
+                            method: 'POST',
+                        });
+                    const memNo=await memNoResponse.json();
+                    const memWishlistResponse=await fetch(`/wish/myList?memNo=${memNo}`,{
+                        method:'GET'
+                    });
+                    const memWishlist=await memWishlistResponse.json();
+                    this.memWishlist=memWishlist;
+                    console.log(memWishlist);
+                }catch(error){
+                    console.error(error);
+                }
+            },
+            async removeOne(event) {
+                if (event) {
+                    event.preventDefault();
+                }
+                const pdNo = event.currentTarget.getAttribute('data-pd-no');
+                // 通过 event 参数获取事件对象
+                
+                // 顯示刪除確認訊息
+                const swalResult = await Swal.fire({
+                    title: '確定要移除該商品的收藏嗎？',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: '刪除',
+                    cancelButtonText: '取消'
+                });
+                
+                // 如果使用者確認要刪除，才進行刪除操作
+                if (swalResult.isConfirmed) {
+                    const memNoResponse = await fetch('/mem/get-memNo', {
+                        method: 'POST'
+                    });
+                    const memNo = await memNoResponse.json();
+                    confirm(pdNo,memNo);
+                    await fetch('/wish/delete-one', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "memNo": memNo,
+                        "pdNo": pdNo
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                    });
+                    // 更新畫面上的收藏列表
+                    await this.renderWishlist();
+                }
+            },
+        },
+        mounted() {
+            this.fetchWishlist();
+        },
+    }).mount('#wishlist');
+
+    
+Vue.createApp({
+    data() {
+        return {
+            memNo:'',
+            oldPwd:'',
+            newPwd:'',
+            CheckNewPwd:''
+        };
+    },
+    methods: {
+        async fetchMemNo() {
+            try {
+                const memNoResponse = await fetch('/mem/get-memNo', {
+                method: 'POST'
+                });
+                const memNo = await memNoResponse.json();
+                this.memNo=memNo;
+                // sessionStorage.setItem("memNo",memNo);
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async changePwd(e) {
+            e.preventDefault();
+            if(this.newPwd!==this.CheckNewPwd){
+                // throw new Error("新密碼與確認密碼不一致");
+                Swal.fire({
+                    text: '新密碼與確認密碼不一致',
+                    icon: 'error',
+                });
+                return;
+            }
+            // const memNo = sessionStorage.getItem("memNo");
+            // this.memNo=memNo;
+            try {
+                const pwdChangeData={memNo:this.memNo, oldPwd:this.oldPwd,newPwd:this.newPwd};
+                console.log(pwdChangeData);
+                const changePwdResponse = await fetch(`/mem/changePassword`, {
+                method: 'POST',
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(pwdChangeData)
+                });
+                console.log("changePwdResponse:", changePwdResponse); // test
+                await this.handleResponse(changePwdResponse);
+                return;
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        async handleResponse(changePwdResponse) {
+            console.log("response:", changePwdResponse); // test
+            if (changePwdResponse.status === 400) {
+                const data = await changePwdResponse.json();
+                if (data.errors && data.errors.length > 0) {
+                    Swal.fire({
+                        text: data.errors[0],
+                        icon: "error",
+                    });
+                } else {
+                    throw new Error("Validation error");
+                }
+            } else if (changePwdResponse.status === 401) {
+                const data = await changePwdResponse.json();
+                if (data.errors && data.errors.length > 0) {
+                    throw new Error(data.errors[0]);
+                } else {
+                    throw new Error("Unauthorized");
+                }
+            } else if (changePwdResponse.status === 405) {
+                const data = await changePwdResponse.json();
+                console.log(data);
+                if (data.errors && data.errors.length > 0) {
+                    throw new Error(data.errors[0]);
+                } else {
+                    throw new Error("Unauthorized");
+                }
+            } else if (changePwdResponse.ok) {
+                const data = await changePwdResponse.json();
+                console.log(data);
+                if (data.message === "Change successful") {
+                    // 紀錄當前路徑
+                    // await this.saveCurrentUrl();
+                    Swal.fire({
+                        text: data.message,
+                        icon: "success",
+                    })
+                    this.oldPwd='';
+                    this.newPwd='';
+                    this.CheckNewPwd='';
+                } else {
+                    throw new Error("Unexpected response");
+                }
+            } else {
+                throw new Error("Unexpected response");
+            }
+        }            
+    },
+    mounted() {
+        this.fetchMemNo();
+    },
+    destroyed(){
+        this.fetchMemNo();
+    },
+}).mount('#password-edit');
+
+
+  
+

@@ -11,6 +11,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -80,6 +81,7 @@ public class MemberController {
 //    }
 
     // 取得當前路徑網址方法,但html似乎無法這樣使用
+//    @GetMapping("/test-getUrl")
     public void saveReturnUrl(HttpServletRequest request) {
         String scheme = request.getScheme();
         String serverName = request.getServerName();
@@ -108,6 +110,42 @@ public class MemberController {
         session.setAttribute("location", location);
     }
 
+    // 抓取client cookie內的session方法
+    public String getJsessionIdFromCookie(HttpServletRequest request) {
+        // 由 header 獲取 cookie
+        String cookieHeader = request.getHeader("Cookie");
+        if (cookieHeader == null) {
+            return null; // 如果 Cookie 不存在，返回 null
+        }
+
+        // 解析 Cookie 字符串，將每個 Cookie 鍵值對解析為一個 Cookie
+        List<HttpCookie> cookies = HttpCookie.parse(cookieHeader);
+        System.out.println("cookies.size()"+cookies.size()); // test
+        System.out.println(cookies); // test
+
+        String[] cookiePairs = cookieHeader.split("; ");
+        String jsessionId = null;
+        for (String cookiePair : cookiePairs) {
+            String[] keyValue = cookiePair.split("=");
+            if (keyValue[0].equals("JSESSIONID")) {
+                jsessionId = keyValue[1];
+                break;
+            }
+        }
+
+        if (jsessionId == null) {
+            return null; // 如果 JSESSIONID Cookie 不存在，返回 null
+        }
+
+        return jsessionId;
+    }
+
+    // test-google-login
+    @GetMapping("/google-login")
+    public Map<String, Object> currentUser(OAuth2AuthenticationToken oAuth2AuthenticationToken){
+        return oAuth2AuthenticationToken.getPrincipal().getAttributes();
+    }
+
     /*
     * 取得client cookie的sessionId
     * 比對Redis找出client的memNo
@@ -121,29 +159,7 @@ public class MemberController {
         if (request == null) {
             return null;
         }
-        // 由header獲取cookie
-        String cookieHeader = request.getHeader("Cookie");
-        if (cookieHeader == null) {
-            return null; // 如果Cookie不存在，返回-1
-        }
-        // 解析Cookie字符串，将每个Cookie键值對解析為一個Cookie
-        List<HttpCookie> cookies = HttpCookie.parse(cookieHeader);
-        System.out.println("cookies.size()"+cookies.size()); // test
-        System.out.println(cookies); // test
-        String[] cookiePairs = cookieHeader.split("; ");
-        String jsessionId = null;
-        for (String cookiePair : cookiePairs) {
-            String[] keyValue = cookiePair.split("=");
-            if (keyValue[0].equals("JSESSIONID")) {
-                jsessionId = keyValue[1];
-                break;
-            }
-        }
-
-        if (jsessionId == null) {
-            return null; // 如果JSESSIONID Cookie不存在，返回null
-        }
-
+        String jsessionId=getJsessionIdFromCookie(request);
         System.out.println("jsessionId : "+jsessionId); // test
         String hashKey=HASH_KEY+":"+jsessionId;
 
@@ -160,6 +176,25 @@ public class MemberController {
         }
         // 用戶存在返回會員編號
         return memNo;
+    }
+
+    @PostMapping("/to-logout")
+    public String toLogout(HttpServletRequest request){
+        // 檢查 session 和 request 是否為 null
+        if (request == null) {
+            return null;
+        }
+        // 取得client端session id
+        String jsessionId=getJsessionIdFromCookie(request);
+        if (jsessionId == null) {
+            return null;
+        }
+        System.out.println("jsessionId : "+jsessionId); // test
+        String hashKey=HASH_KEY+":"+jsessionId;
+        System.out.println("this is delete session id function start....");
+
+        memberServiceImpl.deleteSessionFromRedis(jsessionId);
+        return "登出成功";
     }
 
     // 由別的網址到login.html頁面紀錄前次頁面
@@ -215,10 +250,10 @@ public class MemberController {
             System.out.println(member.getMemNo());
             session.setAttribute("memNo", member.getMemNo()); // 将会员编号存储到 session 中
             System.out.println(session.getAttribute("memNo"));
-            // 将sessionId存储到localStorage中
+            // 確認Redis存的sessionId與client的cookie存的一致
             String script = "localStorage.setItem('sessionId', '" + sessionId + "');";
             System.out.println(script);
-            // 将sessionId和會員資料存到Redis
+            // 将sessionId和會員編號存到Redis
             memberServiceImpl.saveSessionToRedis(sessionId, member);
             return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Login successful", Collections.emptyList()));
         } else {
@@ -238,7 +273,7 @@ public class MemberController {
     {
         System.out.println(memberDTO.toString());
         List<String> errors = new ArrayList<>();
-        // 檢查輸入資料格式正確性
+        // 檢查輸入資料格式正確性,有時間改成方法參數1(BindingResult bindingResult,String email
         if (bindingResult.hasErrors()) {
             errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -251,7 +286,9 @@ public class MemberController {
             errors = Collections.singletonList("此信箱已被註冊，請勿重複註冊");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new ErrorResponse(HttpStatus.UNAUTHORIZED, "Register failed",errors));
+
         }
+        System.out.println("sothing error");
         // 有任何的錯誤訊息存在，就會直接回傳 bad request
         if (!errors.isEmpty()) {
             return ResponseEntity.badRequest()
@@ -261,8 +298,11 @@ public class MemberController {
             System.out.println("ready to add...");
             memberServiceImpl.addMember(memberDTO);
         }catch (Exception e) {
+
             System.out.println("something error...");
             e.printStackTrace();
+            return ResponseEntity.badRequest()
+                    .body(new ErrorResponse(HttpStatus.BAD_REQUEST,e.getMessage(), errors));
         }
         System.out.println("ready to end...");
         return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Register successful", Collections.emptyList()));
@@ -270,7 +310,7 @@ public class MemberController {
 
     // 會員更新資料使用
     @PostMapping("/save")
-//    @ResponseBody
+    @ResponseBody
     public ResponseEntity<ErrorResponse> updateUser(
             @Validated(MemberVaildationRules.MemUpdate.class) @RequestBody MemberDTO memberDTO,
             HttpServletRequest request,
@@ -285,6 +325,7 @@ public class MemberController {
             errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
+            System.out.println("error...Binding");
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse(HttpStatus.BAD_REQUEST,"Validation failed", errors));
         }
@@ -300,6 +341,7 @@ public class MemberController {
         }
         // 有任何的錯誤訊息存在，就會直接回傳 bad request
         if (!errors.isEmpty()) {
+            System.out.println("error...isEmpty");
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse(HttpStatus.BAD_REQUEST,"Validation failed", errors));
         }
@@ -311,7 +353,7 @@ public class MemberController {
             e.printStackTrace();
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Update successful", Collections.emptyList()));
     }
 
     // 會員變更密碼使用
@@ -341,7 +383,7 @@ public class MemberController {
         }
         member.setMemPassword(encoder.encode(changePwdDTO.getNewPwd()));
         memberServiceImpl.updatePwd(member);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Change successful", Collections.emptyList()));
     }
 
 //    @PostMapping("/save")

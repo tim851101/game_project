@@ -77,9 +77,9 @@ public class Members {
         return encoder.matches(password, this.memPassword);
     }
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(referencedColumnName = "MEM_NO",name = "MEM_NO"),
-    name = "Collection",inverseJoinColumns = @JoinColumn(name = "PD_NO",referencedColumnName = "PD_NO"))
-    private List<Product> wishLists;
+//    @ManyToMany
+//    @JoinTable(joinColumns = @JoinColumn(referencedColumnName = "MEM_NO",name = "MEM_NO"),
+//    name = "Collection",inverseJoinColumns = @JoinColumn(name = "PD_NO",referencedColumnName = "PD_NO"))
+//    private List<Product> wishLists;
 
 }

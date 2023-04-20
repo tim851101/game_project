@@ -126,6 +126,13 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
+
+    @Override
+    public void deleteSessionFromRedis(String sessionId){
+        String hashKey=HASH_KEY+":"+sessionId;
+        redisTemplate.delete(hashKey);
+    }
+
     // 透過seesionId取會員編號
     @Override
     public Integer getMemberNoFromSession(String sessionId) {

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" value="qwer" id="name"></input>
+<button onclick="conn()">連線</button>
+</body>
+<script>
+function conn(){
+
+   name= document.getElementById('name').value;
+    let Socket = new WebSocket('ws://localhost:8082/WebSocketServer/'+name);
+    Socket.onopen =function(){
+        Socket.onmessage = function(a) {
+            console.log(a.data);
+        }
+    }
+}
+
+
+</script>
+</html>

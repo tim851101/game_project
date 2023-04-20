@@ -34,7 +34,7 @@ public class newBooking {
     private Time bookingStartTime;
 
     @Column(name = "BOOKING_END_TIME")
-    private Time bookingEndTime;
+        private Time bookingEndTime;
 
     @Column(name = "BOOKING_PAYMENT_STATUS")
     private int bookingPaymentStatus;

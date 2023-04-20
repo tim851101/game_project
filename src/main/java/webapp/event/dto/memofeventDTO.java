@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 public class memofeventDTO {
     private Integer eventNo;
     private String eventName;
-    @JsonFormat(pattern = "HH:mm", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     private Timestamp eventStarttime;
     private Integer eventFee;
     private Integer memNo;

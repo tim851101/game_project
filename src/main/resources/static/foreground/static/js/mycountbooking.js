@@ -2,7 +2,7 @@
      const tbody = document.querySelector('#booking');
       const update= document.querySelector('#update');
       const updatebook= document.querySelector('#updatebook')
-     const url ='http://localhost:8082/book/bookingbymemno?memno=32';//目前寫死
+     const url ='/book/bookingbymemno?memno=32';//目前寫死
       const MonthFromNow = new Date();
     MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
      let bookno=null;
@@ -24,10 +24,9 @@
                 }
                  tbody.innerHTML += `
                 <tr>
-                   <td>${booking.bookingNo}</td>
+                    <td>${booking.bookingDate}</td>
                    <td>${booking.bookingStartTime}</td>
                    <td>${booking.bookingEndTime}</td>
-                   <td>${booking.bookingDate}</td>
                    <td>`+deadlineStr+`</td>
                    <td>${booking.bookingTotalPrice}</td>
                    <td>${booking.bookingPeople}</td>
@@ -133,7 +132,7 @@ sleep(500).then(() => {
                 }
                 console.log(datas);
                 $.ajax({
-                url : 'http://localhost:8082/book/testseat',
+                url : '/book/testseat',
                 type : 'POST',
                 data : datas,
                 success : function(response) {
@@ -224,7 +223,7 @@ sleep(500).then(() => {
                 change:document.getElementById('people').value
                 }
     $.ajax({
-                url : 'http://localhost:8082/book/saveseat4time',
+                url : '/book/saveseat4time',
                 type : 'post',
                 data : redisdata,
                 success : function(response) {
@@ -233,7 +232,7 @@ sleep(500).then(() => {
             });
 
     $.ajax({
-  url : 'http://localhost:8082/book/addbooking',
+  url : '/book/addbooking',
   type : 'post',
   dataType : 'json',
   contentType : 'application/json; charset=utf-8', // 要送到server的資料型態

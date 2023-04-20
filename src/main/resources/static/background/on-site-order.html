@@ -357,11 +357,7 @@
                               >人數 <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-8">
-                              <input
-                                type="text"
-                                id="NEWS_TITLE"
-                                required
-                              />
+                              <input  type="text" id="people"> 
                               <div class="invalid-feedback">請輸入主題...</div>
                             </div>
                           </div>
@@ -372,10 +368,7 @@
                                 >會員號(可選) <span class="text-danger"></span>
                                 </label>
                                 <div class="col-lg-8">
-                                    <input
-                                            type="text"
-                                            required
-                                    />
+                                    <input type="text" id="memno"></input>
                                     <div class="invalid-feedback">請輸入主題...</div>
                                 </div>
                             </div>
@@ -386,7 +379,7 @@
                               <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-8">
-                                <input type="text"></input>
+                                <input type="text" id="bookingtime"></input>
                             </div>
                           </div>
                         <div class="mb-3 row">
@@ -394,7 +387,7 @@
                             class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
                           >
 
-                            <button type="submit" class="btn btn-primary fs-5">
+                            <button type="button" onclick="insert()" class="btn btn-primary fs-5">
                               新增
                             </button>
                           </div>
@@ -469,5 +462,40 @@
     <script src="static/js/dlabnav-init.js"></script>
     <script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
+    <script>
+    function  insert() {
+      const today = new Date();
+      const year = today.getFullYear();
+          let month = today.getMonth() + 1;
+          if (month < 10) {
+            month = '0' + month;
+          }
+          let day = today.getDate();
+          if (day < 10) {
+            day = '0' + day;
+          }
+          const currentDate = `${year}-${month}-${day}`;
+        datas={
+          bookingNo:"",
+        memNo:document.getElementById('memno').value,
+        bookingDate:currentDate,
+        bookingStartTime:today.getHours()+":00:00",
+        bookingEndTime:document.getElementById('bookingtime').value,
+        bookingPaymentStatus:1,
+        bookingCheckStatus:1,
+        bookingFinishDate:currentDate,
+        bookingTotalPrice:document.getElementById('people').value*200,
+        bookingPeople:document.getElementById('people').value
+      }
+      fetch("/book/addbooking",{
+        method:'post',
+        body:JSON.stringify(datas),
+        headers: new Headers({
+    'Content-Type': 'application/json'
+         })
+      })
+    }
+      
+    </script>
   </body>
 </html>

@@ -29,9 +29,9 @@ public class EventOrdcontroller {
     public List<EventOrdDTO> getAlleventOrd(){
         return EventOrdservice.getAllEventOrd();
     }
-    @PostMapping("byeventformem")
+    @PostMapping("byeventformem/{memno}")
     @ResponseBody
-    public List<memofeventDTO> byeventformem(Integer memno){
+    public List<memofeventDTO> byeventformem(@PathVariable Integer memno){
         return EventOrdservice.findeventotmem(memno);
     }
     @PostMapping("byeventls") //查詢報名賽事的所有會員(傳入賽事編號)

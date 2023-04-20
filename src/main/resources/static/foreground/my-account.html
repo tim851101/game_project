@@ -387,10 +387,10 @@
                                                     <table id="booktable" class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>NO</th>
+                                                                <th>預約日期</th>
                                                                 <th>起始時間</th>
                                                                 <th>結束時間</th>
-                                                                <th>預約日期</th>
+
                                                                 <th>完成付款日期</th>
                                                                 <th>價格</th>
                                                                 <th>人數</th>
@@ -417,7 +417,7 @@
                                                             <th></th>
                                                         </tr>
                                                         </thead>
-                                                        <tbody id="update"></tbody>
+                                                        <tbody id="update">
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -433,12 +433,10 @@
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>訂單編號</th>
-                                                                <th>下定日期</th>
-                                                                <th>訂單狀態</th>
+                                                                <th>賽事編號</th>
+                                                                <th>賽事名稱</th>
+                                                                <th>開始時間</th>
                                                                 <th>付款金額</th>
-                                                                <th>訂單明細</th>
-                                                                <th>退貨申請</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody id="eventls">                    </tbody>
@@ -614,13 +612,26 @@
 <script src="/foreground/static/js/myWishlist.js"></script>
 <script src="../js/member.js"></script>
     <script>
+        let eventls=document.getElementById('eventls');
         memno=3;
-        fetch('http://localhost:8082/eventord/byeventls/'+memno,{
+        fetch('/eventord/byeventformem/'+200,{
             method:'post'
         }).then(response => response.json())
-        .then(list =>{
+        .then(list =>{  
             for(let event of list)
-            {console.log(list)}
+            {
+                let time=event.eventStarttime;
+                console.log(time);
+                eventls.innerHTML += `
+                <tr>
+                   <td>${event.eventNo}</td>
+                   <td>${event.eventName}</td>
+                   <td>${event.eventStarttime}</td>
+                   <td>${event.eventFee}</td>
+                <tr>
+                    `
+
+            }
         })
 
     </script>

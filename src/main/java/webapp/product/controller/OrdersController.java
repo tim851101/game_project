@@ -1,5 +1,6 @@
 package webapp.product.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import webapp.member.service.MemberService;
@@ -41,7 +42,7 @@ public class OrdersController {
 
     @PostMapping("/save")
     @ResponseBody
-    public Integer saveOrder(@RequestBody OrdersDTO ordersDTO) {
+    public Integer saveOrder(@RequestBody @Valid OrdersDTO ordersDTO) {
         try {
             return ordersService.saveOrders(ordersDTO);
 

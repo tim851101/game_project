@@ -9,6 +9,7 @@ for (item of shoppingcart) {
         method: "GET"
     }).then(response => response.json()
     ).then(data => {
+        //購物車清單table
         cartBody.innerHTML += `<tr>
                     <td id = pdNo${n} class = pdNo style = "display:none">${pdNo}</td>
                     <td id = pdStock${n} class = pdStock style = "display:none">${data.pdStock}</td>
@@ -32,6 +33,7 @@ for (item of shoppingcart) {
                 </tr>`;
         n++
 
+        //產品數量改變按鈕
         $('.cart-plus-minus').append(
             '<div class="dec qtybutton"><i class="fa fa-minus"></i></div><div class="inc qtybutton"><i class="fa fa-plus"></i></div>'
         );
@@ -58,12 +60,13 @@ for (item of shoppingcart) {
 
             set(pdNo, newVal);
 
+            //產品總金額動態產生
             let unitPrice = +$button.closest("tr").find(".pro-price span").text().replace("$", "");
             $button.closest('tr').find(".pro-subtotal span").text("$" + (unitPrice * newVal))
         });
 
+        //購物車刪除按鈕
         const deleteButtons = document.querySelectorAll('.pro-remove');
-
         deleteButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const pdNoNode = button.closest('tr').querySelector('.pdNo');
@@ -72,36 +75,47 @@ for (item of shoppingcart) {
                 productRow.remove();
             });
         });
+
     })
-        .then(() => {
+        .then(() => {      //產品照片獲取、若在購物車中的產品超過庫存會被過濾為庫存最大數量。
             for (let i = 1; i < n; i++) {
                 if ((+$(`#qty${i}`).val()) > (+$(`#pdStock${i}`).text())) {
                     $(`#qty${i}`).val($(`#pdStock${i}`).text())
                 }
                 const pdNo = $(`#pdNo${i}`).text()
-                fetch(`/pic/getPicDTOByPdNo?pdNo=${pdNo}`,{
-                    method:'GET'
-                    }).then(response=>response.json()
-                     ).then(data=>{
-                        $(`#img${i}`).attr('src',`/pic/getimage?picno=${data[0].picNo}`)
-                    })
+
+                if ((+$(`#pdStock${i}`).text()) === 0) {
+                    del(pdNo);
+                    const productRow = $(`#pdStock${i}`).parent();
+                    productRow.remove();
+                }
+
+
+                fetch(`/pic/getPicDTOByPdNo?pdNo=${pdNo}`, {
+                    method: 'GET'
+                }).then(response => response.json()
+                ).then(data => {
+                    $(`#img${i}`).attr('src', `/pic/getimage?picno=${data[0].picNo}`)
+                })
             }
         });
 }
 
 
-// setTimeout(()=>{
-//     for (let i = 1; i < n; i++) {
-//         if ((+$(`#qty${i}`).val()) > (+$(`#pdStock${i}`).text())) {
-//             $(`#qty${i}`).val($(`#pdStock${i}`).text())
-//         }
-//         const pdNo = $(`#pdNo${i}`).text()
-//         fetch(`/pic/getPicDTOByPdNo?pdNo=${pdNo}`,{
-//             method:'GET'
-//             }).then(response=>response.json()
-//              ).then(data=>{
-//                 $(`#img${i}`).attr('src',`/pic/getimage?picno=${data[0].picNo}`)
-//             })
-//     }
-// },500)
+$("#butCheckout").click(()=>{
+    if(shoppingcart.length===0){
+        Swal.fire({
+            title: "來去購物吧!",
+            text: "你的購物車空空的，先為它添加物品再來吧!",
+            icon: "warning" //success/info/warning/error/question
+        }).then((result) => {
+            if (result.value) {
+                window.location.assign("shop.html");
+            };
+        });
+    } else {
+        window.location.assign("checkout.html");
+    }
+});
+
 

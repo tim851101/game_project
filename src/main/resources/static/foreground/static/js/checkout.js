@@ -64,7 +64,8 @@ $("#recipient").blur(checkRecipient);
 $("#recipientAddres").blur(checkRecipientAddres);
 $("#recipientPh").blur(checkRecipientPh);
 $("#inputUseCoupon").blur(checkUseCoupon);
-
+$("#creditCard").blur(checkCreditCard)
+$("#threeNum").blur(checkCreditCard);
 
 //信用卡輸入框
 $("#ordPayStatus").change(() => {
@@ -182,6 +183,40 @@ function checkRecipient() {
     }
 }
 
+//驗證信用卡卡號
+function checkCreditCard() {
+    const creditCardInput = document.getElementById("creditCard");
+    const creditCardError = document.getElementById("creditCardError");
+    const creditCardRegex = /^(\d{4}-?\d{4}-?\d{4}-?\d{4})$/;
+
+    const threeNumInput = document.getElementById("threeNum");
+    const threeNumRegex = /^\d{3}$/;
+
+    if (!(+$('#ordPayStatus').val() === 2)) {
+        creditCardError.textContent = ""
+        return true
+    }
+    if (creditCardInput.value.trim() === "") {
+        creditCardError.textContent = "請輸入信用卡卡號";
+        return false;
+    } else if (!creditCardRegex.test(creditCardInput.value.trim())) {
+        creditCardError.textContent = "請輸入正確的信用卡格式";
+        return false;
+    } else if (threeNumInput.value.trim() === "") {
+        creditCardError.textContent = "請輸入卡片末三碼";
+        return false;
+    } else if (!threeNumRegex.test(threeNumInput.value.trim())) {
+        creditCardError.textContent = "請輸入正確的末三碼格式";
+        return false;
+    } else {
+        creditCardError.textContent = "";
+        return true;
+    }
+    
+
+}
+
+
 // 驗證收件/超商地址
 function checkRecipientAddres() {
     const recipientAddresInput = document.getElementById("recipientAddres");
@@ -205,6 +240,8 @@ function checkRecipientAddres() {
     }
 }
 
+
+
 // 驗證收件人電話
 function checkRecipientPh() {
     const recipientPhInput = document.getElementById("recipientPh");
@@ -222,6 +259,8 @@ function checkRecipientPh() {
         return true;
     }
 }
+
+
 //驗證回饋金
 function checkUseCoupon() {
     const inputUseCoupon = document.getElementById("inputUseCoupon");
@@ -244,14 +283,16 @@ function checkUseCoupon() {
 }
 
 
+
 // 驗證表單
 function checkForm() {
     const recipientValid = checkRecipient();
     const recipientAddresValid = checkRecipientAddres();
     const recipientPhValid = checkRecipientPh();
     const useCouponValid = checkUseCoupon();
+    const creditCard = checkCreditCard();
 
-    return (recipientValid && recipientAddresValid && recipientPhValid && useCouponValid);
+    return (recipientValid && recipientAddresValid && recipientPhValid && useCouponValid && creditCard);
 }
 
 // 獲取會員資料並放入輸入框
@@ -273,6 +314,7 @@ function sumActulAmount() {
     $("#actualAmount").text(totalAmount + (+$("#ordFee").text()) - (+$("#useCoupon").text()));
     return $("#actualAmount").text();
 }
+
 //計算產品總金額
 function sumTotalAmount() {
     const productMoneyList = $("[id^='productMoney']")

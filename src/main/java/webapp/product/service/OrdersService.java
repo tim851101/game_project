@@ -49,6 +49,11 @@ public class OrdersService {
     }
 
     public void updateOrdStateByOrdNo(Integer ordNo, Integer ordStatus){
+        if(ordStatus>3){
+          Orders ord = ordersRepository.findByOrdNo(ordNo);
+          ord.setOrdFinish((new java.sql.Date(System.currentTimeMillis())));
+          ordersRepository.save(ord);
+        }
         ordersRepository.updateOrdStateByOrdNo(ordNo, ordStatus);
     }
 

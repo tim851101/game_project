@@ -1,10 +1,10 @@
 const memNo = 10;
-render(memNo);
+render(+memNo);
 
 
 function render(memNo) {
     const table = document.querySelector('#ordersTable');
-    fetch(`/ord/getAllByMemNo?memNo=${memNo}`, {
+    fetch(`/ord/getAllByMemNo?memNo=${+memNo}`, {
         methond: "POST"
     }).then((response) => {
         return response.json();
@@ -63,14 +63,14 @@ function render(memNo) {
             <td>${ordStatus}</td>
             <td>${item.ordPick}</td>
             <td><a href="order-detail.html?ordNo=${item.ordNo}" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-            <td><button onclick="changeStatusByOrdNo(${item.ordNo}, 3)" class="btn obrien-button-2 primary-color rounded-0" ${(+item.ordStatus>=3) ? 'style="visibility:hidden"':''}>退貨</button></td>
+            <td><button onclick="changeStatusByOrdNo(${item.ordNo},${memNo} ,3)" class="btn obrien-button-2 primary-color rounded-0" ${(+item.ordStatus>=3) ? 'style="visibility:hidden"':''}>退貨</button></td>
         </tr>`
         }
         table.innerHTML = data;
     })
 }
 
-function changeStatusByOrdNo(ordNo, ordStatus) {
+function changeStatusByOrdNo(ordNo,memNo, ordStatus) {
     const formData = {
         "ordNo": +ordNo,
         "ordStatus": +ordStatus
@@ -82,10 +82,8 @@ function changeStatusByOrdNo(ordNo, ordStatus) {
         },
         body: JSON.stringify(formData),
     })
-        .then(response => response.json())
+        .then(response => render(+memNo))
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
         });
-
-    setTimeout(render, 100)
 };

@@ -21,12 +21,21 @@ public interface OrdersRepository extends JpaRepository <Orders, Integer> {
 
     @Transactional
     @Modifying
-    @Query("update Orders o set  o.ordStatus = ?2 where o.ordNo = ?1")
+    @Query("UPDATE Orders o SET  o.ordStatus = ?2 Where o.ordNo = ?1")
     void updateOrdStateByOrdNo(Integer ordNo, Integer ordStatus);
 
     @Transactional
     @Modifying
-    @Query("update Orders o set  o.ordPayStatus = ?2 where o.ordNo = ?1")
+    @Query("UPDATE Orders o SET  o.ordPayStatus = ?2 Where o.ordNo = ?1")
     void updateOrdPayStateByOrdNo(Integer ordNo, Integer ordPayStatus);
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE members m SET  coupon = coupon + (:price * 0.01) - :useCoupon Where mem_no =:memNo ", nativeQuery = true)
+    void updataMemCouponBymemNo(Integer memNo , Integer price, Integer useCoupon);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE product SET pd_stock = pd_stock-:qty WHERE pd_no = :pdNo", nativeQuery = true)
+    void updataQtyByProNo(Integer pdNo , Integer qty);
 }
 

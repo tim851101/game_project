@@ -70,6 +70,15 @@ public class OrdersService {
                 .collect(Collectors.toList());
     }
 
+    public void updatememCoupon(Integer memNo, Integer price, Integer useCoupon){
+            ordersRepository.updataMemCouponBymemNo(memNo,price,useCoupon);
+    };
+
+    public void updateProQty(Integer pdNo,Integer reduceQty){
+        ordersRepository.updataQtyByProNo(pdNo,reduceQty);
+    }
+
+
     private OrdersDTO EntityToDTO(Orders orders) {
         modelMapper.getConfiguration()
                 .setMatchingStrategy(MatchingStrategies.LOOSE);
@@ -77,4 +86,6 @@ public class OrdersService {
         ordersDTO = modelMapper.map(orders, OrdersDTO.class);
         return ordersDTO;
     }
+
+
 }

@@ -40,6 +40,10 @@ function add(pdNo) {
         }
         shoppingcart.push(item);
     }
+    Swal.fire({
+        title: "加入成功",
+        icon: "success" //success/info/warning/error/question
+    })
     localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
 }
 

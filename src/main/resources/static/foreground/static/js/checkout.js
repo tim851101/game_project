@@ -13,17 +13,18 @@ $('#button_submit').click(e => {
         text: "送出後即無法改變內容",
         icon: "warning",
         showCancelButton: true
-    }).then(function (result) {
+    }).then((result) => {
         if (result.value) {
             if (checkForm()) {
                 //會員編號10的訂單
+                updateMemCoupon(+memNo, +sumActulAmount(),(+$("#useCoupon").text()))
                 const ordNo = insertOrderBymemNo(memNo);
                 Swal.fire({
                     title: "感謝您的購買!",
                     icon: "success" //success/info/warning/error/question
-                }).then(function (result) {
+                }).then((result) => {
                     if (result.value) {
-                        ordNo.then(data=>window.location.href = `http://127.0.0.1:8082/foreground/order-detail.html?ordNo=${data}`);
+                        ordNo.then(data => window.location.href = `order-detail.html?ordNo=${data}`);
                     };
                 });
             } else {
@@ -41,12 +42,12 @@ $('#button_submit').click(e => {
 
 //獲取會員回饋金
 let coupon = 0;
-fetch(`/mem/find-one?id=${memNo}`,{
-    method:"GET"
-}).then(response=>response.json()
-).then(data=>{
+fetch(`/mem/find-one?id=${memNo}`, {
+    method: "GET"
+}).then(response => response.json()
+).then(data => {
     coupon = +data.coupon;
-    $('#memCoupon').text('目前持有的回饋金: '+coupon)
+    $('#memCoupon').text('目前持有的回饋金: ' + coupon)
 })
 
 
@@ -130,6 +131,7 @@ async function insertOrderBymemNo(memNo) {
             let proPDM = productMoney / qty;
             let pdNo = document.querySelector(`#pdNo${i}`).textContent
             saveOrdList(+ordNo, +pdNo, +qty, +proPDM);
+            updateProQty(+pdNo,qty);
         }
         ordNoOut = ordNo;
         shoppingcart.splice(0, shoppingcart.length);
@@ -184,6 +186,7 @@ function checkRecipient() {
 function checkRecipientAddres() {
     const recipientAddresInput = document.getElementById("recipientAddres");
     const addresError = document.getElementById("addresError");
+    const recipientAddresRegex = /^(?<city>\D+[縣市])(?<district>\D+?(市區|鎮區|鎮市|[鄉鎮市區]))(?<others>.+)$/;
     if (+$('#ordPick').val() === 0) {
         addresError.textContent = ""
         return true
@@ -191,6 +194,10 @@ function checkRecipientAddres() {
 
     if (recipientAddresInput.value.trim() === "") {
         addresError.textContent = "請輸入收件/超商地址";
+        return false;
+
+    } else if (!recipientAddresRegex.test(recipientAddresInput.value.trim())) {
+        addresError.textContent = "請輸入正確的地址資訊 ex:台北市信義區市府路";
         return false;
     } else {
         addresError.textContent = "";
@@ -227,7 +234,7 @@ function checkUseCoupon() {
     } else if (!inputUseCouponRegex.test(inputUseCoupon.value.trim())) {
         inputUseCouponError.textContent = "請輸入大於等於0的整數";
         return false;
-    }  else if (inputUseCoupon.value.trim() > coupon)  {
+    } else if (inputUseCoupon.value.trim() > coupon) {
         inputUseCouponError.textContent = "輸入數值請勿超過持有的回饋金";
         return false;
     } else {
@@ -264,6 +271,7 @@ function setMemDataBymemNo(memNo) {
 function sumActulAmount() {
     const totalAmount = sumTotalAmount();
     $("#actualAmount").text(totalAmount + (+$("#ordFee").text()) - (+$("#useCoupon").text()));
+    return $("#actualAmount").text();
 }
 //計算產品總金額
 function sumTotalAmount() {
@@ -284,7 +292,7 @@ function showProduct() {
     let n = 1;
     for (item of shoppingcart) {
         const qty = item.qty;
-        const pdNo = item.pdNo
+        const pdNo = item.pdNo;
         fetch(`/product/find-one?id=${pdNo}`, {
             method: "GET"
         }).then(response => response.json()
@@ -301,4 +309,43 @@ function showProduct() {
     }
 }
 
+//回饋金使用
+function updateMemCoupon(memNo, price, useCoupon) {
+    const formData = {
+        "memNo": +memNo,
+        "price": +price,
+        "useCoupon": +useCoupon
+    }
 
+    fetch(`/ord/updateMemCoupon`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+    }).then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+//產品數量修改
+function updateProQty(pdNo, reduceQty) {
+    const formData = {
+        "pdNo": +pdNo,
+        "reduceQty": +reduceQty
+    }
+
+    fetch(`/ord/updateProQty`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData),
+    }).then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => {
+            console.error(error);
+        });
+}

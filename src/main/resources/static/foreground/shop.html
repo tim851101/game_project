@@ -300,75 +300,48 @@
                     .forEach((product, index) => {
                         console.log(product)   //檢查每個商品
 
-                        // 取得商品圖片
-                        //                         fetch(`/pic/getimage?picno=${index + 1}`)
-                        //                             .then(response => response.blob())
-                        //                             .then(blob => {
-                        //                                 // 將圖片blob轉為URL
-                        //                                 const imageURL = "http://localhost:8082/pic/getimage?picno=" + (index + 1);
-
-                        //                                 // 檢查圖片編號是否已經使用過，如果是則跳過這個商品的圖片
-                        // <!--                                if (picSet.has(index + 1)) {-->
-                        // < !--console.log(`Image ${index + 1} has already been used, skip this product.`); -->
-                        // < !--                                    return; -->
-                        // < !--                                }-->
-                        //                             picSet.add(index + 1); // 把這個商品的圖片編號加入Set中
-
                         const productHTML = `
-      <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
-        <div class="single-product position-relative">
-          <div class="product-image">
-            <a class="d-block" href="product-details.html" >
-              <img id = img${n++} src="/pic/getimage?picno=1" onmouseover="this.src="/pic/getimage?picno=1" alt="product image" class="product-image-1 w-100">
-<!--              <img id = img${n++} src="/pic/getimage?picno=2" onmouseout="this.src="/pic/getimage?picno=2" alt="product image" class="product-image-2 w-100">-->
-            </a>
-          </div>
-          <div class="product-content">
-            <div class="product-rating">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star-o"></i>
-              <i class="fa fa-star-o"></i>
-            </div>
-            <div class="product-title">
-              <h4 class="title-2"><a href="product-details.html">${product.pdName}</a></h4>
-            </div>
-            <div class="price-box">
-              <span class="regular-price">$${product.pdPrice}</span>
-              ${product.discountedPrice ? `<span class="old-price"><del>$${product.discountedPrice}</del></span>` : ''}
-            </div>
-            <div class="add-action d-flex position-absolute">
-              <a href="javascript:void(0)" title="加入購物車" onclick="add(${product.pdNo})"><i class="ion-bag"></i></a>
-              <a href="wishlist.html" title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
-            </div>
-          </div>
+  <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
+    <div class="single-product position-relative">
+      <div class="product-image">
+        <a class="d-block" href="product-details.html?pdNo=${product.pdNo}" >
+          <img id = img${n++} src="/pic/getimage?picno=${product.picNo}" alt="product image" class="product-image-1 w-100">
+        </a>
+      </div>
+      <div class="product-content">
+        <div class="product-rating">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star-o"></i>
+          <i class="fa fa-star-o"></i>
         </div>
-      </div>`;
+        <div class="product-title">
+          <h4 class="title-2"><a href="product-details.html?pdNo=${product.pdNo}">${product.pdName}</a></h4>
+        </div>
+        <div class="price-box">
+          <span class="regular-price">$${product.pdPrice}</span>
+          ${product.discountedPrice ? `<span class="old-price"><del>$${product.discountedPrice}</del></span>` : ''}
+        </div>
+        <div class="add-action d-flex position-absolute">
+          <a href="javascript:void(0)" title="加入購物車" onclick="add(${product.pdNo})"><i class="ion-bag"></i></a>
+          <a href="wishlist.html" title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>`;
 
                         productList.insertAdjacentHTML('beforeend', productHTML);
 
-                        // 檢查是否需要讀取下一張圖片
-                        // picNo++;
-                        // if (picNo <= products.length) {
-                        //     fetch(`/pic/getimage?picno=${picNo}`);
-                        // }
                     })
-                // .catch(error => console.error(error));
             });
-        // });
 
         setTimeout(() => {
             for (i = 1; i < n; i++) {
                 $(`#img${i}`).attr("src", `/pic/getimage?picno=${i}`);
-
             }
-        }, 250)
+        }, 1000)
 
-
-        // function getImg(proNo){
-        //     fetc(asijfjioasjf)
-        // }
     </script>
 
     <!-- My Js-->

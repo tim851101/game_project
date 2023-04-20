@@ -64,6 +64,15 @@ $(document).ready(function() {
         const cell5 = row.insertCell(4);
         const cell6 = row.insertCell(5);
         const cell7 = row.insertCell(6);
+        const cell8 = row.insertCell(7);
+        const editBtn = document.createElement('button');
+        editBtn.textContent = '編輯';
+        editBtn.classList.add('btn', 'btn-primary', 'edit-btn');
+        editBtn.addEventListener('click', () => {
+          // 編輯按鈕的點擊事件處理程序
+          const modal = document.querySelector(".modal");
+        });
+        cell8.appendChild(editBtn);
 
         cell1.innerHTML = data.pdNo;
         cell2.innerHTML = data.pdName;
@@ -146,6 +155,7 @@ window.onload = function() {
          const descCell = row.insertCell();
          const statusCell = row.insertCell();
          const updateCell = row.insertCell();
+         const editCell = row.insertCell();
 
          // 在表格行中顯示產品數據
          idCell.innerHTML = product.pdNo;
@@ -153,6 +163,7 @@ window.onload = function() {
          priceCell.innerHTML = product.pdPrice;
          stockCell.innerHTML = product.pdStock;
          descCell.innerHTML = product.pdDescription;
+editCell.innerHTML = '<button class="btn btn-primary" onclick="editProduct(' + product.pdNo + ')">編輯</button>';
 
          if (product.pdStatus) {
              statusCell.innerHTML = '<span style="margin-right: 10px;padding-left: 10px;"><i class="fa fa-circle text-success me-1"></i>已上架</span>';
@@ -195,3 +206,121 @@ function validateForm() {
     return true;
   }
 }
+
+//單筆查詢編輯
+   $(document).ready(function() {
+     const findByIdBtn = document.getElementById('findById');
+     const inputProductId = document.getElementById('productId');
+     const allShowTable = document.getElementById('allshow').getElementsByTagName('tbody')[0];
+     const paginationContainer = document.querySelector('.pagination');
+     const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+
+     findByIdBtn.addEventListener('click', () => {
+       const productId = inputProductId.value;
+
+       fetch(`/product/find-one?id=${productId}`)
+         .then(response => response.json())
+         .then(data => {
+           console.log(`/product/find-one?id='${productId}'`);
+           console.log(data);
+
+           // 藉此避免查詢全部所產生的分頁造成影響
+           paginationContainer.innerHTML = '';
+
+           allShowTable.innerHTML = "";
+
+           const row = allShowTable.insertRow();
+           const cell1 = row.insertCell(0);
+           const cell2 = row.insertCell(1);
+           const cell3 = row.insertCell(2);
+           const cell4 = row.insertCell(3);
+           const cell5 = row.insertCell(4);
+           const cell6 = row.insertCell(5);
+           const cell7 = row.insertCell(6);
+           const cell8 = row.insertCell(7);
+           const editBtn = document.createElement('button');
+           editBtn.textContent = '編輯';
+           editBtn.classList.add('btn', 'btn-primary', 'edit-btn');
+           editBtn.addEventListener('click', () => {
+             // 編輯按鈕的點擊事件處理程序
+             const modal = new bootstrap.Modal(document.getElementById('editModal'));
+             modal.show();
+
+             document.getElementById('editPdId').value = data.pdNo;
+             document.getElementById('editPdName').value = data.pdName;
+             document.getElementById('editPdPrice').value = data.pdPrice;
+             document.getElementById('editPdStock').value = data.pdStock;
+             document.getElementById('editPdDescription').value = data.pdDescription;
+             document.getElementById('editPdStatus').checked = data.pdStatus;
+             document.getElementById('editPdUpdated').value = moment(data.pdUpdate).format('YYYY-MM-DD HH:mm:ss');
+           });
+           cell8.appendChild(editBtn);
+
+           cell1.innerHTML = data.pdNo;
+           cell2.innerHTML = data.pdName;
+           cell3.innerHTML = data.pdPrice;
+           cell4.innerHTML = data.pdStock;
+           cell5.innerHTML = data.pdDescription;
+           cell6.innerHTML = data.pdStatus ? '<i class="fa fa-circle text-success me-1"></i>已上架' : '<i class="fa fa-circle text-danger me-1"></i>已下架';
+           cell7.innerHTML = moment(data.pdUpdate).format('YYYY-MM-DD HH:mm:ss');
+
+           allShowTable.setAttribute('border', '1');
+         })
+     });
+   });
+
+//編輯修改
+    $(document).ready(function() {
+       $('#editForm').submit(e => {
+           e.preventDefault();
+            // type must be the samew 一定要數字型態 +號是轉數字型態，對應DTO表格，傳時間要有毫秒
+           const formData = {
+               'pdNo': +$("#editPdId").val(),
+               'pdName': $("#editPdName").val(),
+               'pdPrice': +$("#editPdPrice").val(),
+               'pdStock': +$("#editPdStock").val(),
+               'pdDescription': $("#editPdDescription").val(),
+               'pdStatus': $("#editPdStatus").prop('checked'),
+               'pdUpdate': moment().format('YYYY-MM-DD HH:mm:ss')
+           }
+           console.log(formData);
+
+           // Send form data as POST request
+           fetch('/product/save-product', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json'
+               },
+               body: JSON.stringify(formData)
+           })
+               .then(response => {
+                   if (!response.ok) {
+                       throw new Error('Network response was not ok');
+                   }
+                   return response.json();
+               })
+               .then(data => {
+                   console.log(data);
+               })
+               .catch(error => {
+                   console.error('There was a problem with the fetch operation:', error);
+               });
+       });
+    });
+
+function updateTime() {
+
+  // 顯示更新成功的提示訊息
+  alert('更新成功');
+
+  // 延遲 1 秒後關閉編輯視窗
+  setTimeout(function() {
+    let modal = document.getElementById('editModal');
+    let modalInstance = bootstrap.Modal.getInstance(modal);
+    modalInstance.hide();
+    location.reload();
+  }, 500);
+}
+
+
+

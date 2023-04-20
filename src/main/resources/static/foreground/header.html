@@ -1,4 +1,5 @@
-<header class="main-header-area" id="app">
+<header class="main-header-area" id="app_header">
+    <div hidden id="memNo_header" ref="memNoHeader">{{ memNo }}</div>
     <!-- Header Top Area End Here -->
     <!-- Main Header Area Start -->
     <div class="main-header">
@@ -22,7 +23,7 @@
                                             <i class="fa fa-angle-down"></i>
                                         </a>
                                         <ul class="dropdown-submenu dropdown-hover">
-                                            <li><a class="active" href="/foreground/index.html">首頁</a></li>
+                                            <li><a href="/foreground/index.html">首頁</a></li>
                                             <li><a href="/foreground/frequently-questions.html">常見問題</a></li>
                                             <li><a href="/foreground/about-us.html">關於我們</a></li>
                                             <li><a href="/foreground/contact-us.html">聯絡我們</a></li>
@@ -82,7 +83,7 @@
                                             <li><a href="/foreground/blog-details-fullwidth.html">Blog Details Fullwidth</a></li> -->
                                         </ul>
                                     </li>
-                                    <li><a href="/foreground/my-account.html">會員中心</a></li>
+                                    <li><a href="/foreground/my-account.html" v-on:click="myAccount($event)" v-if="isLoggedIn">會員中心</a></li>
                                     <!-- <li>
                                         <a href="/foreground/#">
                                             <span class="menu-text"> Pages</span>
@@ -116,9 +117,12 @@
                         <div class="col-lg-2 col-xl-3 col-sm-6 col-6 col-custom">
                             <div class="header-right-area main-nav">
                                 <ul class="nav">
-                                    <li class="login-register-wrap d-none d-xl-flex">
+                                    <li class="login-register-wrap d-none d-xl-flex" v-if="!isLoggedIn">
                                         <span><a href="/foreground/login.html" onclick="saveCurrentUrl()" class="storeLocation">登入</a></span>
                                         <span><a href="/foreground/register.html">註冊</a></span>
+                                    </li>
+                                    <li class="logout-register-wrap d-none d-xl-flex" v-if="isLoggedIn">
+                                        <span style="padding-right: 20px;"><a href="#" @click="logout">登出</a></span>
                                     </li>
                                     <!-- <li class="sidemenu-wrap d-none d-lg-flex">
                                         <a href="/foreground/#">USD <i class="fa fa-caret-down"></i> </a>
@@ -216,7 +220,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-2 col-xl-2 col-sm-6 col-6 col-custom">
                             <div class="header-logo">
-                                <a href="/foreground/">
+                                <a href="/foreground/index.html">
                                     <img class="img-full" src="/foreground/static/picture/logo.png" alt="Header Logo">
                                 </a>
                             </div>
@@ -230,7 +234,7 @@
                                             <i class="fa fa-angle-down"></i>
                                         </a>
                                         <ul class="dropdown-submenu dropdown-hover">
-                                            <li><a class="active" href="/foreground/index.html">首頁</a></li>
+                                            <li><a href="/foreground/index.html">首頁</a></li>
                                             <li><a href="/foreground/frequently-questions.html">常見問題</a></li>
                                             <li><a href="/foreground/about-us.html">關於我們</a></li>
                                             <li><a href="/foreground/contact-us.html">聯絡我們</a></li>
@@ -290,7 +294,7 @@
                                             <li><a href="/foreground/blog-details-fullwidth.html">Blog Details Fullwidth</a></li> -->
                                         </ul>
                                     </li>
-                                    <li><a href="/foreground/my-account.html">會員中心</a></li>
+                                    <li><a href="/foreground/my-account.html" v-on:click="myAccount($event)" v-if="isLoggedIn">會員中心</a></li>
                                     <!-- <li>
                                         <a href="/foreground/#">
                                             <span class="menu-text"> Pages</span>
@@ -324,9 +328,12 @@
                         <div class="col-lg-2 col-xl-3 col-sm-6 col-6 col-custom">
                             <div class="header-right-area main-nav">
                                 <ul class="nav">
-                                    <li class="login-register-wrap d-none d-xl-flex">
+                                    <li class="login-register-wrap d-none d-xl-flex" v-if="!isLoggedIn">
                                         <span><a href="/foreground/login.html" onclick="saveCurrentUrl()" class="storeLocation">登入</a></span>
                                         <span><a href="/foreground/register.html">註冊</a></span>
+                                    </li>
+                                    <li class="logout-register-wrap d-none d-xl-flex" v-if="isLoggedIn">
+                                        <span style="padding-right: 20px;"><a href="#" @click="logout">登出</a></span>
                                     </li>
                                     <!-- <li class="sidemenu-wrap d-none d-lg-flex">
                                         <a href="/foreground/#">USD <i class="fa fa-caret-down"></i> </a>
@@ -488,7 +495,7 @@
                                 <li><a href="/foreground/blog-details-fullwidth.html">Blog Details Fullwidth Page</a></li>
                             </ul>
                         </li> -->
-                        <li class="menu-item-has-children"><a href="/foreground/my-account.html">會員中心</a></li>
+                        <li class="menu-item-has-children"><a href="/foreground/my-account.html" v-on:click="myAccount($event)" v-if="isLoggedIn">會員中心</a></li>
                         <!-- <li class="menu-item-has-children "><a href="/foreground/#">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="/foreground/frequently-questions.html">FAQ</a></li>
@@ -509,7 +516,7 @@
                         <ul class="mobile-menu">
                             <li class="menu-item-has-children"><a href="/foreground/index.html">首頁</a>
                                 <ul class="dropdown">
-                                    <li><a href="/foreground/index.html">首頁/a></li>
+                                    <li><a href="/foreground/index.html">首頁</a></li>
                                     <li><a href="/foreground/frequently-questions.html">常見問題</a></li>
                                     <li><a href="/foreground/about-us.html">關於我們</a></li>
                                     <li><a href="/foreground/contact-us.html">聯絡我們</a></li>
@@ -558,12 +565,13 @@
                                     <li><a href="/foreground/blog-details-fullwidth.html">Blog Details Fullwidth Page</a></li> -->
                                 </ul>
                             </li>
-                            <li class="menu-item-has-children"><a href="/foreground/my-account.html">會員中心</a></li>
+                            <li class="menu-item-has-children"><a href="/foreground/my-account.html" v-on:click="myAccount($event)" v-if="isLoggedIn">會員中心</a></li>
                             <li class="menu-item-has-children"><a href="/foreground/event-list.html">活動資訊</a>
                                 <ul class="dropdown">
                                     <li><a href="/foreground/event-list.html">活動清單</a></li>
                                     <li><a href="/foreground/event-post.html">活動公告</a></li>
-                                    <li><a href="/foreground/javascript:;">登入 &amp; 註冊</a></li>
+                                    <li><a href="/foreground/javascript:;" v-if="!isLoggedIn">登入 &amp; 註冊</a></li>
+                                    <li><a href="#" v-if="isLoggedIn" @click="logout">登出</a></li>
                                 </ul>
                             </li>
                             <!-- <li><a href="/foreground/about-us.html">About Us</a></li> -->

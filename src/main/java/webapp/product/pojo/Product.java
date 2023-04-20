@@ -42,6 +42,6 @@ public class Product {
 
 //    @OneToMany(fetch = FetchType.EAGER)
 //    @JoinColumn(name = "PD_NO",referencedColumnName = "PD_NO")
-//    private List<ProductPic> productPics;
+//    private List<ProductPic> productPic;
 
 }

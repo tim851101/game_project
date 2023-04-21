@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 import webapp.event.dto.EventOrdDTO;
+import webapp.event.dto.memofeventDTO;
 import webapp.event.pojo.EventOrdVO;
 import webapp.event.service.EventOrdservice;
 
@@ -28,6 +29,11 @@ public class EventOrdcontroller {
     public List<EventOrdDTO> getAlleventOrd(){
         return EventOrdservice.getAllEventOrd();
     }
+    @PostMapping("byeventformem/{memno}")
+    @ResponseBody
+    public List<memofeventDTO> byeventformem(@PathVariable Integer memno){
+        return EventOrdservice.findeventotmem(memno);
+    }
     @PostMapping("byeventls") //查詢報名賽事的所有會員(傳入賽事編號)
     @ResponseBody
     public List<EventOrdDTO> getAllmembyevent( Integer Eventno){
@@ -47,6 +53,11 @@ public class EventOrdcontroller {
         EventOrdVO update =new EventOrdVO();
         return EventOrdservice.updatepay(memno,eventno,check);
     }
+    @PostMapping("insert")
+    //新增賽事訂單(賽事編號，會員編號，會員狀態，會員名稱，會員地址，會員Email，會員電話，會員狀態)
+    public void insert(@RequestBody EventOrdVO eventOrdVO) {
 
-    //TODO INSERT 訂單
+        EventOrdservice.insertEventOrd(eventOrdVO);
+    }
+
 }

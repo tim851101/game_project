@@ -389,14 +389,14 @@
                                                     <table id="booktable" class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>NO</th>
+                                                                <th>預約日期</th>
                                                                 <th>起始時間</th>
                                                                 <th>結束時間</th>
-                                                                <th>預約日期</th>
+
                                                                 <th>完成付款日期</th>
                                                                 <th>價格</th>
                                                                 <th>人數</th>
-                                                                <th>修改</th>
+                                                                <th>詳情</th>
                                                                 <th>取消</th>
                                                             </tr>
                                                         </thead>
@@ -405,7 +405,7 @@
                                                 </div>
 
                                                 <div class="myaccount-table table-responsive text-center"id="updatebook" style="visibility:hidden">
-                                                    <h3>修改內容</h3>
+                                                    <h3>內容</h3>
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                         <tr>
@@ -419,7 +419,7 @@
                                                             <th></th>
                                                         </tr>
                                                         </thead>
-                                                        <tbody id="update"></tbody>
+                                                        <tbody id="update">
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -435,42 +435,13 @@
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>訂單編號</th>
-                                                                <th>下定日期</th>
-                                                                <th>訂單狀態</th>
+                                                                <th>賽事編號</th>
+                                                                <th>賽事名稱</th>
+                                                                <th>開始時間</th>
                                                                 <th>付款金額</th>
-                                                                <th>訂單明細</th>
-                                                                <th>退貨申請</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>2023/3/10</td>
-                                                                <td>退貨申請</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>2023/3/09</td>
-                                                                <td>已出貨</td>
-                                                                <td>$200</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>2023/3/08</td>
-                                                                <td>已完成</td>
-                                                                <td>$990</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
-                                                            </tr>
-                                                            
-
-                                                        </tbody>
+                                                        <tbody id="eventls">                    </tbody>
                                                     </table>
                                                 </div>
                                             </div>
@@ -606,9 +577,15 @@
 ============================================ -->
 <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
+<<<<<<< HEAD
 <!-- jQuery JS -->
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
     <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
+=======
+    <!-- jQuery JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!--    <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>-->
+>>>>>>> 5aab8e91ac71e54a6df9ab94c74b6ad2e3b74713
     <!-- jQuery Migrate JS -->
     <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
     <!-- Modernizer JS -->
@@ -634,6 +611,7 @@
     <script src="/foreground/static/js/main.js"></script>
     <!-- table JS-->
     <script src="/foreground/static/js/my-account-orders.js"></script>
+<<<<<<< HEAD
 
 </body>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -854,8 +832,8 @@ sleep(500).then(() => {
     $.ajax({
   url : 'http://localhost:8082/book/addbooking',
   type : 'post', 
-  dataType : 'json', 
-  contentType : 'application/json; charset=utf-8', // 要送到server的資料型態
+  dataType : 'json',
+ contentType : 'application/json; charset=utf-8', // 要送到server的資料型態
   data : JSON.stringify(data),
   success : function(result) {
     console.log(result.success); // result是json物件
@@ -871,7 +849,39 @@ sleep(500).then(() => {
 }
 
 
+=======
+    <script src="/foreground/static/js/mycountbooking.js">
+>>>>>>> 5aab8e91ac71e54a6df9ab94c74b6ad2e3b74713
 
 
 </script>
+<!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"> -->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/foreground/static/js/myWishlist.js"></script>
+<script src="../js/member.js"></script>
+    <script>
+        let eventls=document.getElementById('eventls');
+        memno=3;
+        fetch('/eventord/byeventformem/'+200,{
+            method:'post'
+        }).then(response => response.json())
+        .then(list =>{  
+            for(let event of list)
+            {
+                let time=event.eventStarttime;
+                console.log(time);
+                eventls.innerHTML += `
+                <tr>
+                   <td>${event.eventNo}</td>
+                   <td>${event.eventName}</td>
+                   <td>${event.eventStarttime}</td>
+                   <td>${event.eventFee}</td>
+                <tr>
+                    `
+
+            }
+        })
+
+    </script>
+</body>
 </html>

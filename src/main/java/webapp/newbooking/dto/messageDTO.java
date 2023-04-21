@@ -1,0 +1,12 @@
+package webapp.newbooking.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+public class messageDTO {
+    private Integer id;
+    private String message;
+}

@@ -77,4 +77,30 @@ public class RedisConfig {
         template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(List.class));
         return template;
     }
+    @Bean
+    public JedisConnectionFactory jedisConnectionFactorymessage(){
+        RedisStandaloneConfiguration config = new RedisStandaloneConfiguration("localhost", 6379);
+        config.setDatabase(3);
+        config.setPassword("");
+
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
+        poolConfig.setMaxTotal(15);
+        poolConfig.setMaxIdle(8);
+        poolConfig.setMinIdle(0);
+        poolConfig.setMaxWait(Duration.ofSeconds(5));
+
+        JedisConnectionFactory factory = new JedisConnectionFactory(config);
+        factory.setPoolConfig(poolConfig); // TODO: deprecated
+        return factory;
+    }
+    @Bean
+    public RedisTemplate<String, Map<Integer, List<String>>> messageTemplate() {
+        RedisTemplate<String, Map<Integer, List<String>>> template = new RedisTemplate<>();
+        template.setConnectionFactory(jedisConnectionFactorymessage());
+        template.setHashKeySerializer(new StringRedisSerializer());
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new Jackson2JsonRedisSerializer<>(List.class));
+        template.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(List.class));
+        return template;
+    }
 }

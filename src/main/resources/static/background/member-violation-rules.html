@@ -288,39 +288,32 @@
                                 <table class="table table-bordered table-responsive-sm">
                                     <thead>
                                     <tr>
-                                        <th colspan="2" class="text-center">違規次數範圍</th>
-                                        <th></th>
+                                        <th colspan="2" >違規次數範圍</th>
                                     </tr>
                                     <tr>
                                         <th>上界</th>
                                         <th>下界</th>
                                         <th>鎖定天數</th>
+                                    
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td contenteditable="true">0</td>
-                                        <td contenteditable="true">3</td>
-                                        <td contenteditable="true"><span class="badge badge-success">7</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td contenteditable="true">3</td>
-                                        <td contenteditable="true">6</td>
-                                        <td contenteditable="true"><span class="badge badge-warning">31</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td contenteditable="true">6</td>
-                                        <td contenteditable="true">9</td>
-                                        <td contenteditable="true"><span class="badge badge-danger">3650</span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
+                                    </thead> 
+                                     <tbody id="range"></tbody>
+                                    </table>
+                            </div>
+
+                           </table><div>
+                            <table class="table table-bordered table-responsive-sm">
+                                <thead>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </thead>
+                                <tbody id="level">
                                 </table>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-primary"
+                                <button type="button" onclick="rangechange()" class="btn btn-primary"
                                         style="margin-left: 93%;">Submit</button>
                             </div>
                         </form>
@@ -431,4 +424,73 @@
 <script src="static/js/styleSwitcher.js"></script>
 </body>
 
+<script>
+read();
+function read(){
+     range=document.getElementById("range");
+     range.innerHTML=``
+    fetch("http://localhost:8082/mem/ls-perm-level").then(resp => resp.json())
+      .then(list => {
+      let color= ""
+        for(let ranges of list){
+        if(ranges.permissionsNo==1)
+        color="success"
+        if(ranges.permissionsNo==2)
+        color="warning"
+        if(ranges.permissionsNo==3)
+        color="danger"
+    range.innerHTML+=` <tr>
+        <td contenteditable="false">${ranges.lowerLimit}</td>
+        <td contenteditable="false">${ranges.upperLimit}</td>
+        <td contenteditable="false"><span class="badge badge-`+color+`">${ranges.duration}</span></td>
+       <td> <button type="button" onclick="rangelevel(${ranges.permissionsNo})" class="btn btn-primary"style="width:100px ";">修改範圍</button></td> 
+        <input type="hidden"value="${ranges.permissionsNo}" ></input>
+            </tr>`
+        } 
+       
+      })   
+     }
+     function rangelevel(num){
+        let levels=document.getElementById('level')
+        if(num==1)
+        level="Low"
+        if(num==2)
+        level="Midden"
+        if(num==3)
+        level="High"
+        levels.innerHTML=``
+        levels.innerHTML+=  `
+        <div class="card-header">
+                                <h4 class="card-title">設定</h4>
+                            </div><div>
+            <tr>    
+                        <td>修正等級：<input type="hidden" value="`+num+`"id="permissionsNo" ></imput>`+level+`</td>
+                        <td>上界<input  value=""id="up"></input></td>
+                        <td>下界<input  value=""id="down""></input></td>
+                        <td>鎖定天數<input  value="" id="duration"></input></td>
+                            </td>
+                    </tr>
+                    </div>`
+     }
+        function rangechange(){ 
+          let datas=[{
+                permissionsNo : document.getElementById('permissionsNo').value,
+                duration : document.getElementById('duration').value,
+                lowerLimit : document.getElementById('up').value,
+                upperLimit : document.getElementById('down').value
+            }]
+            fetch("http://localhost:8082/mem/save-all-perm-level", {
+                 method: "POST",
+                 headers: {
+                  "Content-Type": "application/json;charset=UTF-8"
+                 },
+                  body: JSON.stringify(datas)})
+                  .then(response => console.log(response))
+        sleep(100).then(()=>{ read();})
+          
+        }
+        function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+                        </script>
 </html>

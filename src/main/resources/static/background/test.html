@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+datas={
+                    date:"2023-04-30",
+                    minTime:12,
+                    maxTime:20
+                }
+                $.ajax({
+                url : 'http://localhost:8082/book/testseat',
+                type : 'POST',
+                data : datas,
+                success : function(response) {
+                console.log('succ');
+                console.log(response);
+}
+            });
+
+</script>
+</html>

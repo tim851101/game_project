@@ -29,28 +29,31 @@
                                     <a href="index.html"><img src="static/picture/baordgame-logo.png" alt=""></a>
                                 </div>
                                 <h4 class="text-center mb-4" style="font-weight: 600;">員工登入</h4>
-                                <form action="index.html">
+                                <form action="index.html" style="margin-left: 30px ;">
                                     <div class="mb-3">
                                         <label class="mb-1"><strong>Email</strong></label>
-                                        <!-- TODO:  -->
-                                        <input id="login-email" type="email" class="form-control" value="john@mail.com"
+                                        <input id="login-email" type="email" class="form-control width400 border-dark" value="john@mail.com"
                                                required>
                                     </div>
-                                    <div class="mb-3">
-                                        <label class="mb-1"><strong>Password</strong></label>
-                                        <!-- TODO: -->
-                                        <input id="login-pwd" type="password" class="form-control" value="222" required>
+                                    <label class="mb-1 d-block"><strong>密碼</strong></label>
+                                    <div class="mb-3 d-inline-block">
+                                        <input id="login-pwd" type="password"
+                                               class="form-control width400 d-inline-block border-dark"
+                                               value="222">
+                                        <span id="login-show-pwd"
+                                              class="input-group-text show-pass d-inline-block">
+                                                  <i class="fa fa-eye-slash"></i>
+                                        </span>
                                     </div>
                                     <div class="row d-flex justify-content-between mt-4 mb-2">
                                         <div class="mb-3">
-                                            <!-- TODO: -->
                                             <a href="/background/employee-forgot-password.html">忘記密碼</a>
                                             <label id="login-error" class="mb-1" style="color: red"></label>
                                         </div>
                                     </div>
                                     <div class="text-center">
                                         <!-- TODO: -->
-                                        <button id="submit" type="submit" class="btn btn-primary btn-block">登入
+                                        <button id="submit" type="submit" class="btn btn-primary btn-block" style="width: 400px !important">登入
                                         </button>
                                     </div>
                                 </form>
@@ -94,6 +97,19 @@
             .catch(error => {
                 document.querySelector("#login-error").textContent = "帳號或密碼錯誤";
             });
+
+        $('#login-show-pwd').click(() => {
+            const input = $('#login-pwd');
+            const icon = $('#login-show-pwd i');
+
+            if (input.attr('type') === 'password') {
+                input.attr('type', 'text');
+                icon.removeClass('fa-eye-slash').addClass('fa-eye');
+            } else {
+                input.attr('type', 'password');
+                icon.removeClass('fa-eye').addClass('fa-eye-slash');
+            }
+        });
     });
 </script>
 </body>

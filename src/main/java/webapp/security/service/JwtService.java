@@ -24,7 +24,7 @@ public class JwtService {
     // TODO: when I write in Interface-Impl manner. Spring can't find the bean
     final private String SERECT_KEY = "aIntegerSecretStringWhoseBitnessIsEqualToOrGreaterThanTheBitnessOfTheTokenEncryptionAlgorithm";
 
-    final private Integer expiration = 86400;
+    final private Integer expiration = 864000;
 
     @Autowired
     private UserDetailsService userDetailsService;

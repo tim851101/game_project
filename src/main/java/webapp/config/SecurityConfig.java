@@ -46,6 +46,10 @@ public class SecurityConfig {
             .requestMatchers(PUBLIC).permitAll()
             // .anyRequest().authenticated()
             .anyRequest().permitAll();
+//        httpSecurity
+//                .authorizeHttpRequests().requestMatchers("/login/oauth2/code/google")
+//                        .authenticated()
+//                .and().oauth2Login();
 
         httpSecurity
             .formLogin()

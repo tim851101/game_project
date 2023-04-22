@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="static/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/style.min.css"> -->
     <script src="./static/js/template.js"></script>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/foreground/static/js/headerUse.js"></script>
 </head>
 
@@ -146,7 +146,7 @@
                                 <div class="add-to_cart">
                                     <a class="btn obrien-button primary-btn" href="">立刻結帳</a>
                                     <a id= "addToCart"class="btn obrien-button-2 treansparent-color pt-0 pb-0" href="">加入購物車</a>
-                                    <a onclick="addToWishlist()" class="btn obrien-button-2 treansparent-color pt-0 pb-0" href="">加入收藏</a>
+                                    <a id="addToWishlist" class="btn obrien-button-2 treansparent-color pt-0 pb-0" href="">加入收藏</a>
                                 </div>
                             </div>
 
@@ -898,7 +898,6 @@
     <script src="static/js/main.js"></script>
     <!-- My Js-->
     <script src="static/js/shopcart.js"></script>
-    <script src="/foreground/static/js/location.js"></script>
     <script>
         
         var queryString = window.location.search;
@@ -925,6 +924,37 @@
         set(id, $("#qty").val());
     });
 
+    $('#addToWishlist').click(()=>{
+        set(id);
+        console.log(id);
+        let memNo=localStorage.getItem("memNo");
+        function addToWishlist(id,memNo){
+            fetch(`/wish/add-one`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    "memNo":memNo,
+                    "pdNo":id
+                }),
+                headers: {'Content-Type': 'application/json'},
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                console.log(data);
+                if(data.message==="商品收藏成功"){
+                    const protocol = window.location.protocol;
+                    const hostname = window.location.hostname;
+                    const port = window.location.port;
+                    const redirectUrl=sessionStorage.getItem("currentUrl")?sessionStorage.getItem("currentUrl"):`${protocol}//${hostname}${port ? `:${port}` : ''}/foreground/my-account.html#wishlist`;
+                    reload(memNo,redirectUrl);
+                }else{
+                    console.log(data);
+                }
+            }).catch(error => {
+                console.error('發生錯誤', error);
+            });
+        }
+    });
+
 
 // <!--// 取得URL中的圖片參數-->
 // <!--let queryString = window.location.search;-->
@@ -937,32 +967,6 @@
 // <!--// 設定圖片元素的src屬性為圖片參數的值-->
 // <!--imageElement.src = decodeURIComponent(imageUrl);-->
 
-function addToWishlist(pdNo,memNo){
-
-fetch(`/add-one`, {
-    method: 'POST',
-    body: JSON.stringify({
-        "memNo":memNo,
-        "pdNo":pdNo
-    }),
-    headers: {'Content-Type': 'application/json'},
-}).then(response => {
-    return response.json();
-}).then(data => {
-    console.log(data);
-    if(data.message==="商品收藏成功"){
-        const protocol = window.location.protocol;
-        const hostname = window.location.hostname;
-        const port = window.location.port;
-        const redirectUrl=sessionStorage.getItem("currentUrl")?sessionStorage.getItem("currentUrl"):`${protocol}//${hostname}${port ? `:${port}` : ''}/foreground/my-account.html#wishlist`;
-        reload(memNo,redirectUrl);
-    }else{
-        console.log(data);
-    }
-}).catch(error => {
-    console.error('發生錯誤', error);
-});
-}
 </script>
 </body>
 

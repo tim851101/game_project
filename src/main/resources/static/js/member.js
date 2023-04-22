@@ -245,7 +245,6 @@ Vue.createApp({
                         method: 'POST'
                     });
                     const memNo = await memNoResponse.json();
-                    confirm(pdNo,memNo);
                     await fetch('/wish/delete-one', {
                     method: 'POST',
                     body: JSON.stringify({
@@ -259,6 +258,53 @@ Vue.createApp({
                     // 更新畫面上的收藏列表
                     await this.renderWishlist();
                 }
+            },
+            async addOne(event) {
+                if (event) {
+                    event.preventDefault();
+                }
+                const pdNo = event.currentTarget.getAttribute('data-pd-no');
+                // 通过 event 参数获取事件对象
+                
+                // 顯示刪除確認訊息
+                const swalResult = await Swal.fire({
+                    title: '確定要將該商品加入購物車嗎？',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '確定',
+                    cancelButtonText: '取消'
+                });
+                
+                // 如果使用者確認要刪除，才進行刪除操作
+                if (swalResult.isConfirmed) {
+                    const qty=1;
+                    this.set(pdNo, qty);
+                }
+            },
+            set(pdNo, qty) {
+                const shoppingcart = JSON.parse(localStorage.getItem('shoppingcart')) ?? [];
+                let item = shoppingcart.find((item) => (+item.pdNo === +pdNo))
+                if(pdNo===null){
+                    return;
+                }
+                if (item) {
+                    
+                    if (+qty === 0){
+                        del(+pdNo);
+                    } else{
+                        item.qty = qty;
+                    }
+                } else {
+                    item = {
+                        "pdNo": pdNo,
+                        "qty": qty
+                    }
+                    shoppingcart.push(item);
+                }
+                console.log(shoppingcart)
+                localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
             },
         },
         mounted() {

@@ -24,16 +24,16 @@ form.addEventListener('submit', (event) => {
         method: 'POST',
         body: formData
     })
-    .then(response => {
-        if (!successMessageDisplayed) {
-            const successMessage = document.createElement('p');
-            successMessage.textContent = '圖片存進資料庫成功';
-            form.appendChild(successMessage);
-            successMessageDisplayed = true;
-        }
-    })
-    .catch(error => {
-        console.error(error);
-        alert(error.message);
-    });
+        .then(response => {
+            if (!successMessageDisplayed) {
+                const successMessage = document.createElement('p');
+                successMessage.textContent = '圖片存進資料庫成功';
+                form.appendChild(successMessage);
+                successMessageDisplayed = true;
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert(error.message);
+        });
 });

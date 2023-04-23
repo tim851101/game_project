@@ -40,8 +40,4 @@ public class Product {
     @Column(name = "PD_UPDATE")
     private Timestamp pdUpdate;
 
-//    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "PD_NO",referencedColumnName = "PD_NO")
-//    private List<ProductPic> productPic;
-
 }

@@ -88,8 +88,4 @@ public class ProductPicController {
         return productPicRepository.findAllByPdNo(pdNo);
     }
 
-
-
-
-
 }

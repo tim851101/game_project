@@ -39,6 +39,34 @@
     <link rel="stylesheet" href="static/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/style.min.css"> -->
     <script src="./static/js/template.js"></script>
+
+    <style>
+        .product-image img {
+            max-width: 250px;
+            max-height: 250px;
+            object-fit: contain;
+            z-index: 1;
+        }
+
+        .product-description {
+            width: 100%;
+            height: 70px;
+            overflow: hidden;
+            position: relative;
+            z-index: 0;
+        }
+
+        .product-description {
+            display: none;
+        }
+
+        .single-product.position-relative {
+            width: 100%;
+            max-width: 1000px;
+            /* 新增這行 */
+        }
+    </style>
+
 </head>
 
 <body>
@@ -51,7 +79,7 @@
                 <div class="row">
                     <div class="col-12 text-center">
                         <div class="breadcrumb-content position-relative section-content">
-                            <h3 class="title-3">Shop Sidebar</h3>
+                            <h3 class="title-3">商城</h3>
                             <ul>
                                 <li><a href="index.html">首頁</a></li>
                                 <li>商城</li>
@@ -106,9 +134,9 @@
                                                 <i class="ion-ios-arrow-thin-left"></i>
                                             </li>
                                             <li class="active"><a>1</a></li>
-                                            <li>
-                                                <a href="#">2</a>
-                                            </li>
+                                            <!--                                            <li>-->
+                                            <!--                                                <a href="#">2</a>-->
+                                            <!--                                            </li>-->
                                             <li class="next">
                                                 <a href="#" title="Next >>"><i class="ion-ios-arrow-thin-right"></i></a>
                                             </li>
@@ -128,7 +156,7 @@
                                     <h3 class="widget-title">Search</h3>
                                     <div class="search-box">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="搜尋商品名稱"
+                                            <input type="text" class="form-control" placeholder="搜尋名稱，不打名稱則返回"
                                                 aria-label="Search Our Store">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary" type="button">
@@ -143,16 +171,16 @@
                                     <!-- Widget Menu Start -->
                                     <nav>
                                         <ul class="mobile-menu p-0 m-0">
-                                            <li class="menu-item-has-children"><a href="#">親子桌遊</a>
+                                            <li class="menu-item-has-children"><a href="#">100~200元</a>
 
                                             </li>
-                                            <li class="menu-item-has-children"><a href="#">6人以上</a>
+                                            <li class="menu-item-has-children"><a href="#">200~300元</a>
 
                                             </li>
-                                            <li class="menu-item-has-children"><a href="#">熱門推薦</a>
+                                            <li class="menu-item-has-children"><a href="#">300~400元</a>
 
                                             </li>
-                                            <li class="menu-item-has-children"><a href="#">2023精選</a>
+                                            <li class="menu-item-has-children"><a href="#">500元以上</a>
 
                                             </li>
                                         </ul>
@@ -280,69 +308,14 @@
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
 
+    <!--    商品搜尋-->
+    <script src="static/js/product-search.js"></script>
 
-    <script>
-        const productList = document.getElementById('product-list');
+    <!--解決顯示product-description問題-->
+    <script src="static/js/product-description.js"></script>
 
-        const picSet = new Set(); // 儲存已經使用過的商品圖片編號
-        let picNo = 1;
-        let n = 1;
-        fetch('/product/get-all')
-            .then(response => response.json())
-            .then(products => {
-                console.log(products); // 檢查資料
-                if (!Array.isArray(products)) {
-                    throw new Error('Invalid response from server');
-                }
-
-                products.filter(product => product && product.pdStatus) //確保products陣列中每個元素都有pdStatus屬性，避免在filter方法中遇到undefined或null的元素
-                    .filter(product => product.pdStatus) // 只顯示上架狀態為true的商品
-                    .forEach((product, index) => {
-                        console.log(product)   //檢查每個商品
-
-                        const productHTML = `
-  <div class="col-md-6 col-sm-6 col-lg-4 col-custom product-area">
-    <div class="single-product position-relative">
-      <div class="product-image">
-        <a class="d-block" href="product-details.html?pdNo=${product.pdNo}" >
-          <img id = img${n++} src="/pic/getimage?picno=${product.picNo}" alt="product image" class="product-image-1 w-100">
-        </a>
-      </div>
-      <div class="product-content">
-        <div class="product-rating">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star-o"></i>
-          <i class="fa fa-star-o"></i>
-        </div>
-        <div class="product-title">
-          <h4 class="title-2"><a href="product-details.html?pdNo=${product.pdNo}">${product.pdName}</a></h4>
-        </div>
-        <div class="price-box">
-          <span class="regular-price">$${product.pdPrice}</span>
-          ${product.discountedPrice ? `<span class="old-price"><del>$${product.discountedPrice}</del></span>` : ''}
-        </div>
-        <div class="add-action d-flex position-absolute">
-          <a href="javascript:void(0)" title="加入購物車" onclick="add(${product.pdNo})"><i class="ion-bag"></i></a>
-          <a href="wishlist.html" title="Add To Wishlist"><i class="ion-ios-heart-outline"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>`;
-
-                        productList.insertAdjacentHTML('beforeend', productHTML);
-
-                    })
-            });
-
-        setTimeout(() => {
-            for (i = 1; i < n; i++) {
-                $(`#img${i}`).attr("src", `/pic/getimage?picno=${i}`);
-            }
-        }, 1000)
-
-    </script>
+    <!--    處理商品圖片與購物車-->
+    <script src="static/js/productpic-and-cart.js"></script>
 
     <!-- sweetalert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -350,7 +323,6 @@
 
     <!-- My Js-->
     <script src="static/js/shopcart.js"></script>
-
 
 </body>
 

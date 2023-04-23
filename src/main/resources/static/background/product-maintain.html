@@ -300,7 +300,7 @@
                             <input type="text" class="form-control" id="pdName" placeholder="輸入商品名稱" name="pdName"
                               required="" />
                             <div class="invalid-feedback">
-                              Please enter a username.
+                              商品名稱只能輸入中文和英文字母！
                             </div>
                           </div>
                         </div>
@@ -309,7 +309,10 @@
                           </label>
                           <div class="col-lg-6">
                             <input type="text" class="form-control" id="pdPrice" required="" placeholder="輸入商品價錢"
-                              name="pdPrice" />
+                              name="pdPrice" oninput="validatePrice()" />
+                            <div class="invalid-feedback">
+                              商品價錢只能輸入數字！
+                            </div>
                           </div>
                         </div>
                         <div class="mb-3 row">
@@ -317,10 +320,10 @@
                             <span class="text-danger">*</span>
                           </label>
                           <div class="col-lg-6">
-                            <input type="text" class="form-control" id="pdStock" placeholder="輸入商品庫存" name="pdStock" />
+                            <input type="text" class="form-control " id="pdStock" placeholder="輸入商品庫存" name="pdStock" />
                           </div>
                           <div class="invalid-feedback">
-                            Please select a one.
+                            商品庫存只能輸入數字!
                           </div>
                         </div>
                       </div>
@@ -384,7 +387,7 @@
                       <input type="text" id="pdNo" name="pdNo">
                     </div>
                     <div>
-                      <button type="submit">儲存</button>
+                      <button type="submit" class="btn btn-primary fs-5">儲存</button>
                     </div>
                   </form>
                 </div>
@@ -432,6 +435,7 @@
                       <th><strong>商品上架狀態</strong></th>
                       <th><strong>更新時間</strong></th>
                       <th><strong>編輯</strong></th>
+                      <th><strong>商品圖片</strong></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -554,6 +558,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <!-- 顯示彈出式警告框和對話框 -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <!--商品名稱、價錢、庫存錯誤驗證-->
+  <script src="static/js/product-false-validation.js"></script>
 
 </body>
 

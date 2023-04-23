@@ -2,6 +2,7 @@ package webapp.others.service;
 
 import jakarta.mail.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.query.JSqlParserUtils;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -18,76 +19,40 @@ public class EmailServiceImpl implements EmailService {
 
     private final MailSender mailSender;
 
-    private final JavaMailSenderImpl javaMailSenderImpl;
 
     @Autowired
-    public EmailServiceImpl(MailSender mailSender, JavaMailSenderImpl javaMailSenderImpl) {
+    public EmailServiceImpl(MailSender mailSender) {
         this.mailSender = mailSender;
-        this.javaMailSenderImpl = javaMailSenderImpl;
     }
 
-
-    public EmailMessage receiveEmails()throws Exception {
-        EmailMessage emailMessage = new EmailMessage();
-        try {
-            Properties props = javaMailSenderImpl.getJavaMailProperties();
-            Session session = Session.getInstance(props, null);
-            Store store = session.getStore();
-            store.connect(javaMailSenderImpl.getUsername(), javaMailSenderImpl.getPassword());
-
-            Folder inbox = store.getFolder("INBOX");
-            inbox.open(Folder.READ_ONLY);
-            Message[] messages = inbox.getMessages();
-            Message message = messages[0]; // 獲取第一封郵件
-            emailMessage.setName(message.getFileName());
-            emailMessage.setFrom(Arrays.toString(message.getFrom()));
-            emailMessage.setSubject(message.getSubject());
-            emailMessage.setText(message.getContent().toString());
-
-
-            inbox.close(false);
-            store.close();
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-        return emailMessage;
-    }
     @Override
     public void sendEmail(String name, String from, String subject, String text) throws Exception {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("my518lin@gmail.com");
+        message.setTo("a81194lin@gmail.com");
         message.setFrom(from);
         System.out.println(from);
-        message.setSubject(subject);
-        message.setText(text);
+        message.setSubject("客服信件");
+        String content = "Email："+from+"\n"+"詢問主題："+subject+"\n詢問事項："+text+"\n";
+        System.out.println("This is content : "+content);
+        message.setText(content);
         this.mailSender.send(message);
     }
 
     @Override
     public EmailMessageDTO receiveEmails(String name, String to, String subject, String text) throws MessagingException {
         SimpleMailMessage message = new SimpleMailMessage();
-
         return null;
     }
 
     @Override
     public void sendPassword(String to, String text) throws MessagingException {
         SimpleMailMessage sendPasswod = new SimpleMailMessage();
-        sendPasswod.setFrom("my518lin@gmail.com");
+        sendPasswod.setFrom("a81194lin@gmail.com");
         sendPasswod.setTo(to);
         sendPasswod.setSubject("您的臨時登入密碼");
         sendPasswod.setText("登入後請至會員中心變更密碼\n" + "您的臨時密碼為" + text);
         this.mailSender.send(sendPasswod);
     }
-    // @Override
-    // public void sendSimpleEmail(String to, String text) {
-    // SimpleMailMessage message = new SimpleMailMessage();
-    // message.setFrom("my518lin@gmail.com");
-    // message.setTo(to);
-    // message.setSubject("您的臨時登入密碼");
-    // message.setText("登入後請至會員中心變更密碼\n"+"您的臨時密碼為"+text);
-    // mailSender.send(message);
-    // }
 
     @Override
     public void send(SimpleMailMessage simpleMessage) throws MailException {

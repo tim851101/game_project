@@ -35,9 +35,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     @Modifying
     @Transactional
-    @Query("UPDATE Event e SET e.eventStatus = :eventStatus, e.eventLimit = :eventLimit, e.signupNum = :signupNum WHERE e.eventNo = :eventNo")
-    void setEventStatus(@Param("eventStatus") Byte eventStatus, @Param("eventLimit") Integer eventLimit,
-            @Param("signupNum") Integer signupNum, @Param("eventNo") Integer eventNo);
+    @Query("UPDATE Event e SET e.eventStatus = :eventStatus WHERE e.eventNo = :eventNo")
+    void setEventStatus(@Param("eventStatus") Byte eventStatus, @Param("eventNo") Integer eventNo);
 
     @Query(value = "SELECT * " +
             "FROM `Event` WHERE event_Status=1 ", nativeQuery = true)

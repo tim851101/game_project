@@ -13,6 +13,8 @@ import webapp.others.pojo.EventNews;
 import webapp.others.pojo.News;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -85,13 +87,8 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
 
     @Override
     public Boolean updateEventStatus(EventDTO eventDTO) {
-        if (eventDTO.getEventStatus() == 0 || eventDTO.getEventStatus() == 1 || eventDTO.getEventStatus() == 2) {
-            eventRepository.setEventStatus(eventDTO.getEventStatus(), eventDTO.getEventLimit(), eventDTO.getSignupNum(),
-                    eventDTO.getEventNo());
-            return true;
-        } else {
-            return false;
-        }
+        eventRepository.setEventStatus(eventDTO.getEventStatus(), eventDTO.getEventNo());
+        return true;
 
     }
 
@@ -123,31 +120,26 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
         }
         return null;
     }
+    // 排程報名賽事資訊至前端，每日7-10、20-23點執行一次。
+    @Scheduled(cron = "0 0 7-10,20-23 * * *")
+    public void checkEventStatus() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh");
+        String localDate = dateFormat.format(new Date());
+        List<Event> events = eventRepository.findAll();
+        for (Event event : events) {
+            String start = dateFormat.format(event.getSignupStartTime());
+            String end = dateFormat.format(event.getSignupDeadline());
+            if (event.getEventStatus() == null && localDate.equals(start)) {
+                eventRepository.setEventStatus((byte) 0, event.getEventNo());
+                System.out.println("賽事報名開始");
+            }
+            if (event.getEventStatus() == 0 && localDate.equals(end)) {
+                eventRepository.setEventStatus((byte) 3, event.getEventNo());
+                System.out.println("賽事報名截止");
+            }
 
-//    @Scheduled(cron = "0 0 * * * *")
-//    public void checkPouconStatus() {
-//        Date date = new java.util.Date();
-//        Timestamp time = new Timestamp(date.getTime());
-//        List<Event> events = eventRepository.findAll();
-
-//        for (Event event : events) {
-//                if(event.getEventStatus()==null){
-//
-//                }
-//            if (event.ge){
-//                LocalDateTime start = pcoupon.getPcoupnsdate();
-//                LocalDateTime end = pcoupon.getPcoupnedate();
-//                byte status = 0;
-//                if (today.isEqual(start) || today.isEqual(end)) {
-//                    status = 1;
-//                } else if (today.isAfter(start) && today.isBefore(end)) {
-//                    status = 1;
-//                }
-//                pcoupon.setPcouponstatus(status);
-//                pcouponRepository.save(pcoupon);
-//            }
-//        }
-//    }
+        }
+    }
 
 
 }

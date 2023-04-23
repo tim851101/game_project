@@ -84,13 +84,12 @@ public class EventController {
     }
 
     //設定賽事狀態。
-    //上限人數、報名人數。參數: Integer eventNo(0:未完賽/1:已完賽/2:取消賽事), Byte eventStatus, Integer eventLimit, Integer signupNum
+    //上限人數、報名人數。參數: Integer eventNo(0:未完賽/1:已完賽/2:取消賽事), Byte eventStatus
     @PostMapping("/setStatus")
     @ResponseBody
     public Boolean updateEventStatus(@RequestBody EventDTO eventDTO) {
         return eventServiceImpl.updateEventStatus(eventDTO);
     }
-
 
 
 

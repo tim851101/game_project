@@ -57,13 +57,13 @@ $(document).ready(e => {
         {
           data: "eventNo",
           render: (data, type, row, meta) => {
-            if (row.eventStatus === 0) {
+            if (row.eventStatus === 0 || row.eventStatus === 3) {
               return (
                 `<td><button value=` + data + ` id="cancel" type="button" class="btn btn-danger btn-xxs" style="padding: 0.4rem 0.8rem;">取消賽事</button></td> `
               );
             } else {
               return (
-                `<td><button value=` + data + ` id="cancel" type="button" class="btn  btn-success btn-xxs" style="padding: 0.4rem 0.8rem;" disabled>已完成</button></td> `
+                `<td><button value=` + data + ` id="cancel" type="button" class="btn  btn-success btn-xxs" style="padding: 0.4rem 0.8rem;" disabled>已完賽</button></td> `
               );
             }
           }
@@ -118,10 +118,11 @@ $(document).ready(e => {
         inputPlaceholder: '請輸入原因...',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#21870D',
         cancelButtonColor: '#d33',
-        confirmButtonText: '確定',
+        confirmButtonColor: '#21870D',
         cancelButtonText: "取消",
+        confirmButtonText: '確定',
+        reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
           if ($.trim(result.value) === "") {
@@ -173,8 +174,6 @@ $(document).ready(e => {
               // 賽事狀態取消
               const formData = {
                 "eventNo": eventNo,
-                "eventLimit": 0,
-                "signupNum": 0,
                 "eventStatus": 2
               }
               fetch('/event/setStatus', {
@@ -198,18 +197,16 @@ $(document).ready(e => {
                 icon: 'success',
                 confirmButtonText: '確定',
                 confirmButtonColor: '#21870D',
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.reload();
-                }
-              });
+                preConfirm: setTimeout(() => {
+                  document.location.reload();
+                }, 2000)
+              })
             };
           }
         }
       });
     });
   }
-
 
    // 定義會員欄位
   function format(d, eventordData) {
@@ -284,7 +281,6 @@ $(document).ready(e => {
     return trString;
   };
 });
-
 
 // 付款按鈕
 function enevtStatus(badge) {
@@ -363,58 +359,3 @@ function memChecked(badge) {
   // alert(buttonId);
 }
 
-
-{/* <tr style="text-align:center;">
-<td>${e.eventno}</td>
-<td>風聲</td>
-<td class="py-2">${e.memName}</td>
-<td class="py-2">${e.memEmail}</td>
-<td class="py-2">${e.memPhone}</td>
-<td class="py-2">2023/04/02</td>
-<td><span class="badge btn btn-xxs bg-secondary"
-  onclick="checkIn2(this)" id="edit${e.memNo}1" value=""><span class="fa fa-ban me-1"></span>
-  未付款
-</span></td>
-<td class="py-2 text-end"><span class="badge btn btn-xxs bg-secondary"
-  onclick="checkIn(this)" id="edit${e.memNo}2" value=""> <span class="fa fa-ban me-1"></span>
-  未報到
-</span></td>
-<td class="py-2">0</td>
-<td class="py-2 text-end">
-<div class="dropdown text-sans-serif"><button
-      class="btn btn-primary tp-btn-light sharp" type="button"
-      id="order-dropdown-0" data-bs-toggle="dropdown"
-      data-boundary="viewport" aria-haspopup="true"
-      aria-expanded="false"><span><svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              width="18px" height="18px" viewbox="0 0 24 24"
-              version="1.1">
-              <g stroke="none" stroke-width="1" fill="none"
-                  fill-rule="evenodd">
-                  <rect x="0" y="0" width="24" height="24">
-                  </rect>
-                  <circle fill="#000000" cx="5" cy="12" r="2">
-                  </circle>
-                  <circle fill="#000000" cx="12" cy="12" r="2">
-                  </circle>
-                  <circle fill="#000000" cx="19" cy="12" r="2">
-                  </circle>
-              </g>
-          </svg></span></button>
-<div class="dropdown-menu dropdown-menu-end border py-0"
-      aria-labelledby="order-dropdown-0">
-<div class="py-2"><a class="dropdown-item"
-              href="javascript:void(0);">未出貨</a><a
-              class="dropdown-item"
-              href="javascript:void(0);">已出貨</a><a
-              class="dropdown-item"
-              href="javascript:void(0);">已完成</a>
-<div class="dropdown-divider"></div><a
-              class="dropdown-item text-danger"
-              href="javascript:void(0);">取消</a>
-</div>
-</div>
-</div>
-</td>
-</tr> */}

@@ -1,5 +1,6 @@
 package webapp.event.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -47,6 +48,7 @@ public class Event {
     private String eventWinner3;
     @Column(name = "EVENT_STATUS")
     private Byte eventStatus;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     @Column(name = "SIGNUP_START_TIME", updatable = false)
     private Timestamp signupStartTime;
     @Column(name = "SIGNUP_DEADLINE", updatable = false)

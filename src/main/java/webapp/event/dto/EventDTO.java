@@ -13,9 +13,9 @@ import java.sql.Timestamp;
 public class EventDTO {
     private Integer eventNo;
 
-    @NotBlank(message = "賽事名稱不可是空白")
+    @NotBlank(message = "賽事名稱未填寫")
     private String eventName;
-    @NotBlank(message = "賽事資訊不可是空白")
+    @NotBlank(message = "賽事資訊未填寫")
     private String eventDisc;
 
     private Date eventDate;
@@ -27,12 +27,12 @@ public class EventDTO {
     private Timestamp eventEndtime;
 
     @NotNull(message = "最少需要30人、最大是60人")
-    @Min(value = 30,message = "上限最小是30人")
-    @Max(value = 60,message = "上限最大是60人")
+    @Min(value = 30,message = "最少要填入30人")
+    @Max(value = 60,message = "最大要填入60人")
     private Integer eventLimit;
 
     private Integer signupNum;
-    @NotNull(message = "不能是空白最少需要200")
+    @NotNull(message = "參加費用未填寫，最少需要200元")
     @Min(value = 200, message = "參加費用最少需要200元")
     private Integer eventFee;
     private String eventWinner1;

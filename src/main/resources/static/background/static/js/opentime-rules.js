@@ -10,7 +10,6 @@ $(document).ready(() => {
             }
         })
     $('#time-submit-button').click(() => {
-        console.log(123);
         const data = [];
         for (let i = 1; i < 8; i++) {
             const inputs = $(`#week-${i} input`);

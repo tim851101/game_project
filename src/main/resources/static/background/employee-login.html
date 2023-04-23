@@ -98,19 +98,24 @@
                 document.querySelector("#login-error").textContent = "帳號或密碼錯誤";
             });
 
-        $('#login-show-pwd').click(() => {
-            const input = $('#login-pwd');
-            const icon = $('#login-show-pwd i');
 
-            if (input.attr('type') === 'password') {
-                input.attr('type', 'text');
-                icon.removeClass('fa-eye-slash').addClass('fa-eye');
-            } else {
-                input.attr('type', 'password');
-                icon.removeClass('fa-eye').addClass('fa-eye-slash');
-            }
-        });
     });
+    const eyeIcon = document.getElementById('login-show-pwd');
+    const passwordInput = document.getElementById('login-pwd');
+
+    eyeIcon.addEventListener('click', function() {
+        if (passwordInput.getAttribute('type') === 'password') {
+            passwordInput.setAttribute('type', 'text');
+            eyeIcon.children[0].classList.remove('fa-eye-slash');
+            eyeIcon.children[0].classList.add('fa-eye');
+        } else {
+            passwordInput.setAttribute('type', 'password');
+            eyeIcon.children[0].classList.remove('fa-eye');
+            eyeIcon.children[0].classList.add('fa-eye-slash');
+        }
+    });
+
+
 </script>
 </body>
 </script>

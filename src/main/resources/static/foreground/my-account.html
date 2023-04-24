@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    
+
 
     <!-- CSS
 	============================================ -->
@@ -34,7 +34,7 @@
     <link rel="stylesheet" href="/foreground/static/css/magnific-popup.css">
 
     <link rel="stylesheet" type="text/css" href="static/css/jquery.datetimepicker.css" />
-    
+
     <!-- Vendor & Plugins CSS (Please remove the comment from below vendor.min.css & plugins.min.css for better website load performance and remove css files from the above) -->
 
     <!-- <link rel="stylesheet" href="assets/css/vendor/vendor.min.css">
@@ -50,10 +50,11 @@
 
 </head>
 <style>
-    input{
- width:100px
+    input {
+        width: 100px
     }
 </style>
+
 <body>
 
     <div class="contact-wrapper">
@@ -87,11 +88,13 @@
                                 <div class="col-lg-3 col-md-4 col-custom">
                                     <div class="myaccount-tab-menu nav" role="tablist">
                                         <input id="memNo" type="text" hidden>
-                                        <a href="#dashboard" class="active" data-bs-toggle="tab"><i class="fa fa-dashboard"></i>
+                                        <a href="#dashboard" class="active" data-bs-toggle="tab"><i
+                                                class="fa fa-dashboard"></i>
                                             Dashboard</a>
                                         <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
                                             訂單管理</a>
-                                        <a href="#wishlist" data-bs-toggle="tab" id="myWishlist"><i class="fa fa-heart"></i>
+                                        <a href="#wishlist" data-bs-toggle="tab" id="myWishlist"><i
+                                                class="fa fa-heart"></i>
                                             我的收藏</a>
                                         <a href="#notify" data-bs-toggle="tab"><i class="fa fa-bell"></i>
                                             我的訊息</a>
@@ -101,7 +104,8 @@
                                             訂位訂單</a>
                                         <a href="#event-edit" data-bs-toggle="tab"><i class="fa fa-trophy"></i>
                                             活動訂單</a>
-                                        <a href="#account-info" data-bs-toggle="tab" id="myPersonalData"><i class="fa fa-user"></i>
+                                        <a href="#account-info" data-bs-toggle="tab" id="myPersonalData"><i
+                                                class="fa fa-user"></i>
                                             帳號維護</a>
                                         <a href="#password-edit" data-bs-toggle="tab"><i class="fa fa-key"></i>密碼變更</a>
                                         <a href="#" id="logoutButton"><i class="fa fa-sign-out"></i>會員登出</a>
@@ -120,7 +124,8 @@
                                                 <div class="welcome">
                                                     <p>您好, <strong id="myName">{{defaultMemName}}</strong></p>
                                                 </div>
-                                                <p class="mb-0">由你的帳戶管理頁面，你可以輕鬆地檢查和查看你最近的訂單與通知，管理你所預約的訂位與活動，以及編輯你的密碼和帳戶詳細資料。</p>
+                                                <p class="mb-0">
+                                                    由你的帳戶管理頁面，你可以輕鬆地檢查和查看你最近的訂單與通知，管理你所預約的訂位與活動，以及編輯你的密碼和帳戶詳細資料。</p>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
@@ -130,7 +135,7 @@
                                             <div class="myaccount-content">
                                                 <h3>商品訂單</h3>
                                                 <div class="myaccount-table table-responsive text-center">
-                                                    <table id = "ordersTable-1" class="table table-bordered">
+                                                    <table id="ordersTable-1" class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
                                                                 <th>訂單編號</th>
@@ -143,7 +148,7 @@
                                                                 <th>退貨申請</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody id = "ordersTable">
+                                                        <tbody id="ordersTable">
                                                             <!-- <tr>
                                                                 <td>1</td>
                                                                 <td>2023/3/10</td>
@@ -190,16 +195,24 @@
                                                         <tbody id="tbody-context">
 
                                                             <tr v-for="item in memWishlist" :key="item.pdNo">
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" :src="item.pdPic" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">{{ item.pdName }}</a></td>
+                                                                <td class="pro-thumbnail"><a href="#"><img
+                                                                            class="img-fluid" :src="item.pdPic"
+                                                                            alt="Product"></a></td>
+                                                                <td class="pro-title"><a href="#">{{ item.pdName }}</a>
+                                                                </td>
                                                                 <td class="pro-price"><span>{{ item.price }}</span></td>
-                                                                <td class="pro-stock"><span><strong>{{ item.pdStock }}</strong></span></td>
-<<<<<<< HEAD
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-=======
-                                                                <td class="pro-cart"><button @click.prevent="addOne" :data-pd-no="item.pdNo"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></button></td>
->>>>>>> 14c36651c111b06f1b1eefeb61c5595cf9498ea3
-                                                                <td class="pro-remove"><button @click.prevent="removeOne" :data-pd-no="item.pdNo"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></button></td>
+                                                                <td class="pro-stock"><span><strong>{{ item.pdStock
+                                                                            }}</strong></span></td>
+                                                                <td class="pro-cart"><button @click.prevent="addOne"
+                                                                        :data-pd-no="item.pdNo"><i
+                                                                            class="fa fa-cart-arrow-down"
+                                                                            style="font-size: 1.5rem;"></i></button>
+                                                                </td>
+                                                                <td class="pro-remove"><button
+                                                                        @click.prevent="removeOne"
+                                                                        :data-pd-no="item.pdNo"><i class="ion-trash-b"
+                                                                            style="font-size: 1.5rem;"></i></button>
+                                                                </td>
                                                             </tr>
 
                                                             <!-- <tr>
@@ -263,26 +276,38 @@
                                                                 <td>2023/3/10</td>
                                                                 <td>退貨申請</td>
                                                                 <td>$3000</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>2023/3/09</td>
                                                                 <td>已出貨</td>
                                                                 <td>$200</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>3</td>
                                                                 <td>2023/3/08</td>
                                                                 <td>已完成</td>
                                                                 <td>$990</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
-                                                            
+
 
                                                         </tbody>
                                                     </table>
@@ -313,24 +338,36 @@
                                                                 <td>2023/3/10</td>
                                                                 <td>退貨申請</td>
                                                                 <td>$3000</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>2023/3/09</td>
                                                                 <td>已出貨</td>
                                                                 <td>$200</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>3</td>
                                                                 <td>2023/3/08</td>
                                                                 <td>已完成</td>
                                                                 <td>$990</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
                                                         </tbody>
                                                     </table>
@@ -363,20 +400,21 @@
                                                     </table>
                                                 </div>
 
-                                                <div class="myaccount-table table-responsive text-center"id="updatebook" style="visibility:hidden">
+                                                <div class="myaccount-table table-responsive text-center"
+                                                    id="updatebook" style="visibility:hidden">
                                                     <h3>修改內容</h3>
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
-                                                        <tr>
-                                                            <th>NO</th>
-                                                            <th>當天起始時間</th>
-                                                            <th>當天結束時間</th>
-                                                            <th>預約日期</th>
-                                                            <th>價格</th>
-                                                            <th>人數</th>
-                                                            <th>付款日期</th>
-                                                            <th></th>
-                                                        </tr>
+                                                            <tr>
+                                                                <th>NO</th>
+                                                                <th>當天起始時間</th>
+                                                                <th>當天結束時間</th>
+                                                                <th>預約日期</th>
+                                                                <th>價格</th>
+                                                                <th>人數</th>
+                                                                <th>付款日期</th>
+                                                                <th></th>
+                                                            </tr>
                                                         </thead>
                                                         <tbody id="update"></tbody>
                                                         </tbody>
@@ -408,26 +446,38 @@
                                                                 <td>2023/3/10</td>
                                                                 <td>退貨申請</td>
                                                                 <td>$3000</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>2</td>
                                                                 <td>2023/3/09</td>
                                                                 <td>已出貨</td>
                                                                 <td>$200</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
                                                             <tr>
                                                                 <td>3</td>
                                                                 <td>2023/3/08</td>
                                                                 <td>已完成</td>
                                                                 <td>$990</td>
-                                                                <td><a href="orderlist.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                                <td><a href="orderlist.html"
+                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                                </td>
+                                                                <td><button
+                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                                </td>
                                                             </tr>
-                                                            
+
 
                                                         </tbody>
                                                     </table>
@@ -443,25 +493,34 @@
                                                 <div class="password-edit-form">
                                                     <form action="#">
                                                         <div class="single-input-item mb-3">
-                                                            <label for="current-pwd" class="required mb-1">Current Password</label>
-                                                            <input type="password" v-model.trim="oldPwd" id="current-pwd" placeholder="Current Password">
+                                                            <label for="current-pwd" class="required mb-1">Current
+                                                                Password</label>
+                                                            <input type="password" v-model.trim="oldPwd"
+                                                                id="current-pwd" placeholder="Current Password">
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-6 col-custom">
                                                                 <div class="single-input-item mb-3">
-                                                                    <label for="new-pwd" class="required mb-1">New Password</label>
-                                                                    <input type="password" id="new-pwd" v-model.trim="newPwd" placeholder="New Password">
+                                                                    <label for="new-pwd" class="required mb-1">New
+                                                                        Password</label>
+                                                                    <input type="password" id="new-pwd"
+                                                                        v-model.trim="newPwd"
+                                                                        placeholder="New Password">
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-6 col-custom">
                                                                 <div class="single-input-item mb-3">
-                                                                    <label for="confirm-pwd" class="required mb-1">Confirm Password</label>
-                                                                    <input type="password" id="confirm-pwd" v-model.trim="CheckNewPwd" placeholder="Confirm Password">
+                                                                    <label for="confirm-pwd"
+                                                                        class="required mb-1">Confirm Password</label>
+                                                                    <input type="password" id="confirm-pwd"
+                                                                        v-model.trim="CheckNewPwd"
+                                                                        placeholder="Confirm Password">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item single-item-button">
-                                                            <button class="btn obrien-button primary-btn" @click="changePwd">Save Changes</button>
+                                                            <button class="btn obrien-button primary-btn"
+                                                                @click="changePwd">Save Changes</button>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -476,71 +535,102 @@
                                                 <div class="account-details-form">
                                                     <form>
                                                         <div class="single-input-item mb-3">
-                                                            <input id="mem_no" type="number" v-model="memberData.memNo" hidden>
+                                                            <input id="mem_no" type="number" v-model="memberData.memNo"
+                                                                hidden>
                                                             <!-- <input type="password" name="" id="mem_password" v-model="memberData.memNo" hidden> -->
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_name" class="form-label">姓名</label>
-                                                            <input type="text" class="form-control" id="mem_name"  v-model.trim="memberData.memName" placeholder="Your Name" required>
+                                                            <input type="text" class="form-control" id="mem_name"
+                                                                v-model.trim="memberData.memName"
+                                                                placeholder="Your Name" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_phone" class="form-label">電話</label>
-                                                            <input type="tel" class="form-control" id="mem_phone" v-model.trim="memberData.memPhone" placeholder="Your Phone" required>
+                                                            <input type="tel" class="form-control" id="mem_phone"
+                                                                v-model.trim="memberData.memPhone"
+                                                                placeholder="Your Phone" required>
                                                         </div>
                                                         <div class="mb-3">
                                                             <label style="width: 80px;padding-bottom: 8px;">性別</label>
-                                                            <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
+                                                            <div class="mb-3"
+                                                                style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="genderOptions" v-model="memberData.memGender" id="gender_male" value="1">
-                                                                    <label class="form-check-label" for="gender_male">Male</label>
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="genderOptions"
+                                                                        v-model="memberData.memGender" id="gender_male"
+                                                                        value="1">
+                                                                    <label class="form-check-label"
+                                                                        for="gender_male">Male</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="genderOptions" v-model="memberData.memGender" id="gender_female" value="0">
-                                                                    <label class="form-check-label" for="gender_female">Female</label>
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="genderOptions"
+                                                                        v-model="memberData.memGender"
+                                                                        id="gender_female" value="0">
+                                                                    <label class="form-check-label"
+                                                                        for="gender_female">Female</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_birthday" class="form-label">生日</label>
-                                                            <input type="date" class="form-control" id="mem_birthday" v-model="memberData.memBirthday">
+                                                            <input type="date" class="form-control" id="mem_birthday"
+                                                                v-model="memberData.memBirthday">
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_email" class="form-label">信箱</label>
-                                                            <input type="email" class="form-control" id="mem_email" v-model.trim="memberData.memEmail" required>
+                                                            <input type="email" class="form-control" id="mem_email"
+                                                                v-model.trim="memberData.memEmail" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_address" class="form-label">地址</label>
-                                                            <input type="text" class="form-control" id="mem_address" v-model="memberData.memAddress" required>
+                                                            <input type="text" class="form-control" id="mem_address"
+                                                                v-model="memberData.memAddress" required>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="coupon" class="form-label">回饋金</label>
-                                                            <input type="text" class="form-control" id="coupon" v-model="memberData.coupon" readonly>
+                                                            <input type="text" class="form-control" id="coupon"
+                                                                v-model="memberData.coupon" readonly>
                                                         </div>
                                                         <div class="mb-3">
-                                                            <label for="coupon" style="width: 80px;padding-bottom: 8px;">預約權限</label>
-                                                            <div class="mb-3" style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
+                                                            <label for="coupon"
+                                                                style="width: 80px;padding-bottom: 8px;">預約權限</label>
+                                                            <div class="mb-3"
+                                                                style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_on" v-model="memberData.reserveAuth" value="true" disabled>
-                                                                    <label class="form-check-label" for="reserve_on">可預約</label>
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="reserve_auth" id="reserve_on"
+                                                                        v-model="memberData.reserveAuth" value="true"
+                                                                        disabled>
+                                                                    <label class="form-check-label"
+                                                                        for="reserve_on">可預約</label>
                                                                 </div>
                                                                 <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio" name="reserve_auth" id="reserve_off" v-model="memberData.reserveAuth" value="false" disabled>
-                                                                    <label class="form-check-label" for="reserve_off">鎖定中</label>
+                                                                    <input class="form-check-input" type="radio"
+                                                                        name="reserve_auth" id="reserve_off"
+                                                                        v-model="memberData.reserveAuth" value="false"
+                                                                        disabled>
+                                                                    <label class="form-check-label"
+                                                                        for="reserve_off">鎖定中</label>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_vio" class="form-label">違規次數</label>
-                                                            <input type="text" class="form-control" id="mem_vio" v-model="memberData.memVIO" readonly>
+                                                            <input type="text" class="form-control" id="mem_vio"
+                                                                v-model="memberData.memVIO" readonly>
                                                         </div>
                                                         <div class="single-input-item mb-3">
                                                             <label for="mem_status" class="form-label">解鎖日期</label>
-                                                            <input type="date" class="form-control" id="mem_status" v-model="memberData.memStatus" readonly>
+                                                            <input type="date" class="form-control" id="mem_status"
+                                                                v-model="memberData.memStatus" readonly>
                                                         </div>
                                                         <div class="single-input-item single-item-button">
-                                                            <button id="mem-save" class="btn obrien-button primary-btn" @click="updateMember">Save Changes</button>
+                                                            <button id="mem-save" class="btn obrien-button primary-btn"
+                                                                @click="updateMember">Save Changes</button>
                                                         </div>
-                                                    </form>   
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div> <!-- Single Tab Content End -->
@@ -563,10 +653,10 @@
 
     <!-- JS
 ============================================ -->
-<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
-<!-- jQuery JS -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
+    <!-- jQuery JS -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
     <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
     <!-- jQuery Migrate JS -->
     <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
@@ -598,39 +688,36 @@
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<<<<<<< HEAD
-=======
 <script src="/foreground/static/js/headerUse.js"></script>
->>>>>>> 14c36651c111b06f1b1eefeb61c5595cf9498ea3
 <script src="../js/member.js"></script>
 <script src="/foreground/static/js/headerUse.js"></script>
 <script>
     const tbody = document.querySelector('#booking');
-    const update= document.querySelector('#update');
-    const updatebook= document.querySelector('#updatebook')
-    const url ='http://localhost:8082/book/bookingbymemno?memno=32';//目前寫死
+    const update = document.querySelector('#update');
+    const updatebook = document.querySelector('#updatebook')
+    const url = 'http://localhost:8082/book/bookingbymemno?memno=32';//目前寫死
     const MonthFromNow = new Date();
     MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
-    let bookno=null;
-    
-    function read(){
+    let bookno = null;
+
+    function read() {
         $('#booktable').DataTable().clear().destroy();
         tbody.innerHTML = ""
         fetch(url)
-        .then(resp => resp.json())
-        .then(list => {
-            for (let booking of list) {
-                if(booking.bookingFinishDate==null)
-                deadlineStr="未完成"
-                else
-                deadlineStr=""+booking.bookingFinishDate
-                tbody.innerHTML += `
+            .then(resp => resp.json())
+            .then(list => {
+                for (let booking of list) {
+                    if (booking.bookingFinishDate == null)
+                        deadlineStr = "未完成"
+                    else
+                        deadlineStr = "" + booking.bookingFinishDate
+                    tbody.innerHTML += `
                 <tr>
                     <td>${booking.bookingNo}</td>
                     <td>${booking.bookingStartTime}</td>
                     <td>${booking.bookingEndTime}</td>
                     <td>${booking.bookingDate}</td>
-                    <td>`+deadlineStr+`</td>
+                    <td>`+ deadlineStr + `</td>
                     <td>${booking.bookingTotalPrice}</td>
                     <td>${booking.bookingPeople}</td>
                     <td><button id="update" onclick="forUpdate(${booking.bookingNo})" class="btn obrien-button-2 primary-color rounded-0">修改</button></td>
@@ -638,12 +725,12 @@
                     </tr>
                     `
                 }
-                
+
                 //data table start
-                $(document).ready( function () {
+                $(document).ready(function () {
                     $('#booktable').DataTable({
                         pageLength: 3,
-                        lengthMenu: [3,5,10,20],
+                        lengthMenu: [3, 5, 10, 20],
                         language: {
                             emptyTable: "無資料",
                             info: "顯示 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",
@@ -655,43 +742,44 @@
                         },
                     });
                 });
-         //datatable END
-        });
-        
+                //datatable END
+            });
+
     }
     // let table = new DataTable('#booktable');
     read();
-	function forDelete(deleteno){ let confirmdelete = confirm('確認取消'+deleteno+"號訂位?");
-    if(confirmdelete){
-        $.post('http://localhost:8082/book/deletebook',{
-            deleteno:deleteno
-        });
-    }else{
+    function forDelete(deleteno) {
+        let confirmdelete = confirm('確認取消' + deleteno + "號訂位?");
+        if (confirmdelete) {
+            $.post('http://localhost:8082/book/deletebook', {
+                deleteno: deleteno
+            });
+        } else {
+        }
+        sleep(500).then(() => {
+            read();
+        })
     }
-    sleep(500).then(() => {
-        read();
-    })
-}
-let deadline=null
-function forUpdate(updateno){
-    const url ='http://localhost:8082/book/one?findno='+updateno;
-	fetch(url)
-	.then(resp => resp.json())
-	.then(list => {
-        for (let booking of list) {
-            bookno=booking.bookingNo
-            memno=booking.memNo
-            if(booking.bookingFinishDate==null){
-                deadlineStr="<button id='toPay' class='btn obrien-button-2 primary-color rounded-0'>去付款</button>"
-                deadline=null
-            }
-            else{
-                deadlineStr=""+booking.bookingFinishDate
-                deadline=booking.bookingFinishDate
-            }
-            
-            update.innerHTML =``
-            update.innerHTML += `
+    let deadline = null
+    function forUpdate(updateno) {
+        const url = 'http://localhost:8082/book/one?findno=' + updateno;
+        fetch(url)
+            .then(resp => resp.json())
+            .then(list => {
+                for (let booking of list) {
+                    bookno = booking.bookingNo
+                    memno = booking.memNo
+                    if (booking.bookingFinishDate == null) {
+                        deadlineStr = "<button id='toPay' class='btn obrien-button-2 primary-color rounded-0'>去付款</button>"
+                        deadline = null
+                    }
+                    else {
+                        deadlineStr = "" + booking.bookingFinishDate
+                        deadline = booking.bookingFinishDate
+                    }
+
+                    update.innerHTML = ``
+                    update.innerHTML += `
             <tr>
                 <td>${booking.bookingNo}</td>
                 <td><input type="text" id="srattime" value="09:00"></td>
@@ -707,204 +795,162 @@ function forUpdate(updateno){
                     <option value="5">5</option>
                     <option value="6">6</option>
                     </select></td>
-                    <td>`+deadlineStr+`</td>
+                    <td>`+ deadlineStr + `</td>
                     <td><button id="post" onclick="change()" class="btn obrien-button-2 primary-color rounded-0">送出</button></td>
                     </tr>
                     `
                 }
-                update.addEventListener('change',()=>{  
-                    let check=0;
-                    a=document.getElementById('srattime').value.substr(0, 2)
-                    b=document.getElementById('endtime').value.substr(0, 2)
-                    datas={
-                        date:document.getElementById('date').value,
-                        minTime:a,
-                        maxTime:b
+                update.addEventListener('change', () => {
+                    let check = 0;
+                    a = document.getElementById('srattime').value.substr(0, 2)
+                    b = document.getElementById('endtime').value.substr(0, 2)
+                    datas = {
+                        date: document.getElementById('date').value,
+                        minTime: a,
+                        maxTime: b
                     }
                     $.ajax({
-                        url : 'http://localhost:8082/book/testseat',
-                        type : 'post', 
-                        data : datas,
-                        success : function(response) {
-                            check=(response-(document.getElementById('people').value))
-                            console.log(check); 
-                            if(check>0)
-                            {
+                        url: 'http://localhost:8082/book/testseat',
+                        type: 'post',
+                        data: datas,
+                        success: function (response) {
+                            check = (response - (document.getElementById('people').value))
+                            console.log(check);
+                            if (check > 0) {
                                 //  console.log("還有位置");
-                                document.getElementById('post').removeAttribute('disabled')  
+                                document.getElementById('post').removeAttribute('disabled')
                             }
-                            else
-                    {
-                        //  console.log("沒有");
-                        document.getElementById('post').setAttribute('disabled',true)     
-                    } 
-                },
-                
+                            else {
+                                //  console.log("沒有");
+                                document.getElementById('post').setAttribute('disabled', true)
+                            }
+                        },
+
+                    });
+
+                }
+                )
+                $.datetimepicker.setLocale('zh');
+                $('#date').datetimepicker({
+                    theme: '',              //theme: 'dark',
+                    timepicker: false,       //timepicker:true,
+                    step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
+                    format: 'Y-m-d',         //format:'Y-m-d H:i:s',
+                    value: '${param.hiredate}',
+                    beforeShowDay: function (date) {
+                        // Disable dates more than n months from now
+                        return [date >= new Date() && date <= MonthFromNow];
+                    }
+                    // value:   new Date(),
+                    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+                    //startDate:	            '2017/07/10',  // 起始日
+                    //minDate:               '-1970-01-01', // 去除今日(不含)之前
+                    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
+                });
+                $('#srattime,#endtime').datetimepicker({
+                    theme: 'dark',              //theme: 'dark',
+                    datepicker: false,       //timepicker:true,
+                    step: 60,             //step: 60 (這是timepicker的預設間隔60分鐘)
+                    format: 'H:i',         //format:'Y-m-d H:i:s',
+                    value: '', // value:   new Date(),
+                });
+                $('#srattime,#endtime').text("")
             });
-            
+        updatebook.setAttribute("style", "visibility:visible");
+    }
+    let people = null
+    function pricechange() {
+        people = document.getElementById("people").value
+        let price = document.querySelector("#price")
+        price.innerHTML = (people * 200)
+    }
+
+    function change() {
+        pricechange();
+        let a = document.getElementById("date").value
+        let b = document.getElementById("srattime").value + ":00"
+        let c = document.getElementById("endtime").value + ":00"
+        let d = deadline
+        let e = people * 200
+        let data = {
+            bookingNo: bookno,
+            memNo: memno,
+            bookingDate: a,
+            bookingStartTime: b,
+            bookingEndTime: c,
+            bookingFinishDate: d,
+            bookingTotalPrice: e,
+            bookingPeople: people,
+            bookingPaymentStatus: 0,
+            bookingCheckStatus: 0,
         }
-        )
-        $.datetimepicker.setLocale('zh');
-        $('#date').datetimepicker({
-            theme: '',              //theme: 'dark',
- 	       timepicker:false,       //timepicker:true,
- 	       step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
- 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
- 		   value: '${param.hiredate}',
- 		   beforeShowDay: function (date) {
-                // Disable dates more than n months from now
-                return [date >= new Date() && date <= MonthFromNow];
+        // redis改動
+
+        redisdata = {
+            date: document.getElementById('date').value,
+            minTime: document.getElementById('srattime').value.substr(0, 2),
+            maxTime: document.getElementById('endtime').value.substr(0, 2),
+            change: document.getElementById('people').value
+        }
+        $.ajax({
+            url: 'http://localhost:8082/book/saveseat4time',
+            type: 'post',
+            data: redisdata,
+            success: function (response) {
+            },
+
+        });
+
+        $.ajax({
+            url: 'http://localhost:8082/book/addbooking',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8', // 要送到server的資料型態
+            data: JSON.stringify(data),
+            success: function (result) {
+                console.log(result.success); // result是json物件
+            },
+        });
+        sleep(500).then(() => {
+            read();
+            updatebook.setAttribute("style", "visibility:hidden");
+        })
+    }
+    function sleep(time) {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    const logoutButton = document.getElementById('logoutButton');
+
+    logoutButton.addEventListener('click', async (event) => {
+        event.preventDefault();
+        try {
+            const logoutResponse = await fetch('/mem/to-logout', {
+                method: 'POST'
+            });
+            console.log(logoutResponse);
+            if (logoutResponse.ok) {
+                localStorage.removeItem("memNo");
+                const responseText = await logoutResponse.text();
+                console.log(responseText);
+                Swal.fire({
+                    text: responseText,
+                    icon: 'success',
+                }).then(() => {
+                    // 成功登出後重新導向到登入頁面
+                    const url = new URL(window.location.href);
+                    const redirectUrl = url.origin + "/foreground/login.html";
+                    window.location.href = redirectUrl;
+                });
+            } else {
+                console.error(logoutResponse.status);
             }
-            // value:   new Date(),
-            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-            //startDate:	            '2017/07/10',  // 起始日
-            //minDate:               '-1970-01-01', // 去除今日(不含)之前
-            //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-        });
-        $('#srattime,#endtime').datetimepicker({
-           theme: 'dark',              //theme: 'dark',
-           datepicker:false,       //timepicker:true,
-           step: 60,             //step: 60 (這是timepicker的預設間隔60分鐘)
-           format:'H:i',         //format:'Y-m-d H:i:s',
-           value: '', // value:   new Date(),
-        });
-        $('#srattime,#endtime').text("")
-	});
-	updatebook.setAttribute("style", "visibility:visible");
-}
-let people=null
-function pricechange(){
-    people=document.getElementById("people").value
-    let price=document.querySelector("#price")
-    price.innerHTML = (people*200)
-}
-
-function change(){
-    pricechange();
-    let a=document.getElementById("date").value
-    let b=document.getElementById("srattime").value+":00"
-    let c=document.getElementById("endtime").value+":00"
-    let d=deadline
-    let e=people*200
-    let data={bookingNo:bookno,
-        memNo:memno,
-        bookingDate:a ,
-        bookingStartTime:b, 
-        bookingEndTime:c ,
-        bookingFinishDate:d, 
-        bookingTotalPrice:e, 
-        bookingPeople:people ,
-        bookingPaymentStatus:0,
-        bookingCheckStatus:0,
-    }
-    // redis改動
-    
-    redisdata={
-        date:document.getElementById('date').value,
-        minTime:document.getElementById('srattime').value.substr(0, 2),
-        maxTime:document.getElementById('endtime').value.substr(0, 2),
-        change:document.getElementById('people').value
-    }
-    $.ajax({
-        url : 'http://localhost:8082/book/saveseat4time',
-        type : 'post', 
-        data : redisdata,
-        success : function(response) {
-        },
-        
-    });
-    
-    $.ajax({
-        url : 'http://localhost:8082/book/addbooking',
-        type : 'post', 
-        dataType : 'json', 
-        contentType : 'application/json; charset=utf-8', // 要送到server的資料型態
-        data : JSON.stringify(data),
-        success : function(result) {
-            console.log(result.success); // result是json物件
-        },
-    });
-    sleep(500).then(() => {
-        read();
-        updatebook.setAttribute("style", "visibility:hidden");
-    })
-}
-function sleep (time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
-}
-
-const logoutButton = document.getElementById('logoutButton');
-
-logoutButton.addEventListener('click', async (event) => {
-    event.preventDefault();
-    try {
-        const logoutResponse = await fetch('/mem/to-logout', {
-            method: 'POST'
-        });
-        console.log(logoutResponse);
-        if (logoutResponse.ok) {
-            localStorage.removeItem("memNo");
-            const responseText = await logoutResponse.text();
-            console.log(responseText);
-            Swal.fire({
-                text: responseText,
-                icon: 'success',
-            }).then(() => {
-                // 成功登出後重新導向到登入頁面
-                const url = new URL(window.location.href);
-                const redirectUrl = url.origin + "/foreground/login.html";
-                window.location.href = redirectUrl;
-            });
-        } else {
-            console.error(logoutResponse.status);
+        } catch (error) {
+            console.error(error);
         }
-    } catch (error) {
-        console.error(error);
-    }
-});
-<<<<<<< HEAD
-sleep(500).then(() => {
-   read();
-   updatebook.setAttribute("style", "visibility:hidden");
-})
-}
-     function sleep (time) {
-  return new Promise((resolve) => setTimeout(resolve, time));
-}
-
-const logoutButton = document.getElementById('logoutButton');
-
-logoutButton.addEventListener('click', async (event) => {
-  event.preventDefault();
-  try {
-    const logoutResponse = await fetch('/mem/to-logout', {
-      method: 'POST'
     });
-    console.log(logoutResponse);
-    if (logoutResponse.ok) {
-      localStorage.removeItem("memNo");
-      const responseText = await logoutResponse.text();
-      console.log(responseText);
-      Swal.fire({
-        text: responseText,
-        icon: 'success',
-      }).then(() => {
-        // 成功登出後重新導向到登入頁面
-        const url = new URL(window.location.href);
-        const redirectUrl = url.origin + "/foreground/login.html";
-        window.location.href = redirectUrl;
-      });
-    } else {
-      console.error(logoutResponse.status);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-});
-
-=======
->>>>>>> 14c36651c111b06f1b1eefeb61c5595cf9498ea3
 
 
 </script>
+
 </html>

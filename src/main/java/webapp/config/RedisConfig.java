@@ -29,7 +29,7 @@
 //        return new JedisConnectionFactory(redisConfig);
 //    }
 //
-//    @Bean
+//    @Bean(name="webappRedisConfig")
 //    public RedisTemplate<String, Object> redisTemplate() {
 //        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
 //        redisTemplate.setConnectionFactory(jedisConnectionFactory());
@@ -43,6 +43,4 @@
 //    }
 //}
 //
-//
-//
-//
+

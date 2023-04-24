@@ -24,19 +24,38 @@
   <script src="/background/static/js/template.js"></script>
 </head>
 <style>
+  .card-body {
+    padding: 10px;
+
+  }
+
+  #eventList_wrapper {
+    margin: 2%;
+  }
+
+  tr .details-control {
+    padding: 0px;
+  }
+
+  #prod-list td {
+    padding: 0px;
+  }
+
   #eventList_paginate {
     margin-right: 40%;
   }
+
   td.details-control {
-  cursor: pointer;
-}
-tr.shown td.details-control i {
-  -webkit-transform: rotate(180deg);
-  -moz-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  -o-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
+    cursor: pointer;
+  }
+
+  tr.shown td.details-control i {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+  }
 </style>
 
 <body>
@@ -273,8 +292,6 @@ tr.shown td.details-control i {
               <li><a href="/background/event_order.html">訂單管理</a></li>
             </ul>
           </li>
-
-
           <div class="copyright">
             <p><strong>Tibame CGA106 游Game</strong> © 2023 All Rights Reserved</p>
             <p class="fs-12">Made with <span class="heart"></span> by CGA106第一組</p>
@@ -290,11 +307,10 @@ tr.shown td.details-control i {
             Content body start
         ***********************************-->
     <!--**********************************
-            商品維護 start
+            創建賽事 start
         ***********************************-->
     <div class="content-body" style="min-height: 876px">
       <div class="container-fluid">
-
         <div class="row page-titles">
           <ol class="breadcrumb">
             <li class="breadcrumb-item active">
@@ -312,118 +328,119 @@ tr.shown td.details-control i {
               <div class="card-header">
                 <h4 class="card-title">創建賽事</h4>
               </div>
-              <!-- form start -->
-              <form id="event-form">
               <div class="card-body">
                 <div class="form-validation">
-                    <div class="row">
-                      <div class="col-xl-12">
-                        <div class="mb-3 row" hidden>
-                          <label class="col-lg-2 col-form-label" for="NEWS_ID">編號
-                            <span class="text-danger">*</span>
-                          </label>
-                          <div class="col-lg-8">
-                            <input type="text" class="form-control" id="NEWS_ID" />
-                          </div>
+                  <div class="row">
+                    <div class="col-xl-12">
+                      <div class="mb-3 row" hidden>
+                        <label class="col-lg-2 col-form-label" for="NEWS_ID">編號
+                          <span class="text-danger">*</span>
+                        </label>
+                        <div class="col-lg-8">
+                          <input type="text" class="form-control" id="NEWS_ID" />
                         </div>
-
-                        <div class="container">
-                          <div class="row">
-                            <div class="col-2-md-auto">
-                              <label class=" col-form-label" for="eventName">賽事名稱 <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-9">
-                                <input type="text" class="form-control" id="eventName" placeholder="請輸入賽事名稱..." required
-                                  autocomplete="off" />
-                              </div>
-                            </div>
-
-                            <div class="mb-3 row">
-                              <label class="col-form-label" for="eventDisc">賽事資訊
-                                <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-9">
-                                <textarea class="form-control" id="eventDisc" placeholder="請輸入賽事活動內容..." required
-                                  autocomplete="off" oninput="autoResize(this)" style="overflow:hidden"></textarea>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-auto">
-                              <label class="col-lg-4 col-form-label" for="eventDate">舉辦日期
-                                <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-10">
-                                <input class="form-control " type="text" id="eventDate" required
-                                  placeholder="例:2023-01-01" autocomplete="off"
-                                  oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" />
-                              </div>
-                            </div>
-                            <div class="col-auto">
-                              <label class="col-lg-7 col-form-label" for="eventStarttime">活動開始時間
-                                <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-6">
-                                <input class="hint--error form-control " type="text" id="eventStarttime" required
-                                  placeholder="例:09:00" autocomplete="off"
-                                  oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" />
-                              </div>
-                            </div>
-                            <div class="col-auto">
-                              <label class="col-lg-8 col-form-label" for="eventEndtime">活動結束時間
-                                <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-6">
-                                <input class="form-control " type="text" step="3600" id="eventEndtime" required
-                                  placeholder="例:17:00" autocomplete="off" />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-auto">
-                              <label class="col-lg-8 col-form-label" for="eventLimit">報名上限人數
-                                <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-7">
-                                <input id="eventLimit" class=form-control type="text" placeholder="請輸入人數... "
-                                  oninput="value=value.replace(/^(0+)|[^\d]+/g,'' )" required autocomplete="off">
-                              </div>
-                            </div>
-                            <div class="col-auto">
-                              <label class="col-lg-3 col-form-label" for="eventFee">費用
-                                <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-6">
-                                <input id="eventFee" class=form-control type=text placeholder=報名費用
-                                  oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" required autocomplete="off">
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-auto">
-                              <label class="col-lg-8 col-form-label" for="signupStartTime">報名開始時間
-                                <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-10">
-                                <input name="start_date" id="signupStartTime" type="text" class="form-control"
-                                  id="NEWS_TITLE" autocomplete="off" required placeholder=報名開始>
-                              </div>
-                            </div>
-                            <div class="col-auto">
-                              <label class="col-lg-8 col-form-label" for="signupDeadline">報名截止時間
-                                <span class="text-danger">*</span>
-                              </label>
-                              <div class="col-10">
-                                <input name="end_date" type="text" class="form-control" id="signupDeadline"
-                                  autocomplete="off" required placeholder=報名截止>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
                       </div>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-2-md-auto">
+                            <label class=" col-form-label" for="eventName">賽事名稱 <span
+                                class="text-danger">*</span></label>&emsp;&emsp;<p id="eventNameError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-9">
+                              <input type="text" class="form-control" id="eventName" placeholder="請輸入賽事名稱..." required
+                                autocomplete="off" />
+                            </div>
+                          </div>
+
+                          <div class="col-2-md-auto">
+                            <label class="col-form-label" for="eventDisc">賽事資訊<span
+                                class="text-danger">*</span></label>&emsp;&emsp;<p id="eventDiscError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-9">
+                              <textarea class="form-control" id="eventDisc" placeholder="請輸入賽事活動內容..." required
+                                autocomplete="off" oninput="autoResize(this)" style="overflow:hidden"></textarea>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-4">
+                            <label class="col-form-label" for="eventDate">舉辦日期<span
+                                class="text-danger">*</span></label>&emsp;&emsp;<p id="eventDateError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-10">
+                              <input class="form-control " type="text" id="eventDate" required
+                                placeholder="例:2023-01-01" autocomplete="off"
+                                oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" />
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <label class="col-form-label" for="eventStarttime">活動開始時間<span
+                                class="text-danger">*</span></label>&emsp;&emsp;<p id="eventStarttimeError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-6">
+                              <input class="hint--error form-control " type="text" id="eventStarttime" required
+                                placeholder="例:09:00" autocomplete="off"
+                                oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" />
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <label class="col-form-label" for="eventEndtime">活動結束時間<span
+                                class="text-danger">*</span></label>&emsp;&emsp;<p id="eventEndtimeError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-6">
+                              <input class="form-control " type="text" step="3600" id="eventEndtime" required
+                                placeholder="例:17:00" autocomplete="off"
+                                oninput="value=value.replace(/^(0+)|[^\d]+/g,'' )">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-4">
+                            <label class="col-form-label" for="eventLimit">報名上限人數<span class="text-danger">*</span<>
+                            </label>&emsp;&emsp;<p id="eventLimitError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-7">
+                              <input id="eventLimit" class=form-control type="text" placeholder="請輸入人數... "
+                                oninput="value=value.replace(/^(0+)|[^\d]+/g,'' )" required autocomplete="off">
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <label class="col-form-label" for="eventFee">費用<span
+                                class="text-danger">*</span></label>&emsp;&emsp;<p id="eventFeeError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-6">
+                              <input id="eventFee" class=form-control type=text placeholder=報名費用 required
+                                autocomplete="off" oninput="value=value.replace(/^(0+)|[^\d]+/g,'' )">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-4">
+                            <label class="col-form-label" for="signupStartTime">報名開始時間<span
+                                class="text-danger">*</span></label>&emsp;&emsp;<p id="signupStartTimeError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-10">
+                              <input name="start_date" id="signupStartTime" type="text" class="form-control"
+                                id="NEWS_TITLE" autocomplete="off" required placeholder=報名開始
+                                oninput="value=value.replace(/^(0+)|[^\d]+/g,'' )">
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <label class="col-form-label" for="signupDeadline">報名截止時間<span
+                                class="text-danger">*</span></label>&emsp;&emsp;<p id="signupDeadlineError"
+                              style="color: red; display: inline-block; margin: 0;"></p>
+                            <div class="col-10">
+                              <input name="end_date" type="text" class="form-control" id="signupDeadline"
+                                autocomplete="off" required placeholder=報名截止
+                                oninput="value=value.replace(/^(0+)|[^\d]+/g,'' )">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
+                </div>
                 <div class="mb-3 row">
                   <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto">
                     <button id="enterBtn" type="submit" class="btn btn-primary fs-5">
@@ -432,8 +449,6 @@ tr.shown td.details-control i {
                   </div>
                 </div>
               </div>
-              </form>
-              <!-- form end -->
             </div>
           </div>
         </div>
@@ -474,11 +489,11 @@ tr.shown td.details-control i {
           </div>
         </div>
         <!--**********************************
-                    最新消息管理 end
+                    創建賽事 end
                 ***********************************-->
 
         <!--**********************************
-                    最新消息清單 start
+                    賽事清單 start
                 ***********************************-->
         <div class="col-lg-12">
           <div class="card">
@@ -494,21 +509,21 @@ tr.shown td.details-control i {
             <div class="card-body">
               <div class="table-responsive">
                 <table id="eventList" class="table-striped table table-responsive-md">
-                  <thead style ="text-align:center;">
-                    <tr>
-                      <th  style="padding: 0px;"></th>
+                  <thead style="text-align:center;">
+                    <tr style="padding: 0px;">
+                      <th></th>
                       <th><strong>賽事名稱</strong></th>
                       <th><strong>賽事資訊</strong></th>
                       <th><strong>舉辦時間</strong></th>
-                      <th  style="padding: 10px 4px;"><strong>報名開始及截止時間</strong></th>
+                      <th style="padding: 10px 4px;"><strong>報名開始及截止時間</strong></th>
                       <th style="padding: -20px;"><strong>上限人數</strong></th>
                       <th><strong>費用</strong></th>
-                        <th style="padding: -20px;"><strong>狀態</strong></th>
-                        <th><strong>賽事編號</strong></th>
+                      <th style="padding: -20px;"><strong>狀態</strong></th>
+                      <th><strong>賽事編號</strong></th>
                     </tr>
                   </thead>
                   <thead>
-                  <tbody id="prod-list">
+                  <tbody id="prod-list" style="text-align:center;">
                   </tbody>
                   </thead>
                 </table>
@@ -519,7 +534,7 @@ tr.shown td.details-control i {
       </div>
     </div>
     <!--**********************************
-            商品清單列表 end
+            賽事清單 end
         ***********************************-->
   </div>
 
@@ -554,7 +569,6 @@ tr.shown td.details-control i {
   <script src="static/js/global.min.js"></script>
   <script src="static/js/Chart.bundle.min.js"></script>
   <script src="static/js/jquery.nice-select.min.js"></script>
-
   <script src="static/js/Chart.bundle.min.js"></script>
 
   <!-- Chart piety plugin files -->
@@ -564,9 +578,7 @@ tr.shown td.details-control i {
 
   <!-- Dashboard 1 -->
   <script src="static/js/dashboard-1.js"></script>
-
   <script src="static/js/owl.carousel.js"></script>
-
   <script src="static/js/custom.min.js"></script>
   <script src="static/js/dlabnav-init.js"></script>
   <script src="static/js/demo.js"></script>
@@ -580,10 +592,10 @@ tr.shown td.details-control i {
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
   <script src='//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css'></script>
   <link href='//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js' rel='stylesheet'>
-  
-  
-   <!-- Material Icons字型 -->
-   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+  <!-- Material Icons字型 -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <!-- <script src='//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js'></script>
   <link href='//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css' rel='stylesheet'> -->
 
@@ -597,7 +609,6 @@ tr.shown td.details-control i {
   <script src="static/js/event.js"></script>
 
   </link>
-
 </body>
 
 </html>

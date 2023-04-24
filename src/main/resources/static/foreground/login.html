@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    
+
 
     <!-- CSS
 	============================================ -->
@@ -73,50 +73,50 @@
                                 <p id="msg" style="color: red;"></p>
                             </div>
                             <div id="login-form">
-                            <form  @submit.prevent="login">
-                                <div class="single-input-item mb-3">
-                                    <input v-model="email" id="loginEmail" type="email" placeholder="Enter your Email">
-                                </div>
-                                <div class="single-input-item mb-3">
-                                    <input v-model="password" id="loginPassword" type="password" placeholder="Enter your Password">
-                                </div>
-                                <div class="single-input-item mb-3">
-                                    <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                        <div class="remember-meta mb-3">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                                <label class="custom-control-label" for="rememberMe">Remember Me</label>
+                                <form @submit.prevent="login">
+                                    <div class="single-input-item mb-3">
+                                        <input v-model="email" id="loginEmail" type="email"
+                                            placeholder="Enter your Email">
+                                    </div>
+                                    <div class="single-input-item mb-3">
+                                        <input v-model="password" id="loginPassword" type="password"
+                                            placeholder="Enter your Password">
+                                    </div>
+                                    <div class="single-input-item mb-3">
+                                        <div
+                                            class="login-reg-form-meta d-flex align-items-center justify-content-between">
+                                            <div class="remember-meta mb-3">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="rememberMe">
+                                                    <label class="custom-control-label" for="rememberMe">Remember
+                                                        Me</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="single-input-item mb-3" style="display: inline;">
-                                    <button id="mem-login" @click="login" class="btn obrien-button-2 primary-color" type="submit" >Login</button>
-                                    
-                                    <a
-                                    class="btn btn-lg btn-google"
-                                    style="
+                                    <div class="single-input-item mb-3" style="display: inline;">
+                                        <button id="mem-login" @click="login" class="btn obrien-button-2 primary-color"
+                                            type="submit">Login</button>
+
+                                        <a class="btn btn-lg btn-google" style="
                                                 padding: 0.2rem 0.5rem;
                                                 background-color: rgb(7, 7, 7);
                                                 color: rgb(255, 255, 255);
                                                 position: relative;
                                                 left:30%;
-                                                "
-                                                href="/auth/google"
-                                                ><img
-                                                src="https://img.icons8.com/color/16/000000/google-logo.png"
-                                                />
-                                                透過Google登入</a
-                                                >
-                                                
-                                            </div>
-                            </form>
-                            </div>
-                                        <div class="single-input-item" style="margin-top: 10px;">
-                                            <a href="register.html">Creat Account</a>
-                                            <button id="getPassword" class="forget-pwd mb-3" style="position: relative;left: 30%;">Forget Password?</button>
-                                        </div>
+                                                " href="${authorizeUrl}" @click="googleLogin"><img
+                                                src="https://img.icons8.com/color/16/000000/google-logo.png" />
+                                            透過Google登入</a>
+
                                     </div>
+                                </form>
+                            </div>
+                            <div class="single-input-item" style="margin-top: 10px;">
+                                <a href="register.html">Creat Account</a>
+                                <button id="getPassword" class="forget-pwd mb-3"
+                                    style="position: relative;left: 30%;">Forget Password?</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@
     </div>
 
     <!-- JS
-============================================ -->
+        ============================================ -->
 
     <!-- jQuery JS -->
     <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
@@ -159,10 +159,11 @@
 
 </body>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="/foreground/static/js/headerUse.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script src="/foreground/static/js/memLogin.js"></script>
 <script src="/foreground/static/js/forgetPassword.js"></script>
-<script src="/foreground/static/js/location.js"></script>
+<script src="/foreground/static/js/headerUse.js"></script>
+
 </html>

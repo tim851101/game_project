@@ -10,6 +10,8 @@ $(document).ready(e => {
   }).catch(error => {
     console.log('Error: ', error);
   });
+
+    // DataTable
   function PromiseData(eventData, eventordData) {
     let table = $("#ordList").DataTable({
       autoWidth: true,
@@ -55,15 +57,14 @@ $(document).ready(e => {
         {
           data: "eventNo",
           render: (data, type, row, meta) => {
-            if (row.eventStatus === 0) {
+            if (row.eventStatus === 0 || row.eventStatus === 3) {
               return (
                 `<td><button value=` + data + ` id="cancel" type="button" class="btn btn-danger btn-xxs" style="padding: 0.4rem 0.8rem;">取消賽事</button></td> `
               );
             } else {
               return (
-                `<td><button value=` + data + ` id="cancel" type="button" class="btn  btn-success btn-xxs" style="padding: 0.4rem 0.8rem;" disabled>已完成</button></td> `
+                `<td><button value=` + data + ` id="cancel" type="button" class="btn  btn-success btn-xxs" style="padding: 0.4rem 0.8rem;" disabled>已完賽</button></td> `
               );
-
             }
           }
         },
@@ -78,10 +79,10 @@ $(document).ready(e => {
       }
     });
 
+    // 去掉狀態:2的賽事名稱不顯示至 DataTable
     const rowsToRemove = $('#ordList tbody tr').filter(function () {
       return $('td:last', this).text() === '2';
     });
-
 
     // 從DataTable中刪除這些行
     $('#ordList').DataTable();
@@ -90,6 +91,7 @@ $(document).ready(e => {
     // 隱藏DataTable第10欄位
     table.columns([9]).visible(false);
 
+     // 第一顆按鈕切換顯示會員資訊
     $("#ordList tbody").on("click", "td.details-control", function () {
       let tr = $(this).closest("tr");
       let row = table.row(tr);
@@ -105,70 +107,108 @@ $(document).ready(e => {
 
   }
 
+  // 取消賽事
   function PromiseData2(eventData, eventordData) {
     $("#ordList tbody").on("click", 'button.btn', function () {
       const eventNo = $(this).val();
       Swal.fire({
         title: '確定要取消賽事？',
         text: "此動作將無法復原！",
+        input: 'text',
+        inputPlaceholder: '請輸入原因...',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#21870D',
         cancelButtonColor: '#d33',
-        confirmButtonText: '確定',
+        confirmButtonColor: '#21870D',
         cancelButtonText: "取消",
+        confirmButtonText: '確定',
+        reverseButtons: true
       }).then((result) => {
         if (result.isConfirmed) {
+          if ($.trim(result.value) === "") {
+            Swal.fire(
+              {
+                title: "內容不能空白！",
+                text: "請正確填寫原因",
+                icon: 'error',
+                confirmButtonText: '確定'
+              })
+          } else {
 
-          // 會員訂單狀態取消
-          for (const e of eventordData) {
-            if (eventNo == e.eventno) {
-              $.post("/eventord/updatepay", {
-                eventno: eventNo,
-                memno: e.memNo,
-                check: 1
-              });
-            }
-          };
-          const formData = {
-            "eventNo": eventNo,
-            "eventLimit": 0,
-            "signupNum": 0,
-            "eventStatus": 2
-          }
+            //  取消賽事後email通知會員
+            for (const e1 of eventData) {
+              for (const e of eventordData) {
+                if (eventNo == e1.eventNo && e.eventno == eventNo && e.enevtStatus !== 2) {
+                  const formData1 = {
+                    "name": e.memName,
+                    "from": e.memEmail,
+                    "subject": e1.eventName,
+                    "text": result.value
+                  }
+                  fetch('/test/cancelEvent', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData1)
+                  })
+                    .then(response => {
+                      if (!response.ok) {
+                        throw new Error('member is not cancel finish');
+                      }
+                      return response.json();
+                    })
+                    .catch(error => {
+                      console.error('Error:', error.message);
+                    });
 
-          // 賽事狀態取消
-          fetch('/event/setStatus', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-          })
-            .then(response => {
-              if (!response.ok) {
-                throw new Error('Event not saved');
+                  // // 會員狀態取消
+                  $.post("/eventord/updatepay", {
+                    eventno: eventNo,
+                    memno: e.memNo,
+                    check: 1
+                  });
+                }
               }
-              return response.json();
 
-            })
-            .catch(error => {
-              console.error('Error:', error.message);
-            });
-          Swal.fire({
-            title: '賽事已取消!',
-            icon: 'success',
-            confirmButtonText: '確定',
-            confirmButtonColor: '#21870D',
-            preConfirm: setTimeout(() => {
-              document.location.reload();
-            }, 2000)
-          });
+              // 賽事狀態取消
+              const formData = {
+                "eventNo": eventNo,
+                "eventStatus": 2
+              }
+              fetch('/event/setStatus', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+              })
+                .then(response => {
+                  if (!response.ok) {
+                    throw new Error('Event not saved');
+                  }
+                  return response.json();
+                })
+                .catch(error => {
+                  console.error('Error:', error.message);
+                });
+              Swal.fire({
+                title: '賽事已取消!',
+                icon: 'success',
+                confirmButtonText: '確定',
+                confirmButtonColor: '#21870D',
+                preConfirm: setTimeout(() => {
+                  document.location.reload();
+                }, 2000)
+              })
+            };
+          }
         }
       });
     });
   }
 
+   // 定義會員欄位
   function format(d, eventordData) {
     let trString = "";
     trString +=
@@ -215,11 +255,6 @@ $(document).ready(e => {
                 `<td><span class="badge btn btn-xxs bg-secondary" onclick="enevtStatus(this)" id="${d.eventNo}enevtStatus${e.memNo}" ><span class="fa fa-ban me-1"></span>未付款</span></td>`
               break;
             }
-            // default: {
-            //   trString +=
-            //     `<td><span class="badge btn btn-xxs bg-secondary" onclick="enevtStatus(this)" id="${d.eventNo}enevtStatus${e.memNo}" ><span class="fa fa-times"></span>取消訂單</span></td>`
-            //   break;
-            // }
           }
           if (e.memChecked === 1) {
             if (d.eventStatus === 1) {
@@ -246,7 +281,6 @@ $(document).ready(e => {
     return trString;
   };
 });
-
 
 // 付款按鈕
 function enevtStatus(badge) {
@@ -325,58 +359,3 @@ function memChecked(badge) {
   // alert(buttonId);
 }
 
-
-{/* <tr style="text-align:center;">
-<td>${e.eventno}</td>
-<td>風聲</td>
-<td class="py-2">${e.memName}</td>
-<td class="py-2">${e.memEmail}</td>
-<td class="py-2">${e.memPhone}</td>
-<td class="py-2">2023/04/02</td>
-<td><span class="badge btn btn-xxs bg-secondary"
-  onclick="checkIn2(this)" id="edit${e.memNo}1" value=""><span class="fa fa-ban me-1"></span>
-  未付款
-</span></td>
-<td class="py-2 text-end"><span class="badge btn btn-xxs bg-secondary"
-  onclick="checkIn(this)" id="edit${e.memNo}2" value=""> <span class="fa fa-ban me-1"></span>
-  未報到
-</span></td>
-<td class="py-2">0</td>
-<td class="py-2 text-end">
-<div class="dropdown text-sans-serif"><button
-      class="btn btn-primary tp-btn-light sharp" type="button"
-      id="order-dropdown-0" data-bs-toggle="dropdown"
-      data-boundary="viewport" aria-haspopup="true"
-      aria-expanded="false"><span><svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              width="18px" height="18px" viewbox="0 0 24 24"
-              version="1.1">
-              <g stroke="none" stroke-width="1" fill="none"
-                  fill-rule="evenodd">
-                  <rect x="0" y="0" width="24" height="24">
-                  </rect>
-                  <circle fill="#000000" cx="5" cy="12" r="2">
-                  </circle>
-                  <circle fill="#000000" cx="12" cy="12" r="2">
-                  </circle>
-                  <circle fill="#000000" cx="19" cy="12" r="2">
-                  </circle>
-              </g>
-          </svg></span></button>
-<div class="dropdown-menu dropdown-menu-end border py-0"
-      aria-labelledby="order-dropdown-0">
-<div class="py-2"><a class="dropdown-item"
-              href="javascript:void(0);">未出貨</a><a
-              class="dropdown-item"
-              href="javascript:void(0);">已出貨</a><a
-              class="dropdown-item"
-              href="javascript:void(0);">已完成</a>
-<div class="dropdown-divider"></div><a
-              class="dropdown-item text-danger"
-              href="javascript:void(0);">取消</a>
-</div>
-</div>
-</div>
-</td>
-</tr> */}

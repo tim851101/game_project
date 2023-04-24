@@ -1,6 +1,9 @@
 package webapp.event.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +37,7 @@ public class Event {
     private Integer eventLimit;
     @Column(name = "SIGNUP_NUM")
     private Integer signupNum;
+
     @Column(name = "EVENT_FEE")
     private Integer eventFee;
     @Column(name = "EVENT_WINNER1", insertable = false)
@@ -44,6 +48,7 @@ public class Event {
     private String eventWinner3;
     @Column(name = "EVENT_STATUS")
     private Byte eventStatus;
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
     @Column(name = "SIGNUP_START_TIME", updatable = false)
     private Timestamp signupStartTime;
     @Column(name = "SIGNUP_DEADLINE", updatable = false)

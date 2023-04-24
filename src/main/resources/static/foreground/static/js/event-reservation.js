@@ -15,7 +15,7 @@ function findAll(data) {
     let option = "";
     option = `<option id="change">-----請選擇賽事-----</option>`
     for (const e of data) {
-        if (e.eventStatus === 0 ) {
+        if (e.eventStatus === 0 || e.eventStatus === 3) {
             option += `<option value="${e.eventName}">${e.eventName}</option>`
         }
     }
@@ -50,7 +50,7 @@ function findAll(data) {
                                 <td><b>${e.signupStartTime}<br>${e.signupDeadline}</b></td>
                             </tr>
                             <tr>
-                                <th scope="row">報名狀況：</th>
+                                <th scope="row">報名人數：</th>
                                 <td><b>${e.signupNum}／${e.eventLimit}</b></td>
                             </tr>
                         </tbody>
@@ -58,8 +58,14 @@ function findAll(data) {
                 </div>
                 <div>
                 <tr>`
-                switch (e.signupNum === e.eventLimit) {
+                switch (e.signupNum === e.eventLimit || e.eventStatus === 3) {
                     case true: {
+                        if (e.eventStatus === 3) {
+                            toString += `
+                            <button  type="button" class="obrien-button btn btn-secondary btn-lg" disabled>已截止</button>
+                            `
+                            break;
+                        }
                         toString += `
                         <button  type="button" class="obrien-button btn btn-secondary btn-lg" disabled>已額滿</button>
                         `
@@ -68,6 +74,12 @@ function findAll(data) {
                     case false: {
                         toString += `
                         <th><button><a href="event-ord.html" class="obrien-button btn-warning btn-outline-dark">前往報名</a></button></th>
+                        `
+                        break;
+                    }
+                    case 3: {
+                        toString += `
+                        <th><button><a href="event-ord.html" class="obrien-button btn-warning btn-outline-dark">已截止</a></button></th>
                         `
                         break;
                     }
@@ -84,8 +96,7 @@ function findAll(data) {
                         <div class="banner-thumb h-100 d-flex justify-content-center align-items-center">
                             <img src="/foreground/static/picture/105.jpg" alt="Banner Thumb">
                         </div>
-                    </div>
-        `
+                    </div>`
         table.html(toString);
         $('button[id^="checkEvent"]').on('click', function alertTest() {
             let buttonId = $(this).attr('id');

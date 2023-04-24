@@ -128,12 +128,13 @@
                                         <div class="col-md-8">
                                             <div class="checkout-form-list">
                                                 <label for="creditCard">信用卡卡號<span class="required text-danger">*</span></label>
-                                                <input id="creditCard" name="creditCard" type="text">
+                                                <input id="creditCard" name="creditCard" type="text" maxlength="19" minlength="16" placeholder="請信用卡卡號 ex:1234-1234-1234-1234">
+                                                <div id = "creditCardError"style="color: red;"></div>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="checkout-form-list">
-                                                <label for="threeNum">背面末三碼<span class="required text-danger">*</span></label>
+                                                <label for="threeNum">卡片末三碼<span class="required text-danger">*</span></label>
                                                 <input id="threeNum" name="threeNum" type="text" maxlength="3" minlength="3">
                                             </div>
                                         </div>

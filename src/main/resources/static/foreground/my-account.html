@@ -128,7 +128,7 @@
                                             <div class="myaccount-content">
                                                 <h3>商品訂單</h3>
                                                 <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
+                                                    <table id = "ordersTable-1" class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
                                                                 <th>訂單編號</th>
@@ -142,7 +142,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody id = "ordersTable">
-                                                            <tr>
+                                                            <!-- <tr>
                                                                 <td>1</td>
                                                                 <td>2023/3/10</td>
                                                                 <td>$300</td>
@@ -161,7 +161,7 @@
                                                                 <td>超商取貨</td>
                                                                 <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
                                                                 <td><button class="btn obrien-button-2 primary-color rounded-0" >退貨</button></td>
-                                                            </tr>
+                                                            </tr> -->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -582,11 +582,11 @@
     <script src="/foreground/static/js/jquery.magnific-popup.min.js"></script>
 
     <script src="static/js/jquery.datetimepicker.full.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <!-- Main JS -->
     <script src="/foreground/static/js/main.js"></script>
     <!-- table JS-->
-    <script src="/foreground/static/js/my-account-orders.js"></script>
+    <script defer src="/foreground/static/js/my-account-orders.js"></script>
 
 </body>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

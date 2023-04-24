@@ -17,48 +17,11 @@ function render() {
             $('#table-1').DataTable().clear().destroy();
 
             for (let item of list) {
-                switch (item.ordStatus) {
-                    case (0):
-                        item.ordStatus = '<span class="badge badge-warning">未出貨<span class="ms-1 fas fa-stream"></span></span>';
-                        break;
-                    case (1):
-                        item.ordStatus = '<span class="badge badge-primary">已出貨<span class="ms-1 fa fa-redo"></span></span>';
-                        break;
-                    case (2):
-                        item.ordStatus = '<span class="badge badge-primary">已到貨<span class="ms-1 fa fa-redo"></span></span>'
-                        break;
-                    case (3):
-                        item.ordStatus = '<span class="badge badge-warning">退貨申請<span class="ms-1 fas fa-stream"></span></span>';
-                        break;
-                    case (4):
-                        item.ordStatus = '<span class="badge badge-success">退貨成功<span class="ms-1 fa fa-check"></span></span>';
-                        break;
-                    case (5):
-                        item.ordStatus = '<span class="badge badge-success">訂單完成<span class="ms-1 fa fa-check"></span></span>';
-                        break;
-                    case (6):
-                        item.ordStatus = '<span class="badge badge-success">訂單取消<span class="ms-1 fa fa-check"></span></span>';
-                        break;
-                }
-                switch (item.ordPick) {
-                    case (0):
-                        item.ordPick = '店面取貨';
-                        break;
-                    case (1):
-                        item.ordPick = '超商取貨';
-                        break;
-                    case (2):
-                        item.ordPick = '宅配';
-                        break;
-                }
-                switch (item.ordPayStatus) {
-                    case (0):
-                        item.ordPayStatus = `<span class="badge badge-secondary">未付款<span class="ms-1 fa fa-ban"></span></span>`;
-                        break;
-                    case (1):
-                        item.ordPayStatus = `<span class="badge badge-success">已付款<span class="ms-1 fa fa-check"></span></span>`;
-                        break;
-                }
+
+
+                item.ordPayStatus = ordPayStatusTransform(item.ordPayStatus);
+                item.ordPick = ordPickTransform(item.ordPick);
+                item.ordStatus = ordStatusTransform(item.ordStatus);
 
                 data += `
                 <tr class="btn-reveal-trigger">
@@ -66,9 +29,9 @@ function render() {
                     <td class="py-2 text-center">${item.memName}</td>  
                     <td class="py-2 text-center">${item.ordCreate}</td>
                     <td class="py-2 text-center">$${item.actualAmount}</td>
-                    <td class="py-2 text-center">${item.ordPayStatus}</td>
-                    <td class="py-2 text-center">${item.ordStatus}</td>
-                    <td class="py-2 text-center">${item.ordPick}</td>
+                    <td id="ordPayStatus${item.ordNo}" class="py-2 text-center">${item.ordPayStatus}</td>
+                    <td id="ordStatus${item.ordNo}" class="py-2 text-center ordStatus">${item.ordStatus}</td>
+                    <td id="ordPick${item.ordNo}" class="py-2 text-center">${item.ordPick}</td>
                     <td class="py-2 text-center">${item.recipient}</td>
                     <td class="py-2" ><address>${item.recipientAddres}</address></td>
                     <td class="py-2 text-center">${item.recipientPh}</td>
@@ -101,8 +64,8 @@ function render() {
             table.innerHTML = data;
 
             $('#table-1').DataTable({
-                pageLength: 10,
-                lengthMenu: [5,10,15,20],
+                pageLength: 5,
+                lengthMenu: [5, 10, 15, 20],
                 language: {
                     emptyTable: "無資料",
                     info: "顯示 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",
@@ -113,6 +76,7 @@ function render() {
                     },
                 },
             });
+
         });
 
 }
@@ -130,15 +94,12 @@ function but(ordNo, status) {
         },
         body: JSON.stringify(formData),
     })
-        .then(response => response.json()
-        )
-        .then(data => {
+        .then(response => {
+            $(`#ordStatus${ordNo}`).html(ordStatusTransform(status));
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
         });
-
-    setTimeout(render, 100)
 };
 
 function but2(ordNo, payStatus) {
@@ -146,7 +107,6 @@ function but2(ordNo, payStatus) {
         "ordNo": +ordNo,
         "ordPayStatus": +payStatus
     }
-    console.log(formData);
     fetch('/ord/updateOrdPayState', {
         method: 'POST',
         headers: {
@@ -154,21 +114,67 @@ function but2(ordNo, payStatus) {
         },
         body: JSON.stringify(formData),
     })
-        .then(response => response.json()
-        )
-        .then(data => {
-            console.log(data);
-            render();
+        .then(response => {
+            $(`#ordPayStatus${ordNo}`).html(ordPayStatusTransform(payStatus));
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);
         });
-
 };
 
+// ============function=============
 
 
+function ordStatusTransform(ordStatus) {
+    switch (ordStatus) {
+        case (0):
+            ordStatus = '<span class="badge badge-warning">未出貨<span class="ms-1 fas fa-stream"></span></span>';
+            break;
+        case (1):
+            ordStatus = '<span class="badge badge-primary">已出貨<span class="ms-1 fa fa-redo"></span></span>';
+            break;
+        case (2):
+            ordStatus = '<span class="badge badge-primary">已到貨<span class="ms-1 fa fa-redo"></span></span>'
+            break;
+        case (3):
+            ordStatus = '<span class="badge badge-warning">退貨申請<span class="ms-1 fas fa-stream"></span></span>';
+            break;
+        case (4):
+            ordStatus = '<span class="badge badge-success">退貨成功<span class="ms-1 fa fa-check"></span></span>';
+            break;
+        case (5):
+            ordStatus = '<span class="badge badge-success">訂單完成<span class="ms-1 fa fa-check"></span></span>';
+            break;
+        case (6):
+            ordStatus = '<span class="badge badge-success">訂單取消<span class="ms-1 fa fa-check"></span></span>';
+            break;
+    }
+    return ordStatus
+}
 
+function ordPickTransform(ordPick) {
+    switch (ordPick) {
+        case (0):
+            ordPick = '店面取貨';
+            break;
+        case (1):
+            ordPick = '超商取貨';
+            break;
+        case (2):
+            ordPick = '宅配';
+            break;
+    }
+    return ordPick;
+}
 
-
-
+function ordPayStatusTransform(ordPayStatus) {
+    switch (ordPayStatus) {
+        case (0):
+            ordPayStatus = `<span class="badge badge-secondary">未付款<span class="ms-1 fa fa-ban"></span></span>`;
+            break;
+        case (1):
+            ordPayStatus = `<span class="badge badge-success">已付款<span class="ms-1 fa fa-check"></span></span>`;
+            break;
+    }
+    return ordPayStatus
+}

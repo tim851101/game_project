@@ -25,7 +25,6 @@ function set(pdNo, qty) {
         }
         shoppingcart.push(item);
     }
-    console.log(shoppingcart)
     localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
 }
 

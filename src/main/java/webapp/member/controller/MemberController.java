@@ -67,11 +67,11 @@ public class MemberController {
 //        return oAuth2AuthenticationToken.getPrincipal().getAttributes();
 //    }
 
-    @GetMapping("/google-test")
-    public Principal member(Principal principal){
-        System.out.println("username : "+principal.getName());
-        return principal;
-    }
+//    @GetMapping("/google-test")
+//    public Principal member(Principal principal){
+//        System.out.println("username : "+principal.getName());
+//        return principal;
+//    }
     /*
     * 取得client cookie的sessionId
     * 比對Redis找出client的memNo

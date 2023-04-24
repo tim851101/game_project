@@ -31,12 +31,11 @@ public class MemberDTO {
             MemberVaildationRules.MemAdd.class,MemberVaildationRules.MemUpdate.class,
             MemberVaildationRules.MemLogin.class
     },message = "Email不可為空白")
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
-            groups = {
-                    MemberVaildationRules.MemAdd.class,MemberVaildationRules.MemUpdate.class,
-                    MemberVaildationRules.getAuthCode.class,MemberVaildationRules.MemLogin.class
-            },
-            message = "Email格式不正確")
+    @Email(groups = {
+            MemberVaildationRules.MemAdd.class,MemberVaildationRules.MemUpdate.class,
+            MemberVaildationRules.getAuthCode.class,MemberVaildationRules.MemLogin.class
+    },regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$",
+    message = "Email格式不正確")
     private String memEmail;
 
     @NotBlank(groups = {

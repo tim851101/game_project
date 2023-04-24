@@ -11,7 +11,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +24,7 @@ import webapp.member.service.MemberVaildationRules;
 import webapp.others.service.EmailService;
 
 import java.io.IOException;
-import java.net.HttpCookie;
+import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -62,52 +61,17 @@ public class MemberController {
     private BCryptPasswordEncoder encoder;
 
 
-    // @GetMapping("/login")
-    // public RedirectView redirectToLogin(HttpServletRequest request) {
-    // String currentUrl = request.getRequestURL().toString();
-    // String redirectUrl = currentUrl.replace("/mem/login",
-    // "/foreground/login.html");
-    // return new RedirectView(redirectUrl);
-    // }
-
-//    @PostMapping("location")
-//    public String checkLocation() {
-//        StringBuffer url = request.getRequestURL();
-//        String uri = request.getRequestURI();
-//        String baseUrl = url.substring(0, url.length() - uri.length()) + request.getContextPath() + "/";
-//        System.out.println("當前網址URL: " + url.toString() + "\n當前路徑URI: " + uri + "\n基本網址URL: " + baseUrl);
-//        return "redirect:";
+    // test-google-login
+//    @GetMapping("/google-login")
+//    public Map<String, Object> currentUser(OAuth2AuthenticationToken oAuth2AuthenticationToken){
+//        return oAuth2AuthenticationToken.getPrincipal().getAttributes();
 //    }
 
-    // 取得當前路徑網址方法,但html似乎無法這樣使用
-    public void saveReturnUrl(HttpServletRequest request) {
-        String scheme = request.getScheme();
-        String serverName = request.getServerName();
-        int serverPort = request.getServerPort();
-        String contextPath = request.getContextPath();
-
-        StringBuilder baseUrlBuilder = new StringBuilder(scheme);
-        baseUrlBuilder.append("://").append(serverName);
-        if (serverPort != 80 && serverPort != 443) {
-            baseUrlBuilder.append(":").append(serverPort);
-        }
-        baseUrlBuilder.append(contextPath);
-        String baseUrl = baseUrlBuilder.toString();
-
-        String currentUrl = request.getRequestURI();
-        String queryString = request.getQueryString();
-
-        StringBuilder locationBuilder = new StringBuilder(baseUrl);
-        locationBuilder.append(currentUrl);
-        if (queryString != null) {
-            locationBuilder.append("?").append(queryString);
-        }
-        String location = locationBuilder.toString();
-
-        HttpSession session = request.getSession();
-        session.setAttribute("location", location);
-    }
-
+//    @GetMapping("/google-test")
+//    public Principal member(Principal principal){
+//        System.out.println("username : "+principal.getName());
+//        return principal;
+//    }
     /*
     * 取得client cookie的sessionId
     * 比對Redis找出client的memNo
@@ -121,65 +85,33 @@ public class MemberController {
         if (request == null) {
             return null;
         }
-        // 由header獲取cookie
-        String cookieHeader = request.getHeader("Cookie");
-        if (cookieHeader == null) {
-            return null; // 如果Cookie不存在，返回-1
-        }
-        // 解析Cookie字符串，将每个Cookie键值對解析為一個Cookie
-        List<HttpCookie> cookies = HttpCookie.parse(cookieHeader);
-        System.out.println("cookies.size()"+cookies.size()); // test
-        System.out.println(cookies); // test
-        String[] cookiePairs = cookieHeader.split("; ");
-        String jsessionId = null;
-        for (String cookiePair : cookiePairs) {
-            String[] keyValue = cookiePair.split("=");
-            if (keyValue[0].equals("JSESSIONID")) {
-                jsessionId = keyValue[1];
-                break;
-            }
-        }
-
-        if (jsessionId == null) {
-            return null; // 如果JSESSIONID Cookie不存在，返回null
-        }
-
+        String jsessionId=memberServiceImpl.getJsessionIdFromCookie(request);
         System.out.println("jsessionId : "+jsessionId); // test
-        String hashKey=HASH_KEY+":"+jsessionId;
-
-        // 使用JSESSIONID找Redis中的客戶登入時的sessionId進而取得會員號碼
-        String memNoStr = (String) redisTemplate.opsForValue().get(hashKey);
-        String[] arr = memNoStr.split("=");
-        String numberStr = arr[1].substring(0, arr[1].length() - 1); // 拿到等號右邊
-        Integer memNo = Integer.parseInt(numberStr);
-
-        System.out.println("memNo : "+memNo);
-        System.out.println("find one member is "+ memNo); // test
+        Integer memNo=memberServiceImpl.getMemberNoFromSession(jsessionId);
         if (memNo == null) {
-            return null; // 用戶不存在，返回-1
+            return null;
+        }else {
+            return memNo;
         }
-        // 用戶存在返回會員編號
-        return memNo;
     }
 
-    // 由別的網址到login.html頁面紀錄前次頁面
-//    @GetMapping("/to-location")
-//    public String checkLocation() {
-//        StringBuffer url = request.getRequestURL();
-//        String uri = request.getRequestURI();
-//        String baseUrl = url.substring(0, url.length() - uri.length()) + request.getContextPath() + "/";
-//        System.out.println("當前網址URL: " + url.toString() + "\n當前路徑URI: " + uri + "\n基本網址URL: " + baseUrl);
-//        return "redirect:";
-//    }
+    @PostMapping("/to-logout")
+    public String toLogout(HttpServletRequest request){
+        // 檢查 session 和 request 是否為 null
+        if (request == null) {
+            return null;
+        }
+        // 取得client端session id
+        String jsessionId=memberServiceImpl.getJsessionIdFromCookie(request);
+        if (jsessionId == null) {
+            return null;
+        }
+        System.out.println("jsessionId : "+jsessionId); // test
+        String hashKey=HASH_KEY+":"+jsessionId;
+        System.out.println("this is delete session id function start....");
 
-
-    // 需要會員功能相關頁面,如購物車.活動報名.預定座位
-    @GetMapping("/to-login-page")
-    public String showLoginForm(HttpServletRequest request, Model model) {
-        saveReturnUrl(request); // 儲存當前頁面的路徑
-        StringBuilder redirectUrl = new StringBuilder(request.getContextPath())
-                .append("/foreground/login.html");
-        return "redirect:" + redirectUrl;
+        memberServiceImpl.deleteSessionFromRedis(jsessionId);
+        return "登出成功";
     }
 
 
@@ -192,6 +124,7 @@ public class MemberController {
     @ResponseBody
     public ResponseEntity<ErrorResponse> login(
             @Validated(MemberVaildationRules.MemLogin.class) @RequestBody MemberDTO login,
+            HttpServletRequest request,
             BindingResult bindingResult
     ) throws IOException {
         System.out.println(login.getMemEmail());
@@ -205,7 +138,7 @@ public class MemberController {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse(HttpStatus.BAD_REQUEST, "Validation failed", errors));
         }
-//        System.out.println(loginDTO.getMemEmail()+ loginDTO.getMemPassword());
+
         Members memberOptional = memberServiceImpl.toLogin(login.getMemEmail(), login.getMemPassword());
         if (memberOptional != null) {
             // 當會員存在執行以下
@@ -215,10 +148,10 @@ public class MemberController {
             System.out.println(member.getMemNo());
             session.setAttribute("memNo", member.getMemNo()); // 将会员编号存储到 session 中
             System.out.println(session.getAttribute("memNo"));
-            // 将sessionId存储到localStorage中
+            // 確認Redis存的sessionId與client的cookie存的一致
             String script = "localStorage.setItem('sessionId', '" + sessionId + "');";
             System.out.println(script);
-            // 将sessionId和會員資料存到Redis
+            // 将sessionId和會員編號存到Redis
             memberServiceImpl.saveSessionToRedis(sessionId, member);
             return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Login successful", Collections.emptyList()));
         } else {
@@ -238,7 +171,7 @@ public class MemberController {
     {
         System.out.println(memberDTO.toString());
         List<String> errors = new ArrayList<>();
-        // 檢查輸入資料格式正確性
+        // 檢查輸入資料格式正確性,有時間改成方法參數1(BindingResult bindingResult,String email
         if (bindingResult.hasErrors()) {
             errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
@@ -246,12 +179,16 @@ public class MemberController {
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse(HttpStatus.BAD_REQUEST,"Validation failed" ,errors));
         }
+        System.out.println(memberRepository.existsByMemEmail(memberDTO.getMemEmail()));
         // 檢查信箱是否被註冊,已被註冊
         if (memberRepository.existsByMemEmail(memberDTO.getMemEmail())) {
+            System.out.println("email vaild...");
             errors = Collections.singletonList("此信箱已被註冊，請勿重複註冊");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new ErrorResponse(HttpStatus.UNAUTHORIZED, "Register failed",errors));
+
         }
+        System.out.println("sothing error");
         // 有任何的錯誤訊息存在，就會直接回傳 bad request
         if (!errors.isEmpty()) {
             return ResponseEntity.badRequest()
@@ -261,8 +198,11 @@ public class MemberController {
             System.out.println("ready to add...");
             memberServiceImpl.addMember(memberDTO);
         }catch (Exception e) {
+
             System.out.println("something error...");
             e.printStackTrace();
+            return ResponseEntity.badRequest()
+                    .body(new ErrorResponse(HttpStatus.BAD_REQUEST,e.getMessage(), errors));
         }
         System.out.println("ready to end...");
         return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Register successful", Collections.emptyList()));
@@ -270,7 +210,7 @@ public class MemberController {
 
     // 會員更新資料使用
     @PostMapping("/save")
-//    @ResponseBody
+    @ResponseBody
     public ResponseEntity<ErrorResponse> updateUser(
             @Validated(MemberVaildationRules.MemUpdate.class) @RequestBody MemberDTO memberDTO,
             HttpServletRequest request,
@@ -285,6 +225,7 @@ public class MemberController {
             errors = bindingResult.getAllErrors().stream()
                     .map(DefaultMessageSourceResolvable::getDefaultMessage)
                     .collect(Collectors.toList());
+            System.out.println("error...Binding");
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse(HttpStatus.BAD_REQUEST,"Validation failed", errors));
         }
@@ -300,6 +241,7 @@ public class MemberController {
         }
         // 有任何的錯誤訊息存在，就會直接回傳 bad request
         if (!errors.isEmpty()) {
+            System.out.println("error...isEmpty");
             return ResponseEntity.badRequest()
                     .body(new ErrorResponse(HttpStatus.BAD_REQUEST,"Validation failed", errors));
         }
@@ -311,12 +253,11 @@ public class MemberController {
             e.printStackTrace();
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Update successful", Collections.emptyList()));
     }
 
     // 會員變更密碼使用
     @PostMapping("/changePassword")
-//    @ResponseBody
     public ResponseEntity<?> changePwd(@Validated(MemberVaildationRules.MemChangePassword.class) @RequestBody ChangePwdDTO changePwdDTO,
                                                    HttpServletRequest request,
                                                    BindingResult bindingResult){
@@ -341,40 +282,8 @@ public class MemberController {
         }
         member.setMemPassword(encoder.encode(changePwdDTO.getNewPwd()));
         memberServiceImpl.updatePwd(member);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.OK).body(new ErrorResponse(HttpStatus.OK, "Change successful", Collections.emptyList()));
     }
-
-//    @PostMapping("/save")
-//    @ResponseBody
-//    public String saveMember(@RequestBody MemberDTO memberDTO) {
-//        try {
-//            return memberServiceImpl.saveMember(memberDTO);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Gson gson = new Gson();
-//            String errorMsg = gson.toJson(e.getMessage());
-//            System.out.println(errorMsg);
-//            return errorMsg;
-//        }
-//    }
-//    @PostMapping("/login")
-//    @ResponseBody
-//    public String login(@RequestBody LoginDTO loginDTO) {
-//        System.out.println(loginDTO);
-//        if (memberServiceImpl.toLogin(loginDTO.getMemEmail(),loginDTO.getMemPassword()).isPresent()) {
-//            // 登入成功，將 email 存儲在 session 中
-//            request.getSession().setAttribute("email", loginDTO.getMemEmail());
-//            String email = (String) request.getSession().getAttribute("email");
-//            System.out.println(memberServiceImpl.findByMemEmail(email));
-//            JSONObject object = new JSONObject();
-//            object.put("memNo", memberServiceImpl.findByMemEmail(email).getMemNo());
-//            object.put("memName", memberServiceImpl.findByMemEmail(email).getMemName());
-//            return object.toString();
-//        } else {
-//            // 登入失敗，將錯誤訊息傳遞到前端頁面
-//            return "帳號或密碼錯誤";
-//        }
-//    }
 
     // 由會員編號找到會員資訊
     @GetMapping("/find-one")
@@ -385,18 +294,6 @@ public class MemberController {
         return memberServiceImpl.findById(id);
     }
 
-//    @GetMapping("/ls-one")
-//    @ResponseBody
-//    public MemberDTO findById(@RequestParam Integer id,HttpServletRequest request) {
-//        HttpSession session=request.getSession();
-//        Integer memNo= (Integer) session.getAttribute("memNo");
-//        System.out.println(session);
-//        System.out.println(memNo);
-//        return memberServiceImpl.findById(id);
-//    }
-
-
-
     @GetMapping("/find-email")
     @ResponseBody
     public MemberDTO findByMemEmail(@RequestParam String email) {
@@ -404,8 +301,6 @@ public class MemberController {
         System.out.println(memberServiceImpl.findByMemEmail(email));
         return memberServiceImpl.findByMemEmail(email);
     }
-
-
 
     // 當會員忘記密碼時,填寫信箱用來取的驗證碼登入
     @PostMapping("/genAuthCode")

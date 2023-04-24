@@ -1,9 +1,10 @@
 package webapp.member.service;
 
-import com.google.gson.reflect.TypeToken;
 import com.nimbusds.jose.shaded.gson.Gson;
 import com.nimbusds.jose.shaded.gson.JsonElement;
 import com.nimbusds.jose.shaded.gson.JsonObject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Validator;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -18,7 +19,9 @@ import webapp.member.repository.MemberRepository;
 import webapp.others.service.EmailService;
 
 import java.io.UnsupportedEncodingException;
+import java.net.HttpCookie;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
@@ -126,16 +129,33 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
+
+    @Override
+    public void deleteSessionFromRedis(String sessionId){
+        String hashKey=HASH_KEY+":"+sessionId;
+        redisTemplate.delete(hashKey);
+    }
+
     // 透過seesionId取會員編號
     @Override
     public Integer getMemberNoFromSession(String sessionId) {
         String hashKey = HASH_KEY + ":" + sessionId;
-        String sessionData = (String) redisTemplate.opsForValue().get(hashKey);
-        if (sessionData == null) {
+        // 使用JSESSIONID找Redis中的客戶登入時的sessionId進而取得會員號碼
+        String memNoStr = (String) redisTemplate.opsForValue().get(hashKey);
+        if (memNoStr == null || memNoStr.isEmpty()) {
             return null;
         }
-        Map<String, Object> data = new Gson().fromJson(sessionData, new TypeToken<Map<String, Object>>() {}.getType());
-        return (Integer) data.get(hashKey);
+        String[] arr = memNoStr.split("=");
+        String numberStr = arr[1].substring(0, arr[1].length() - 1); // 拿到等號右邊
+        Integer memNo = Integer.parseInt(numberStr);
+
+        System.out.println("memNo : "+memNo);
+        System.out.println("find one member is "+ memNo); // test
+        if (memNo == null) {
+            return null; // 用戶不存在，返回-1
+        }
+        // 用戶存在返回會員編號
+        return memNo;
     }
 
     @Override
@@ -218,4 +238,35 @@ public class MemberServiceImpl implements MemberService {
         System.out.println(verifiyString);
         return verifiyString;
     }
+
+
+    @Override
+    public String getJsessionIdFromCookie(HttpServletRequest request) {
+        // 由 header 獲取 cookie
+        String cookieHeader = request.getHeader("Cookie");
+        if (cookieHeader == null) {
+            return null; // 如果 Cookie 不存在，返回 null
+        }
+
+        // 解析 Cookie 字符串，將每個 Cookie 鍵值對解析為一個 Cookie
+        List<HttpCookie> cookies = HttpCookie.parse(cookieHeader);
+        System.out.println("cookies.size()"+cookies.size()); // test
+        System.out.println(cookies); // test
+
+        String[] cookiePairs = cookieHeader.split("; ");
+        String jsessionId = null;
+        for (String cookiePair : cookiePairs) {
+            String[] keyValue = cookiePair.split("=");
+            if (keyValue[0].equals("JSESSIONID")) {
+                jsessionId = keyValue[1];
+                break;
+            }
+        }
+
+        if (jsessionId == null) {
+            return null; // 如果 JSESSIONID Cookie 不存在，返回 null
+        }
+        return jsessionId;
+    }
+
 }

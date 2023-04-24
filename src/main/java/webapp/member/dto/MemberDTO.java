@@ -10,6 +10,8 @@ import java.util.Date;
 
 @Data
 @JsonIgnoreProperties(value = {"memPassword"},allowSetters = true) // 設定密碼字段为不允許序列化（不會傳给前端)
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberDTO {
 
     private Integer memNo;

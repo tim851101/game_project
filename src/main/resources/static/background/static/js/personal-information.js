@@ -1,44 +1,48 @@
-
 window.onload = () => {
-    const dummyId = 2;
+    const dummyId = 6;
 
     // get all dom element we need
-    const employeeNo = $("#emp-update-no");
+    let employeeNo = null;
     const employeeName = $("#emp-update-name");
     const employeePhone = $("#emp-update-phone");
     const employeeAddress = $("#emp-update-addr");
     const employeeEmail = $("#emp-update-email");
-    const employeePassword = $("#emp-update-pwd");
-    const employeeRole = $('#emp-role');
 
-    // TODO: get below information from login
-    fetch(`/emp/ls-one-join-role?id=${dummyId}`)
-        .then(response => response.json()) // promise -> data
+    const token = sessionStorage.getItem('token');
+    const tokenGotEmail = parseJwt(token).sub;
+    fetch(`/emp/ls-by-email?email=${parseJwt(token).sub}`)
+        .then(response => response.json())
         .then(emp => {
-            employeeNo.val(emp.employeeNo);
+            employeeNo = emp.employeeNo;
             employeeName.val(emp.employeeName);
             employeeEmail.val(emp.employeeEmail);
-            employeePassword.val(emp.employeePassword);
             employeePhone.val(emp.employeePhone);
             employeeAddress.val(emp.employeeAddress);
-            employeeRole.val(emp.roleName);
         })
-
     /**
      * sanity check
      */
     $('#old-pwd').blur(e => {
-        fetch(`/emp/ls-one-pwd?id=${dummyId}`)
-            .then(response => response.text()) // promise -> data
-            .then(pwd => {
-                if (e.target.value !== pwd) {
-                    $('#msg-old-pwd').text('舊密碼錯誤');
-                    e.target.value = '';
-                    $('#new-pwd').prop('disabled', true);
-                } else {
+        fetch(`/emp/pwd-check`, {
+            method: 'POST',
+            body: JSON.stringify({
+                "email": employeeEmail.val(),
+                "password": e.target.value + ""
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json()) // promise -> data
+            .then(ok => {
+                if (ok) {
                     $('#msg-old-pwd').text('');
                     $('#new-pwd').prop('disabled', false);
                     $('#check-pwd').prop('disabled', false);
+                } else {
+                    $('#msg-old-pwd').text('舊密碼錯誤');
+                    e.target.value = '';
+                    $('#new-pwd').prop('disabled', true);
                 }
             })
     })
@@ -58,24 +62,56 @@ window.onload = () => {
         }
     })
 
+    // password show and hide toggle
+    $('#new-show-pass').click(() => {
+        const input = $('#new-pwd');
+        const icon = $('#new-show-pass i');
+
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        } else {
+            input.attr('type', 'password');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        }
+    });
+
+    $('#check-show-pass').click(() => {
+        const input = $('#check-pwd');
+        const icon = $('#check-show-pass i');
+
+        if (input.attr('type') === 'password') {
+            input.attr('type', 'text');
+            icon.removeClass('fa-eye-slash').addClass('fa-eye');
+        } else {
+            input.attr('type', 'password');
+            icon.removeClass('fa-eye').addClass('fa-eye-slash');
+        }
+    });
     /**
      * update password
      */
     $('#emp-update-btn').click(e => {
-        console.log($('#check-pwd').val())
+        if ($('#msg-check-pwd').text().length != 0){
+            return
+        }
+
         fetch('/emp/save-one-pwd', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                'id': dummyId,
+                'email': tokenGotEmail,
                 'password': $('#check-pwd').val()
             })
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            .then(response => response.json())
+            .then(ok => {
+                if (ok) {
+                    swal.fire('密碼更新成功');
+                } else {
+                    swal.fire('密碼更新失敗');
                 }
             })
     })
@@ -83,16 +119,14 @@ window.onload = () => {
     /**
      * update personal information
      */
-    $('#emp-update-submit').click( () => {
+    $('#emp-update-submit').click(() => {
         const formData = {
-            'employeeNo': dummyId, // 型態一定要對到
+            'employeeNo': employeeNo,
             'employeeName': employeeName.val(),
             'employeePhone': employeePhone.val(),
             'employeeAddress': employeeAddress.val(),
             'employeeEmail': employeeEmail.val()
         }
-        console.log('fromData', formData);
-
         fetch('/emp/save-one-part', {
             method: 'POST',
             headers: {
@@ -100,16 +134,16 @@ window.onload = () => {
             },
             body: JSON.stringify(formData)
         })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+            .then(response => response.json())
+            .then( ok => {
+                if (ok) {
+                    swal.fire('個人資料更新成功');
+                } else {
+                    swal.fire('個人資料更新失敗');
                 }
             })
-            .then(() => {})
-            .catch(error => {
-                console.error('There was a problem with the fetch operation:', error);
+            .catch(() => {
+                swal.fire('個人資料更新失敗!');
             });
-
     })
-
 }

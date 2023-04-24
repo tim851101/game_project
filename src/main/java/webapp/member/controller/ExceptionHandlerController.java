@@ -24,9 +24,4 @@ public class ExceptionHandlerController {
         return ResponseEntity.badRequest().body(errorResponse);
     }
 
-//    @ExceptionHandler(IllegalArgumentException.class)
-//    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex) {
-//        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, Collections.singletonList(ex.getMessage()));
-//        return ResponseEntity.badRequest().body(errorResponse);
-//    }
 }

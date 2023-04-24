@@ -21,7 +21,5 @@ public interface EventService {
 
     Boolean updateEventStatus(EventDTO eventDTO);
 
-    List<EventNews> saveDailyNewsToRedis();
-
     EventNews randomSelectOneEvent();
 }

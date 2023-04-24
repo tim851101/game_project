@@ -62,3 +62,4 @@ function del(pdNo) {
     }
     localStorage.setItem('shoppingcart', JSON.stringify(shoppingcart))
 }
+

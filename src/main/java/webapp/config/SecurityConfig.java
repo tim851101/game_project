@@ -47,6 +47,7 @@ public class SecurityConfig {
             // .anyRequest().authenticated()
             .anyRequest().permitAll();
 
+
         httpSecurity
             .formLogin()
             .loginPage("/background/login")

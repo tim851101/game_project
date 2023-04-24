@@ -38,11 +38,6 @@ public class EmailSenderController {
         return "寄送成功";
     }
 
-    @PostMapping("/test")
-    String sendEmailtoMember() throws MessagingException {
-        emailServiceImpl.sendPassword("smile4510121@gmail.com", "password");
-        return "123";
-    }
 
 
     // 寄送取消賽事通知給會員
@@ -58,4 +53,15 @@ public class EmailSenderController {
 
       }
     }
+    @PostMapping("/emails")
+    public EmailMessageDTO getEmail(@RequestBody EmailMessageDTO emailMessageDTO) throws MessagingException {
+
+        return emailServiceImpl.receiveEmails(emailMessageDTO.getName(),emailMessageDTO.getFrom(),emailMessageDTO.getSubject(),emailMessageDTO.getText());
+    }
+
+//    @PostMapping("/test")
+//    String sendEmailtoMember() throws MessagingException {
+//        emailServiceImpl.sendPassword("a81194@icloud.com", "password");
+//        return "123";
+//    }
 }

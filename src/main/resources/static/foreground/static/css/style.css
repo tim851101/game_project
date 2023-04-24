@@ -5113,13 +5113,13 @@ button,
 .slide-1 {
   background-image: url("/foreground/static/image/1-1.jpg");
   background-color: rgba(215, 177, 190, 0.9);
-
+  background-size: cover;
 }
 
 .slide-2 {
   background-image: url("/foreground/static/image/1-2.jpg");
   background-color: rgba(215, 177, 190, 0.9);
-
+  background-size: cover;
 }
 
 .slide-3 {

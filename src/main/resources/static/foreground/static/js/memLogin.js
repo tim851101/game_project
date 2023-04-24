@@ -9,9 +9,21 @@ Vue.createApp({
     }
   },
   methods: {
+    async fetchMemNo() {
+      try {
+          const memNoResponse = await fetch('/mem/get-memNo', {
+          method: 'POST'
+          });
+          const memNo = await memNoResponse.json();
+          localStorage.setItem("memNo",memNo);
+          // sessionStorage.setItem("memNo",memNo);
+      } catch (error) {
+          console.error(error);
+      }
+    },
     async toCurrentUrl() {
       let currentUrl = sessionStorage.getItem('currentUrl');
-      if (!currentUrl) {
+      if (!currentUrl||currentUrl==='/foreground/login.html'||currentUrl==='/foreground/register.html'||currentUrl==='/foreground/register'||currentUrl==='/foreground/index.html') {
         currentUrl = '/foreground/my-account.html';
       }
       const url = new URL(window.location.href);
@@ -28,7 +40,24 @@ Vue.createApp({
       }
       return null;
     },
+    async googleLogin(event){
+      // event.preventDefault();
+      try{
+        const response=await fetch(`mem/google-test`,{
+          method:'GET'
+        });
+      }catch (error) {
+        console.error(error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.message,
+        });
+      }
+    },
     async login() {
+      
+      event.preventDefault();
       // cookie的sessionId
       const jsessionid = this.getCookie('JSESSIONID');
       // 儲存sessionId
@@ -58,14 +87,18 @@ Vue.createApp({
             throw new Error('Unauthorized');
           }
         } else if (response.ok) {
+          await this.fetchMemNo();
+          // return response.json();
           const data = await response.json();
           if (data.message === 'Login successful') {
             Swal.fire({
               text: data.message,
               icon: 'success',
-            }).then(async () => {              
+            })
+            .then(async () => {              
               await this.toCurrentUrl();
-            });
+            }
+            );
           } else {
             sessionStorage.removeItem("session");
             throw new Error('Unexpected response');

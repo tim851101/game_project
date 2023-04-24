@@ -32,7 +32,28 @@ window.onload = function() {
             body: JSON.stringify(emailContext),
             headers: {'Content-Type': 'application/json'},
         }).then(response => response.text())
-        .then(data => console.log(data))
+        .then(data => {
+            if(data==="寄送成功"){
+                Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: data,
+                showConfirmButton: false,
+                timer: 1500
+              });
+              document.getElementById('con_name').value='';
+              document.getElementById('con_email').value='';
+              document.getElementById('con_content').value='';
+              document.getElementById("con_message").value='';
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: data,
+                })
+            }
+           
+        })
         .catch(error => console.error(error));
     });
 

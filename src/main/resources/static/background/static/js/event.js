@@ -549,7 +549,8 @@ function alertTest(data){
         confirmButtonColor: '#21870D',
     cancelButtonColor: '#d33',
         confirmButtonText: '確定',
-        cancelButtonText: "取消"
+        cancelButtonText: "取消",
+        reverseButtons: true
       }).then(function (result) {
         if (result.value) {
           fetch('/event/updateWinners', {

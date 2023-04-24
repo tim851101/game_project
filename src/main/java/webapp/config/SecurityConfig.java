@@ -45,6 +45,7 @@ public class SecurityConfig {
             .authorizeHttpRequests()
             .requestMatchers(PUBLIC).permitAll()
             // .anyRequest().authenticated()
+            .requestMatchers("/mem/ls-dtos", "/mem/save-all-auth").authenticated()
             .anyRequest().permitAll();
 
 

@@ -3,13 +3,17 @@ package webapp.member.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import webapp.member.service.MemberVaildationRules;
 
 import java.util.Date;
 
 @Data
 @JsonIgnoreProperties(value = {"memPassword"},allowSetters = true) // 設定密碼字段为不允許序列化（不會傳给前端)
+@AllArgsConstructor
+@NoArgsConstructor
 public class MemberDTO {
 
     private Integer memNo;

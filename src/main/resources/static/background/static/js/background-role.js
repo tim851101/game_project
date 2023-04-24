@@ -1,10 +1,7 @@
-console.log('role');
 $(document).ready( () => {
     const employeeUpdate = $('a[href="/background/employee-update.html"]').first();
     const token = sessionStorage.getItem('token');
     const role = parseJwt(token).role[0];
-    console.log('inside');
-    console.log(role);
 
     if (role == "USER"){
         employeeUpdate.hide();
@@ -13,6 +10,10 @@ $(document).ready( () => {
     }
     if (role == "ADMIN"){
         employeeUpdate.show();
+    }
+    const logoutLink = document.querySelector('a[href="/background/employee-login-out.html"]');
+    if (logoutLink) {
+        logoutLink.style.display = "none";
     }
 })
 

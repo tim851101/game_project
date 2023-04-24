@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.modelmapper.ModelMapper;
+import java.util.List;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import webapp.member.dto.MemberDTO;
 import webapp.member.pojo.ErrorResponse;
 import webapp.member.pojo.Members;
 import webapp.member.repository.MemberRepository;
+import webapp.member.dto.ReserveAuthDTO;
 import webapp.member.service.MemberService;
 import webapp.member.service.MemberVaildationRules;
 import webapp.others.service.EmailService;
@@ -310,4 +313,15 @@ public class MemberController {
         return memberServiceImpl.getNewPassword(memEmail);
     }
 
+    @GetMapping("/ls-dtos")
+    @ResponseBody
+    public List<MemberDTO> findAllDto(){
+        return memberServiceImpl.findAllDto();
+    }
+
+    @PostMapping("/save-all-auth")
+    @ResponseBody
+    public Boolean findAllDto(@RequestBody List<ReserveAuthDTO> dtoList){
+        return memberServiceImpl.saveAllAuth(dtoList);
+    }
 }

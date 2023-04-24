@@ -22,17 +22,15 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
     // TODO: when I write in Interface-Impl manner. Spring can't find the bean
-    @Value("${jwt.secret.key}")
-    private String secretKey;
+    final private String SERECT_KEY = "aIntegerSecretStringWhoseBitnessIsEqualToOrGreaterThanTheBitnessOfTheTokenEncryptionAlgorithm";
 
-    @Value("${jwt.expiration}")
-    private Integer expiration;
+    final private Integer expiration = 864000;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     private SecretKey getKey() {
-        return Keys.hmacShaKeyFor(secretKey.getBytes());
+        return Keys.hmacShaKeyFor(SERECT_KEY.getBytes());
     }
 
     public String generateToken(String username) {

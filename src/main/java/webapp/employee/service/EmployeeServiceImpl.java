@@ -13,6 +13,7 @@ import webapp.employee.dto.EmployeeDTO;
 import webapp.employee.dto.LoginDTO;
 import webapp.employee.pojo.Employee;
 import webapp.employee.repository.EmployeeRepository;
+import webapp.security.dto.AuthRequestDTO;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -38,6 +39,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository
             .existsByEmployeeNameAndEmployeePassword(
                 loginDTO.getEmployeeName(), loginDTO.getEmployeePassword());
+    }
+
+    public Boolean emailDuplicateCheck(String email) {
+        return employeeRepository.existsByEmployeeEmail(email);
     }
 
     public EmployeeDTO findById(Integer id) {
@@ -83,12 +88,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Integer savePwdById(String pwd, Integer id) {
+    public Boolean savePwdByEmail(AuthRequestDTO dto) {
         try {
-            return employeeRepository.savePwdById(pwd, id);
+            employeeRepository
+                .savePwdByEmail(dto.getEmail(), passwordEncoder.encode(dto.getPassword()));
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
-            return 0;
+            return false;
         }
     }
 
@@ -97,9 +104,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findPwdById(id);
     }
 
-    public void updateEmployeePartial(EmpLimitDTO partial) {
-        employeeRepository.updateEmployeePartial(partial.getEmployeeNo(), partial.getEmployeeName(),
-            partial.getEmployeePhone(), partial.getEmployeeAddress(), partial.getEmployeeEmail());
+    public Boolean updateEmployeePartial(EmpLimitDTO partial) {
+        try {
+            employeeRepository.updateEmployeePartial(
+                partial.getEmployeeNo(),
+                partial.getEmployeeName(),
+                partial.getEmployeePhone(),
+                partial.getEmployeeAddress(),
+                partial.getEmployeeEmail()
+            );
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     // login
@@ -112,10 +130,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee create(Employee employee) {
         if (!isDupliacteEmail(employee)) {
             return employeeRepository.save(employee);
-        }
-        else {
+        } else {
             return new Employee();
         }
+    }
+
+    public EmployeeDTO findDTOByEmail(String email) {
+        return modelMapper.map(employeeRepository
+                .findByEmployeeEmail(email)
+                .orElse(new Employee()),
+            EmployeeDTO.class);
     }
 
     private Boolean isDupliacteEmail(Employee employee) {
@@ -123,10 +147,22 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (email != null && email.length() > 0) {
             final Integer id = employee.getEmployeeNo();
             final Employee p = findByEmail(email);
-            if (p != null && Objects.equals(p.getEmployeeEmail(), email) && !Objects.equals(p.getEmployeeNo(), id)) {
+            if (p != null && Objects.equals(p.getEmployeeEmail(), email) &&
+                !Objects.equals(p.getEmployeeNo(), id)) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public Boolean checkPwd(AuthRequestDTO dto) {
+        if (passwordEncoder.matches(
+            dto.getPassword(),
+            employeeRepository.findPwdByEmail(dto.getEmail()))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

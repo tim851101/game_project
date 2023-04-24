@@ -86,11 +86,9 @@ public class Employee implements UserDetails {
         return true;
     }
 
-
-
     @Override
     public String toString() {
-        return "Person [id=" + employeeNo +
+        return "Employee [id=" + employeeNo +
             ", email=" + employeeEmail +
             ", roles=" + roleNo + "]";
     }

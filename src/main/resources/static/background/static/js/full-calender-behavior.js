@@ -1,12 +1,16 @@
-// var selectedDates = [];
-var selectedDates = new Set();
+// let selectedDates = [];
+let selectedDates = new Set();
+let selectedMap = new Map([
+    ['國定假日', new Set()],
+    ['店家特休', new Set()]
+]);
 
 function fullCalender() {
 
     /* initialize the external events
         -----------------------------------------------------------------*/
 
-    var containerEl = document.getElementById('external-events');
+    let containerEl = document.getElementById('external-events');
     new FullCalendar.Draggable(containerEl, {
         itemSelector: '.external-event',
         eventData: function (eventEl) {
@@ -20,8 +24,8 @@ function fullCalender() {
 
     /* initialize the calendar
     -----------------------------------------------------------------*/
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    let calendarEl = document.getElementById('calendar');
+    let calendar = new FullCalendar.Calendar(calendarEl, {
         /**
          *  header
          */
@@ -31,62 +35,82 @@ function fullCalender() {
             right: 'space,dayGridMonth,space'
         },
         /**
-         *  selectable
-         */
-        selectable: false, // disable click on calender to add
-        selectMirror: true,
-        select: function (arg) {
-            Swal.fire({
-                input: 'text',
-                showCancelButton: true,
-                confirmButtonText: 'Add',
-                showLoaderOnConfirm: true,
-                preConfirm: (title) => {
-                    calendar.addEvent({
-                        title: title,
-                        start: arg.start,
-                        end: arg.end,
-                        allDay: arg.allDay
-                    })
-                    calendar.unselect()
-                    selectedDates.add(moment(arg.start).format('YYYY/MM/DD'));
-                },
-                allowOutsideClick: () => !Swal.isLoading()
-            })
-            // Add selected date to array
-        },
-
-        /**
          *  droppable from external
          */
         droppable: true,
         drop: args => {
-            selectedDates.add(moment(args.start).format('YYYY/MM/DD'));
+            const droppedValue = args.draggedEl.innerText.trim();
+            selectedDates.add(moment(args.date).format('YYYY/MM/DD'));
+            selectedMap.get(droppedValue).add(moment(args.date).format('YYYY/MM/DD'));
         },
-        // make if dragable and resizable
+        // make if draggable and resizable
         editable: true,
         /**
          *  droppable from calender
          */
         eventDrop: args => {
-            // Remove old date from set
-            const oldDate = moment(args.oldEvent.start).format('YYYY/MM/DD');
-            selectedDates.delete(oldDate);
-            // Add new date to set
-            const newDate = moment(args.event.start).format('YYYY/MM/DD');
-            selectedDates.add(newDate);
+            const eventText = args.event.title;
+            if (!moment(args.oldEvent.end)._i) {
+                let oldEvent = moment(args.oldEvent.start);
+                let newEvent = moment(args.event.start);
+                selectedDates.delete(oldEvent.format('YYYY/MM/DD'));
+                selectedDates.add(newEvent.format('YYYY/MM/DD'));
+                selectedMap.get(eventText).delete(oldEvent.format('YYYY/MM/DD'));
+                selectedMap.get(eventText).add(newEvent.format('YYYY/MM/DD'));
+            }
+
+            for (let m = moment(args.oldEvent.start); m.isBefore(args.oldEvent.end); m = m.clone().add(1, 'days')) {
+                selectedDates.delete(m.format('YYYY/MM/DD'));
+                selectedMap.get(eventText).delete(m.format('YYYY/MM/DD'));
+
+            }
+            for (let newEvent = moment(args.event.start); newEvent.isBefore(args.event.end); newEvent = newEvent.clone().add(1, 'days')) {
+                selectedDates.add(newEvent.format('YYYY/MM/DD'));
+                selectedMap.get(eventText).add(newEvent.format('YYYY/MM/DD'));
+            }
+        },
+
+        eventClick: args => {
+            // Ask for confirmation before deleting the event
+            const eventText = args.event.title;
+            Swal.fire({
+                title: '確認要刪除嗎',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: '取消',
+                confirmButtonText: '刪除'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Remove the event from the calendar
+                    args.event.remove();
+
+                    // Remove the selected dates from the set
+                    const start = moment(args.event.start).format('YYYY/MM/DD');
+                    const end = moment(args.event.end).subtract(1, 'day').format('YYYY/MM/DD');
+                    if (end == 'Invalid date') {
+                        selectedDates.delete(moment(start).format('YYYY-MM-DD'));
+                        selectedMap.get(eventText).delete(moment(start).format('YYYY-MM-DD'));
+                    } else {
+                        for (let m = moment(start); m.isSameOrBefore(end); m.add(1, 'days')) {
+                            selectedDates.delete(m.format('YYYY-MM-DD'));
+                            selectedMap.get(eventText).delete(m.format('YYYY-MM-DD'));
+                        }
+                    }
+                }
+            });
         },
 
         /**
          *  eventResize
          */
         eventResize: args => {
-            const event = args.event;
-            for (var m = moment(event.start); m.isBefore(event.end); m.add(1, 'days')) {
+            const eventText = args.event.title;
+            for (let m = moment(args.event.start); m.isBefore(args.event.end); m.add(1, 'days')) {
                 selectedDates.add(m.format('YYYY/MM/DD'));
+                selectedMap.get(eventText).add(m.format('YYYY/MM/DD'));
             }
         },
-
         /**
          *  display
          */
@@ -97,19 +121,36 @@ function fullCalender() {
          *  initial calender
          */
         initialDate: moment().format('YYYY-MM-DD'),
-        events: [
-            // {
-            //     title: 'test',
-            //     start: moment().format('YYYY-MM-DD'),
-            //     className: "bg-warning"
-            // },
-            // {
-            //     title: 'test-range',
-            //     start: moment("2023/03/27").format('YYYY-MM-DD'),
-            //     end: moment("2023/03/29").format('YYYY-MM-DD'),
-            //     className: "bg-secondary"
-            // }
-        ]
+        events: function (fetchInfo, successCallback, failureCallback) {
+            // make AJAX call to API to fetch events data
+            const loadEvents = new Array();
+            fetch('/off-date/find-all', {
+                method: 'POST',
+                body: JSON.stringify([
+                    {'id': '店家特休'},
+                    {'id': '國定假日'}
+                ]),
+                headers: {'Content-Type': 'application/json'},
+            })
+                .then(response => response.json())
+                .then(objs => {
+                    for (const data of objs) {
+                        for (const date of data.date) {
+                            loadEvents.push({
+                                title: data.id,
+                                start: moment(date).format('YYYY-MM-DD'),
+                                className: data.id=='國定假日'?"bg-primary":"bg-warning"
+                            })
+                            selectedDates.add(moment(date).format('YYYY-MM-DD'));
+                            selectedMap.get(data.id).add(moment(date).format('YYYY-MM-DD'));
+                        }
+                    }
+                    successCallback(loadEvents);
+                })
+                .catch(error => {
+                    failureCallback(error);
+                });
+        }
     });
     calendar.render();
 }
@@ -131,9 +172,31 @@ document.getElementById('submit-button').addEventListener('click', function () {
             }),
             headers: {'Content-Type': 'application/json'},
         }).then(response => {
+            Swal.fire(
+                '儲存成功',
+            )
+        }).catch(
+            Swal.fire(
+                '儲存失敗',
+            )
+        );
+    }
+
+    const offDateList = [];
+    for (let [key, value] of selectedMap.entries()) {
+        offDateList.push({
+            "id": key,
+            "date": [...value]
         });
     }
-    Swal.fire(
-        '儲存成功',
-    )
+    console.log(offDateList);
+    console.log(selectedMap);
+    fetch(`/off-date/save-all`, {
+        method: 'POST',
+        body: JSON.stringify(offDateList),
+        headers: {'Content-Type': 'application/json'},
+    }).then(response => {
+
+    }).catch(
+    );
 });

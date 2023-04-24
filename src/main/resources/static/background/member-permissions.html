@@ -18,8 +18,11 @@
 
     <!-- Style css -->
     <link href="static/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 
     <!-- harder sidebar footer import -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/background/static/js/background-role.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="/background/static/js/template.js"></script>
     <script src="/background/static/js/member-permission.js"></script>
@@ -48,20 +51,7 @@
         ***********************************-->
     <div class="nav-header">
         <a href="" class="brand-logo">
-            <svg class="logo-abbr" width="57" height="57" viewbox="0 0 57 57" fill="none"
-                 xmlns="http://www.w3.org/2000/svg">
-                <path
-                        d="M32.9585 1.84675C30.4961 -0.615584 26.5039 -0.615585 24.0415 1.84675L19.3876 6.50068H12.8059C9.32365 6.50068 6.50071 9.32362 6.50071 12.8059V19.3876L1.84675 24.0415C-0.615584 26.5039 -0.615585 30.4961 1.84675 32.9585L6.50071 37.6124V44.1941C6.50071 47.6763 9.32365 50.4993 12.8059 50.4993H19.3876L24.0415 55.1532C26.5039 57.6156 30.4961 57.6156 32.9585 55.1532L37.6124 50.4993H44.1941C47.6764 50.4993 50.4993 47.6763 50.4993 44.1941V37.6124L55.1532 32.9585C57.6156 30.4961 57.6156 26.5039 55.1532 24.0415L50.4993 19.3876V12.8059C50.4993 9.32362 47.6764 6.50068 44.1941 6.50068H37.6124L32.9585 1.84675Z"
-                        fill="url(#paint0_linear)"></path>
-                <path class="logo-text" fill-rule="evenodd" clip-rule="evenodd"
-                      d="M24.7614 37.345L20.7666 40.3417C20.4005 40.616 19.9111 40.6607 19.5015 40.4553C19.0919 40.2511 18.8333 39.833 18.8333 39.375V17.625C18.8333 16.958 19.3746 16.4167 20.0416 16.4167H36.9583C37.6253 16.4167 38.1666 16.958 38.1666 17.625V39.375C38.1666 39.833 37.9081 40.2511 37.4984 40.4553C37.0888 40.6607 36.5994 40.616 36.2333 40.3417L32.2386 37.345L29.3543 40.2293C28.883 40.7018 28.1169 40.7018 27.6457 40.2293L24.7614 37.345ZM35.75 36.9584V18.8334H21.25V36.9584L24.15 34.7834C24.6309 34.4221 25.3039 34.4704 25.7293 34.8957L28.5 37.6664L31.2707 34.8957C31.696 34.4704 32.3691 34.4221 32.85 34.7834L35.75 36.9584ZM27.2916 28.5H29.7083C30.3753 28.5 30.9166 27.9587 30.9166 27.2917C30.9166 26.6247 30.3753 26.0834 29.7083 26.0834H27.2916C26.6246 26.0834 26.0833 26.6247 26.0833 27.2917C26.0833 27.9587 26.6246 28.5 27.2916 28.5ZM24.875 23.6667H32.125C32.792 23.6667 33.3333 23.1254 33.3333 22.4584C33.3333 21.7914 32.792 21.25 32.125 21.25H24.875C24.208 21.25 23.6666 21.7914 23.6666 22.4584C23.6666 23.1254 24.208 23.6667 24.875 23.6667Z"
-                      fill="white"></path>
-                <defs></defs>
-            </svg>
-            <div class="brand-title">
-                <h2 class="">inv<span>ome</span></h2>
-                <span class="brand-sub-title">Invoicing Admin</span>
-            </div>
+            <img src="static/picture/baordgame-logo.png" alt="" style="max-width: 100%;">
         </a>
         <div class="nav-control">
             <div class="hamburger">
@@ -95,18 +85,7 @@
     <div class="dlabnav">
         <div class="dlabnav-scroll">
             <div class="dropdown header-profile2">
-                <a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown">
-                    <div class="header-info2 d-flex align-items-center border">
-                        <img src="/background/static/picture/pic1.jpg" alt="" />
-                        <div class="d-flex align-items-center sidebar-info">
-                            <div>
-                                <span class="font-w700 d-block mb-2">Eren Yeager</span>
-                                <small class="text-end font-w400">Super Admin</small>
-                            </div>
-                            <i class="fas fa-sort-down ms-4"></i>
-                        </div>
-                    </div>
-                </a>
+
                 <div class="dropdown-menu dropdown-menu-end">
                     <a href="/background/app-profile.html" class="dropdown-item ai-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24"
@@ -274,120 +253,7 @@
                     </li>
                 </ol>
             </div>
-            <!--**********************************
-                會員帳號管理 start
-            ***********************************-->
-            <!-- row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">會員帳號管理</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-validation">
-                                <!-- form start -->
-                                <form class="needs-validation" novalidate="">
-                                    <div class="row">
-                                        <div class="col-xl-6">
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-no">會員編號
-                                                    <span class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="mem-no"
-                                                           placeholder="請輸入會員編號..." />
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-name">姓名
-                                                    <span class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="mem-name" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-email">Email(帳號) <span
-                                                        class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input type="text" class="form-control" id="mem-email" disabled />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6">
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label">性別
-                                                    <span class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="gender" id="mem-male" disabled />
-                                                        <label class="form-check-label" for="male">男</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="gender" id="mem-female" disabled />
-                                                        <label class="form-check-label" for="female">女</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-phone">電話
-                                                    <span class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input style="font-size: larger" type="text" id="mem-phone" class="form-control"
-                                                           disabled />
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" for="mem-addr">通訊地址 <span
-                                                        class="text-danger"></span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <input style="font-size: larger" type="text" class="form-control" id="mem-addr"
-                                                           disabled />
-                                                </div>
-                                            </div>
-                                            <div class="mb-3 row">
-                                                <label class="col-lg-4 col-form-label" >預約權限狀態
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <div class="col-lg-6">
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="reserveAuth" id="mem-closed" />
-                                                        <label class="form-check-label" for="closed">鎖定</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="reserveAuth" id="mem-open" checked />
-                                                        <label class="form-check-label" for="open">開放</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="mb-3 row">
-                                            <div class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto">
-                                                <button type="submit" class="btn btn-primary">
-                                                    查詢
-                                                </button>
-                                                <button type="submit" class="btn btn-danger">
-                                                    修改
-                                                </button>
-                                                <button type="submit" class="btn btn-danger" style="opacity: 0;">
-                                                    修改
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                                <!-- form end -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <!--**********************************
                 會員帳號管理 end
             ***********************************-->
@@ -400,115 +266,17 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-responsive-md">
+                            <table id="table-example" class="table table-responsive-md">
                                 <thead>
                                 <tr>
-                                    <th style="width: 50px">
-                                        <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                            <input type="checkbox" class="form-check-input" id="checkAll" required="" />
-                                            <label class="form-check-label" for="checkAll"></label>
-                                        </div>
-                                    </th>
-                                    <th><strong>ROLL NO.</strong></th>
-                                    <th><strong>NAME</strong></th>
-                                    <th><strong>Email</strong></th>
-                                    <th><strong>Date</strong></th>
-                                    <th><strong>Status</strong></th>
-                                    <th><strong></strong></th>
+                                    <th><strong>會員編號</strong></th>
+                                    <th><strong>會員姓名</strong></th>
+                                    <th><strong>會員 Email</strong></th>
+                                    <th><strong>預約權限</strong></th>
+                                    <th><strong>更新權限</strong></th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                            <input type="checkbox" class="form-check-input" id="customCheckBox2" required="" />
-                                            <label class="form-check-label" for="customCheckBox2"></label>
-                                        </div>
-                                    </td>
-                                    <td><strong>542</strong></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="static/picture/1.jpg" class="rounded-lg me-2" width="24" alt="" />
-                                            <span class="w-space-no">Dr. Jackson</span>
-                                        </div>
-                                    </td>
-                                    <td>example@example.com</td>
-                                    <td>01 August 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa fa-circle text-success me-1"></i>
-                                            Successful
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                            <input type="checkbox" class="form-check-input" id="customCheckBox3" required="" />
-                                            <label class="form-check-label" for="customCheckBox3"></label>
-                                        </div>
-                                    </td>
-                                    <td><strong>542</strong></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="static/picture/2.jpg" class="rounded-lg me-2" width="24" alt="" />
-                                            <span class="w-space-no">Dr. Jackson</span>
-                                        </div>
-                                    </td>
-                                    <td>example@example.com</td>
-                                    <td>01 August 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa fa-circle text-danger me-1"></i>
-                                            Canceled
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check custom-checkbox checkbox-success check-lg me-3">
-                                            <input type="checkbox" class="form-check-input" id="customCheckBox4" required="" />
-                                            <label class="form-check-label" for="customCheckBox4"></label>
-                                        </div>
-                                    </td>
-                                    <td><strong>542</strong></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <img src="static/picture/3.jpg" class="rounded-lg me-2" width="24" alt="" />
-                                            <span class="w-space-no">Dr. Jackson</span>
-                                        </div>
-                                    </td>
-                                    <td>example@example.com</td>
-                                    <td>01 August 2020</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa fa-circle text-warning me-1"></i>
-                                            Pending
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="#" class="btn btn-primary shadow btn-xs sharp me-1"><i
-                                                    class="fas fa-pencil-alt"></i></a>
-                                            <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
+                                <tbody id="mem-ls-all"></tbody>
                             </table>
                         </div>
                     </div>
@@ -565,6 +333,8 @@
 <script src="static/js/dlabnav-init.js"></script>
 <script src="static/js/demo.js"></script>
 <script src="static/js/styleSwitcher.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 </body>
 
 </html>

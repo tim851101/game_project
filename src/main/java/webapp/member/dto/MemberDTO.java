@@ -3,7 +3,9 @@ package webapp.member.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.validation.constraints.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import webapp.member.service.MemberVaildationRules;
 
 import java.util.Date;

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" value="qwer" id="name"></input>
+<button id="check"onclick=conn()>連線</button>
+<button id="close" onclick=closeconn()>取消連線</button>
+<div id="mem">
+
+</div>
+</body>
+<script>
+    let count =0
+    mem=document.getElementById('mem');
+    let memberName="";
+    let Socket="";
+    let MYname=""
+    let staus=10;
+function conn(){ 
+    count=0;
+    document.getElementById('close').removeAttribute("disabled");
+    name= document.getElementById('name').value;
+    Socket = new WebSocket('ws://localhost:8082/WebSocketServer/'+name);
+    check=document.getElementById('check');
+    Socket.onopen =function(){
+        check.setAttribute('disabled','disabled'); 
+    }
+    Socket.onmessage = function (a){
+      
+            console.log(a);
+            if(count==0){
+            MYname=username(a.data);
+            }
+            if(count!=0){
+                memberName = username(a.data);
+                if(a.data.includes("退出"))
+                {
+                document.getElementById(memberName).remove();
+                }
+                else{
+                    mem.innerHTML += `<button id="${memberName}" onclick="try()">${memberName}</button>`;           
+                }
+            }
+            count ++;
+        }
+        Socket.onclose=function()
+    {    
+        
+        console.log('WebSocket 已經關閉')
+        console.log(MYname);
+        
+    }
+   
+}
+  let username=function (message){
+    let match = message.match(/\[(.*?)\]/);
+    if (match) {
+        let memberName = match[1];
+        return memberName;
+    }
+    }
+ function closeconn(){
+    document.getElementById('check').removeAttribute("disabled");
+    document.getElementById('close').setAttribute('disabled','disabled'); 
+    Socket.close();
+
+    }
+   
+</script>
+</html>

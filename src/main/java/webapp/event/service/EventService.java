@@ -22,4 +22,6 @@ public interface EventService {
     Boolean updateEventStatus(EventDTO eventDTO);
 
     EventNews randomSelectOneEvent();
+     EventDTO selectOneEvent(Integer eventNo);
+
 }

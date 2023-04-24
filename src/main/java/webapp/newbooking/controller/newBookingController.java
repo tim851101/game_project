@@ -168,8 +168,12 @@ public class newBookingController {
     }
     @PostMapping("/testseat") //(查看日期時段區間最小座位數)
     public Integer minseat(String date,Integer minTime,Integer maxTime){
+        try{
         System.out.println(date+minTime+maxTime);
         return BookingService.minseat(date,minTime,maxTime);
+        }catch (Exception e){
+            return -100;
+        }
     }
     @PostMapping("/saveseat4time") //儲存日期時間段座位數
     public List<SeatDTO> saveseat4time(String date, Integer minTime, Integer maxTime,Integer change){

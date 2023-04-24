@@ -385,14 +385,14 @@
                                                     <table id="booktable" class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>NO</th>
+                                                                <th>預約日期</th>
                                                                 <th>起始時間</th>
                                                                 <th>結束時間</th>
-                                                                <th>預約日期</th>
+
                                                                 <th>完成付款日期</th>
                                                                 <th>價格</th>
                                                                 <th>人數</th>
-                                                                <th>修改</th>
+                                                                <th>詳情</th>
                                                                 <th>取消</th>
                                                             </tr>
                                                         </thead>
@@ -416,10 +416,11 @@
                                                                 <th></th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody id="update"></tbody>
+                                                        <tbody id="update">
                                                         </tbody>
-                                                    </table>
+                                                    </table>   
                                                 </div>
+                                                <div id="wrong"></div>
                                             </div>
                                         </div>
                                         <!-- Single Tab Content End -->
@@ -432,54 +433,13 @@
                                                     <table class="table table-bordered">
                                                         <thead class="thead-light">
                                                             <tr>
-                                                                <th>訂單編號</th>
-                                                                <th>下定日期</th>
-                                                                <th>訂單狀態</th>
+                                                                <th>賽事編號</th>
+                                                                <th>賽事名稱</th>
+                                                                <th>開始時間</th>
                                                                 <th>付款金額</th>
-                                                                <th>訂單明細</th>
-                                                                <th>退貨申請</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>2023/3/10</td>
-                                                                <td>退貨申請</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>2023/3/09</td>
-                                                                <td>已出貨</td>
-                                                                <td>$200</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>2023/3/08</td>
-                                                                <td>已完成</td>
-                                                                <td>$990</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-
-
-                                                        </tbody>
+                                                        <tbody id="eventls">                    </tbody>
                                                     </table>
                                                 </div>
                                             </div>
@@ -656,8 +616,8 @@
     <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
     <!-- jQuery JS -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> -->
-    <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!--    <script src="/foreground/static/js/jquery-3.6.0.min.js"></script>-->
     <!-- jQuery Migrate JS -->
     <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
     <!-- Modernizer JS -->
@@ -683,274 +643,14 @@
     <script src="/foreground/static/js/main.js"></script>
     <!-- table JS-->
     <script defer src="/foreground/static/js/my-account-orders.js"></script>
-
-</body>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/foreground/static/js/headerUse.js"></script>
 <script src="../js/member.js"></script>
 <script src="/foreground/static/js/headerUse.js"></script>
-<script>
-    const tbody = document.querySelector('#booking');
-    const update = document.querySelector('#update');
-    const updatebook = document.querySelector('#updatebook')
-    const url = 'http://localhost:8082/book/bookingbymemno?memno=32';//目前寫死
-    const MonthFromNow = new Date();
-    MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
-    let bookno = null;
-
-    function read() {
-        $('#booktable').DataTable().clear().destroy();
-        tbody.innerHTML = ""
-        fetch(url)
-            .then(resp => resp.json())
-            .then(list => {
-                for (let booking of list) {
-                    if (booking.bookingFinishDate == null)
-                        deadlineStr = "未完成"
-                    else
-                        deadlineStr = "" + booking.bookingFinishDate
-                    tbody.innerHTML += `
-                <tr>
-                    <td>${booking.bookingNo}</td>
-                    <td>${booking.bookingStartTime}</td>
-                    <td>${booking.bookingEndTime}</td>
-                    <td>${booking.bookingDate}</td>
-                    <td>`+ deadlineStr + `</td>
-                    <td>${booking.bookingTotalPrice}</td>
-                    <td>${booking.bookingPeople}</td>
-                    <td><button id="update" onclick="forUpdate(${booking.bookingNo})" class="btn obrien-button-2 primary-color rounded-0">修改</button></td>
-                    <td><button id="delete" onclick="forDelete(${booking.bookingNo})" class="btn obrien-button-2 primary-color rounded-0">取消</button></td>
-                    </tr>
-                    `
-                }
-
-                //data table start
-                $(document).ready(function () {
-                    $('#booktable').DataTable({
-                        pageLength: 3,
-                        lengthMenu: [3, 5, 10, 20],
-                        language: {
-                            emptyTable: "無資料",
-                            info: "顯示 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",
-                            lengthMenu: "顯示 _MENU_ 筆資料",
-                            paginate: {
-                                previous: '<i class="fa fa-chevron-left"></i>',
-                                next: '<i class="fa fa-chevron-right"></i>'
-                            },
-                        },
-                    });
-                });
-                //datatable END
-            });
-
-    }
-    // let table = new DataTable('#booktable');
-    read();
-    function forDelete(deleteno) {
-        let confirmdelete = confirm('確認取消' + deleteno + "號訂位?");
-        if (confirmdelete) {
-            $.post('http://localhost:8082/book/deletebook', {
-                deleteno: deleteno
-            });
-        } else {
-        }
-        sleep(500).then(() => {
-            read();
-        })
-    }
-    let deadline = null
-    function forUpdate(updateno) {
-        const url = 'http://localhost:8082/book/one?findno=' + updateno;
-        fetch(url)
-            .then(resp => resp.json())
-            .then(list => {
-                for (let booking of list) {
-                    bookno = booking.bookingNo
-                    memno = booking.memNo
-                    if (booking.bookingFinishDate == null) {
-                        deadlineStr = "<button id='toPay' class='btn obrien-button-2 primary-color rounded-0'>去付款</button>"
-                        deadline = null
-                    }
-                    else {
-                        deadlineStr = "" + booking.bookingFinishDate
-                        deadline = booking.bookingFinishDate
-                    }
-
-                    update.innerHTML = ``
-                    update.innerHTML += `
-            <tr>
-                <td>${booking.bookingNo}</td>
-                <td><input type="text" id="srattime" value="09:00"></td>
-                <td><input type="text" id="endtime" value="09:00"></td>
-                <td><input type="text"  id="date" value=""></td>
-                <td><p id='price'>${booking.bookingTotalPrice}</p></td>
-                <td><select id="people" onchange=pricechange() >
-                    <option value="${booking.bookingPeople}">人數</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    </select></td>
-                    <td>`+ deadlineStr + `</td>
-                    <td><button id="post" onclick="change()" class="btn obrien-button-2 primary-color rounded-0">送出</button></td>
-                    </tr>
-                    `
-                }
-                update.addEventListener('change', () => {
-                    let check = 0;
-                    a = document.getElementById('srattime').value.substr(0, 2)
-                    b = document.getElementById('endtime').value.substr(0, 2)
-                    datas = {
-                        date: document.getElementById('date').value,
-                        minTime: a,
-                        maxTime: b
-                    }
-                    $.ajax({
-                        url: 'http://localhost:8082/book/testseat',
-                        type: 'post',
-                        data: datas,
-                        success: function (response) {
-                            check = (response - (document.getElementById('people').value))
-                            console.log(check);
-                            if (check > 0) {
-                                //  console.log("還有位置");
-                                document.getElementById('post').removeAttribute('disabled')
-                            }
-                            else {
-                                //  console.log("沒有");
-                                document.getElementById('post').setAttribute('disabled', true)
-                            }
-                        },
-
-                    });
-
-                }
-                )
-                $.datetimepicker.setLocale('zh');
-                $('#date').datetimepicker({
-                    theme: '',              //theme: 'dark',
-                    timepicker: false,       //timepicker:true,
-                    step: 60,                //step: 60 (這是timepicker的預設間隔60分鐘)
-                    format: 'Y-m-d',         //format:'Y-m-d H:i:s',
-                    value: '${param.hiredate}',
-                    beforeShowDay: function (date) {
-                        // Disable dates more than n months from now
-                        return [date >= new Date() && date <= MonthFromNow];
-                    }
-                    // value:   new Date(),
-                    //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-                    //startDate:	            '2017/07/10',  // 起始日
-                    //minDate:               '-1970-01-01', // 去除今日(不含)之前
-                    //maxDate:               '+1970-01-01'  // 去除今日(不含)之後
-                });
-                $('#srattime,#endtime').datetimepicker({
-                    theme: 'dark',              //theme: 'dark',
-                    datepicker: false,       //timepicker:true,
-                    step: 60,             //step: 60 (這是timepicker的預設間隔60分鐘)
-                    format: 'H:i',         //format:'Y-m-d H:i:s',
-                    value: '', // value:   new Date(),
-                });
-                $('#srattime,#endtime').text("")
-            });
-        updatebook.setAttribute("style", "visibility:visible");
-    }
-    let people = null
-    function pricechange() {
-        people = document.getElementById("people").value
-        let price = document.querySelector("#price")
-        price.innerHTML = (people * 200)
-    }
-
-    function change() {
-        pricechange();
-        let a = document.getElementById("date").value
-        let b = document.getElementById("srattime").value + ":00"
-        let c = document.getElementById("endtime").value + ":00"
-        let d = deadline
-        let e = people * 200
-        let data = {
-            bookingNo: bookno,
-            memNo: memno,
-            bookingDate: a,
-            bookingStartTime: b,
-            bookingEndTime: c,
-            bookingFinishDate: d,
-            bookingTotalPrice: e,
-            bookingPeople: people,
-            bookingPaymentStatus: 0,
-            bookingCheckStatus: 0,
-        }
-        // redis改動
-
-        redisdata = {
-            date: document.getElementById('date').value,
-            minTime: document.getElementById('srattime').value.substr(0, 2),
-            maxTime: document.getElementById('endtime').value.substr(0, 2),
-            change: document.getElementById('people').value
-        }
-        $.ajax({
-            url: 'http://localhost:8082/book/saveseat4time',
-            type: 'post',
-            data: redisdata,
-            success: function (response) {
-            },
-
-        });
-
-        $.ajax({
-            url: 'http://localhost:8082/book/addbooking',
-            type: 'post',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8', // 要送到server的資料型態
-            data: JSON.stringify(data),
-            success: function (result) {
-                console.log(result.success); // result是json物件
-            },
-        });
-        sleep(500).then(() => {
-            read();
-            updatebook.setAttribute("style", "visibility:hidden");
-        })
-    }
-    function sleep(time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
-    }
-
-    const logoutButton = document.getElementById('logoutButton');
-
-    logoutButton.addEventListener('click', async (event) => {
-        event.preventDefault();
-        try {
-            const logoutResponse = await fetch('/mem/to-logout', {
-                method: 'POST'
-            });
-            console.log(logoutResponse);
-            if (logoutResponse.ok) {
-                localStorage.removeItem("memNo");
-                const responseText = await logoutResponse.text();
-                console.log(responseText);
-                Swal.fire({
-                    text: responseText,
-                    icon: 'success',
-                }).then(() => {
-                    // 成功登出後重新導向到登入頁面
-                    const url = new URL(window.location.href);
-                    const redirectUrl = url.origin + "/foreground/login.html";
-                    window.location.href = redirectUrl;
-                });
-            } else {
-                console.error(logoutResponse.status);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    });
-
-
-</script>
-
+<script src="/foreground/static/js/my-account-orders.js"></script>
+<script src="/foreground/static/js/mycountbooking.js"></script>
+<script src="/foreground/static/js/mycount-eventls.js"></script>
+</body>
 </html>

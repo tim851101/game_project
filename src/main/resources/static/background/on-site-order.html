@@ -294,7 +294,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-header">
-                  <h4 class="card-title">最新消息維護</h4>
+                  <h4 class="card-title">現場劃位</h4>
                 </div>
                 <div class="card-body">
                   <div class="form-validation">
@@ -319,80 +319,40 @@
                             <label
                               class="col-lg-2 col-form-label"
                               for="NEWS_TITLE"
-                              >主題 <span class="text-danger">*</span>
+                              >人數 <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-8">
-                              <input
-                                type="text"
-                                class="form-control"
-                                id="NEWS_TITLE"
-                                placeholder="請輸入主題..."
-                                required
-                              />
+                              <input  type="text" id="people"> 
                               <div class="invalid-feedback">請輸入主題...</div>
                             </div>
                           </div>
+                            <div class="mb-3 row">
+                                <label
+                                        class="col-lg-2 col-form-label"
+                                        for="NEWS_TITLE"
+                                >會員號(可選) <span class="text-danger"></span>
+                                </label>
+                                <div class="col-lg-8">
+                                    <input type="text" id="memno"></input>
+                                    <div class="invalid-feedback">請輸入主題...</div>
+                                </div>
+                            </div>
                           <div class="mb-3 row">
                             <label
                               class="col-lg-2 col-form-label"
-                              for="NEWS_DESC"
-                              >內容
+                              >預約時間
                               <span class="text-danger">*</span>
                             </label>
                             <div class="col-lg-8">
-                              <textarea
-                                class="form-control"
-                                rows="4"
-                                id="NEWS_DESC"
-                                placeholder="請輸入內容..."
-                                required
-                              ></textarea>
+                                <input type="text" id="bookingtime"></input>
                             </div>
                           </div>
-                          <div class="mb-3 row">
-                            <label
-                              class="col-lg-2 col-form-label"
-                              for="NEWS_STATUS"
-                              >消息狀態
-                              <span class="text-danger">*</span>
-                            </label>
-                            <div class="col-lg-8">
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="NEWS_STATUS"
-                                  id="offPost"
-                                  value="0"
-                                  checked
-                                />
-                                <label class="form-check-label" for="onJob"
-                                  >下架</label
-                                >
-                              </div>
-                              <div class="form-check form-check-inline">
-                                <input
-                                  class="form-check-input"
-                                  type="radio"
-                                  name="NEWS_STATUS"
-                                  id="onPost"
-                                  value="1"
-                                />
-                                <label class="form-check-label" for="quit"
-                                  >上架</label
-                                >
-                              </div>
-                            </div>
-                          </div>
-                        </div>
                         <div class="mb-3 row">
                           <div
-                            class="d-grid gap-2 d-md-flex justify-content-md-end ms-auto"
+                            class="d-grid gap-2 d-md-flex justify-content-md-front ms-auto"
                           >
-                            <button type="submit" class="btn btn-primary fs-5">
-                              修改
-                            </button>
-                            <button type="submit" class="btn btn-primary fs-5">
+
+                            <button type="button" onclick="insert()" class="btn btn-primary fs-7">
                               新增
                             </button>
                           </div>
@@ -412,203 +372,7 @@
           <!--**********************************
             最新消息清單 start
         ***********************************-->
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-header">
-                <h4 class="card-title">最新消息清單</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-responsive-md">
-                    <thead>
-                      <tr>
-                        <th style="width: 50px">
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="checkAll"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="checkAll"
-                            ></label>
-                          </div>
-                        </th>
-                        <th><strong>ROLL NO.</strong></th>
-                        <th><strong>NAME</strong></th>
-                        <th><strong>Email</strong></th>
-                        <th><strong>Date</strong></th>
-                        <th><strong>Status</strong></th>
-                        <th><strong></strong></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox2"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox2"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/1.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-success me-1"></i>
-                            Successful
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox3"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox3"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/2.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-danger me-1"></i>
-                            Canceled
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div
-                            class="form-check custom-checkbox checkbox-success check-lg me-3"
-                          >
-                            <input
-                              type="checkbox"
-                              class="form-check-input"
-                              id="customCheckBox4"
-                              required=""
-                            />
-                            <label
-                              class="form-check-label"
-                              for="customCheckBox4"
-                            ></label>
-                          </div>
-                        </td>
-                        <td><strong>542</strong></td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <img
-                              src="static/picture/3.jpg"
-                              class="rounded-lg me-2"
-                              width="24"
-                              alt=""
-                            />
-                            <span class="w-space-no">Dr. Jackson</span>
-                          </div>
-                        </td>
-                        <td>example@example.com</td>
-                        <td>01 August 2020</td>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <i class="fa fa-circle text-warning me-1"></i>
-                            Pending
-                          </div>
-                        </td>
-                        <td>
-                          <div class="d-flex">
-                            <a
-                              href="#"
-                              class="btn btn-primary shadow btn-xs sharp me-1"
-                              ><i class="fas fa-pencil-alt"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger shadow btn-xs sharp"
-                              ><i class="fa fa-trash"></i
-                            ></a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <!--**********************************
             最新消息清單 end
         ***********************************-->
@@ -663,5 +427,40 @@
     <script src="static/js/dlabnav-init.js"></script>
     <script src="static/js/demo.js"></script>
     <script src="static/js/styleSwitcher.js"></script>
+    <script>
+    function  insert() {
+      const today = new Date();
+      const year = today.getFullYear();
+          let month = today.getMonth() + 1;
+          if (month < 10) {
+            month = '0' + month;
+          }
+          let day = today.getDate();
+          if (day < 10) {
+            day = '0' + day;
+          }
+          const currentDate = `${year}-${month}-${day}`;
+        datas={
+          bookingNo:"",
+        memNo:document.getElementById('memno').value,
+        bookingDate:currentDate,
+        bookingStartTime:today.getHours()+":00:00",
+        bookingEndTime:document.getElementById('bookingtime').value,
+        bookingPaymentStatus:1,
+        bookingCheckStatus:1,
+        bookingFinishDate:currentDate,
+        bookingTotalPrice:document.getElementById('people').value*200,
+        bookingPeople:document.getElementById('people').value
+      }
+      fetch("/book/addbooking",{
+        method:'post',
+        body:JSON.stringify(datas),
+        headers: new Headers({
+    'Content-Type': 'application/json'
+         })
+      })
+    }
+      
+    </script>
   </body>
 </html>

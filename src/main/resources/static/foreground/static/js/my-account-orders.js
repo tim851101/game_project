@@ -1,4 +1,4 @@
-const memNo = 10;
+const memNo = localStorage.getItem('memNo')
 render(+memNo);
 
 

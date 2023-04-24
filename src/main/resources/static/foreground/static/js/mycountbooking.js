@@ -2,7 +2,7 @@
      const tbody = document.querySelector('#booking');
       const update= document.querySelector('#update');
       const updatebook= document.querySelector('#updatebook')
-     const url ='/book/bookingbymemno?memno=32';//目前寫死
+     const url ='/book/bookingbymemno?memno=11';//目前寫死
       const MonthFromNow = new Date();
     MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
      let bookno=null;

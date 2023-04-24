@@ -81,15 +81,18 @@ function findAll(members) {
                 </td>
                 <td>${mem.memEmail}</td>
                 <td>
-                    <div class="d-flex align-items-center auth-group">
+                    <div class="border border-dark rounded m-1 d-flex align-items-center auth-group width90">
+                        <i class="fa fa-circle me-1" style="visibility: hidden;"></i>
                         <i id="i-auth-${mem.memNo}" class="fa fa-circle ${mem.reserveAuth ? "text-success" : "text-danger"} me-1"></i>
                         <div id="div-auth-${mem.memNo}">${mem.reserveAuth ? "有權" : "停權"}</div>
                     </div>
                 </td>
                 <td>
                     <div class="d-flex">
+                        <div class="fas fa-check" style="visibility: hidden;"></div>
+                        <div class="fas fa-check" style="visibility: hidden;"></div>
                         <a id="mem-edit-${mem.memNo}" class="btn btn-primary shadow btn-xs sharp me-1 mem-edit-btn">
-                            <i id="mem-i-${mem.memNo}" class="fas fa-pencil-alt"></i>
+                            <i id="mem-i-${mem.memNo}" class="fas fa-check"></i>
                         </a>
                     </div>
                 </td>

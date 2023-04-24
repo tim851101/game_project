@@ -26,4 +26,12 @@ public class messageRepository {
     public List<String> findByID(Integer id){
         return (List<String>) messageTemplate.opsForHash().get(HASH_KEY,id.toString());
     }
+
+    public Boolean deleteByID(Integer id){
+        messageTemplate.opsForHash().put(HASH_KEY
+                ,id.toString(),
+                null
+        );
+        return true;
+    }
 }

@@ -275,12 +275,14 @@ function checkredis(){
              //       console.log("還有位置");
                     document.getElementById('post').removeAttribute('disabled')
                     document.getElementById('toPay').removeAttribute('disabled')
+                    document.getElementById('wrong').innerHTML=``
                     }
                     else
                     {
                //     console.log("沒有");
                     document.getElementById('post').setAttribute('disabled',true)
                     document.getElementById('toPay').setAttribute('disabled',true)
+                    document.getElementById('wrong').innerHTML=`<div font style="color:red;">此區間段位子以滿，或該時段不開放>`
                     }
                  },
 

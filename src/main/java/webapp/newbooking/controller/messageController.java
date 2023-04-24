@@ -18,10 +18,18 @@ public class messageController {
     @PostMapping("/update")
     @ResponseBody
     public Boolean updatemssages(String message,Integer id){
-        messageRepository.findByID(id);
+        System.out.println(messageRepository.findByID(id));
         List<String> messages= messageRepository.findByID(id);
+        if(messages==null) {
+        messages=new ArrayList<String>();
+        }
         messages.add(message);
         System.out.println(messages);
        return messageRepository.save(id,messages);
+    }
+    @PostMapping("/delete")
+    @ResponseBody
+    public Boolean deletemessages(@RequestParam Integer id){
+        return messageRepository.deleteByID(id);
     }
 }

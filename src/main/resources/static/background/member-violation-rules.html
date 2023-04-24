@@ -291,8 +291,8 @@
                                         <th colspan="2" >違規次數範圍</th>
                                     </tr>
                                     <tr>
-                                        <th>上界</th>
-                                        <th>下界</th>
+                                        <th>違規次數大於</th>
+                                        <th>違規次數小於</th>
                                         <th>鎖定天數</th>
                                     
                                     </tr>
@@ -312,9 +312,9 @@
                                 <tbody id="level">
                                 </table>
                             </div>
-                            <div>
+                            <div id="button">
                                 <button type="button" onclick="rangechange()" class="btn btn-primary"
-                                        style="margin-left: 93%;">Submit</button>
+                                        style="margin-left: 93%;">改動</button>
                             </div>
                         </form>
                     </div>
@@ -427,9 +427,11 @@
 <script>
 read();
 function read(){
+    button1=document.getElementById("button");
+    button1.setAttribute('style','display: none');
      range=document.getElementById("range");
      range.innerHTML=``
-    fetch("http://localhost:8082/mem/ls-perm-level").then(resp => resp.json())
+    fetch("/mem/ls-perm-level").then(resp => resp.json())
       .then(list => {
       let color= ""
         for(let ranges of list){
@@ -443,14 +445,21 @@ function read(){
         <td contenteditable="false">${ranges.lowerLimit}</td>
         <td contenteditable="false">${ranges.upperLimit}</td>
         <td contenteditable="false"><span class="badge badge-`+color+`">${ranges.duration}</span></td>
-       <td> <button type="button" onclick="rangelevel(${ranges.permissionsNo})" class="btn btn-primary"style="width:100px ";">修改範圍</button></td> 
+       <td> <button type="button" onclick="rangelevel(${ranges.permissionsNo})" class="btn btn-primary"style="width:130px ";">修改範圍</button></td>
         <input type="hidden"value="${ranges.permissionsNo}" ></input>
             </tr>`
         } 
-       
+       if(color=="")
+       {
+
+       rangelevel(1);
+<!--       rangelevel(2);-->
+<!--        rangelevel(3);-->
+       }
       })   
      }
      function rangelevel(num){
+        button1.removeAttribute('style')
         let levels=document.getElementById('level')
         if(num==1)
         level="Low"
@@ -465,8 +474,8 @@ function read(){
                             </div><div>
             <tr>    
                         <td>修正等級：<input type="hidden" value="`+num+`"id="permissionsNo" ></imput>`+level+`</td>
-                        <td>上界<input  value=""id="up"></input></td>
-                        <td>下界<input  value=""id="down""></input></td>
+                        <td>違規次數大於<input  value=""id="up"></input></td>
+                        <td>違規次數小於<input  value=""id="down""></input></td>
                         <td>鎖定天數<input  value="" id="duration"></input></td>
                             </td>
                     </tr>

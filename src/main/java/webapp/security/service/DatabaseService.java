@@ -20,9 +20,9 @@ public class DatabaseService {
 
         System.out.println("Initializing database...");
         Employee admin = new Employee().builder()
-            .employeeName("Amy")
-            .employeePhone("1234567890")
-            .employeeAddress("Not Gonna Tell You St.")
+            .employeeName("林艾美")
+            .employeePhone("0988768473")
+            .employeeAddress("台北市東區東街88巷6號")
             .employeeEmail("amy@mail.com")
             .employeePassword(passwordEncoder.encode("333"))
             .roleNo(1)
@@ -30,9 +30,9 @@ public class DatabaseService {
             .build();
 
         Employee user = new Employee().builder()
-            .employeeName("John")
-            .employeePhone("2234567890")
-            .employeeAddress("Not Gonna Tell You St.")
+            .employeeName("王強尼")
+            .employeePhone("0982768364")
+            .employeeAddress("台南市北區東街88巷6號")
             .employeeEmail("john@mail.com")
             .employeePassword(passwordEncoder.encode("222"))
             .roleNo(2)

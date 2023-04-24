@@ -68,8 +68,8 @@ public class SeatService {
     public void initialSeat() {
         // Get the start date and end date
         // TODO: hard coded so far
-        LocalDate startDate = LocalDate.of(2023, 4, 25);
-        LocalDate endDate = LocalDate.of(2023, 4, 30);
+        LocalDate startDate = LocalDate.of(2023, 4, 1);
+        LocalDate endDate = LocalDate.of(2023, 5, 31);
         Integer setSeatsAmount = setSeats(startDate, endDate);
         System.out.println("seat initialized, total " + setSeatsAmount + " dates");
     }

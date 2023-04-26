@@ -1,7 +1,7 @@
 // Initialize the Datepicker
-$(function () {
+InitialDatepicker = () => {
     const MonthFromNow = new Date();
-    MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
+    MonthFromNow.setMonth(MonthFromNow.getMonth() + 2);
 
     $('#datepicker').datepicker({
         dateFormat: 'yy-mm-dd',
@@ -12,8 +12,9 @@ $(function () {
             return [date >= new Date() && date <= MonthFromNow];
         }
     });
-});
+};
 $(window).ready(() => {
+    InitialDatepicker();
     const hourBlock = $('.hour-block');
     for (const block of hourBlock) {
         $(block).addClass('locked');
@@ -41,6 +42,9 @@ $(window).ready(() => {
     $('#booking-amount').blur(e => {
         if (e.target.value.length != ''){
             $('#warn-amount').text('');
+        } else {
+            $('#warn-amount').text('請選擇人數');
+            return
         }
         fetch(`/seat/find/${$('#datepicker').val()}`, {
         })

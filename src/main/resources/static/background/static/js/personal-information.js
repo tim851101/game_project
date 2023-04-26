@@ -39,10 +39,14 @@ window.onload = () => {
                     $('#msg-old-pwd').text('');
                     $('#new-pwd').prop('disabled', false);
                     $('#check-pwd').prop('disabled', false);
+                    $('#new-pwd').addClass('border-dark');
+                    $('#check-pwd').addClass('border-dark');
                 } else {
                     $('#msg-old-pwd').text('舊密碼錯誤');
-                    e.target.value = '';
+                    // e.target.value = '';
                     $('#new-pwd').prop('disabled', true);
+                    $('#new-pwd').removeClass('border-dark');
+                    $('#check-pwd').removeClass('border-dark');
                 }
             })
     })

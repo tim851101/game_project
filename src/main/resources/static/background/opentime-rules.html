@@ -255,9 +255,10 @@
                         <i class="fas fa-chair"></i>
                         <span class="nav-text">訂位資訊管理</span>
                     </a>
-                    <ul aria-expanded="false">
+                    <ul aria-expanded="true">
                         <li><a href="/background/on-site-order.html">現場劃位</a></li>
-                        <li><a href="/background/opentime-rules.html">營業時間設定</a></li>
+                        <li><a href="/background/opentime-rules.html#openhour">營業時間設定</a></li>
+                        <li><a href="/background/opentime-rules.html#holiday">國定假日與特休設定</a></li>
                         <li><a href="/background/booking-maintain.html">訂位管理</a></li>
                     </ul>
                 </li>
@@ -289,108 +290,11 @@
         ***********************************-->
     <div class="content-body">
         <div class="container-fluid">
-            <div class="row page-titles">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item active"><a href="javascript:void(0)">營業時間設定</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">設定國定假日與特休</a></li>
-                </ol>
-            </div>
-            <!-- row -->
-            <div class="row">
-                <div class="col-xl-3 col-xxl-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="">
-                                <div id="external-events" class="my-3">
-                                    <div class="external-event btn-primary light" data-class="bg-primary"><i
-                                            class="fa fa-move"></i>國定假日
-                                    </div>
-                                    <div class="external-event btn-warning light " data-class="bg-warning"><i
-                                            class="fa fa-move"></i>店家特休
-                                    </div>
-                                </div>
-                                <button id="submit-button" class="btn btn-primary btn-event w-100">存檔</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-9 col-xxl-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <div id="calendar" class="app-full"></div>
-                        </div>
-                    </div>
-                </div>
-                <!-- BEGIN MODAL -->
-                <div class="modal fade none-border" id="event-modal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title"><strong>Add New Event</strong></h4>
-                            </div>
-                            <div class="modal-body"></div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default waves-effect"
-                                        data-bs-dismiss="modal">Close
-                                </button>
-                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create
-                                    event
-                                </button>
 
-                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light"
-                                        data-bs-toggle="modal">Delete
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Modal Add Category -->
-                <div class="modal fade none-border" id="add-category">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title"><strong>Add a category</strong></h4>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <label class="control-label form-label">Category Name</label>
-                                            <input class="form-control form-white" placeholder="Enter name" type="text"
-                                                   name="category-name">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label class="control-label form-label">Choose Category Color</label>
-                                            <select class="form-control form-white" data-placeholder="Choose a color..."
-                                                    name="category-color">
-                                                <option value="success">Success</option>
-                                                <option value="danger">Danger</option>
-                                                <option value="info">Info</option>
-                                                <option value="pink">Pink</option>
-                                                <option value="primary">Primary</option>
-                                                <option value="warning">Warning</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default waves-effect"
-                                        data-bs-dismiss="modal">Close
-                                </button>
-                                <button type="button" class="btn btn-danger waves-effect waves-light save-category"
-                                        data-bs-toggle="modal">Save
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- table -->
             <div class="row page-titles">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item active"><a href="javascript:void(0)">營業時間設定</a></li>
-                    <li class="breadcrumb-item"><a href="javascript:void(0)">一般營業時間設定</a></li>
+                    <li class="breadcrumb-item"><a name="openhour" href="javascript:void(0)">一般營業時間設定</a></li>
                 </ol>
             </div>
             <div class="table-responsive">
@@ -516,8 +420,108 @@
                     </tr>
                     </tbody>
                 </table>
-                <div id="time-submit-button" class="long-submit-button">提交</div>
+                <div id="time-submit-button" class="long-submit-button">儲存</div>
             </div>
+            <!-- Calender -->
+            <div class="row page-titles">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><a href="javascript:void(0)">營業時間設定</a></li>
+                    <li class="breadcrumb-item"><a name="holiday" href="javascript:void(0)">國定假日與特休設定</a></li>
+                </ol>
+            </div>
+            <!-- row -->
+            <div class="row">
+                <div class="col-xl-3 col-xxl-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="">
+                                <div id="external-events" class="my-3">
+                                    <div class="external-event btn-primary light" data-class="bg-primary"><i
+                                            class="fa fa-move"></i>國定假日
+                                    </div>
+                                    <div class="external-event btn-warning light " data-class="bg-warning"><i
+                                            class="fa fa-move"></i>店家特休
+                                    </div>
+                                </div>
+                                <button id="submit-button" class="btn btn-primary btn-event w-100">存檔</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-xxl-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="calendar" class="app-full"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- BEGIN MODAL -->
+                <div class="modal fade none-border" id="event-modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Add New Event</strong></h4>
+                            </div>
+                            <div class="modal-body"></div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect"
+                                        data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create
+                                    event
+                                </button>
+
+                                <button type="button" class="btn btn-danger delete-event waves-effect waves-light"
+                                        data-bs-toggle="modal">Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Add Category -->
+                <div class="modal fade none-border" id="add-category">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title"><strong>Add a category</strong></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="control-label form-label">Category Name</label>
+                                            <input class="form-control form-white" placeholder="Enter name" type="text"
+                                                   name="category-name">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="control-label form-label">Choose Category Color</label>
+                                            <select class="form-control form-white" data-placeholder="Choose a color..."
+                                                    name="category-color">
+                                                <option value="success">Success</option>
+                                                <option value="danger">Danger</option>
+                                                <option value="info">Info</option>
+                                                <option value="pink">Pink</option>
+                                                <option value="primary">Primary</option>
+                                                <option value="warning">Warning</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default waves-effect"
+                                        data-bs-dismiss="modal">Close
+                                </button>
+                                <button type="button" class="btn btn-danger waves-effect waves-light save-category"
+                                        data-bs-toggle="modal">Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- table -->
+
         </div>
     </div>
     <!--**********************************

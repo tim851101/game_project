@@ -26,6 +26,14 @@ function fullCalender() {
     -----------------------------------------------------------------*/
     let calendarEl = document.getElementById('calendar');
     let calendar = new FullCalendar.Calendar(calendarEl, {
+        validRange: {
+            start: moment(new Date()).add(2, 'month').startOf('month').format('YYYY-MM-DD'),
+            end: moment(new Date()).add(2, 'month').endOf('month').format('YYYY-MM-DD')
+        },
+        // visibleRange: { // TODO: not working
+        //     start: moment(new Date()).subtract(1, 'month').startOf('month').format('YYYY-MM-DD'),
+        //     end: moment(new Date()).add(2, 'month').endOf('month').format('YYYY-MM-DD')
+        // },
         /**
          *  header
          */
@@ -139,7 +147,7 @@ function fullCalender() {
                             loadEvents.push({
                                 title: data.id,
                                 start: moment(date).format('YYYY-MM-DD'),
-                                className: data.id=='國定假日'?"bg-primary":"bg-warning"
+                                className: data.id == '國定假日' ? "bg-primary" : "bg-warning"
                             })
                             selectedDates.add(moment(date).format('YYYY-MM-DD'));
                             selectedMap.get(data.id).add(moment(date).format('YYYY-MM-DD'));
@@ -155,8 +163,8 @@ function fullCalender() {
     calendar.render();
 }
 
-jQuery(window).on('load', function () {
-    setTimeout(function () {
+jQuery(window).on('load', () => {
+    setTimeout(() => { // run calender after a little delay
         fullCalender();
     }, 1000);
 });

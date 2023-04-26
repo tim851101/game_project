@@ -68,7 +68,7 @@ public class ProductPicController {
             // 如果出現異常，返回一張缺失圖片
             byte[] buffer = new byte[4096];
             int bytesRead = -1;
-            String imgFile ="C:\\20230415_NEW\\CGA106G1\\src\\main\\resources\\static\\foreground\\static\\image\\none.jpg";
+            String imgFile ="C:\\Users\\a81194\\Desktop\\TibameProject\\CGA106G1\\src\\main\\resources\\static\\foreground\\static\\image\\none.jpg";
             InputStream inputStream=new FileInputStream(imgFile);;
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             while ((bytesRead = inputStream.read(buffer)) != -1) {

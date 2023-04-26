@@ -18,29 +18,27 @@ public class WishlistController {
 
     @GetMapping("/list-all")
     @ResponseBody
-    public List<CollectionDTO> getAllByMemNode(@RequestParam Integer memNo){
+    public List<CollectionDTO> getAllByMemNode(@RequestParam Integer memNo) {
         return wishlistServiceImpl.getAllByMemNo(memNo);
     }
 
     @GetMapping("/myList")
     @ResponseBody
-    public List<WishlistDTO> findListByMemNo(@RequestParam Integer memNo){
-        System.out.println("start....");
-        System.out.println(wishlistServiceImpl.findWishlistByMemNo(memNo));
+    public List<WishlistDTO> findListByMemNo(@RequestParam Integer memNo) {
         return wishlistServiceImpl.findWishlistByMemNo(memNo);
     }
 
     @PostMapping("/delete-one")
     @ResponseBody
-    public String deleteWishlistByPdNo(@RequestBody CollectionDTO collectionDTO){
+    public String deleteWishlistByPdNo(@RequestBody CollectionDTO collectionDTO) {
         System.out.println(collectionDTO.getMemNo());
         System.out.println(collectionDTO.getPdNo());
-        return wishlistServiceImpl.deleteByMemNoAndPdNo(collectionDTO.getMemNo(),collectionDTO.getPdNo());
+        return wishlistServiceImpl.deleteByMemNoAndPdNo(collectionDTO.getMemNo(), collectionDTO.getPdNo());
     }
 
     @PostMapping("/add-one")
     @ResponseBody
-    public String addWishlistByPdNo(@RequestBody CollectionDTO collectionDTO){
+    public String addWishlistByPdNo(@RequestBody CollectionDTO collectionDTO) {
         return wishlistServiceImpl.saveByMemNoAndPdNo(collectionDTO.getMemNo(), collectionDTO.getPdNo());
     }
 }

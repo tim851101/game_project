@@ -157,7 +157,7 @@
                                     <button id=checkout class="btn obrien-button primary-btn" href="">立刻結帳</button>
                                     <button id="addToCart"
                                         class="btn obrien-button-2 treansparent-color pt-0 pb-0">加入購物車</button>
-                                    <a class="btn obrien-button-2 treansparent-color pt-0 pb-0" href="">加入收藏</a>
+                                    <a class="btn obrien-button-2 treansparent-color pt-0 pb-0" href="" id="addwishItem">加入收藏</a>
                                 </div>
                             </div>
 
@@ -938,5 +938,38 @@
     <!--讀取商品名稱、圖片等資訊-->
     <script src="static/js/read-product-information.js"></script>
 </body>
+<script>
+const addwishItem = document.querySelector('#addwishItem');
+addwishItem.addEventListener('click', (e) => {
+    e.preventDefault();
+    const memNo = localStorage.getItem('memNo');
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const pdNo = urlParams.get('pdNo');
 
+    fetch('/wish/add-one', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+        memNo: memNo,
+        pdNo: pdNo
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        Swal.fire({
+              text: data.message,
+              icon: 'success',
+        })
+        .then(async () => {
+            await this.toCurrentUrl();
+        });
+    })
+    .catch(error => console.error(error));
+});
+
+
+</script>
 </html>

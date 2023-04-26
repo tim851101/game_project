@@ -1,4 +1,32 @@
+const logoutButton = document.getElementById('logoutButton');
 
+logoutButton.addEventListener('click', async (event) => {
+    event.preventDefault();
+    try {
+        const logoutResponse = await fetch('/mem/to-logout', {
+            method: 'POST'
+        });
+        console.log(logoutResponse);
+        if (logoutResponse.ok) {
+            localStorage.removeItem("memNo");
+            const responseText = await logoutResponse.text();
+            console.log(responseText);
+            Swal.fire({
+                text: responseText,
+                icon: 'success',
+            }).then(() => {
+                // 成功登出後重新導向到登入頁面
+                const url = new URL(window.location.href);
+                const redirectUrl = url.origin + "/foreground/login.html";
+                window.location.href = redirectUrl;
+            });
+        } else {
+            console.error(logoutResponse.status);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});
 Vue.createApp({
       data() {
         return {

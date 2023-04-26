@@ -1,10 +1,10 @@
 package webapp.member.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Blob;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +16,6 @@ public class WishlistDTO {
     private String pdName;
     private Integer price;
     private Integer pdStock;
-    private Blob pdPic;
+    private Integer picNo;
 
-//    private Integer memNo;
 }

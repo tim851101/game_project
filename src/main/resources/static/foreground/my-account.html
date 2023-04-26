@@ -195,9 +195,9 @@
                                                         <tbody id="tbody-context">
 
                                                             <tr v-for="item in memWishlist" :key="item.pdNo">
-                                                                <td class="pro-thumbnail"><a href="#"><img
-                                                                            class="img-fluid" :src="item.pdPic"
-                                                                            alt="Product"></a></td>
+                                                                <td class="pro-thumbnail" style="width:120px"><a href="#"><img
+                                                                            class="img-fluid" :src="'/pic/getimage?picno=' + item.picNo"
+                                                                            alt="Product" style="max-width: 100%;"></a></td>
                                                                 <td class="pro-title"><a href="#">{{ item.pdName }}</a>
                                                                 </td>
                                                                 <td class="pro-price"><span>{{ item.price }}</span></td>
@@ -640,13 +640,11 @@
     <!-- Main JS -->
     <script src="/foreground/static/js/main.js"></script>
     <!-- table JS-->
-    <script src="/foreground/static/js/headerUse.js"></script>
-
     <script src="/foreground/static/js/mycountbooking.js"></script>
 
     <script src="/foreground/static/js/mycount-eventls.js"></script>
 
-    <script defer src="/foreground/static/js/my-account-orders.js"></script>
+    <script src="/foreground/static/js/my-account-orders.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>

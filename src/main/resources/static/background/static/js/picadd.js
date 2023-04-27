@@ -13,7 +13,7 @@ form.addEventListener('submit', (event) => {
         const file = fileInput.files[i];
         // 檢查是否為圖片文件
         if (!file.type.startsWith("image/")) {
-            alert(`第 ${i + 1} 個檔案非圖片檔案`);
+            Swal.fire(`第 ${i + 1} 個檔案不是圖片檔案`);
             return;
         }
         formData.append('files', file);
@@ -28,6 +28,7 @@ form.addEventListener('submit', (event) => {
             if (!successMessageDisplayed) {
                 const successMessage = document.createElement('p');
                 successMessage.textContent = '圖片存進資料庫成功';
+                successMessage.style.color = 'red';
                 form.appendChild(successMessage);
                 successMessageDisplayed = true;
             }

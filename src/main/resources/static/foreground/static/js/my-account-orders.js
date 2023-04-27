@@ -13,6 +13,7 @@ function render(memNo) {
         $('#ordersTable-1').DataTable().clear().destroy();
 
         let ordStatus = "";
+        let ordPayStatus = "";
         for (let item of list) {
             switch (item.ordStatus) {
                 case (0):
@@ -50,10 +51,10 @@ function render(memNo) {
             }
             switch (item.ordPayStatus) {
                 case (0):
-                    item.ordPayStatus = '未付款';
+                    ordPayStatus = '未付款';
                     break;
                 case (1):
-                    item.ordPayStatus = '已付款';
+                    ordPayStatus = '已付款';
                     break;
             }
             data += `
@@ -61,11 +62,11 @@ function render(memNo) {
             <td>${item.ordNo}</td>
             <td>${item.ordCreate}</td>
             <td>$${item.actualAmount}</td>
-            <td>${item.ordPayStatus}</td>
+            <td>${ordPayStatus}</td>
             <td id = ordStatus${item.ordNo}>${ordStatus}</td>
             <td>${item.ordPick}</td>
             <td><a href="order-detail.html?ordNo=${item.ordNo}" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-            <td><button id = btn${item.ordNo} onclick="changeStatusByOrdNo(${item.ordNo},${memNo} ,3)" class="btn obrien-button-2 primary-color rounded-0" ${(+item.ordStatus>=3) ? 'style="visibility:hidden"':''}>退貨</button></td>
+            <td><button id = btn${item.ordNo} onclick="changeStatusByOrdNo(${item.ordNo},${memNo} ,3)" class="btn obrien-button-2 primary-color rounded-0" ${(+item.ordPayStatus===0 ||+item.ordStatus>=3) ? 'style="visibility:hidden"':''}>退貨</button></td>
         </tr>`
         }
         table.innerHTML = data;

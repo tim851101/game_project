@@ -76,23 +76,27 @@ $("#ordPayStatus").change(() => {
     }
 })
 //到店取貨時，地址定在商家地址並隱藏地址input，並且改變運費金額
+let oldaddres=""
 $("#ordPick").change(() => {
     if (+$('#ordPick').val() === 0) {
+        oldaddres = $("#recipientAddres").val();
         $("#recipientAddres").val("店面取貨");
         $("#input-addres").hide();
         $("#ordFee").text("0")
         sumActulAmount()
     } else if (+$('#ordPick').val() === 1) {
-        $.get(`/mem/find-one?id=${memNo}`, function (result) {
-            $("#recipientAddres").val(result.memAddress);
-        })
+        if($("#recipientAddres").val()!=="店面取貨"){
+            oldaddres = $("#recipientAddres").val()
+        }
+        $("#recipientAddres").val(oldaddres);
         $("#input-addres").show();
         $("#ordFee").text("75")
         sumActulAmount()
     } else if (+$('#ordPick').val() === 2) {
-        $.get(`/mem/find-one?id=${memNo}`, function (result) {
-            $("#recipientAddres").val(result.memAddress);
-        })
+        if($("#recipientAddres").val()!=="店面取貨"){
+            oldaddres = $("#recipientAddres").val()
+        }
+        $("#recipientAddres").val(oldaddres);
         $("#input-addres").show();
         $("#ordFee").text("100")
         sumActulAmount()

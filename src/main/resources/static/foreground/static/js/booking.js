@@ -92,7 +92,6 @@ $(window).ready(() => {
                 "change": +amount
             })
         }
-        console.log(seatList)
         fetch(`/seat/update`, {
             method: 'POST',
             body: JSON.stringify(seatList),

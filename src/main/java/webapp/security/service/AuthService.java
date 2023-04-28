@@ -27,20 +27,6 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-//    public AuthResponseDTO register(RegisterRequestDTO dto) {
-//
-//        Person person = new Person();
-//        person.setName(dto.getName());
-//        person.setEmail(dto.getEmail());
-//        person.setRoleId(dto.getRoleId());
-//        person.setPassword(passwordEncoder.encode(dto.getPassword()));
-//
-//        person = empService.create(person);
-//
-//        return new AuthResponseDTO(
-//            jwtService.generateToken(person.getEmail()));
-//    }
-
     public AuthResponseDTO authenticate(AuthRequestDTO dto) {
 
         authenticationManager.authenticate(

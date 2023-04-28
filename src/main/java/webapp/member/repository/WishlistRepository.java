@@ -17,14 +17,19 @@ public interface WishlistRepository extends JpaRepository<Collection,Integer> {
     Boolean existsByPdNoAndMemNo(Integer pdNo,Integer memNo);
     Collection findByPdNoAndMemNo(Integer pdNo,Integer memNo);
 
-//    @Modifying
+
     @Query(value =
-            "SELECT new webapp.member.dto.WishlistDTO(pd.pdNo, pd.pdName,pd.pdPrice, pd.pdStock,"+
-            "(SELECT pp.pdPic FROM ProductPic pp "+
-            "WHERE pp.pdNo = pd.pdNo ORDER BY pp.picNo ASC LIMIT 1) AS pdPic) "+
-            "FROM Product pd JOIN Collection cl ON cl.pdNo = pd.pdNo "+
-            "WHERE cl.memNo= :memNO AND pd.pdStatus = 1 "
+        "SELECT new webapp.member.dto.WishlistDTO(" +
+                "pd.pdNo, " +
+                "pd.pdName, " +
+                "pd.pdPrice, " +
+                "pd.pdStock, " +
+                "(SELECT pp.picNo FROM ProductPic pp WHERE pp.pdNo = pd.pdNo ORDER BY pp.picNo ASC LIMIT 1) AS picNo " +
+                ") " +
+                "FROM Product pd " +
+                "JOIN Collection cl ON cl.pdNo = pd.pdNo " +
+                "WHERE cl.memNo = :memNo AND pd.pdStatus = 1"
     )
-    List<WishlistDTO> findListByMemNo(@Param("memNO") Integer memNo);
+    List<WishlistDTO> findListByMemNo(@Param("memNo") Integer memNo);
 
 }

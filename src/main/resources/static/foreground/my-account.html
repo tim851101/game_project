@@ -57,596 +57,593 @@
 
 <body>
 
-    <div class="contact-wrapper">
-        <div id="header"></div>
-        <!-- Breadcrumb Area Start Here -->
-        <div class="breadcrumbs-area position-relative">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <div class="breadcrumb-content position-relative section-content">
-                            <h3 class="title-3">會員中心</h3>
-                            <!-- <ul>
-                                <li><a href="my-account.html">會員中心</a></li>
-                                <li>Dashboard</li>
-                            </ul> -->
-                        </div>
+<div class="contact-wrapper">
+    <div id="header"></div>
+    <!-- Breadcrumb Area Start Here -->
+    <div class="breadcrumbs-area position-relative">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="breadcrumb-content position-relative section-content">
+                        <h3 class="title-3">會員中心</h3>
+                        <!-- <ul>
+                            <li><a href="my-account.html">會員中心</a></li>
+                            <li>Dashboard</li>
+                        </ul> -->
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Breadcrumb Area End Here -->
-        <!-- my account wrapper start -->
-        <div class="my-account-wrapper mt-no-text mb-no-text">
-            <div class="container container-default-2 custom-area">
-                <div class="row">
-                    <div class="col-lg-12 col-custom">
-                        <!-- My Account Page Start -->
-                        <div class="myaccount-page-wrapper">
-                            <!-- My Account Tab Menu Start -->
-                            <div class="row" id="memberAllData">
-                                <div class="col-lg-3 col-md-4 col-custom">
-                                    <div class="myaccount-tab-menu nav" role="tablist">
-                                        <input id="memNo" type="text" hidden>
-                                        <a href="#dashboard" class="active" data-bs-toggle="tab"><i
-                                                class="fa fa-dashboard"></i>
-                                            Dashboard</a>
-                                        <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
-                                            訂單管理</a>
-                                        <a href="#wishlist" data-bs-toggle="tab" id="myWishlist"><i
-                                                class="fa fa-heart"></i>
-                                            我的收藏</a>
-                                        <a href="#notify" data-bs-toggle="tab"><i class="fa fa-bell"></i>
-                                            我的訊息</a>
-                                        <a href="#coupon-query" data-bs-toggle="tab"><i class="fa fa-money"></i>
-                                            回饋金查詢</a>
-                                        <a href="#booking-edit" data-bs-toggle="tab"><i class="fa fa-chair"></i>
-                                            訂位訂單</a>
-                                        <a href="#event-edit" data-bs-toggle="tab"><i class="fa fa-trophy"></i>
-                                            活動訂單</a>
-                                        <a href="#account-info" data-bs-toggle="tab" id="myPersonalData"><i
-                                                class="fa fa-user"></i>
-                                            帳號維護</a>
-                                        <a href="#password-edit" data-bs-toggle="tab"><i class="fa fa-key"></i>密碼變更</a>
-                                        <a href="#" id="logoutButton"><i class="fa fa-sign-out"></i>會員登出</a>
-                                    </div>
+    </div>
+    <!-- Breadcrumb Area End Here -->
+    <!-- my account wrapper start -->
+    <div class="my-account-wrapper mt-no-text mb-no-text">
+        <div class="container container-default-2 custom-area">
+            <div class="row">
+                <div class="col-lg-12 col-custom">
+                    <!-- My Account Page Start -->
+                    <div class="myaccount-page-wrapper">
+                        <!-- My Account Tab Menu Start -->
+                        <div class="row" id="memberAllData">
+                            <div class="col-lg-3 col-md-4 col-custom">
+                                <div class="myaccount-tab-menu nav" role="tablist">
+                                    <input id="memNo" type="text" hidden>
+                                    <a href="#dashboard" class="active" data-bs-toggle="tab"><i
+                                            class="fa fa-dashboard"></i>
+                                        Dashboard</a>
+                                    <a href="#orders" data-bs-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
+                                        訂單管理</a>
+                                    <a href="#wishlist" data-bs-toggle="tab" id="myWishlist"><i
+                                            class="fa fa-heart"></i>
+                                        我的收藏</a>
+                                    <a href="#notify" data-bs-toggle="tab"><i class="fa fa-bell"></i>
+                                        我的訊息</a>
+                                    <a href="#coupon-query" data-bs-toggle="tab"><i class="fa fa-money"></i>
+                                        回饋金查詢</a>
+                                    <a href="#booking-edit" data-bs-toggle="tab"><i class="fa fa-chair"></i>
+                                        訂位訂單</a>
+                                    <a href="#event-edit" data-bs-toggle="tab"><i class="fa fa-trophy"></i>
+                                        活動訂單</a>
+                                    <a href="#account-info" data-bs-toggle="tab" id="myPersonalData"><i
+                                            class="fa fa-user"></i>
+                                        帳號維護</a>
+                                    <a href="#password-edit" data-bs-toggle="tab"><i class="fa fa-key"></i>密碼變更</a>
+                                    <a href="#" id="logoutButton"><i class="fa fa-sign-out"></i>會員登出</a>
                                 </div>
-                                <!-- My Account Tab Menu End -->
+                            </div>
+                            <!-- My Account Tab Menu End -->
 
-                                <!-- My Account Tab Content Start -->
-                                <div class="col-lg-9 col-md-8 col-custom">
-                                    <div class="tab-content" id="myaccountContent">
-                                        <!-- Single Tab Content Start -->
-                                        <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
-                                            <div hidden id="memNo_dash">{{ defaultMemNo }}</div>
-                                            <div class="myaccount-content">
-                                                <h3>Dashboard</h3>
-                                                <div class="welcome">
-                                                    <p>您好, <strong id="myName">{{defaultMemName}}</strong></p>
-                                                </div>
-                                                <p class="mb-0">
-                                                    由你的帳戶管理頁面，你可以輕鬆地檢查和查看你最近的訂單與通知，管理你所預約的訂位與活動，以及編輯你的密碼和帳戶詳細資料。</p>
+                            <!-- My Account Tab Content Start -->
+                            <div class="col-lg-9 col-md-8 col-custom">
+                                <div class="tab-content" id="myaccountContent">
+                                    <!-- Single Tab Content Start -->
+                                    <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                                        <div hidden id="memNo_dash">{{ defaultMemNo }}</div>
+                                        <div class="myaccount-content">
+                                            <h3>Dashboard</h3>
+                                            <div class="welcome">
+                                                <p>您好, <strong id="myName">{{defaultMemName}}</strong></p>
+                                            </div>
+                                            <p class="mb-0">
+                                                由你的帳戶管理頁面，你可以輕鬆地檢查和查看你最近的訂單與通知，管理你所預約的訂位與活動，以及編輯你的密碼和帳戶詳細資料。</p>
+                                        </div>
+                                    </div>
+                                    <!-- Single Tab Content End -->
+
+                                    <!-- Single Tab Content Start 商品訂單-->
+                                    <div class="tab-pane fade" id="orders" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>商品訂單</h3>
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table id="ordersTable-1" class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>訂單編號</th>
+                                                        <th>下定日期</th>
+                                                        <th>付款金額</th>
+                                                        <th>付款狀態</th>
+                                                        <th>訂單狀態</th>
+                                                        <th>取貨方式</th>
+                                                        <th>訂單明細</th>
+                                                        <th>退貨申請</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="ordersTable">
+                                                    <!-- <tr>
+                                                        <td>1</td>
+                                                        <td>2023/3/10</td>
+                                                        <td>$300</td>
+                                                        <td>已付款</td>
+                                                        <td>退貨申請</td>
+                                                        <td>宅配</td>
+                                                        <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
+                                                        <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>2023/3/09</td>
+                                                        <td>$3000</td>
+                                                        <td>已付款</td>
+                                                        <td>已出貨</td>
+                                                        <td>超商取貨</td>
+                                                        <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
+                                                        <td><button class="btn obrien-button-2 primary-color rounded-0" >退貨</button></td>
+                                                    </tr> -->
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                        <!-- Single Tab Content End -->
+                                    </div>
+                                    <!-- Single Tab Content End -->
 
-                                        <!-- Single Tab Content Start 商品訂單-->
-                                        <div class="tab-pane fade" id="orders" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>商品訂單</h3>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <table id="ordersTable-1" class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                            <tr>
-                                                                <th>訂單編號</th>
-                                                                <th>下定日期</th>
-                                                                <th>付款金額</th>
-                                                                <th>付款狀態</th>
-                                                                <th>訂單狀態</th>
-                                                                <th>取貨方式</th>
-                                                                <th>訂單明細</th>
-                                                                <th>退貨申請</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="ordersTable">
-                                                            <!-- <tr>
-                                                                <td>1</td>
-                                                                <td>2023/3/10</td>
-                                                                <td>$300</td>
-                                                                <td>已付款</td>
-                                                                <td>退貨申請</td>
-                                                                <td>宅配</td>
-                                                                <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0">退貨</button></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>2023/3/09</td>
-                                                                <td>$3000</td>
-                                                                <td>已付款</td>
-                                                                <td>已出貨</td>
-                                                                <td>超商取貨</td>
-                                                                <td><a href="order-detail.html" class="btn obrien-button-2 primary-color rounded-0">查詢</a></td>
-                                                                <td><button class="btn obrien-button-2 primary-color rounded-0" >退貨</button></td>
-                                                            </tr> -->
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start 我的收藏-->
-                                        <div class="tab-pane fade" id="wishlist" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>收藏列表</h3>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th class="pro-thumbnail">商品圖片</th>
-                                                                <th class="pro-title">商品名稱</th>
-                                                                <th class="pro-price">售價</th>
-                                                                <th class="pro-stock">庫存量</th>
-                                                                <th class="pro-cart">加入購物車</th>
-                                                                <th class="pro-remove">移除收藏</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="tbody-context">
+                                    <!-- Single Tab Content Start 我的收藏-->
+                                    <div class="tab-pane fade" id="wishlist" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>收藏列表</h3>
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="pro-thumbnail">商品圖片</th>
+                                                        <th class="pro-title">商品名稱</th>
+                                                        <th class="pro-price">售價</th>
+                                                        <th class="pro-stock">庫存量</th>
+                                                        <th class="pro-cart">加入購物車</th>
+                                                        <th class="pro-remove">移除收藏</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="tbody-context">
 
                                                             <tr v-for="item in memWishlist" :key="item.pdNo">
-                                                                <td class="pro-thumbnail"><a href="#"><img
-                                                                            class="img-fluid" :src="item.pdPic"
-                                                                            alt="Product"></a></td>
+                                                                <td class="pro-thumbnail" style="width:120px"><a href="#"><img
+                                                                            class="img-fluid" :src="'/pic/getimage?picno=' + item.picNo"
+                                                                            alt="Product" style="max-width: 100%;"></a></td>
                                                                 <td class="pro-title"><a href="#">{{ item.pdName }}</a>
                                                                 </td>
                                                                 <td class="pro-price"><span>{{ item.price }}</span></td>
                                                                 <td class="pro-stock"><span><strong>{{ item.pdStock
                                                                             }}</strong></span></td>
-                                                                <td class="pro-cart"><button @click.prevent="addOne"
-                                                                        :data-pd-no="item.pdNo"><i
-                                                                            class="fa fa-cart-arrow-down"
-                                                                            style="font-size: 1.5rem;"></i></button>
-                                                                </td>
-                                                                <td class="pro-remove"><button
-                                                                        @click.prevent="removeOne"
-                                                                        :data-pd-no="item.pdNo"><i class="ion-trash-b"
-                                                                            style="font-size: 1.5rem;"></i></button>
-                                                                </td>
-                                                            </tr>
+                                                        <td class="pro-cart"><button @click.prevent="addOne"
+                                                                                     :data-pd-no="item.pdNo"><i
+                                                                class="fa fa-cart-arrow-down"
+                                                                style="font-size: 1.5rem;"></i></button>
+                                                        </td>
+                                                        <td class="pro-remove"><button
+                                                                @click.prevent="removeOne"
+                                                                :data-pd-no="item.pdNo"><i class="ion-trash-b"
+                                                                                           style="font-size: 1.5rem;"></i></button>
+                                                        </td>
+                                                    </tr>
 
-                                                            <!-- <tr>
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">Product dummy title <br> s / green</a></td>
-                                                                <td class="pro-price"><span>$295.00</span></td>
-                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"><input type="text" hidden value></i></a></td>
-                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/24.jpg" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">Product title here <br> red</a></td>
-                                                                <td class="pro-price"><span>$275.00</span></td>
-                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/34.jpg" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">Product dummy title <br> s</a></td>
-                                                                <td class="pro-price"><span>$295.00</span></td>
-                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/43.jpg" alt="Product"></a></td>
-                                                                <td class="pro-title"><a href="#">Dummy Title</a></td>
-                                                                <td class="pro-price"><span>$110.00</span></td>
-                                                                <td class="pro-stock"><span><strong>In Stock</strong></span></td>
-                                                                <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
-                                                                <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
-                                                            </tr> -->
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                    <!-- <tr>
+                                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/14.jpg" alt="Product"></a></td>
+                                                        <td class="pro-title"><a href="#">Product dummy title <br> s / green</a></td>
+                                                        <td class="pro-price"><span>$295.00</span></td>
+                                                        <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                        <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"><input type="text" hidden value></i></a></td>
+                                                        <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/24.jpg" alt="Product"></a></td>
+                                                        <td class="pro-title"><a href="#">Product title here <br> red</a></td>
+                                                        <td class="pro-price"><span>$275.00</span></td>
+                                                        <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                        <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                        <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/34.jpg" alt="Product"></a></td>
+                                                        <td class="pro-title"><a href="#">Product dummy title <br> s</a></td>
+                                                        <td class="pro-price"><span>$295.00</span></td>
+                                                        <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                        <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                        <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="static/picture/43.jpg" alt="Product"></a></td>
+                                                        <td class="pro-title"><a href="#">Dummy Title</a></td>
+                                                        <td class="pro-price"><span>$110.00</span></td>
+                                                        <td class="pro-stock"><span><strong>In Stock</strong></span></td>
+                                                        <td class="pro-cart"><a href="cart.html"><i class="fa fa-cart-arrow-down" style="font-size: 1.5rem;"></i></a></td>
+                                                        <td class="pro-remove"><a href="#"><i class="ion-trash-b" style="font-size: 1.5rem;"></i></a></td>
+                                                    </tr> -->
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start 我的訊息-->
-                                        <div class="tab-pane fade" id="notify" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>我的訊息</h3>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                            <tr>
-                                                                <th>訂單編號</th>
-                                                                <th>下定日期</th>
-                                                                <th>訂單狀態</th>
-                                                                <th>付款金額</th>
-                                                                <th>訂單明細</th>
-                                                                <th>退貨申請</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>2023/3/10</td>
-                                                                <td>退貨申請</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>2023/3/09</td>
-                                                                <td>已出貨</td>
-                                                                <td>$200</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>2023/3/08</td>
-                                                                <td>已完成</td>
-                                                                <td>$990</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-
-
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start 回饋金-->
-                                        <div class="tab-pane fade" id="coupon-query" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>回饋金查詢</h3>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                            <tr>
-                                                                <th>訂單編號</th>
-                                                                <th>下定日期</th>
-                                                                <th>訂單狀態</th>
-                                                                <th>付款金額</th>
-                                                                <th>訂單明細</th>
-                                                                <th>退貨申請</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>2023/3/10</td>
-                                                                <td>退貨申請</td>
-                                                                <td>$3000</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>2023/3/09</td>
-                                                                <td>已出貨</td>
-                                                                <td>$200</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>2023/3/08</td>
-                                                                <td>已完成</td>
-                                                                <td>$990</td>
-                                                                <td><a href="orderlist.html"
-                                                                        class="btn obrien-button-2 primary-color rounded-0">查詢</a>
-                                                                </td>
-                                                                <td><button
-                                                                        class="btn obrien-button-2 primary-color rounded-0">退貨</button>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start 訂位訂單-->
-                                        <div class="tab-pane fade" id="booking-edit" role="tabpanel">
-                                            <div class="myaccount-content">
-
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <h3>訂位訂單</h3>
-                                                    <table id="booktable" class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                            <tr>
-                                                                <th>預約日期</th>
-                                                                <th>起始時間</th>
-                                                                <th>結束時間</th>
-
-                                                                <th>完成付款日期</th>
-                                                                <th>價格</th>
-                                                                <th>人數</th>
-                                                                <th>詳情</th>
-                                                                <th>取消</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="booking"></tbody>
-                                                    </table>
-                                                </div>
-
-                                                <div class="myaccount-table table-responsive text-center"
-                                                    id="updatebook" style="visibility:hidden">
-                                                    <h3>修改內容</h3>
-                                                    <table class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                            <tr>
-                                                                <th>NO</th>
-                                                                <th>當天起始時間</th>
-                                                                <th>當天結束時間</th>
-                                                                <th>預約日期</th>
-                                                                <th>價格</th>
-                                                                <th>人數</th>
-                                                                <th>付款日期</th>
-                                                                <th></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="update">
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div id="wrong"></div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start 活動訂單-->
-                                        <div class="tab-pane fade" id="event-edit" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>活動訂單</h3>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <table class="table table-bordered">
-                                                        <thead class="thead-light">
-                                                            <tr>
-                                                                <th>賽事編號</th>
-                                                                <th>賽事名稱</th>
-                                                                <th>開始時間</th>
-                                                                <th>付款金額</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody id="eventls">                    </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start 密碼變更-->
-                                        <div class="tab-pane fade" id="password-edit" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>密碼變更</h3>
-                                                <div class="password-edit-form">
-                                                    <form action="#">
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="current-pwd" class="required mb-1">Current
-                                                                Password</label>
-                                                            <input type="password" v-model.trim="oldPwd"
-                                                                id="current-pwd" placeholder="Current Password">
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-lg-6 col-custom">
-                                                                <div class="single-input-item mb-3">
-                                                                    <label for="new-pwd" class="required mb-1">New
-                                                                        Password</label>
-                                                                    <input type="password" id="new-pwd"
-                                                                        v-model.trim="newPwd"
-                                                                        placeholder="New Password">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6 col-custom">
-                                                                <div class="single-input-item mb-3">
-                                                                    <label for="confirm-pwd"
-                                                                        class="required mb-1">Confirm Password</label>
-                                                                    <input type="password" id="confirm-pwd"
-                                                                        v-model.trim="CheckNewPwd"
-                                                                        placeholder="Confirm Password">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="single-input-item single-item-button">
-                                                            <button class="btn obrien-button primary-btn"
-                                                                @click="changePwd">Save Changes</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single Tab Content End -->
-
-                                        <!-- Single Tab Content Start 帳戶維護-->
-                                        <div class="tab-pane fade" id="account-info" role="tabpanel">
-                                            <div class="myaccount-content">
-                                                <h3>帳戶維護</h3>
-                                                <div class="account-details-form">
-                                                    <form>
-                                                        <div class="single-input-item mb-3">
-                                                            <input id="mem_no" type="number" v-model="memberData.memNo"
-                                                                hidden>
-                                                            <!-- <input type="password" name="" id="mem_password" v-model="memberData.memNo" hidden> -->
-                                                        </div>
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="mem_name" class="form-label">姓名</label>
-                                                            <input type="text" class="form-control" id="mem_name"
-                                                                v-model.trim="memberData.memName"
-                                                                placeholder="Your Name" required>
-                                                        </div>
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="mem_phone" class="form-label">電話</label>
-                                                            <input type="tel" class="form-control" id="mem_phone"
-                                                                v-model.trim="memberData.memPhone"
-                                                                placeholder="Your Phone" required>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label style="width: 80px;padding-bottom: 8px;">性別</label>
-                                                            <div class="mb-3"
-                                                                style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="genderOptions"
-                                                                        v-model="memberData.memGender" id="gender_male"
-                                                                        value="1">
-                                                                    <label class="form-check-label"
-                                                                        for="gender_male">Male</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="genderOptions"
-                                                                        v-model="memberData.memGender"
-                                                                        id="gender_female" value="0">
-                                                                    <label class="form-check-label"
-                                                                        for="gender_female">Female</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="mem_birthday" class="form-label">生日</label>
-                                                            <input type="date" class="form-control" id="mem_birthday"
-                                                                v-model="memberData.memBirthday">
-                                                        </div>
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="mem_email" class="form-label">信箱</label>
-                                                            <input type="email" class="form-control" id="mem_email"
-                                                                v-model.trim="memberData.memEmail" required>
-                                                        </div>
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="mem_address" class="form-label">地址</label>
-                                                            <input type="text" class="form-control" id="mem_address"
-                                                                v-model="memberData.memAddress" required>
-                                                        </div>
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="coupon" class="form-label">回饋金</label>
-                                                            <input type="text" class="form-control" id="coupon"
-                                                                v-model="memberData.coupon" readonly>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="coupon"
-                                                                style="width: 80px;padding-bottom: 8px;">預約權限</label>
-                                                            <div class="mb-3"
-                                                                style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="reserve_auth" id="reserve_on"
-                                                                        v-model="memberData.reserveAuth" value="true"
-                                                                        disabled>
-                                                                    <label class="form-check-label"
-                                                                        for="reserve_on">可預約</label>
-                                                                </div>
-                                                                <div class="form-check form-check-inline">
-                                                                    <input class="form-check-input" type="radio"
-                                                                        name="reserve_auth" id="reserve_off"
-                                                                        v-model="memberData.reserveAuth" value="false"
-                                                                        disabled>
-                                                                    <label class="form-check-label"
-                                                                        for="reserve_off">鎖定中</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="mem_vio" class="form-label">違規次數</label>
-                                                            <input type="text" class="form-control" id="mem_vio"
-                                                                v-model="memberData.memVIO" readonly>
-                                                        </div>
-                                                        <div class="single-input-item mb-3">
-                                                            <label for="mem_status" class="form-label">解鎖日期</label>
-                                                            <input type="date" class="form-control" id="mem_status"
-                                                                v-model="memberData.memStatus" readonly>
-                                                        </div>
-                                                        <div class="single-input-item single-item-button">
-                                                            <button id="mem-save" class="btn obrien-button primary-btn"
-                                                                @click="updateMember">Save Changes</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div> <!-- Single Tab Content End -->
                                     </div>
-                                </div> <!-- My Account Tab Content End -->
-                            </div>
-                        </div> <!-- My Account Page End -->
-                    </div>
+                                    <!-- Single Tab Content End -->
+
+                                    <!-- Single Tab Content Start 我的訊息-->
+                                    <div class="tab-pane fade" id="notify" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>我的訊息</h3>
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>訂單編號</th>
+                                                        <th>下定日期</th>
+                                                        <th>訂單狀態</th>
+                                                        <th>付款金額</th>
+                                                        <th>訂單明細</th>
+                                                        <th>退貨申請</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>2023/3/10</td>
+                                                        <td>退貨申請</td>
+                                                        <td>$3000</td>
+                                                        <td><a href="orderlist.html"
+                                                               class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                        </td>
+                                                        <td><button
+                                                                class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>2023/3/09</td>
+                                                        <td>已出貨</td>
+                                                        <td>$200</td>
+                                                        <td><a href="orderlist.html"
+                                                               class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                        </td>
+                                                        <td><button
+                                                                class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>2023/3/08</td>
+                                                        <td>已完成</td>
+                                                        <td>$990</td>
+                                                        <td><a href="orderlist.html"
+                                                               class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                        </td>
+                                                        <td><button
+                                                                class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Tab Content End -->
+
+                                    <!-- Single Tab Content Start 回饋金-->
+                                    <div class="tab-pane fade" id="coupon-query" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>回饋金查詢</h3>
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>訂單編號</th>
+                                                        <th>下定日期</th>
+                                                        <th>訂單狀態</th>
+                                                        <th>付款金額</th>
+                                                        <th>訂單明細</th>
+                                                        <th>退貨申請</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>2023/3/10</td>
+                                                        <td>退貨申請</td>
+                                                        <td>$3000</td>
+                                                        <td><a href="orderlist.html"
+                                                               class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                        </td>
+                                                        <td><button
+                                                                class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>2023/3/09</td>
+                                                        <td>已出貨</td>
+                                                        <td>$200</td>
+                                                        <td><a href="orderlist.html"
+                                                               class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                        </td>
+                                                        <td><button
+                                                                class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>2023/3/08</td>
+                                                        <td>已完成</td>
+                                                        <td>$990</td>
+                                                        <td><a href="orderlist.html"
+                                                               class="btn obrien-button-2 primary-color rounded-0">查詢</a>
+                                                        </td>
+                                                        <td><button
+                                                                class="btn obrien-button-2 primary-color rounded-0">退貨</button>
+                                                        </td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Tab Content End -->
+
+                                    <!-- Single Tab Content Start 訂位訂單-->
+                                    <div class="tab-pane fade" id="booking-edit" role="tabpanel">
+                                        <div class="myaccount-content">
+
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <h3>訂位訂單</h3>
+                                                <table id="booktable" class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>預約日期</th>
+                                                        <th>起始時間</th>
+                                                        <th>結束時間</th>
+
+                                                        <th>完成付款日期</th>
+                                                        <th>價格</th>
+                                                        <th>人數</th>
+                                                        <th>詳情</th>
+                                                        <th>取消</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="booking"></tbody>
+                                                </table>
+                                            </div>
+
+                                            <div class="myaccount-table table-responsive text-center"
+                                                 id="updatebook" style="visibility:hidden">
+                                                <h3>內容</h3>
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>當天起始時間</th>
+                                                        <th>當天結束時間</th>
+                                                        <th>預約日期</th>
+                                                        <th>價格</th>
+                                                        <th>人數</th>
+                                                        <th>付款日期</th>
+                                                        <th>修改</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="update">
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div id="wrong"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Tab Content End -->
+
+                                    <!-- Single Tab Content Start 活動訂單-->
+                                    <div class="tab-pane fade" id="event-edit" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>活動訂單</h3>
+                                            <div class="myaccount-table table-responsive text-center">
+                                                <table class="table table-bordered">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th>賽事編號</th>
+                                                        <th>賽事名稱</th>
+                                                        <th>開始時間</th>
+                                                        <th>付款金額</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="eventls">                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Tab Content End -->
+
+                                    <!-- Single Tab Content Start 密碼變更-->
+                                    <div class="tab-pane fade" id="password-edit" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>密碼變更</h3>
+                                            <div class="password-edit-form">
+                                                <form action="#">
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="current-pwd" class="required mb-1">Current
+                                                            Password</label>
+                                                        <input type="password" v-model.trim="oldPwd"
+                                                               id="current-pwd" placeholder="Current Password">
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-custom">
+                                                            <div class="single-input-item mb-3">
+                                                                <label for="new-pwd" class="required mb-1">New
+                                                                    Password</label>
+                                                                <input type="password" id="new-pwd"
+                                                                       v-model.trim="newPwd"
+                                                                       placeholder="New Password">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-6 col-custom">
+                                                            <div class="single-input-item mb-3">
+                                                                <label for="confirm-pwd"
+                                                                       class="required mb-1">Confirm Password</label>
+                                                                <input type="password" id="confirm-pwd"
+                                                                       v-model.trim="CheckNewPwd"
+                                                                       placeholder="Confirm Password">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-input-item single-item-button">
+                                                        <button class="btn obrien-button primary-btn"
+                                                                @click="changePwd">Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Single Tab Content End -->
+
+                                    <!-- Single Tab Content Start 帳戶維護-->
+                                    <div class="tab-pane fade" id="account-info" role="tabpanel">
+                                        <div class="myaccount-content">
+                                            <h3>帳戶維護</h3>
+                                            <div class="account-details-form">
+                                                <form>
+                                                    <div class="single-input-item mb-3">
+                                                        <input id="mem_no" type="number" v-model="memberData.memNo"
+                                                               hidden>
+                                                        <!-- <input type="password" name="" id="mem_password" v-model="memberData.memNo" hidden> -->
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="mem_name" class="form-label">姓名</label>
+                                                        <input type="text" class="form-control" id="mem_name"
+                                                               v-model.trim="memberData.memName"
+                                                               placeholder="Your Name" required>
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="mem_phone" class="form-label">電話</label>
+                                                        <input type="tel" class="form-control" id="mem_phone"
+                                                               v-model.trim="memberData.memPhone"
+                                                               placeholder="Your Phone" required>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label style="width: 80px;padding-bottom: 8px;">性別</label>
+                                                        <div class="mb-3"
+                                                             style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                       name="genderOptions"
+                                                                       v-model="memberData.memGender" id="gender_male"
+                                                                       value="1">
+                                                                <label class="form-check-label"
+                                                                       for="gender_male">Male</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                       name="genderOptions"
+                                                                       v-model="memberData.memGender"
+                                                                       id="gender_female" value="0">
+                                                                <label class="form-check-label"
+                                                                       for="gender_female">Female</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="mem_birthday" class="form-label">生日</label>
+                                                        <input type="date" class="form-control" id="mem_birthday"
+                                                               v-model="memberData.memBirthday">
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="mem_email" class="form-label">信箱</label>
+                                                        <input type="email" class="form-control" id="mem_email"
+                                                               v-model.trim="memberData.memEmail" required>
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="mem_address" class="form-label">地址</label>
+                                                        <input type="text" class="form-control" id="mem_address"
+                                                               v-model="memberData.memAddress" required>
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="coupon" class="form-label">回饋金</label>
+                                                        <input type="text" class="form-control" id="coupon"
+                                                               v-model="memberData.coupon" readonly>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label for="coupon"
+                                                               style="width: 80px;padding-bottom: 8px;">預約權限</label>
+                                                        <div class="mb-3"
+                                                             style="background-color: white; height:40px;display: flex; align-items: center;padding-left: 20px;">
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                       name="reserve_auth" id="reserve_on"
+                                                                       v-model="memberData.reserveAuth" value="true"
+                                                                       disabled>
+                                                                <label class="form-check-label"
+                                                                       for="reserve_on">可預約</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline">
+                                                                <input class="form-check-input" type="radio"
+                                                                       name="reserve_auth" id="reserve_off"
+                                                                       v-model="memberData.reserveAuth" value="false"
+                                                                       disabled>
+                                                                <label class="form-check-label"
+                                                                       for="reserve_off">鎖定中</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="mem_vio" class="form-label">違規次數</label>
+                                                        <input type="text" class="form-control" id="mem_vio"
+                                                               v-model="memberData.memVIO" readonly>
+                                                    </div>
+                                                    <div class="single-input-item mb-3">
+                                                        <label for="mem_status" class="form-label">解鎖日期</label>
+                                                        <input type="date" class="form-control" id="mem_status"
+                                                               v-model="memberData.memStatus" readonly>
+                                                    </div>
+                                                    <div class="single-input-item single-item-button">
+                                                        <button id="mem-save" class="btn obrien-button primary-btn"
+                                                                @click="updateMember">Save Changes</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div> <!-- Single Tab Content End -->
+                                </div>
+                            </div> <!-- My Account Tab Content End -->
+                        </div>
+                    </div> <!-- My Account Page End -->
                 </div>
             </div>
         </div>
-        <!-- my account wrapper end -->
-        <!-- Support Area Start Here -->
-        <div id="support"></div>
-        <!-- Support Area End Here -->
-        <!-- Footer Area Start Here -->
-        <div id="footer"></div>
-        <!-- Footer Area End Here -->
     </div>
+    <!-- my account wrapper end -->
+    <!-- Support Area Start Here -->
+    <div id="support"></div>
+    <!-- Support Area End Here -->
+    <!-- Footer Area Start Here -->
+    <div id="footer"></div>
+    <!-- Footer Area End Here -->
+</div>
 
-    <!-- JS
+<!-- JS
 ============================================ -->
-    <script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <!-- jQuery JS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <!-- jQuery Migrate JS -->
-    <script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
-    <!-- Modernizer JS -->
-    <script src="/foreground/static/js/modernizr-2.8.3.min.js"></script>
-    <!-- Bootstrap JS -->
-    <script src="/foreground/static/js/bootstrap.bundle.min.js"></script>
-    <!-- Slick Slider JS -->
-    <script src="/foreground/static/js/slick.min.js"></script>
-    <!-- Countdown JS -->
-    <script src="/foreground/static/js/jquery.countdown.min.js"></script>
-    <!-- Ajax JS -->
-    <script src="/foreground/static/js/jquery.ajaxchimp.min.js"></script>
-    <!-- Jquery Nice Select JS -->
-    <script src="/foreground/static/js/jquery.nice-select.min.js"></script>
-    <!-- Jquery Ui JS -->
-    <script src="/foreground/static/js/jquery-ui.min.js"></script>
-    <!-- jquery magnific popup js -->
-    <script src="/foreground/static/js/jquery.magnific-popup.min.js"></script>
+<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<!-- jQuery JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!-- jQuery Migrate JS -->
+<script src="/foreground/static/js/jquery-migrate-3.3.2.min.js"></script>
+<!-- Modernizer JS -->
+<script src="/foreground/static/js/modernizr-2.8.3.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="/foreground/static/js/bootstrap.bundle.min.js"></script>
+<!-- Slick Slider JS -->
+<script src="/foreground/static/js/slick.min.js"></script>
+<!-- Countdown JS -->
+<script src="/foreground/static/js/jquery.countdown.min.js"></script>
+<!-- Ajax JS -->
+<script src="/foreground/static/js/jquery.ajaxchimp.min.js"></script>
+<!-- Jquery Nice Select JS -->
+<script src="/foreground/static/js/jquery.nice-select.min.js"></script>
+<!-- Jquery Ui JS -->
+<script src="/foreground/static/js/jquery-ui.min.js"></script>
+<!-- jquery magnific popup js -->
+<script src="/foreground/static/js/jquery.magnific-popup.min.js"></script>
 
     <script src="static/js/jquery.datetimepicker.full.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <!-- Main JS -->
     <script src="/foreground/static/js/main.js"></script>
     <!-- table JS-->
-    <script src="/foreground/static/js/headerUse.js"></script>
-
     <script src="/foreground/static/js/mycountbooking.js"></script>
 
-    <script src="/foreground/static/js/mycount-eventls.js"></script>
+<script src="/foreground/static/js/mycount-eventls.js"></script>
 
-    <script defer src="/foreground/static/js/my-account-orders.js"></script>
+    <script src="/foreground/static/js/my-account-orders.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>

@@ -21,6 +21,7 @@ public class MemberLoginInterceptor implements HandlerInterceptor {
         Integer memNo=memberServiceImpl.getMemberNoFromSession(sessionId);
         System.out.println("preHandle : "+sessionId);
         if (sessionId == null || memNo == null) {
+            request.getSession().setAttribute("currentUrl",request.getRequestURI());
             response.sendRedirect(request.getContextPath()+"/foreground/login.html");
             return false;
         }

@@ -16,5 +16,5 @@ public class EventOrdDTO {
     private String memAddress;
     private String memEmail;
     private String memPhone;
-    private int  enevtStatus;
+    private int  eventStatus;
 }

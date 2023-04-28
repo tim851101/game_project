@@ -1,4 +1,4 @@
-：1：<!doctype html>
+<!doctype html>
 <html class="no-js" lang="en">
 
 <head>
@@ -120,7 +120,7 @@
                                 <div class="col-md-6">
                                     <div class="checkout-form-list">
                                         <label>姓名 <span class="required">*</span></label>
-                                        <input value="王曉明" type="text" id="memName">
+                                        <input value="" type="text" id="memName">
                                     </div>
                                 </div>
 
@@ -271,15 +271,26 @@
     <script src="static/js/jquery-ui.min.js"></script>
     <!-- jquery magnific popup js -->
     <script src="static/js/jquery.magnific-popup.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
     <!-- Main JS -->
     <script src="static/js/main.js"></script>
     <script>
-       
+
+        const memnoSE=localStorage.getItem('memNo');
+       const eventnoSE=localStorage.getItem('eventNo');
         event=document.getElementById('eventselect')
+         fetch('/mem/find-one?id='+memnoSE)
+        .then(resp => resp.json())
+        .then(response => {
+            console.log(response);
+            document.getElementById('memName').setAttribute("value",response.memName);
+            document.getElementById('memAddress').setAttribute("value",response.memAddress);
+            document.getElementById('memEmail').setAttribute("value",response.memEmail);
+            document.getElementById('memPhone').setAttribute("value",response.memPhone);
+        })
         fetch('/event/ls-event')
         .then(resp => resp.json())
-         .then(list=> { 
+         .then(list=> {
             const selectElement = document.createElement('select');
             selectElement.setAttribute("id","eventNo")
             selectElement.setAttribute('onchange','pricechange()')
@@ -287,13 +298,17 @@
                 optionElement.value = null;
                 optionElement.textContent = "請選項目";
                 selectElement.appendChild(optionElement);
-            for(let events of list){ if(events.eventStatus!=0){
+            for(let events of list){ if(events.eventStatus<1){
                 const optionElement = document.createElement('option');
                 optionElement.value = events.eventNo;
                 optionElement.textContent = events.eventName;
+                if( events.eventNo==eventnoSE){
+                document.getElementById('price').setAttribute('value',events.eventFee)
+                optionElement.selected=true}
                 selectElement.appendChild(optionElement);
                 event.appendChild(selectElement);
             }
+
         }
     })
    function pricechange(){
@@ -316,7 +331,7 @@
    }
         function send() {
             let a = document.querySelector('#eventNo').value
-            let b = 200
+            let b = memnoSE
             let c = document.querySelector('#memName').value
             let d = document.querySelector('#memAddress').value
             let e = document.querySelector('#memEmail').value
@@ -335,6 +350,11 @@
             let event = confirm('確定報名');
 
             if (event) {
+            Swal.fire({
+                          icon: "success",
+                          title: "報名成功",
+
+                })
                 $.ajax({
                     url: "/eventord/insert",
                     type: "post",
@@ -348,8 +368,7 @@
         }
         console.log(0)
     // $.post("http://localhost:8080/eventord/insert",data);
-    document.getElementById('pricediv').setAttribute('style','display: none')
-    document.getElementById('sendevent').setAttribute('style','display: none')
+
     </script>
 </body>
 

@@ -411,11 +411,15 @@
 <script src="static/js/dlabnav-init.js"></script>
 <script src="static/js/demo.js"></script>
 <script src="static/js/styleSwitcher.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 </body>
 
 <script>
 read();
 function read(){
+let levels=document.getElementById('level')
+    levels.innerHTML=``
     button1=document.getElementById("button");
     button1.setAttribute('style','display: none');
      range=document.getElementById("range");
@@ -470,21 +474,37 @@ function read(){
                     </tr>
                     </div>`
      }
-        function rangechange(){ 
+        function rangechange(){
           let datas=[{
                 permissionsNo : document.getElementById('permissionsNo').value,
                 duration : document.getElementById('duration').value,
                 lowerLimit : document.getElementById('up').value,
                 upperLimit : document.getElementById('down').value
             }]
-            fetch("http://localhost:8082/mem/save-all-perm-level", {
+            fetch("/mem/save-all-perm-level", {
                  method: "POST",
                  headers: {
                   "Content-Type": "application/json;charset=UTF-8"
                  },
                   body: JSON.stringify(datas)})
-                  .then(response => console.log(response))
-        sleep(100).then(()=>{ read();})
+                  .then(response => response.json())
+                  .then((response) => {
+                console.log(response)
+            if(response!=true)
+            { Swal.fire({
+          icon: "error",
+            title: "請輸入正確資訊",
+                });
+            }
+                    else{
+                      Swal.fire({
+                          icon: "success",
+                          title: "修改成功",
+                                })
+sleep(100).then(()=>{ read();})
+                    }
+                })
+
           
         }
         function sleep (time) {

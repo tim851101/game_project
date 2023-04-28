@@ -39,7 +39,7 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
     void setEventStatus(@Param("eventStatus") Byte eventStatus, @Param("eventNo") Integer eventNo);
 
     @Query(value = "SELECT * " +
-            "FROM `Event` WHERE event_Status=1 ", nativeQuery = true)
+            "FROM `Event` WHERE event_Status IN(0) ", nativeQuery = true)
     List<Event> findEventNewByStatus();
 
 

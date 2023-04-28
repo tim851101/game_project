@@ -1,8 +1,8 @@
-
+const memnoSE=localStorage.getItem('memNo');
      const tbody = document.querySelector('#booking');
       const update= document.querySelector('#update');
       const updatebook= document.querySelector('#updatebook')
-     const url ='/book/bookingbymemno?memno=11';//目前寫死
+     const url ='/book/bookingbymemno?memno='+memnoSE;
       const MonthFromNow = new Date();
     MonthFromNow.setMonth(MonthFromNow.getMonth() + 1);
      let bookno=null;
@@ -77,6 +77,7 @@ sleep(500).then(() => {
 	.then(list => {
             for (let booking of list) {
             bookno=booking.bookingNo
+            console.log(booking);
             memno=booking.memNo
             if(booking.bookingFinishDate==null){
              deadlineStr="<button id='toPay' class='btn obrien-button-2 primary-color rounded-0'>去付款</button>"
@@ -84,7 +85,7 @@ sleep(500).then(() => {
             update.innerHTML =``
                 update.innerHTML += `
                 <tr>
-                    <td>${booking.bookingNo}</td>
+
                     <td><input type="text" id="srattime"onchange="checkredis()" value="09:00"></td>
                     <td><input type="text" id="endtime" onchange="checkredis()"value="09:00"></td>
                     <td><input type="text"  id="date"   onchange="checkredis()" value=""></td>
@@ -109,7 +110,7 @@ sleep(500).then(() => {
              update.innerHTML =``
                 update.innerHTML += `
                 <tr>
-                    <td>${booking.bookingNo}</td>
+
                     <td>${booking.bookingStartTime}</td>
                     <td>${booking.bookingEndTime}</td>
                     <td>${booking.bookingDate}</td>
@@ -260,7 +261,7 @@ function checkredis(){
                 }
                 console.log(datas);
                 $.ajax({
-                url : 'http://localhost:8082/book/testseat',
+                url : '/book/testseat',
                 type : 'POST',
                 data : datas,
                 success : function(response) {
@@ -282,7 +283,7 @@ function checkredis(){
                //     console.log("沒有");
                     document.getElementById('post').setAttribute('disabled',true)
                     document.getElementById('toPay').setAttribute('disabled',true)
-                    document.getElementById('wrong').innerHTML=`<div font style="color:red;">此區間段位子以滿，或該時段不開放>`
+                    document.getElementById('wrong').innerHTML=`<div font style="color:red;">此區間段位子以滿，或該時段不開放`
                     }
                  },
 

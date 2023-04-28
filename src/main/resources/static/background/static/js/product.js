@@ -219,6 +219,8 @@ function validateForm() {
     Swal.fire({
       icon: "success",
       title: "上傳成功",
+    }).then(() => {
+      location.reload();
     });
     return true;
   }
@@ -329,7 +331,12 @@ $(document).ready(function () {
 function updateTime() {
 
   // 顯示更新成功的提示訊息
-  alert('更新成功');
+  Swal.fire({
+    icon: 'success',
+    title: '更新成功',
+    showConfirmButton: false,
+    timer: 1500
+  });
 
   // 延遲 1 秒後關閉編輯視窗
   setTimeout(function () {
@@ -337,7 +344,7 @@ function updateTime() {
     let modalInstance = bootstrap.Modal.getInstance(modal);
     modalInstance.hide();
     location.reload();
-  }, 500);
+  }, 1500);
 }
 
 //查詢全部編輯
@@ -355,10 +362,5 @@ function editProduct(pdNo) {
       document.getElementById('editPdDescription').value = data.pdDescription;
       document.getElementById('editPdStatus').checked = data.pdStatus;
       document.getElementById('editPdUpdated').value = moment(data.pdUpdate).format('YYYY-MM-DD HH:mm:ss');
-
-
     });
 }
-
-
-

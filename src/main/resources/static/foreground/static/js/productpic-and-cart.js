@@ -59,3 +59,26 @@ fetch('/product/get-all')
       $(`#img${i}`).attr("src", `/pic/getimage?picno=${i}`);
     }
   })
+
+//商品類別(刪選商品)
+const filters = document.querySelectorAll('.mobile-menu a');
+
+filters.forEach(filter => {
+  filter.addEventListener('click', (e) => {
+    e.preventDefault();
+    const range = e.target.dataset.filter.split('-');
+    const min = parseInt(range[0], 10);
+    const max = parseInt(range[1], 10) || Infinity;
+
+    const products = document.querySelectorAll('.product-area');
+    products.forEach(product => {
+      const price = parseInt(product.querySelector('.regular-price').textContent.slice(1), 10);
+
+      if (price < min || price > max) {
+        product.style.display = 'none';
+      } else {
+        product.style.display = 'block';
+      }
+    });
+  });
+});

@@ -72,7 +72,7 @@ $('#checkout').click(() => {
 //        動態抓取商品資料
 const urlSearchParams = new URLSearchParams(window.location.search);
 const pdNo = urlSearchParams.get('pdNo');
-var queryString = window.location.search;
+let queryString = window.location.search;
 
 if (!pdNo) {
     alert('沒有商品編號');
@@ -95,7 +95,7 @@ fetch(`/product/find-one?id=${pdNo}`)
         document.getElementById('pdDescription1').textContent = product.pdDescription;
     });
 
-//        動態抓取商品資料
+//        動態抓取商品圖片
 const picNos = urlSearchParams.get('pdNo');
 document.getElementById('toimage').setAttribute("src", "/pic/getimage?picno=" + picNos);
 console.log(picNos);

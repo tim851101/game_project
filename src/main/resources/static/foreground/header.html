@@ -64,7 +64,8 @@
                                         <span><a href="/foreground/register.html">註冊</a></span>
                                     </li>
                                     <li class="logout-register-wrap d-none d-xl-flex">
-                                        <span style="padding-right: 20px;"><a href="/foreground/login.html" class="logout-btn">登出</a></span>
+                                        <span style="padding-right: 20px;"><a href="/foreground/login.html"
+                                                class="logout-btn">登出</a></span>
                                     </li>
                                     <li class="minicart-wrap">
                                         <a href="/foreground/cart.html" class="minicart-btn toolbar-btn">
@@ -76,53 +77,102 @@
                                         <!-- 手機板 -->
                                         <nav class="navbar bg-body-tertiary fixed-top">
                                             <div class="container-fluid">
-                                              <a class="navbar-brand" href="/foreground/index.html"></a>
-                                              <button class="navbar-toggler" style="background-color: darkgray;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                                                <span class="navbar-toggler-icon" style="display: flex; justify-content: center; align-items: center;color: black; font-size: larger;">≡</span>
-                                              </button>
-                                              <div class="offcanvas offcanvas-end" style="background-color:aliceblue;" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                                                <div class="offcanvas-header">
-                                                  <h2 class="offcanvas-title" id="offcanvasNavbarLabel">歡迎來到遊game</h2>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                <a class="navbar-brand" href="/foreground/index.html"></a>
+                                                <button class="navbar-toggler" style="background-color: darkgray;"
+                                                    type="button" data-bs-toggle="offcanvas"
+                                                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                                                    aria-label="Toggle navigation">
+                                                    <span class="navbar-toggler-icon"
+                                                        style="display: flex; justify-content: center; align-items: center;color: black; font-size: larger;">≡</span>
+                                                </button>
+                                                <div class="offcanvas offcanvas-end" style="background-color:aliceblue;"
+                                                    tabindex="-1" id="offcanvasNavbar"
+                                                    aria-labelledby="offcanvasNavbarLabel">
+                                                    <div class="offcanvas-header">
+                                                        <h2 class="offcanvas-title" id="offcanvasNavbarLabel">歡迎來到遊game
+                                                        </h2>
+                                                        <button type="button" class="btn-close"
+                                                            data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="offcanvas-body">
+                                                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active link-success"
+                                                                    aria-current="page"
+                                                                    style="font-size: 20px;font-weight: 600;background-color: transparent;"
+                                                                    href="/foreground/index.html"
+                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                    onmouseout="this.style.backgroundColor='transparent';">回到首頁</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link link-success"
+                                                                    style="font-size: 20px;font-weight: 600;"
+                                                                    href="/foreground/shop.html"
+                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                    onmouseout="this.style.backgroundColor='transparent';">商城</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link link-success"
+                                                                    style="font-size: 20px;font-weight: 600;"
+                                                                    href="/foreground/contact-us.html"
+                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                    onmouseout="this.style.backgroundColor='transparent';">聯絡我們</a>
+                                                            </li>
+                                                            <li class="nav-item dropdown">
+                                                                <a class="nav-link dropdown-toggle link-success"
+                                                                    style="font-size: 20px;font-weight: 600;background-color: transparent;"
+                                                                    href="#" role="button" data-bs-toggle="dropdown"
+                                                                    aria-expanded="false"
+                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                    onmouseout="this.style.backgroundColor='transparent';">
+                                                                    預約
+                                                                </a>
+                                                                <ul class="dropdown-menu">
+                                                                    <li><a class="dropdown-item link-success"
+                                                                            style="font-size: 20px;font-weight: 600;"
+                                                                            href="/foreground/event-reservation.html">活動預約</a>
+                                                                    </li>
+                                                                    <li><a class="dropdown-item link-success"
+                                                                            style="font-size: 20px;font-weight: 600;"
+                                                                            href="/foreground/booking-reservation.html">預訂座位</a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <hr class="dropdown-divider link-success">
+                                                                    </li>
+                                                                    <li><a class="dropdown-item link-success"
+                                                                            style="font-size: 20px;font-weight: 600;"
+                                                                            href="/foreground/game-teaching.html">遊戲教學</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link link-success"
+                                                                    style="font-size: 20px;font-weight: 600;background-color: transparent;"
+                                                                    href="/foreground/login.html"
+                                                                    class="storeLocation login-btn"
+                                                                    onclick="saveCurrentUrl()"
+                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                    onmouseout="this.style.backgroundColor='transparent';">登入</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link link-success"
+                                                                    style="font-size: 20px;font-weight: 600;background-color: transparent;"
+                                                                    href="/foreground/register.html"
+                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                    onmouseout="this.style.backgroundColor='transparent';">註冊</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link logout-btn link-success"
+                                                                    style="font-size: 20px;font-weight: 600;background-color: transparent;"
+                                                                    href="/foreground/login.html"
+                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                    onmouseout="this.style.backgroundColor='transparent';">登出</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
-                                                <div class="offcanvas-body">
-                                                  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                                    <li class="nav-item">
-                                                      <a class="nav-link active link-success" aria-current="page" style="font-size: 20px;font-weight: 600;background-color: transparent;" href="/foreground/index.html" onmouseover="this.style.backgroundColor='#e6e6e6';" onmouseout="this.style.backgroundColor='transparent';">回到首頁</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                      <a class="nav-link link-success"style="font-size: 20px;font-weight: 600;" href="/foreground/shop.html"  onmouseover="this.style.backgroundColor='#e6e6e6';" onmouseout="this.style.backgroundColor='transparent';">商城</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link link-success"style="font-size: 20px;font-weight: 600;" href="/foreground/contact-us.html"  onmouseover="this.style.backgroundColor='#e6e6e6';" onmouseout="this.style.backgroundColor='transparent';">聯絡我們</a>
-                                                    </li>
-                                                    <li class="nav-item dropdown">
-                                                      <a class="nav-link dropdown-toggle link-success"style="font-size: 20px;font-weight: 600;background-color: transparent;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"  onmouseover="this.style.backgroundColor='#e6e6e6';" onmouseout="this.style.backgroundColor='transparent';">
-                                                        預約
-                                                      </a>
-                                                      <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item link-success"style="font-size: 20px;font-weight: 600;" href="/foreground/event-reservation.html">活動預約</a></li>
-                                                        <li><a class="dropdown-item link-success"style="font-size: 20px;font-weight: 600;" href="/foreground/booking-reservation.html">預訂座位</a></li>
-                                                        <li>
-                                                          <hr class="dropdown-divider link-success">
-                                                        </li>
-                                                        <li><a class="dropdown-item link-success"style="font-size: 20px;font-weight: 600;" href="/foreground/game-teaching.html">遊戲教學</a></li>
-                                                      </ul>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link link-success"style="font-size: 20px;font-weight: 600;background-color: transparent;" href="/foreground/login.html" class="storeLocation login-btn" onclick="saveCurrentUrl()"  onmouseover="this.style.backgroundColor='#e6e6e6';" onmouseout="this.style.backgroundColor='transparent';">登入</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link link-success"style="font-size: 20px;font-weight: 600;background-color: transparent;" href="/foreground/register.html"  onmouseover="this.style.backgroundColor='#e6e6e6';" onmouseout="this.style.backgroundColor='transparent';">註冊</a>
-                                                    </li>
-                                                    <li class="nav-item">
-                                                        <a class="nav-link logout-btn link-success"style="font-size: 20px;font-weight: 600;background-color: transparent;" href="/foreground/login.html"  onmouseover="this.style.backgroundColor='#e6e6e6';" onmouseout="this.style.backgroundColor='transparent';">登出</a>
-                                                    </li>
-                                                  </ul>
-                                                </div>
-                                              </div>
                                             </div>
-                                          </nav>
+                                        </nav>
                                     </li>
                                 </ul>
                             </div>

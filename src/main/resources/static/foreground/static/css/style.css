@@ -1583,6 +1583,14 @@ button,
   .header-right-area.main-nav > ul > li.minicart-wrap {
     margin-right: 30px;
   }
+
+  .header-right-area.main-nav
+  > ul
+  > li.minicart-wrap
+  .minicart-btn
+  .ion-bag {
+  display: none;
+  }
 }
 
 .header-right-area.main-nav > ul > li.minicart-wrap .minicart-btn {
@@ -1613,6 +1621,8 @@ button,
   left: -10px;
   top: 0;
 }
+
+
 
 .header-right-area.main-nav > ul > li.mobile-menu-btn a i {
   font-size: 20px;

@@ -432,18 +432,18 @@
                       <tr>
                         <th style="text-align: center;width: 200px;"><strong>主題</strong></th>
                         <th style="text-align: center;width: 360px;"><strong>內容</strong></th>
-                        <th style="text-align: center;width: 200px;"><strong>到期時間</strong></th>
-                        <th style="text-align: center;width: 130px;"><strong>編輯</strong></th>
+                        <th style="text-align: center;width: 210px;"><strong>到期時間</strong></th>
+                        <th style="text-align: center;width: 130px;padding-right: 35px;"><strong>編輯</strong></th>
                       </tr>
                     </thead>
                   </table>
                     <tbody>
                       <div id="showNews">
                         <div v-for="news in allNews" style="width: 100%;">
-                          <span style="display:inline-flex; justify-content: flex-start; width: 198px;padding-left: 30px;">{{ news.newsTitle }}</span>
-                          <span style="display:inline-flex; justify-content: flex-start; width: 360px;">{{ news.newsDesc }}</span>
-                          <span style="display:inline-flex; justify-content: right; width: 175px;padding-right: 25px;">{{ news.dueDate }}</span>
-                          <span style="display:inline-flex; justify-content: right; width: 140px;margin-right: 20px;">
+                          <span style="display:inline-flex; justify-content: flex-start; width: 20%;padding-left: 30px;">{{ news.newsTitle }}</span>
+                          <span style="display:inline-flex; justify-content: flex-start; width: 45%;">{{ news.newsDesc }}</span>
+                          <span style="display:inline-flex; justify-content: center; width: 18%;">{{ news.dueDate }}</span>
+                          <span style="display:inline-flex; justify-content: center; width: 15%;">
                             <div class="d-flex">
                               <a
                                 href="#"

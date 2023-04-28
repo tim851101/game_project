@@ -27,7 +27,7 @@ public class EventNewsSchedule {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    @Scheduled(cron = "0 59 23 * * ?")
+    @Scheduled(cron = "0 50 23 * * ?") // "0 59 23 * * ?"
     public void saveDailyNewsToRedis() {
         List<Event> eventList = eventRepository.findEventNewByStatus();
         // Event -> EventNews

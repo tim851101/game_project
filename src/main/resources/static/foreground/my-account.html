@@ -194,14 +194,14 @@
                                                     </thead>
                                                     <tbody id="tbody-context">
 
-                                                    <tr v-for="item in memWishlist" :key="item.pdNo">
-                                                        <td class="pro-thumbnail"><a href="#"><img
-                                                                class="img-fluid" :src="item.pdPic"
-                                                                alt="Product"></a></td>
-                                                        <td class="pro-title"><a href="#">{{ item.pdName }}</a>
-                                                        </td>
-                                                        <td class="pro-price"><span>{{ item.price }}</span></td>
-                                                        <td class="pro-stock"><span><strong>{{ item.pdStock
+                                                            <tr v-for="item in memWishlist" :key="item.pdNo">
+                                                                <td class="pro-thumbnail" style="width:120px"><a href="#"><img
+                                                                            class="img-fluid" :src="'/pic/getimage?picno=' + item.picNo"
+                                                                            alt="Product" style="max-width: 100%;"></a></td>
+                                                                <td class="pro-title"><a href="#">{{ item.pdName }}</a>
+                                                                </td>
+                                                                <td class="pro-price"><span>{{ item.price }}</span></td>
+                                                                <td class="pro-stock"><span><strong>{{ item.pdStock
                                                                             }}</strong></span></td>
                                                         <td class="pro-cart"><button @click.prevent="addOne"
                                                                                      :data-pd-no="item.pdNo"><i
@@ -634,22 +634,20 @@
 <!-- jquery magnific popup js -->
 <script src="/foreground/static/js/jquery.magnific-popup.min.js"></script>
 
-<script src="static/js/jquery.datetimepicker.full.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<!-- Main JS -->
-<script src="/foreground/static/js/main.js"></script>
-<!-- table JS-->
-<script src="/foreground/static/js/headerUse.js"></script>
-
-<script src="/foreground/static/js/mycountbooking.js"></script>
+    <script src="static/js/jquery.datetimepicker.full.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <!-- Main JS -->
+    <script src="/foreground/static/js/main.js"></script>
+    <!-- table JS-->
+    <script src="/foreground/static/js/mycountbooking.js"></script>
 
 <script src="/foreground/static/js/mycount-eventls.js"></script>
 
-<script defer src="/foreground/static/js/my-account-orders.js"></script>
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
-<script src="../js/member.js"></script>
-<script src="/foreground/static/js/headerUse.js"></script>
+    <script src="/foreground/static/js/my-account-orders.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2"></script>
+    <script src="../js/member.js"></script>
+    <script src="/foreground/static/js/headerUse.js"></script>
 </body>
 </html>

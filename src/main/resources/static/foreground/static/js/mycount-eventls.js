@@ -1,6 +1,8 @@
     let eventls=document.getElementById('eventls');
+    const eventlsSE=localStorage.getItem('memNo');
         memno=3;
-        fetch('/eventord/byeventformem/'+200,{
+        console.log(eventlsSE);
+        fetch('/eventord/byeventformem/'+eventlsSE,{
             method:'post'
         }).then(response => response.json())
         .then(list =>{eventls.innerHTML + ``

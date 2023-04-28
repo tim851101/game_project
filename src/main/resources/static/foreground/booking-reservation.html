@@ -266,30 +266,37 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/foreground/static/js/headerUse.js"></script>
 </body>
-<script>    
-
+<script>
+let memno=localStorage.getItem('memNo');
+function submit(){
+        let seatList = [];
+        const selected =  $('.book-selected');
+        for (const select of selected) {
+            const index = $(select).attr('id').split('-')[1]
+            seatList.push({
+                "hour": +index,
+            })
+        }
 datas={
 "bookingNo": "",
-"memNo": "32",
-"bookingDate": "2023-04-11",
-"bookingStartTime": "09:00:00",
-"bookingEndTime": "09:00:00",
+"memNo": memno,
+"bookingDate": document.getElementById('datepicker').value,
+"bookingStartTime": seatList[0].hour+":00:00",
+"bookingEndTime": seatList[seatList.length-1].hour+":00:00",
 "bookingPaymentStatus": 0,
 "bookingCheckStatus": 0,
 "bookingFinishDate": "",
-"bookingTotalPrice": 1000,
-"bookingPeople": 5
+"bookingTotalPrice": document.getElementById('booking-amount').value*200,
+"bookingPeople": document.getElementById('booking-amount').value
 }
-
-function submit(){
+console.log(datas);
     $.ajax({
   type: 'POST',
-  url: "http://localhost:8082/book/addbooking",
+  url: "/book/addbooking",
   data: JSON.stringify(datas),
   success: function() {console.log("yes")},
  contentType: "application/json; charset=utf-8"
 });
-alert("ty")
 }
 
 </script>

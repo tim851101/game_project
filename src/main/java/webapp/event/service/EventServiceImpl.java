@@ -106,25 +106,25 @@ public class EventServiceImpl extends BasicService<EventRepository, Event, Event
         return null;
     }
     // 排程報名賽事資訊至前端，每日7-10、20-23點執行一次。
-    @Scheduled(cron = "0 0 7-10,20-23 * * *")
-    public void checkEventStatus() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh");
-        String localDate = dateFormat.format(new Date());
-        List<Event> events = eventRepository.findAll();
-        for (Event event : events) {
-            String start = dateFormat.format(event.getSignupStartTime());
-            String end = dateFormat.format(event.getSignupDeadline());
-            if (event.getEventStatus() == null && localDate.equals(start)) {
-                eventRepository.setEventStatus((byte) 0, event.getEventNo());
-                System.out.println("賽事報名開始");
-            }
-            if (event.getEventStatus() == 0 && localDate.equals(end)) {
-                eventRepository.setEventStatus((byte) 3, event.getEventNo());
-                System.out.println("賽事報名截止");
-            }
-
-        }
-    }
+//    @Scheduled(cron = "0 0 7-10,20-23 * * *")
+//    public void checkEventStatus() {
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh");
+//        String localDate = dateFormat.format(new Date());
+//        List<Event> events = eventRepository.findAll();
+//        for (Event event : events) {
+//            String start = dateFormat.format(event.getSignupStartTime());
+//            String end = dateFormat.format(event.getSignupDeadline());
+//            if (event.getEventStatus() == null && localDate.equals(start)) {
+//                eventRepository.setEventStatus((byte) 0, event.getEventNo());
+//                System.out.println("賽事報名開始");
+//            }
+//            if (event.getEventStatus() == 0 && localDate.equals(end)) {
+//                eventRepository.setEventStatus((byte) 3, event.getEventNo());
+//                System.out.println("賽事報名截止");
+//            }
+//
+//        }
+//    }
 
 
 

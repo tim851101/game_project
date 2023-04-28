@@ -574,11 +574,10 @@ function alertTest(data){
               icon: 'success',
               confirmButtonText: '確定',
               confirmButtonColor: '#21870D',
-            }).then((result) => {
-              if (result.isConfirmed) {
-                window.location.reload();
-              }
-            });
+              preConfirm: setTimeout(() => {
+                document.location.reload();
+              }, 2000)
+            })
         }
       });
     }

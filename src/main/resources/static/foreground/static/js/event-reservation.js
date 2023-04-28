@@ -9,6 +9,21 @@ $(document).ready(e => {
         .then(data => {
             findAll(data);
         });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 function findAll(data) {
     const select = $('#select');
@@ -73,13 +88,13 @@ function findAll(data) {
                     }
                     case false: {
                         toString += `
-                        <th><button><a href="event-ord.html" class="obrien-button btn-warning btn-outline-dark">前往報名</a></button></th>
+                        <th><button id="Signup" value="${e.eventNo}"><a href="event-ord.html" class="obrien-button btn-warning btn-outline-dark">前往報名</a></button></th>
                         `
                         break;
                     }
                     case 3: {
                         toString += `
-                        <th><button><a href="event-ord.html" class="obrien-button btn-warning btn-outline-dark">已截止</a></button></th>
+                        <th><button><a  class="obrien-button btn-warning btn-outline-dark">已截止</a></button></th>
                         `
                         break;
                     }
@@ -114,16 +129,14 @@ function findAll(data) {
                             popup: 'animate__animated animate__fadeOutUp'
                         }
                     })
+                    
                 }
             }
         });
+        $('button[id^="Signup"]').on('click',e=>{
+            let buttonId =  $('#Signup').val();
+            localStorage.setItem('eventNo',buttonId);
+        });
+
     });
 }
-
-
-
-
-
-
-
-

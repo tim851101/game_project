@@ -28,23 +28,26 @@ public class PermissionServiceImpl
         return getAllDTO();
     }
 
-    public Boolean saveAllLevel(List<PermissionDTO> dtoList) {
-        try {
-            if (dtoList.get(0).getPermissionsNo()==1) {
+
+        public Boolean saveAllLevel(List<PermissionDTO> dtoList) {
+            try {
+            if (dtoList.get(0).getPermissionsNo()==1&&
+                    dtoList.get(0).getUpperLimit()> dtoList.get(0).getLowerLimit()) {
                 insertAllDTO(dtoList);
                 return true;}
-            if(permissionRepository.getReferenceById((dtoList.get(0).getPermissionsNo()-1))
-                    .getUpperLimit()<dtoList.get(0).getLowerLimit()&&
-                    dtoList.get(0).getUpperLimit()> dtoList.get(0).getLowerLimit())
-            {   insertAllDTO(dtoList);}
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+                if(permissionRepository.getReferenceById((dtoList.get(0).getPermissionsNo()-1))
+                        .getUpperLimit()<dtoList.get(0).getLowerLimit()&&
+                        dtoList.get(0).getUpperLimit()> dtoList.get(0).getLowerLimit())
+                {   insertAllDTO(dtoList);}
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
         }
-    }
 
-    public Integer findDurationByTimes(Integer times) {
+
+        public Integer findDurationByTimes(Integer times) {
         return repository.findDurationByTimes(times);
     }
 }

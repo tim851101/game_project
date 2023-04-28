@@ -57,7 +57,7 @@ $(document).ready(e => {
         {
           data: "eventNo",
           render: (data, type, row, meta) => {
-            if (row.eventStatus === 0 || row.eventStatus === 3) {
+            if (row.eventStatus === 0 || row.eventStatus === 3 || row.eventStatus === null) {
               return (
                 `<td><button value=` + data + ` id="cancel" type="button" class="btn btn-danger btn-xxs" style="padding: 0.4rem 0.8rem;">取消賽事</button></td> `
               );

@@ -119,6 +119,15 @@
                                                                     onmouseout="this.style.backgroundColor='transparent';">購物車</a>
                                                             </li>
                                                             <li class="nav-item">
+                                                                <a class="nav-link link-success account-header" 
+                                                                style="font-size: 20px;font-weight: 600;"
+                                                                href="/foreground/my-account.html" 
+                                                                v-on:click="myAccount($event)"
+                                                                onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                onmouseout="this.style.backgroundColor='transparent';"
+                                                                >會員中心</a>
+                                                            </li>
+                                                            <li class="nav-item">
                                                                 <a class="nav-link link-success"
                                                                     style="font-size: 20px;font-weight: 600;"
                                                                     href="/foreground/contact-us.html"
@@ -153,21 +162,25 @@
                                                                 </ul>
                                                             </li>
                                                             <li class="nav-item">
-                                                                <a class="nav-link link-success"
-                                                                    style="font-size: 20px;font-weight: 600;background-color: transparent;"
-                                                                    href="/foreground/login.html"
-                                                                    class="storeLocation login-btn"
-                                                                    onclick="saveCurrentUrl()"
-                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
-                                                                    onmouseout="this.style.backgroundColor='transparent';">登入</a>
+                                                                <span>
+                                                                    <a class="nav-link link-success storeLocation login-btn"
+                                                                        style="font-size: 20px;font-weight: 600;background-color: transparent;"
+                                                                        href="/foreground/login.html"
+                                                                        class="storeLocation login-btn"
+                                                                        onclick="saveCurrentUrl()"
+                                                                        onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                        onmouseout="this.style.backgroundColor='transparent';">登入</a>
+                                                                </span>
+                                                                <span>
+                                                                    <a class="nav-link link-success"
+                                                                        style="font-size: 20px;font-weight: 600;background-color: transparent;"
+                                                                        href="/foreground/register.html"
+                                                                        onmouseover="this.style.backgroundColor='#e6e6e6';"
+                                                                        onmouseout="this.style.backgroundColor='transparent';">註冊</a>
+                                                                </span>
                                                             </li>
-                                                            <li class="nav-item">
-                                                                <a class="nav-link link-success"
-                                                                    style="font-size: 20px;font-weight: 600;background-color: transparent;"
-                                                                    href="/foreground/register.html"
-                                                                    onmouseover="this.style.backgroundColor='#e6e6e6';"
-                                                                    onmouseout="this.style.backgroundColor='transparent';">註冊</a>
-                                                            </li>
+                                                            <!-- <li class="nav-item">
+                                                            </li> -->
                                                             <li class="nav-item">
                                                                 <a class="nav-link logout-btn link-success"
                                                                     style="font-size: 20px;font-weight: 600;background-color: transparent;"

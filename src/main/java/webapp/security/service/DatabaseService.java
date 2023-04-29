@@ -24,7 +24,7 @@ public class DatabaseService {
             .employeePhone("0988768473")
             .employeeAddress("台北市東區東街88巷6號")
             .employeeEmail("amy@mail.com")
-            .employeePassword(passwordEncoder.encode("333"))
+            .employeePassword(passwordEncoder.encode("admin"))
             .roleNo(1)
             .employeeStatus(true)
             .build();
@@ -34,7 +34,7 @@ public class DatabaseService {
             .employeePhone("0982768364")
             .employeeAddress("台南市北區東街88巷6號")
             .employeeEmail("john@mail.com")
-            .employeePassword(passwordEncoder.encode("222"))
+            .employeePassword(passwordEncoder.encode("user"))
             .roleNo(2)
             .employeeStatus(true)
             .build();

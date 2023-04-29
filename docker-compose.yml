@@ -1,0 +1,12 @@
+services:
+  boardgamespring:
+    image: boardgamespring:latest
+    container_name: boardgame
+    # maven
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    # reflect port: inside port
+    ports:
+      - "8080:8080"
+    command: ["java", "-jar", "/app.jar"]
